@@ -4,179 +4,154 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>کتاب AI؛ نقشه‌ای برای آینده | اثر اسماعیل ریاحی</title>
-  <meta name="description" content="معرفی رسمی کتاب AI؛ نقشه‌ای برای آینده اثر نویسنده و پژوهشگر اسماعیل ریاحی. بررسی تحولات هوش مصنوعی، آینده مشاغل، اخلاق فناوری و زیست بوم فردا.">
+  <meta name="description" content="کتاب AI؛ نقشه‌ای برای آینده اثر اسماعیل ریاحی. راهنمای تحلیلی و کاربردی فرصت‌ها، چالش‌ها و تغییرات هوش مصنوعی در مشاغل، پزشکی، مسکن و اخلاق.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="book">
-  <meta property="og:title" content="کتاب AI؛ نقشه‌ای برای آینده | اسماعیل ریاحی">
-  <meta property="og:description" content="راهنمای جامع شناخت تحولات هوش مصنوعی، فرصت‌ها، چالش‌ها و چشم‌انداز آینده جهان.">
+  <meta property="og:title" content="کتاب AI؛ نقشه‌ای برای آینده">
+  <meta property="og:description" content="راهنمای تحلیلی و کاربردی مواجهه با تحولات هوش مصنوعی اثر اسماعیل ریاحی">
   <meta property="og:url" content="https://esmailriahi110-bit.github.io/ai-future-book/">
 
   <style>
-    body {
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
       background-color: #080e1e;
       color: #e2e8f0;
       line-height: 1.8;
+      padding: 20px 15px;
     }
     .container {
-      max-width: 860px;
+      max-width: 760px;
       margin: 0 auto;
-      padding: 24px 20px 60px 20px;
     }
     header {
       text-align: center;
-      padding: 40px 0 25px 0;
+      padding: 30px 10px 20px 10px;
       border-bottom: 1px solid #1e293b;
-    }
-    .badge {
-      display: inline-block;
-      background-color: rgba(14, 165, 233, 0.15);
-      color: #38bdf8;
-      border: 1px solid #0284c7;
-      padding: 4px 14px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: bold;
-      margin-bottom: 15px;
+      margin-bottom: 25px;
     }
     h1 {
-      color: #f8fafc;
-      font-size: 2.1rem;
-      margin: 10px 0;
-      line-height: 1.3;
+      font-size: 1.6rem;
+      color: #38bdf8;
+      margin-bottom: 10px;
+      line-height: 1.4;
     }
     .author {
+      font-size: 1rem;
       color: #94a3b8;
-      font-size: 1.1rem;
     }
-    .intro-box {
-      margin: 35px 0;
-      font-size: 1.05rem;
-      text-align: justify;
-      color: #cbd5e1;
-    }
-    .topics-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-      margin: 30px 0;
-    }
-    .topic-card {
+    .intro-card {
       background-color: #0f172a;
       border: 1px solid #1e293b;
       border-radius: 10px;
-      padding: 18px;
+      padding: 20px;
+      margin-bottom: 25px;
     }
-    .topic-card h3 {
-      color: #38bdf8;
-      margin-top: 0;
-      font-size: 1.1rem;
+    .intro-card p {
+      color: #cbd5e1;
+      text-align: justify;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
     }
-    .topic-card p {
-      font-size: 0.92rem;
-      color: #94a3b8;
+    .intro-card p:last-child {
       margin-bottom: 0;
     }
-    .articles-section {
-      margin-top: 45px;
-      border-top: 1px solid #1e293b;
-      padding-top: 35px;
+    h2 {
+      font-size: 1.25rem;
+      color: #f8fafc;
+      margin: 25px 0 15px 0;
+      border-right: 4px solid #0284c7;
+      padding-right: 10px;
     }
-    .articles-section h2 {
-      color: #f1f5f9;
-      font-size: 1.4rem;
-      border-right: 4px solid #38bdf8;
-      padding-right: 12px;
-      margin-bottom: 20px;
+    .topics-list {
+      list-style: none;
+      margin-bottom: 25px;
+    }
+    .topics-list li {
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+    .articles-section {
+      background-color: #0f172a;
+      border: 1px solid #1e293b;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
     }
     .article-item {
-      background: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 8px;
-      padding: 16px 20px;
-      margin-bottom: 14px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #1e293b;
+    }
+    .article-item:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
     .article-item a {
       color: #38bdf8;
       text-decoration: none;
-      font-weight: bold;
       font-size: 1rem;
+      font-weight: bold;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+    .article-item p {
+      font-size: 0.88rem;
+      color: #94a3b8;
     }
     .cta-container {
       background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-      border: 1px solid #334155;
+      border: 2px solid #0284c7;
       border-radius: 12px;
-      padding: 35px 25px;
+      padding: 30px 20px;
       text-align: center;
-      margin-top: 50px;
+      margin-top: 20px;
     }
-    .cta-container h2 {
+    .cta-container h3 {
+      font-size: 1.3rem;
       color: #ffffff;
-      margin-top: 0;
-      font-size: 1.5rem;
+      margin-bottom: 10px;
     }
-    .cta-btn {
-      display: inline-block;
+    .cta-container p {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      margin-bottom: 20px;
+    }
+    .btn-taaghche {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto;
       background-color: #0284c7;
       color: #ffffff;
       text-decoration: none;
-      padding: 14px 32px;
-      font-size: 1.1rem;
+      padding: 14px 20px;
+      font-size: 1.05rem;
       font-weight: bold;
       border-radius: 8px;
-      margin-top: 18px;
-      transition: background-color 0.2s ease;
+      text-align: center;
     }
     footer {
       text-align: center;
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #1e293b;
       color: #64748b;
       font-size: 0.85rem;
-      margin-top: 50px;
-      border-top: 1px solid #1e293b;
-      padding55;
-      border-radius: 12px;
-      padding: 35px 25px;
-      text-align: center;
-      margin-top: 50px;
-    }
-    .cta-container h2 {
-      color: #ffffff;
-      margin-top: 0;
-      font-size: 1.5rem;
-    }
-    .cta-btn {
-      display: inline-block;
-      background-color: #0284c7;
-      color: #ffffff;
-      text-decoration: none;
-      padding: 14px 32px;
-      font-size: 1.1rem;
-      font-weight: bold;
-      border-radius: 8px;
-      margin-top: 18px;
-      transition: background-color 0.2s ease;
-    }
-    footer {
-      text-align: center;
-      color: #64748b;
-      font-size: 0.85rem;
-      margin-top: 50px;
-      border-top: 1px solid #1e293b;
-      padding-top: 25px;
     }
   </style>
 
-  <!-- Schema.org Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -186,52 +161,52 @@
       "@type": "Person",
       "name": "اسماعیل ریاحی"
     },
-    "inLanguage": "fa",
-    "description": "کتاب راهنمای تحولات و کاربردهای هوش مصنوعی در زندگی و آینده بشر اثر اسماعیل ریاحی.",
-    "url": "https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%Dgrid">
-        <div class="topic-card">
-          <h3>دگرگونی بازار کار و مهارت‌ها</h3>
-          <p>تحلیل مشاغلی که حذف می‌شوند، تخصص‌های نوین و مهارت‌های ضروری برای تعامل سازنده با ماشین.</p>
-        </div>
-        <div class="topic-card">
-          <h3>کاربردهای عمیق در زیست‌بوم</h3>
-          <p>از حفاظت از محیط‌زیست و درک ارتباطات حیات‌وحش تا پزشکی هوشمند و آینده سلامت.</p>
-        </div>
-        <div class="topic-card">
-          <h3>اخلاق ماشین و حقوق فردا</h3>
-          <p>مرزهای تصمیم‌گیری الگوریتمی، مسئولیت خطاهای هوش مصنوعی و جایگاه انسان در تصمیمات کلان.</p>
-        </div>
+    "url": "https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87",
+    "inLanguage": "fa"
+  }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>کتاب «AI؛ نقشه‌ای برای آینده»</h1>
+      <div class="author">نویسنده و پژوهشگر: <strong>اسماعیل ریاحی</strong></div>
+    </header>
+
+    <div class="intro-card">
+      <p>جهان به واسطه توسعه فناوری‌های هوشمند با شتابی بی‌سابقه به سمت تحولات بنیادی در حرکت است. در کتاب «AI؛ نقشه‌ای برای آینده»، اثرات کلان و کاربردی هوش مصنوعی در ابعاد مختلف زندگی فردی، صنعتی و اجتماعی به دور از مبالغه و با زبانی تحلیلی مورد بررسی قرار گرفته است.</p>
+    </div>
+
+    <h2>محورهای اصلی کتاب</h2>
+    <ul class="topics-list">
+      <li>🔹 تحول مشاغل و مهارت‌های موردنیاز در عصر خودکارسازی</li>
+      <li>🔹 کاربرد مدل‌های هوشمند در پزشکی، داروسازی و سلامت</li>
+      <li>🔹 حفاظت از حیات‌وحش و رمزگشایی از رفتارهای زیست‌محیطی</li>
+      <li>🔹 هم‌افزایی انسان و ماشین در معماری، مسکن و ساخت‌وساز</li>
+      <li>🔹 چالش‌های اخلاق، مسئولیت الگوریتمی و آینده زیست انسانی</li>
+    </ul>
+
+    <h2>گزیده مقالات و تحلیل‌ها</h2>
+    <div class="articles-section">
+      <div class="article-item">
+        <a href="articles/ai-jobs.html">هوش مصنوعی و آینده بازار کار؛ تهدید یا تحول؟</a>
+        <p>بررسی مشاغلی که متحول می‌شوند و نقش‌هایی که در امان خواهند ماند.</p>
       </div>
-
-      <section class="articles-section">
-        <h2>گزیده مباحث و مقالات تحلیلی</h2>
-
-        <div class="article-item">
-          <div>
-            <a href="articles/ai-jobs.html">هوش مصنوعی و بازار کار؛ تهدید یا آغاز یک تحول بزرگ؟</a>
-          </div>
-          <span style="color:#64748b; font-size:0.85rem;">مطالعه مقاله ←</span>
-        </div>
-
-        <div class="article-item">
-          <div>
-            <a href="articles/ai-wildlife-nature.html">هوش مصنوعی و نجات طبیعت؛ رمزگشایی از زبان حیوانات و حفظ تنوع زیستی</a>
-          </div>
-          <span style="color:#64748b; font-size:0.85rem;">مطالعه مقاله ←</span>
-        </div>
-      </section>
-
-      <div class="cta-container">
-        <h2>مطالعه نسخه رسمی کتاب</h2>
-        <p>نسخه رسمی کتاب «AI؛ نقشه‌ای برای آینده» در بستر اپلیکیشن و وب‌سایت طاقچه در دسترس عموم علاقه‌مندان قرار دارد.</p>
-        <a class="cta-btn" href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" rel="noopener">دریافت و مطالعه کتاب در طاقچه</a>
+      <div class="article-item">
+        <a href="articles/ai-wildlife-nature.html">هوش مصنوعی و نجات طبیعت؛ زبان حیوانات و محیط‌زیست</a>
+        <p>چگونه هوش مصنوعی به درک اکوسیستم‌ها و نجات حیات‌وحش کمک می‌کند؟</p>
       </div>
-    </main>
+    </div>
+
+    <div class="cta-container">
+      <h3>مطالعه نسخه رسمی و کامل</h3>
+      <p>برای دریافت و مطالعه نسخه رسمی کتاب با فرمت استاندارد، به صفحه اثر در طاقچه مراجعه کنید:</p>
+      <a class="btn-taaghche" href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" rel="noopener">مطالعه کتاب در طاقچه</a>
+    </div>
 
     <footer>
-      <p>وب‌سایت معرفی کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی | کلیه حقوق اثر محفوظ است.</p>
+      <p>© کلیه حقوق برای اسماعیل ریاحی محفوظ است.</p>
     </footer>
   </div>
-
 </body>
 </html>
