@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>هوش مصنوعی ژرف | ناظر هوشمند و دستیار پروژه</title>
+  <meta name="description" content="دستیار هوشمند ژرف؛ دارای حافظه لوکال و ناظر روی قوانین پروژه شما. همراه کتاب AI نقشه‌ای برای آینده اسماعیل ریاحی.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/chat.html">
+
+  <style>
+    :root {
+      --bg: #070d19;
+      --card: #0f192c;
+      --border: #1e3356;
+      --cyan: #38bdf8;
+      --purple: #818cf8;
+      --gold: #facc15;
+      --danger: #ef4444;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Tahoma, sans-serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow: hidden;
+    }
+
+    header {
+      background: #0f192c;
+      border-bottom: 1px solid var(--border);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      font-size: 1rem;
+      font-weight: bold;
+      color: var(--cyan);
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 6px;
+    }
+
+    .btn-top {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid var(--border);
+      padding: 5px 8px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn-top:hover { background: #334155; }
+    .btn-del { color: var(--danger); }
+
+    .main-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      max-width: 860px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    /* بخش قوانین ویژه این گفتگو */
+    .rules-box {
+      background: #0b1322;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .rules-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--cyan);
+      cursor: pointer;
+    }
+
+    .rules-input {
+      display: none;
+      width: 100%;
+      background: #070d19;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      font-size: 0.8rem;
+      padding: 6px;
+      border-radius: 4px;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    .chat-box {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 10px 4px;
+      scroll-behavior: smooth;
+    }
+
+    .msg {
+      max-width: 88%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 0.94rem;
+      line-height: 1.7;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .msg.bot {
+      background-color: var(--card);
+      border: 1px solid var(--border);
+      align-self: flex-start;
+      border-top-right-radius: 2px;
+      border-right: 3px solid var(--purple);
+    }
+
+    .msg.user {
+      background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+      align-self: flex-end;
+      border-top-left-radius: 2px;
+    }
+
+    .msg.system-notice {
+      align-self: center;
+      background: rgba(250, 204, 21, 0.12);
+      border: 1px dashed var(--gold);
+      color: #fde047;
+      font-size: 0.85rem;
+      text-align: center;
+      max-width: 95%;
+    }
+
+    .input-box {
+      flex-shrink: 0;
+      background: #0f192c;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 8px;
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    textarea {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding: 8px;
+      font-size: 0.95rem;
+      resize: none;
+      height: 44px;
+      font-family: inherit;
+    }
+    textarea:focus { outline: none; }
+
+    .btn-send {
+      background: #0284c7;
+      color: #fff;
+      border: none;
+      padding: 0 16px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">🧠 هوش مصنوعی ژرف (ناظر پروژه)</div>
+    <div class="top-actions">
+      <button class="btn-top" onclick="createNewSession()">➕ گفتگوی جدید</button>
+      <button class="btn-top btn-del" onclick="deleteCurrentSession()">🗑 حذف این گفتگو</button>
+      <a href="index.html" class="btn-top">کتاب ⮌</a>
+    </div>
+  </header>
+
+  <div class="main-area">
+    <!-- بنر تبلیغاتی بالا -->
+    <div id="ad-slot-top"></div>
+
+    <!-- جعبه ناظر قوانین اختصاصی همین گفتگو -->
+    <div class="rules-box">
+      <div class="rules-header" onclick="toggleRules()">
+        <span>⚙️ قوانین و نقش اختصاصی ژرف برای این پروژه (کلیک برای ویرایش)</span>
+        <span id="rulesStatus">▼</span>
+      </div>
+      <textarea id="rulesInput" class="rules-input" placeholder="مثال: همیشه نام فایل را داخل کادر مجزا بگذار. پاسخ‌ها مرحله‌به‌مرحله باشد..."></textarea>
+    </div>
+
+    <!-- جریان گفتگو -->
+    <div class="chat-box" id="chatContainer"></div>
+
+    <!-- بنر تبلیغاتی پایین -->
+    <div id="ad-slot-bottom"></div>
+
+    <!-- فرم ورودی -->
+    <form class="input-box" id="chatForm">
+      <textarea id="userInput" placeholder="پیام یا دستور پروژه خود را بنویسید..." rows="1"></textarea>
+      <button type="submit" id="sendBtn" class="btn-send">ارسال</button>
+    </form>
+  </div>
+
+  <script src="ads.js"></script>
+  <script>
+    const PROXY_URL = "https://zherf-proxy.esmailriahi110.workers.dev";
+    const STORE_SESSIONS = "zherf_sessions_v2";
+    const CURRENT_SESSION_ID = "zherf_current_id";
+    const LIMIT_KEY = "zherf_rate_limit";
+    const MAX_REQUESTS = 12;
+
+    const chatContainer = document.getElementById('chatContainer');
+    const chatForm = document.getElementById('chatForm');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const rulesInput = document.getElementById('rulesInput');
+    const rulesStatus = document.getElementById('rulesStatus');
+
+    let currentSession = null;
+
+    function getSessions() {
+      return JSON.parse(localStorage.getItem(STORE_SESSIONS) || '{}');
+    }
+
+    function saveSessions(sessions) {
+      localStorage.setItem(STORE_SESSIONS, JSON.stringify(sessions));
+    }
+
+    function initSession() {
+      if (typeof renderAds === 'function') renderAds();
+
+      let sessions = getSessions();
+      let activeId = localStorage.getItem(CURRENT_SESSION_ID);
+
+      if (!activeId || !sessions[activeId]) {
+        activeId = "session_" + Date.now();
+        sessions[activeId] = {
+          id: activeId,
+          rules: "همیشه نام فایل‌ها را در کادر مجزا قرار بده. پاسخ‌ها عملی، کوتاه و بدون حاشیه باشد.",
+          messages: [
+            {
+              role: "assistant",
+              content: "سلام! من «ژرف» هستم؛ ناظر هوشمند همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی. این گفتگو پایگاه داده و قوانین اختصاصی خود را دارد. دستورات پروژه را بفرمایید تا دقیق اجرا کنیم."
+            }
+          ]
+        };
+        saveSessions(sessions);
+        localStorage.setItem(CURRENT_SESSION_ID, activeId);
+      }
+
+      currentSession = sessions[activeId];
+      rulesInput.value = currentSession.rules || "";
+      renderChat();
+    }
+
+    function toggleRules() {
+      const isHidden = rulesInput.style.display === 'none' || rulesInput.style.display === '';
+      rulesInput.style.display = isHidden ? 'block' : 'none';
+      rulesStatus.textContent = isHidden ? '▲' : '▼';
+    }
+
+    rulesInput.addEventListener('change', () => {
+      let sessions = getSessions();
+      if (sessions[currentSession.id]) {
+        sessions[currentSession.id].rules = rulesInput.value;
+        currentSession.rules = rulesInput.value;
+        saveSessions(sessions);
+      }
+    });
+
+    function renderChat() {
+      chatContainer.innerHTML = '';
+      currentSession.messages.forEach(msg => {
+        const div = document.createElement('div');
+        div.className = `msg ${msg.role === 'assistant' ? 'bot' : 'user'}`;
+        div.textContent = msg.content;
+        chatContainer.appendChild(div);
+      });
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function checkLimit() {
+      const now = Date.now();
+      let usage = JSON.parse(localStorage.getItem(LIMIT_KEY) || '{"count":0,"expire":0}');
+      if (now > usage.expire) {
+        usage = { count: 1, expire: now + (30 * 60 * 1000) };
+        localStorage.setItem(LIMIT_KEY, JSON.stringify(usage));
+        return true;
+      }
+      if (usage.count >= MAX_REQUESTS) return false;
+      usage.count++;
+      localStorage.setItem(LIMIT_KEY, JSON.stringify(usage));
+      return true;
+    }
+
+    chatForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const text = userInput.value.trim();
+      if (!text) return;
+
+      if (!checkLimit()) {
+        const notice = document.createElement('div');
+        notice.className = 'msg system-notice';
+        notice.textContent = "⏳ سرور هوش مصنوعی ژرف در حال به‌روزرسانی ظرفیت لحظه‌ای و مرتب‌سازی صف است. لطفاً دقایقی دیگر تلاش فرمایید.";
+        chatContainer.appendChild(notice);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        return;
+      }
+
+      currentSession.messages.push({ role: "user", content: text });
+      let sessions = getSessions();
+      sessions[currentSession.id] = currentSession;
+      saveSessions(sessions);
+      renderChat();
+
+      userInput.value = '';
+      sendBtn.disabled = true;
+
+      const loading = document.createElement('div');
+      loading.className = 'msg bot';
+      loading.textContent = 'در حال نظارت بر خروجی و پردازش پاسخ عمیق...';
+      chatContainer.appendChild(loading);
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+
+      // پایش و ارسال به همراه ناظر پرامپت اختصاصی
+      const payloadMessages = [
+        {
+          role: "system",
+          content: `شما «ژرف» هستید؛ دستیار هوشمند و ناظر همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی.
+قوانین الزامی این گفتگو که توسط کاربر تعیین شده است:
+[ ${currentSession.rules} ]
+موظف هستید این قوانین را به دقت رعایت کنید. در صورت لزوم، کتاب رسمی را در طاقچه معرفی کنید.`
+        },
+        ...currentSession.messages.map(m => ({ role: m.role, content: m.content }))
+      ];
+
+      try {
+        const res = await fetch(PROXY_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ messages: payloadMessages })
+        });
+
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        const reply = data.choices[0].message.content;
+
+        currentSession.messages.push({ role: "assistant", content: reply });
+      } catch (err) {
+        currentSession.messages.push({ role: "assistant", content: "ارتباط با پردازنده مرکزی با کندی همراه شد. لطفاً دستور را مجدداً ارسال کنید." });
+      } finally {
+        sessions[currentSession.id] = currentSession;
+        saveSessions(sessions);
+        sendBtn.disabled = false;
+        renderChat();
+      }
+    });
+
+    function createNewSession() {
+      const activeId = "session_" + Date.now();
+      let sessions = getSessions();
+      sessions[activeId] = {
+        id: activeId,
+        rules: "همیشه نام فایل‌ها را در کادر مجزا قرار بده. پاسخ‌ها گام‌به‌گام باشد.",
+        messages: [
+          { role: "assistant", content: "گفتگوی جدید با شناسه مستقل باز شد. قوانین و دستورات جدید را وارد کنید." }
+        ]
+      };
+      saveSessions(sessions);
+      localStorage.setItem(CURRENT_SESSION_ID, activeId);
+      currentSession = sessions[activeId];
+      rulesInput.value = currentSession.rules;
+      renderChat();
+    }
+
+    function deleteCurrentSession() {
+      if (!confirm("آیا این گفتگوی مستقل و کلیه قوانین آن کاملاً حذف شوند؟")) return;
+      let sessions = getSessions();
+      delete sessions[currentSession.id];
+      saveSessions(sessions);
+      localStorage.removeItem(CURRENT_SESSION_ID);
+      initSession();
+    }
+
+    window.onload = initSession;
+  </script>
+</body>
+</html>
