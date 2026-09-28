@@ -2,138 +2,222 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>کتاب AI؛ نقشه‌ای برای آینده | اثر اسماعیل ریاحی</title>
-  <meta name="description" content="کتاب AI؛ نقشه‌ای برای آینده اثر اسماعیل ریاحی. راهنمای تحلیلی و کاربردی فرصت‌ها، چالش‌ها و تغییرات هوش مصنوعی در مشاغل، پزشکی، مسکن و اخلاق.">
+  <meta name="description" content="کتاب AI؛ نقشه‌ای برای آینده اثر اسماعیل ریاحی. راهنمای تحلیلی و کاربردی فرصت‌ها، چالش‌ها و تغییرات هوش مصنوعی در مشاغل، سلامت، مسکن، هاست و زیرساخت‌ها.">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/">
 
-  <p style="text-align: center; margin: 20px 0;">
-  <a href="game.html" style="background: #00d26a; color: #000; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: bold; display: inline-block;">
-    🎮 ورود به شبیه‌ساز تعاملی آینده با هوش مصنوعی (رایگان)
-  </a>
-</p>
-
   <!-- Open Graph -->
   <meta property="og:type" content="book">
-  <meta property="og:title" content="کتاب AI؛ نقشه‌ای برای آینده">
+  <meta property="og:title" content="کتاب AI؛ نقشه‌ای برای آینده | اسماعیل ریاحی">
   <meta property="og:description" content="راهنمای تحلیلی و کاربردی مواجهه با تحولات هوش مصنوعی اثر اسماعیل ریاحی">
   <meta property="og:url" content="https://esmailriahi110-bit.github.io/ai-future-book/">
 
   <style>
+    :root {
+      --bg: #070d19;
+      --card-bg: #0f192c;
+      --border-color: #1e3356;
+      --accent-cyan: #38bdf8;
+      --accent-green: #10b981;
+      --gold: #facc15;
+      --text-white: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
-    body {
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+      background-color: var(--bg);
+      color: var(--text-white);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
-      background-color: #080e1e;
-      color: #e2e8f0;
       line-height: 1.8;
-      padding: 20px 15px;
+      direction: rtl;
     }
+
     .container {
+      width: 100%;
       max-width: 760px;
       margin: 0 auto;
+      padding: 16px 14px;
     }
+
     header {
       text-align: center;
-      padding: 30px 10px 20px 10px;
-      border-bottom: 1px solid #1e293b;
-      margin-bottom: 25px;
+      background: linear-gradient(180deg, #111e38 0%, #0c1527 100%);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.8rem 1.1rem;
+      margin-bottom: 1.4rem;
     }
+
     h1 {
-      font-size: 1.6rem;
-      color: #38bdf8;
-      margin-bottom: 10px;
+      font-size: 1.5rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
       line-height: 1.4;
     }
+
     .author {
-      font-size: 1rem;
-      color: #94a3b8;
+      font-size: 0.95rem;
+      color: var(--text-muted);
     }
+
+    /* دکمه بازی شبیه‌ساز */
+    .game-banner {
+      background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
+      border: 1.5px solid var(--accent-green);
+      border-radius: 12px;
+      padding: 1.1rem;
+      text-align: center;
+      margin-bottom: 1.4rem;
+    }
+
+    .btn-game {
+      display: inline-block;
+      background: var(--accent-green);
+      color: #022c1d;
+      padding: 12px 22px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.98rem;
+      transition: transform 0.2s;
+    }
+    .btn-game:hover {
+      transform: scale(1.02);
+    }
+
     .intro-card {
-      background-color: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 25px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.3rem;
+      margin-bottom: 1.4rem;
     }
+
     .intro-card p {
       color: #cbd5e1;
       text-align: justify;
       font-size: 0.95rem;
-      margin-bottom: 12px;
     }
-    .intro-card p:last-child {
-      margin-bottom: 0;
-    }
+
     h2 {
-      font-size: 1.25rem;
-      color: #f8fafc;
-      margin: 25px 0 15px 0;
-      border-right: 4px solid #0284c7;
+      font-size: 1.2rem;
+      color: #ffffff;
+      margin: 1.6rem 0 0.9rem;
+      border-right: 4px solid var(--accent-cyan);
       padding-right: 10px;
     }
+
     .topics-list {
       list-style: none;
-      margin-bottom: 25px;
+      margin-bottom: 1.4rem;
     }
+
     .topics-list li {
-      background-color: #0f172a;
-      border: 1px solid #1e293b;
-      padding: 12px 15px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 11px 14px;
       border-radius: 8px;
-      margin-bottom: 10px;
-      font-size: 0.95rem;
+      margin-bottom: 8px;
+      font-size: 0.92rem;
       color: #e2e8f0;
     }
+
+    /* بخش مقالات */
     .articles-section {
-      background-color: #0f172a;
-      border: 1px solid #1e293b;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 30px;
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.2rem;
+      margin-bottom: 1.4rem;
     }
+
     .article-item {
       padding: 12px 0;
-      border-bottom: 1px solid #1e293b;
+      border-bottom: 1px solid var(--border-color);
     }
     .article-item:last-child {
       border-bottom: none;
       padding-bottom: 0;
     }
+
     .article-item a {
-      color: #38bdf8;
+      color: var(--accent-cyan);
       text-decoration: none;
       font-size: 1rem;
       font-weight: bold;
       display: inline-block;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
+
     .article-item p {
       font-size: 0.88rem;
-      color: #94a3b8;
+      color: var(--text-muted);
     }
-    .cta-container {
-      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
-      border: 2px solid #0284c7;
+
+    /* باکس تخفیف هاست در صفحه اصلی */
+    .host-box {
+      background: linear-gradient(135deg, #162646 0%, #0c182e 100%);
+      border: 1.5px solid #2563eb;
       border-radius: 12px;
-      padding: 30px 20px;
-      text-align: center;
-      margin-top: 20px;
+      padding: 1.2rem;
+      margin-bottom: 1.4rem;
     }
-    .cta-container h3 {
-      font-size: 1.3rem;
-      color: #ffffff;
-      margin-bottom: 10px;
+
+    .host-box h3 {
+      color: var(--gold);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
     }
-    .cta-container p {
-      font-size: 0.95rem;
+
+    .host-box p {
       color: #cbd5e1;
-      margin-bottom: 20px;
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
     }
+
+    .btn-host-link {
+      display: inline-block;
+      background: #0284c7;
+      color: #fff;
+      padding: 9px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.88rem;
+    }
+
+    /* CTA طاقچه */
+    .cta-container {
+      background: linear-gradient(180deg, #111e38 0%, #0c1527 100%);
+      border: 2px solid var(--border-color);
+      border-radius: 14px;
+      padding: 1.6rem 1.1rem;
+      text-align: center;
+      margin-top: 1.5rem;
+    }
+
+    .cta-container h3 {
+      font-size: 1.25rem;
+      color: #ffffff;
+      margin-bottom: 0.6rem;
+    }
+
+    .cta-container p {
+      font-size: 0.92rem;
+      color: #cbd5e1;
+      margin-bottom: 1.2rem;
+    }
+
     .btn-taaghche {
       display: block;
       width: 100%;
@@ -142,18 +226,19 @@
       background-color: #0284c7;
       color: #ffffff;
       text-decoration: none;
-      padding: 14px 20px;
-      font-size: 1.05rem;
+      padding: 13px 20px;
+      font-size: 1rem;
       font-weight: bold;
       border-radius: 8px;
       text-align: center;
     }
+
     footer {
       text-align: center;
-      margin-top: 40px;
-      padding-top: 20px;
-      border-top: 1px solid #1e293b;
-      color: #64748b;
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-muted);
       font-size: 0.85rem;
     }
   </style>
@@ -167,7 +252,7 @@
       "@type": "Person",
       "name": "اسماعیل ریاحی"
     },
-    "url": "https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87",
+    "url": "https://taaghche.com/book/296988",
     "inLanguage": "fa"
   }
   </script>
@@ -179,20 +264,26 @@
       <div class="author">نویسنده و پژوهشگر: <strong>اسماعیل ریاحی</strong></div>
     </header>
 
-    <div class="intro-card">
-      <p>جهان به واسطه توسعه فناوری‌های هوشمند با شتابی بی‌سابقه به سمت تحولات بنیادی در حرکت است. در کتاب «AI؛ نقشه‌ای برای آینده»، اثرات کلان و کاربردی هوش مصنوعی در ابعاد مختلف زندگی فردی، صنعتی و اجتماعی به دور از مبالغه و با زبانی تحلیلی مورد بررسی قرار گرفته است.</p>
+    <!-- دکمه ورود به بازی -->
+    <div class="game-banner">
+      <a href="game.html" class="btn-game">
+        🎮 ورود به شبیه‌ساز تعاملی آینده با هوش مصنوعی (رایگان)
+      </a>
     </div>
 
-    <h2>محورهای اصلی کتاب</h2>
+    <div class="intro-card">
+      <p>در کتاب «AI؛ نقشه‌ای برای آینده»، اثرات کلان و کاربردی هوش مصنوعی در ابعاد مختلف زندگی فردی، صنعتی، بازار کار و زیرساخت‌های فناوری به دور از مبالغه و با زبانی تحلیلی مورد بررسی قرار گرفته است.</p>
+    </div>
+
+    <h2>محورهای اصلی اثر</h2>
     <ul class="topics-list">
       <li>🔹 تحول مشاغل و مهارت‌های موردنیاز در عصر خودکارسازی</li>
-      <li>🔹 کاربرد مدل‌های هوشمند در پزشکی، داروسازی و سلامت</li>
-      <li>🔹 حفاظت از حیات‌وحش و رمزگشایی از رفتارهای زیست‌محیطی</li>
-      <li>🔹 هم‌افزایی انسان و ماشین در معماری، مسکن و ساخت‌وساز</li>
-      <li>🔹 چالش‌های اخلاق، مسئولیت الگوریتمی و آینده زیست انسانی</li>
+      <li>🔹 کاربرد مدل‌های هوشمند در پزشکی، سلامت و حیات‌وحش</li>
+      <li>🔹 هم‌افزایی انسان و ماشین در معماری و شهرهای آینده</li>
+      <li>🔹 زیرساخت‌های سرور، پردازش ابری و اجرای ابزارهای هوشمند</li>
     </ul>
 
-    <h2>گزیده مقالات و تحلیل‌ها</h2>
+    <h2>گزیده مقالات و تحلیل‌های تخصصی</h2>
     <div class="articles-section">
       <div class="article-item">
         <a href="articles/ai-jobs.html">هوش مصنوعی و آینده بازار کار؛ تهدید یا تحول؟</a>
@@ -202,12 +293,25 @@
         <a href="articles/ai-wildlife-nature.html">هوش مصنوعی و نجات طبیعت؛ زبان حیوانات و محیط‌زیست</a>
         <p>چگونه هوش مصنوعی به درک اکوسیستم‌ها و نجات حیات‌وحش کمک می‌کند؟</p>
       </div>
+      <div class="article-item">
+        <a href="articles/ai-hosting-server-guide.html">راهنمای انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها</a>
+        <p>بررسی زیرساخت‌های VPS و ابری برای اجرای پایتون و ربات‌های پیام‌رسان با ۹٪ تخفیف معرف.</p>
+      </div>
+    </div>
+
+    <!-- باکس پیشنهاد سرور و تخفیف ۹ درصد در صفحه اصلی -->
+    <div class="host-box">
+      <h3>⚙️ تخفیف ویژه ۹ درصدی سرور و هاست</h3>
+      <p>جهت راه‌اندازی ربات‌های پایتون، وبلاگ و سرورهای هوش مصنوعی با پایداری کامل و ۹٪ تخفیف معرف:</p>
+      <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" rel="noopener noreferrer nofollow" class="btn-host-link">
+        مشاهده سرورها و فعال‌سازی ۹٪ تخفیف ↗
+      </a>
     </div>
 
     <div class="cta-container">
       <h3>مطالعه نسخه رسمی و کامل</h3>
       <p>برای دریافت و مطالعه نسخه رسمی کتاب با فرمت استاندارد، به صفحه اثر در طاقچه مراجعه کنید:</p>
-      <a class="btn-taaghche" href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" rel="noopener">مطالعه کتاب در طاقچه</a>
+      <a class="btn-taaghche" href="https://taaghche.com/book/296988" target="_blank" rel="noopener">مطالعه کتاب در طاقچه 📚</a>
     </div>
 
     <footer>
