@@ -8,11 +8,17 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/">
 
+  <!-- آیکون‌ها برای تمام سیستم‌عامل‌ها (اندروید، iOS، ویندوز) -->
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="theme-color" content="#070d19">
+
   <!-- Open Graph -->
   <meta property="og:type" content="book">
   <meta property="og:title" content="کتاب AI؛ نقشه‌ای برای آینده | اسماعیل ریاحی">
   <meta property="og:description" content="راهنمای تحلیلی و کاربردی مواجهه با تحولات هوش مصنوعی اثر اسماعیل ریاحی">
   <meta property="og:url" content="https://esmailriahi110-bit.github.io/ai-future-book/">
+  <meta property="og:image" content="https://esmailriahi110-bit.github.io/ai-future-book/icon.svg">
 
   <style>
     :root {
@@ -21,6 +27,7 @@
       --border-color: #1e3356;
       --accent-cyan: #38bdf8;
       --accent-green: #10b981;
+      --accent-blue: #0284c7;
       --gold: #facc15;
       --text-white: #f8fafc;
       --text-muted: #94a3b8;
@@ -70,27 +77,71 @@
       color: var(--text-muted);
     }
 
-    /* دکمه بازی شبیه‌ساز */
+    /* بنرهای اکشن ویژه (ژرف + شبیه‌ساز) */
+    .interactive-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-bottom: 1.4rem;
+    }
+
+    @media (min-width: 580px) {
+      .interactive-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .zherf-banner {
+      background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+      border: 1.5px solid #818cf8;
+      border-radius: 12px;
+      padding: 1.1rem;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .btn-zherf {
+      display: inline-block;
+      background: linear-gradient(135deg, #6366f1, #38bdf8);
+      color: #ffffff;
+      padding: 12px 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+      transition: transform 0.2s;
+    }
+
+    .btn-zherf:hover {
+      transform: scale(1.02);
+    }
+
     .game-banner {
       background: linear-gradient(135deg, #064e3b 0%, #022c22 100%);
       border: 1.5px solid var(--accent-green);
       border-radius: 12px;
       padding: 1.1rem;
       text-align: center;
-      margin-bottom: 1.4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .btn-game {
       display: inline-block;
       background: var(--accent-green);
       color: #022c1d;
-      padding: 12px 22px;
+      padding: 12px 18px;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      font-size: 0.98rem;
+      font-size: 0.95rem;
       transition: transform 0.2s;
     }
+
     .btn-game:hover {
       transform: scale(1.02);
     }
@@ -264,11 +315,18 @@
       <div class="author">نویسنده و پژوهشگر: <strong>اسماعیل ریاحی</strong></div>
     </header>
 
-    <!-- دکمه ورود به بازی -->
-    <div class="game-banner">
-      <a href="game.html" class="btn-game">
-        🎮 ورود به شبیه‌ساز تعاملی آینده با هوش مصنوعی (رایگان)
-      </a>
+    <!-- بخش ابزارهای تعاملی (ژرف + شبیه‌ساز) -->
+    <div class="interactive-grid">
+      <div class="zherf-banner">
+        <a href="chat.html" class="btn-zherf">
+          🧠 گفتگو با دستیار هوشمند ژرف (چت رایگان)
+        </a>
+      </div>
+      <div class="game-banner">
+        <a href="game.html" class="btn-game">
+          🎮 ورود به شبیه‌ساز سناریوهای آینده
+        </a>
+      </div>
     </div>
 
     <div class="intro-card">
