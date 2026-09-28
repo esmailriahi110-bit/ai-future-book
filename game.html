@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>شبیه‌ساز تعاملی آینده با هوش مصنوعی | تصمیم‌های سرنوشت‌ساز</title>
-  <meta name="description" content="یک تجربه تعاملی و آموزشی مبتنی بر مفاهیم کتاب «AI؛ نقشه‌ای برای آینده». با سناریوهای واقعی در حوزه شغل، اخلاق، محیط‌زیست و سلامت مواجه شوید و آینده را بازطراحی کنید.">
+  <title>بازی شبیه‌ساز آینده با هوش مصنوعی | تصمیم شما چیه؟</title>
+  <meta name="description" content="یک چالش سرگرم‌کننده و خودمانی بر اساس کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی. خودتان را در ۴ موقعیت واقعی آینده قرار دهید!">
   <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/game.html">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="شبیه‌ساز تعاملی آینده با هوش مصنوعی | سناریوهای واقعی">
-  <meta property="og:description" content="رویارویی با تصمیم‌های واقعی در دنیای هوش مصنوعی؛ از تغییرات بازار کار تا دوراهی‌های اخلاقی و حفظ زیستگاه‌ها.">
+  <meta property="og:title" content="بازی شبیه‌ساز آینده با هوش مصنوعی | تصمیم شما چیه؟">
+  <meta property="og:description" content="در ۴ سناریوی روزمره و واقعی با چالش‌های شغل، طبیعت، درمان و اخلاق هوش مصنوعی روبه‌رو شوید.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://esmailriahi110-bit.github.io/ai-future-book/game.html">
 
@@ -17,8 +17,8 @@
   {
     "@context": "https://schema.org",
     "@type": "WebApplication",
-    "name": "شبیه‌ساز تعاملی آینده با هوش مصنوعی",
-    "description": "تجربه چندرسانه‌ای و شبیه‌سازی تصمیم‌گیری پیرامون فناوری‌های هوش مصنوعی، بر مبنای اثر پژوهشی اسماعیل ریاحی.",
+    "name": "بازی شبیه‌ساز آینده با هوش مصنوعی",
+    "description": "تجربه چندرسانه‌ای و تعاملی بررسی چالش‌های روزمره هوش مصنوعی، بر مبنای کتاب AI نقشه‌ای برای آینده.",
     "url": "https://esmailriahi110-bit.github.io/ai-future-book/game.html",
     "author": {
       "@type": "Person",
@@ -30,243 +30,323 @@
 
   <style>
     :root {
-      --bg: #090d16;
-      --card-bg: #121929;
-      --accent: #00d26a;
-      --accent-hover: #00b359;
-      --text: #e2e8f0;
+      --bg: #090e17;
+      --card-bg: #111a2e;
+      --card-border: #243552;
+      --accent: #10b981;
+      --accent-glow: rgba(16, 185, 129, 0.4);
+      --primary: #0284c7;
+      --primary-glow: rgba(2, 132, 199, 0.4);
+      --text: #f1f5f9;
       --muted: #94a3b8;
-      --border: #1e293b;
       --highlight: #38bdf8;
-      --danger: #f43f5e;
-      --warning: #fbbf24;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Vazirmatn', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.8; padding: 20px; }
-    .container { max-width: 820px; margin: 0 auto; }
+    body { background-color: var(--bg); color: var(--text); line-height: 1.8; padding: 16px; }
+    .container { max-width: 800px; margin: 0 auto; }
 
-    header { text-align: center; margin-bottom: 2.5rem; padding: 20px 0; border-bottom: 1px solid var(--border); }
-    header h1 { font-size: 2rem; color: #fff;3f5e;
-      --warning: #fbbf24;
-    }
+    header { text-align: center; margin-bottom: 2rem; padding: 20px 10px; }
+    header h1 { font-size: 1.85rem; color: #fff; margin-bottom: 0.6rem; }
+    header p { color: var(--muted); font-size: 1rem; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Vazirmatn', sans-serif; }
-    body { background-color: var(--bg); color: var(--text); line-height: 1.8; padding: 20px; }
-    .container { max-width: 820px; margin: 0 auto; }
-
-    header { text-align: center; margin-bottom: 2.5rem; padding: 20px 0; border-bottom: 1px solid var(--border); }
-    header h1 { font-size: 2rem; color: #fff; margin-bottom: 0.8rem; }
-    header p { color: var(--muted); font-size: 1.05rem; }
-
+    /* کادر شکیل و مدرن بازی */
     .game-box {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 2rem;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
-      margin-bottom: 3rem;
-      min-height: 380px;
+      background: linear-gradient(160deg, #131d33 0%, #0d1527 100%);
+      border: 2px solid var(--card-border);
+      border-radius: 20px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(56, 189, 248, 0.1);
+      margin-bottom: 2.5rem;
+      position: relative;
+      transition: all 0.3s ease;
     }
 
+    .badge-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
     .badge {
-      36;
-      border: 1px solid var(--border);
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--highlight);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: bold;
+    }
+
+    .scenario-title { font-size: 1.35rem; color: #fff; margin-bottom: 0.8rem; line-height: 1.6; }
+    .scenario-desc { color: #cbd5e1; font-size: 1.02rem; margin-bottom: 1.8rem; }
+
+    .options-grid { display: flex; flex-direction: column; gap: 14px; }
+    .option-btn {
+      background: #17233d;
+      border: 1.5px solid #283a5e;
       color: var(--text);
       padding: 16px 20px;
-      border-radius: 10px;
+      border-radius: 12px;
       text-align: right;
       cursor: pointer;
       font-size: 1rem;
-      transition: all 0.2s ease;
+      transition: all 0.25s ease;
+      line-height: 1.6;
     }
-    .option-btn:hover { border-color: var(--highlight); background: #232d47; }
+    .option-btn:hover {
+      border-color: var(--highlight);
+      background: #203154;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(56, 189, 248, 0.2);
+    }
 
+    /* کادر نتیجه بازخورد */
     .feedback-box {
       display: none;
       margin-top: 1.5rem;
-      padding: 1.2rem;
-      border-radius: 10px;
-      background: #162033;
-      border-right: 4px solid var(--accent);
+      padding: 1.4rem;
+      border-radius: 14px;
+      background: #142038;
+      border-right: 5px solid var(--accent);
+      animation: fadeIn 0.3s ease;
     }
     .feedback-box.show { display: block; }
-    .feedback-title { font-weight: bold; margin-bottom: 0.5rem; color: #fff; }
-    .feedback-text { color: var(--muted); font-size: 0.98rem; }
+    .feedback-title { font-weight: bold; font-size: 1.1rem; margin-bottom: 0.5rem; color: #34d399; }
+    .feedback-text { color: #e2e8f0; font-size: 0.98rem; line-height: 1.7; }
 
     .nav-btn {
       display: inline-block;
-      margin-top: 1.5rem;
-      padding: 10px 24px;
+      margin-top: 1.4rem;
+      padding: 12px 28px;
       background: var(--accent);
-      color: #000;
+      color: #042f1a;
       font-weight: bold;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      transition: all 0.2s;
     }
-    .nav-btn:hover { background: var(--accent-hover); }
+    .nav-btn:hover { background: #34d399; transform: scale(1.02); }
 
-    /* نتیجه پایانی */
-    .result-view { display: none; text-align: center; }
+    /* پایان شبیه‌ساز */
+    .result-view { display: none; text-align: center; padding: 20px 10px; }
     .result-view h2 { font-size: 1.8rem; color: #fff; margin-bottom: 1rem; }
 
-    /* لینک‌ها و هدایت به منابع */
+    /* لینک‌های سئو مقالات */
     .explore-section {
-      background: #101626;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.8rem;
-      margin-bottom: 2.5rem;
+      background: #101726;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
     }
-    .explore-section h3 { color: #fff; margin-bottom: 1rem; }
+    .explore-section h3 { color: #fff; margin-bottom: 1rem; font-size: 1.15rem; }
     .links-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .links-list li {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #172238;
+      padding: 12px 16px;
+      border-radius: 10px;
+      gap: 8px;
+    }
     .links-list a {
       color: var(--highlight);
       text-decoration: none;
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 12px;
-      background: #172033;
-      border-radius: 8px;
+      font-weight: bold;
+      font-size: 0.95rem;
     }
-    .links-list a:hover { background: #1f2b45; }
+    .links-list a:hover { text-decoration: underline; }
 
-    /* بخش خرید رسمی و حمایت مالی متقابل */
+    /* بخش خرید و دکمه‌های چشمک‌زن */
     .cta-card {
-      background: linear-gradient(145deg, #121929, #182239);
-      border: 1px solid #2d3b59;
-      border-radius: 14px;
-      padding: 2rem;
+      background: linear-gradient(150deg, #131e36, #0e1628);
+      border: 2px solid #293d61;
+      border-radius: 18px;
+      padding: 2rem 1.6rem;
       margin-bottom: 2rem;
+      text-align: center;
     }
-    .cta-card h3 { color: #fff; font-size: 1.3rem; margin-bottom: 1rem; }
+    .cta-card h3 { color: #fff; font-size: 1.35rem; margin-bottom: 0.8rem; }
+    
+    /* انیمیشن تپنده و چشمک‌زن دکمه طاقچه */
     .official-btn {
       display: inline-block;
       background: #0284c7;
       color: #fff;
-      padding: 14px 28px;
-      border-radius: 10px;
+      padding: 15px 32px;
+      border-radius: 12px;
       text-decoration: none;
       font-weight: bold;
-      margin-top: 0.5rem;
-      transition: background 0.2s;
+      font-size: 1.05rem;
+      margin: 1rem 0;
+      animation: pulseGlowBlue 2s infinite;
+      transition: transform 0.2s;
     }
-    .official-btn:hover { background: #0369a1; }
+    .official-btn:hover {
+      background: #0369a1;
+      transform: scale(1.04);
+    }
 
-    /* باکس کپی کارت و شفافیت حرفه‌ای */
+    /* باکس حمایت کارت صادرات */
     .support-box {
-      margin-top: 2rem;
+      margin-top: 1.8rem;
       padding: 1.5rem;
-      background: #0b101c;
-      border: 1px dashed #334155;
-      border-radius: 10px;
+      background: #0a1120;
+      border: 1.5px dashed #2e4468;
+      border-radius: 14px;
+      text-align: right;
     }
-    .support-box p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1rem; }
-    
+    .support-box h4 { color: #fff; font-size: 1.1rem; margin-bottom: 0.6rem; }
+    .support-box p { font-size: 0.95rem; color: var(--muted); margin-bottom: 1.2rem; }
+
     .card-container {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      background: #172033;
-      padding: 12px 16px;
-      border-radius: 8px;
-      border: 1px solid #27354f;
+      background: #141f36;
+      padding: 14px 18px;
+      border-radius: 12px;
+      border: 1px solid #2b3e63;
     }
     .card-number {
       font-family: monospace;
-      font-size: 1.25rem;
+      font-size: 1.35rem;
       letter-spacing: 2px;
       color: #38bdf8;
       direction: ltr;
+      font-weight: bold;
     }
-    .card-owner { color: #cbd5e1; font-size: 0.9rem; margin-right: auto; }
-    
+    .card-owner { color: #cbd5e1; font-size: 0.95rem; }
+
+    /* دکمه چشمک‌زن کپی کارت */
     .copy-btn {
       background: #10b981;
-      color: #000;
+      color: #022c1d;
       border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
+      padding: 10px 22px;
+      border-radius: 10px;
       font-weight: bold;
+      font-size: 0.95rem;
       cursor: pointer;
+      animation: pulseGlowGreen 2.2s infinite;
       transition: all 0.2s;
     }
-    .copy-btn:hover { background: #059669; color: #fff; }
-    .copy-status { font-size: 0.85rem; color: #10b981; margin-top: 6px; display: none; }
+    .copy-btn:hover { background: #34d399; transform: scale(1.03); }
+    .copy-status { font-size: 0.9rem; color: #34d399; margin-top: 8px; display: none; font-weight: bold; }
 
-    footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 2rem 0; border-top: 1px solid var(--border); }
+    /* تعریف انیمیشن‌های پالس نوری */
+    @keyframes pulseGlowBlue {
+      0% {
+        box-shadow: 0 0 0 0 rgba(2, 132, 199, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 16px rgba(2, 132, 199, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(2, 132, 199, 0);
+      }
+    }
+
+    @keyframes pulseGlowGreen {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 14px rgba(16, 185, 129, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    footer { text-align: center; color: var(--muted); font-size: 0.9rem; padding: 2rem 0; border-top: 1px solid #1e293b; }
   </style>
 </head>
 <body>
 
 <div class="container">
   <header>
-    <h1>شبیه‌ساز تصمیم‌گیری آینده با هوش مصنوعی</h1>
-    <p>بر اساس تحلیل‌ها و گزاره‌های کتاب «AI؛ نقشه‌ای برای آینده» نوشته اسماعیل ریاحی</p>
+    <h1>شبیه‌ساز آینده: اگر جای شما بودند چه می‌کردند؟</h1>
+    <p>بر اساس تحلیل‌های کاربردی کتاب «AI؛ نقشه‌ای برای آینده» نوشته اسماعیل ریاحی</p>
   </header>
 
   <main>
+    <!-- کادر خوشگل و برجسته بازی -->
     <section class="game-box" id="game-container">
-      <div id="step-badge" class="badge">سناریو ۱ از ۴</div>
-      <h2 id="scenario-title" class="scenario-title">بارگذاری...</h2>
-      <p id="scenario-desc" class="scenario-desc">در حال آماده‌سازی موقعیت تصمیم‌گیری...</p>
+      <div class="badge-bar">
+        <div id="step-badge" class="badge">سناریو ۱ از ۴</div>
+      </div>
+
+      <h2 id="scenario-title" class="scenario-title">در حال آماده‌سازی سوال...</h2>
+      <p id="scenario-desc" class="scenario-desc"></p>
 
       <div id="options-container" class="options-grid"></div>
 
       <div id="feedback-container" class="feedback-box">
         <div id="feedback-title" class="feedback-title"></div>
         <div id="feedback-text" class="feedback-text"></div>
-        <button id="next-btn" class="nav-btn">سناریوی بعدی</button>
+        <button id="next-btn" class="nav-btn">بریم سناریوی بعدی ➜</button>
       </div>
 
       <div id="result-container" class="result-view">
-        <h2>شبیه‌سازی به پایان رسید</h2>
-        <p style="color: var(--muted); margin-bottom: 1.5rem;">
-          شما با چهار چالش اساسی از تغییرات کار، حفاظت اکوسیستم، سلامت و مسئولیت‌های سامانه‌های تصمیم‌یار مواجه شدید. همان‌طور که در کتاب اشاره شده، موفقیت در آینده نه در تکیه کورکورانه به فناوری و نه در هراس از آن، بلکه در «همکاری هوشمندانه و اخلاق‌مدار انسان و ماشین» نهفته است.
+        <h2>دم شما گرم! چالش‌ها تموم شد 🎉</h2>
+        <p style="color: #cbd5e1; margin-bottom: 1.5rem; font-size: 1.05rem;">
+          شما در ۴ دوراهی مهم دنیای فردا تصمیم گرفتید: بازار کار، طبیعت، سلامت و اخلاق فناوری. نکته کلیدی کتاب همینه: قرار نیست هوش مصنوعی جای انسان رو بگیره، بلکه «انسانی که هوش مصنوعی بلده، جای کسی رو می‌گیره که اون رو نادیده گرفته!»
         </p>
-        <button onclick="restartGame()" class="nav-btn" style="background: transparent; color: var(--highlight); border: 1px solid var(--highlight);">اجرای دوباره شبیه‌ساز</button>
+        <button onclick="restartGame()" class="nav-btn" style="background: transparent; color: var(--highlight); border: 2px solid var(--highlight);">دوباره امتحان کن ↺</button>
       </div>
     </section>
 
-    <!-- منابع و مقاله‌ها -->
+    <!-- مقاله‌های تکمیلی -->
     <section class="explore-section">
-      <h3>مطالعه تخصصی سرفصل‌های مطرح‌شده در وب‌سایت:</h3>
+      <h3>مطالعه مقالات تخصصی و ساده در همین سایت:</h3>
       <ul class="links-list">
         <li>
-          <span>بررسی جامع مشاغل آینده و راهبردهای مهارتی انسان</span>
+          <span>با اومدن هوش مصنوعی تکلیف شغل و درآمد ما چی میشه؟</span>
           <a href="articles/ai-jobs.html">مطالعه مقاله ↗</a>
         </li>
         <li>
-          <span>فناوری هوش مصنوعی و نجات حیات‌وحش و محیط‌زیست</span>
+          <span>چطور هوش مصنوعی حیوانات و جنگل‌ها رو نجات میده؟</span>
           <a href="articles/ai-wildlife-nature.html">مطالعه مقاله ↗</a>
         </li>
       </ul>
     </section>
 
-    <!-- خرید نسخه کامل و شفافیت بازاریابی -->
+    <!-- بخش اقدام و خرید طاقچه همراه دکمه چشمک‌زن -->
     <section class="cta-card">
-      <h3>دسترسی به نسخه کامل کتاب</h3>
-      <p style="color: var(--muted); margin-bottom: 1.2rem;">
-        تمامی سناریوها، چارچوب‌های فکری و تحلیل‌های مبسوط درباره پیامدهای اجتماعی و اقتصادی ماشین‌ها در اثر رسمی تدوین شده است. نسخه تأییدشده کتاب را می‌توانید در بستر طاقچه تهیه فرمایید:
+      <h3>دوست دارید کل نقشه راه آینده رو یاد بگیرید؟</h3>
+      <p style="color: #cbd5e1; max-width: 620px; margin: 0 auto 1.2rem; font-size: 0.98rem;">
+        تمام فوت‌وفن‌های عملی، مهارت‌های پول‌ساز آینده و سناریوهای کاربردی در نسخه کامل کتاب آمده است. نسخه رسمی را با تخفیف در اپلیکیشن طاقچه بخوانید:
       </p>
+
       <a href="https://taaghche.com/book/296988" target="_blank" rel="noopener noreferrer" class="official-btn">
-        مشاهده و تهیه نسخه رسمی در طاقچه
+        مشاهده و دریافت نسخه کامل در طاقچه ✨
       </a>
 
-      <!-- تبادل ارزش، دستمزد و حمایت اختیاری -->
+      <!-- کادر حمایت مالی مستقیم به بانک صادرات ایران با دکمه پالس -->
       <div class="support-box">
-        <h4 style="color: #fff; margin-bottom: 0.5rem;">پشتیبانی از پژوهش و توسعه این محتوا</h4>
+        <h4>حمایت دلخواه از نویسنده و پژوهشگر اثر</h4>
         <p>
-          تولید پژوهش، طراحی این ابزارها و نگارش این داده‌ها، بخشی از کار تخصصی و منبع درآمد نویسنده است. محتوای این صفحه به‌صورت آزاد در دسترس قرار گرفته تا ارزش اولیه خود را نشان دهد؛ با این حال، اگر این شبیه‌ساز بینش مفیدی به شما داد و مایلید به پاس کار حرفه‌ای سهمی در پایداری آن داشته باشید، می‌توانید مبلغ دلخواه خود را مستقیماً ارسال فرمایید. به باور نویسنده، پرداخت منصفانه در برابر ارزش دریافت‌شده، به گردش سالم کار و توسعه دانش یاری می‌رساند.
+          این بازی و مقالات حاصل ماه‌ها کار و تحقیق شخصی بوده و به‌صورت رایگان برای آگاهی شما در دسترس قرار گرفته است. اگر این ابزار و مطالب برایتان مفید بود و دوست داشتید به ادامه این مسیر پژوهشی کمک کنید، می‌توانید هر مبلغی که دلتان خواست را مستقیم هدیه بفرمایید:
         </p>
 
         <div class="card-container">
           <span class="card-number" id="card-num">6037697439990810</span>
-          <span class="card-owner">بانک ملی ایران — به‌نام اسمعیل ریاحی</span>
-          <button class="copy-btn" id="copy-btn" onclick="copyCardNumber()">کپی شماره کارت</button>
+          <span class="card-owner">بانک صادرات ایران — اسمعیل ریاحی</span>
+          <button class="copy-btn" id="copy-btn" onclick="copyCardNumber()">کپی شماره کارت 📋</button>
         </div>
         <div id="copy-status" class="copy-status">✓ شماره کارت با موفقیت کپی شد</div>
       </div>
@@ -274,77 +354,78 @@
   </main>
 
   <footer>
-    <p>کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی | طراح شبیه‌ساز: اسمعیل ریاحی</p>
+    <p>کتاب «AI؛ نقشه‌ای برای آینده» نوشته اسماعیل ریاحی | طراح شبیه‌ساز: اسمعیل ریاحی</p>
   </footer>
 </div>
 
 <script>
+  // سناریوها با لحن روان، عامیانه و ملموس
   const scenarios = [
     {
-      badge: "سناریو ۱ از ۴: دگرگونی بازار کار و مهارت‌ها",
-      title: "شرکت شما سامانه‌های خودکارسازی محتوا و داده پیاده کرده است؛ استراتژی فردی شما چیست؟",
-      desc: "برخی موقعیت‌های پیشین در حال واگذاری به ماشین‌ها هستند، اما وظایف نیازمند قضاوت استراتژیک، نظارت و خلاقیت رو به افزایش‌اند.",
+      badge: "سناریو ۱ از ۴: کار و درآمدمون چی میشه؟",
+      title: "شرکت شما یه نرم‌افزار هوش مصنوعی آورده که کارهای تکراری و متنی رو سریع انجام میده. چیکار می‌کنید؟",
+      desc: "بعضی همکارها نگرانن و می‌ترسن کارشون رو از دست بدن؛ عکس‌العمل شما چیه؟",
       options: [
         {
-          text: "نادیده‌گرفتن ابزارها و مقاومت حداکثری در برابر تغییر فرایندها",
-          feedbackTitle: "رویکرد پرخطر و فرسایشی",
-          feedbackText: "تجربه نشان می‌دهد انکار تحولات مانع از تغییرات بازار نمی‌شود. در کتاب اشاره شده که هوش مصنوعی بازار کار را دگرگون می‌کند و حذف منفعلانه مهارت‌های جدید تنها خطر حذف شغلی را بالا می‌برد."
+          text: "کلاً تحریمش می‌کنم و میگم این چیزا چرت و گذراست، با همون روش قدیمی ادامه میدم!",
+          feedbackTitle: "رویکرد پرخطر و فرسایشی!",
+          feedbackText: "تجربه نشون داده چرخ فناوری منتظر کسی نمی‌مونه. توی کتاب هم اشاره شده که مقاومت لجوجانه در برابر ابزارهای نو، فقط شانس ادامه کار رو کم می‌کنه."
         },
         {
-          text: "فراگیری کاربری ابزارهای هوش مصنوعی و هدایت وظایف به سمت قضاوت تحلیلی و راهبردی",
-          feedbackTitle: "الگوی هم‌افزایی انسان و ماشین",
-          feedbackText: "کتاب بر مدل همکاری تأکید دارد؛ جایی که ماشین داده‌ها را سریع‌تر تحلیل و تولید می‌کند و انسان تصمیم نهایی، کیفیت و جهت‌گیری اخلاقی را راهبری می‌نماید (ص ۴۷-۴۸)."
+          text: "سریع یادش می‌گیرم و کارهای تکراری رو می‌سپارم به ابزار، تا خودم روی کارای مهم‌تر و ایده‌پردازی تمرکز کنم.",
+          feedbackTitle: "برنده بازی همین رویکرده! 🎯",
+          feedbackText: "دقیقاً! پیام اصلی کتاب اینه که ترکیب «هوش انسان + سرعت ماشین» یک ترکیب برنده‌ست. ماشین سرعت میده و قضاوت و تدبیرش پای شماست (ص ۴۷ کتاب)."
         }
       ]
     },
     {
-      badge: "سناریو ۲ از ۴: حفاظت زیستگاه‌ها و داده‌کاوی",
-      title: "یک منطقه حفاظت‌شده در خطر شکار غیرمجاز است؛ راهکار داده‌محور شما چیست؟",
-      desc: "حجم داده‌های ثبت‌شده توسط دوربین‌های تله‌ای و حسگرهای محیطی بسیار فراتر از توان بررسی انسانی در زمان واقعی است.",
+      badge: "سناریو ۲ از ۴: نجات حیات‌وحش و محیط‌زیست",
+      title: "شکارچی‌ها وارد یه منطقه حفاظت‌شده جنگلی شدن. برای ردگیری‌شون چه راهکاری رو انتخاب می‌کنید؟",
+      desc: "وسعت جنگل خیلی زیاده و محیط‌بان‌ها با چشم معمولی نمی‌تونن شبانه‌روز همه‌جا رو چک کنن.",
       options: [
         {
-          text: "به‌کارگیری الگوهای بینایی ماشین برای اعلام هشدار زودهنگام با حفظ امنیت نقاط حیاتی",
-          feedbackTitle: "کاربرد هدفمند داده‌های زیست‌محیطی",
-          feedbackText: "کتاب نشان می‌دهد هوش مصنوعی توان پردازش داده‌های حجیم زیستگاه را دارد و می‌تواند پایش حفاظتی را ارتقا دهد، مشروط بر اینکه تدابیر مربوط به محرمانگی مکان گونه‌ها رعایت شود (ص ۱۵-۱۶)."
+          text: "استفاده از هوش مصنوعی روی دوربین‌ها تا به محض مشاهده تحرک مشکوک یا شلیک، سریع آژیر بکشه.",
+          feedbackTitle: "دقیق و کارساز! 🌿",
+          feedbackText: "در فصل محیط‌زیست کتاب اومده که پردازش تصویر و داده توسط هوش مصنوعی می‌تونه فرشته نجات گونه‌های در خطر انقراض بشه و زودتر از دیر شدن خبر بده (ص ۱۵-۱۶)."
         },
         {
-          text: "عدم استفاده از حسگرها به‌دلیل امکان خطای الگوریتم",
-          feedbackTitle: "چشم‌پوشی از فرصت‌های کمکی",
-          feedbackText: "خطا در هوش مصنوعی همواره محتمل است، اما با مشارکت کارشناسان محیط‌زیست در اعتبارسنجی هشدارها، می‌توان ضریب حفاظت را به‌مراتب افزایش داد."
+          text: "بی‌خیال دوربین و سنسورها؛ چون ممکنه خطا کنن و باد یا رد شدن شاخه درخت رو اشتباهی آلارم بزنن.",
+          feedbackTitle: "فرصت‌سوزی حفاظتی",
+          feedbackText: "هر فناوری درصدی خطا داره، اما ترکیب هشدار سنسور با چک کردن نهایی محیط‌بان، از آسیب به جنگل جلوگیری می‌کنه و ضریب خطا رو پایین میاره."
         }
       ]
     },
     {
-      badge: "سناریو ۳ از ۴: داده‌های سلامت و تشخیص زودهنگام",
-      title: "یک ابزار یادگیری ماشین الگوی غیرعادی در پرونده چکاپ فرد شناسایی کرده است؛ گام بعدی چیست؟",
-      desc: "سامانه‌های سلامت بر پایه داده‌های آزمایشگاهی و ژنتیکی قادر به کشف نشانه‌های زودهنگام هستند.",
+      badge: "سناریو ۳ از ۴: سلامتی و تشخیص زودهنگام بیماری",
+      title: "یه برنامه هوشمند آزمایش خون شما رو اسکن کرده و میگه ممکنه در آینده کبد چرب شدید بگیرید. چیکار می‌کنید؟",
+      desc: "هوش مصنوعی از روی علائم مخفی متوجه یک الگوی خطرناک شده؛ اقدام درست چیه؟",
       options: [
         {
-          text: "پذیرش مستقیم خروجی نرم‌افزار به‌عنوان تشخیص قطعی و شروع درمان بدون نظارت پزشکی",
-          feedbackTitle: "برداشت نادرست و خطرناک از هوش مصنوعی",
-          feedbackText: "هوش مصنوعی در پزشکی صرفاً ابزار کمکی تحلیل الگوهاست، نه جانشین پزشک. تصمیم‌گیری درمانی همواره نیازمند تأیید بالینی و تخصص انسانی است (ص ۲۷-۲۸)."
+          text: "خودم توی اینترنت دارو سرچ می‌کنم و شروع به خوردن قرص می‌کنم؛ چون هوش مصنوعی هیچ‌وقت اشتباه نمی‌کنه!",
+          feedbackTitle: "خطرناک و کاملاً اشتباه! ⚠️",
+          feedbackText: "هوش مصنوعی به هیچ‌وجه جایگزین پزشک نیست! توی کتاب بارها تأکید شده این ابزار فقط یک دستیار تشخیصیه و تصمیم درمانی فقط و فقط با پزشکه (ص ۲۷-۲۸)."
         },
         {
-          text: "ارجاع داده‌ها و هشدار تحلیلی به پزشک متخصص جهت بررسی جامع بالینی",
-          feedbackTitle: "بهره‌برداری متوازن و علمی",
-          feedbackText: "این انتخاب صحیح‌ترین مسیر است. هوش مصنوعی تشخیص زودهنگام را تسهیل می‌کند و پزشک را از الگوهای پیچیده مطلع می‌سازد تا معاینات دقیق‌تر انجام پذیرد."
+          text: "گزارش سیستم رو پرینت می‌گیرم و میرم پیش پزشک متخصص تا آزمایش کامل بنویسه و خیالم راحت بشه.",
+          feedbackTitle: "عاقلانه و اصولی! 👏",
+          feedbackText: "کارکرد اصلی هوش مصنوعی در پزشکی همینه: زودتر از اینکه دیر بشه هشدار میده تا پزشک و بیمار به موقع اقدام پیشگیرانه انجام بدن."
         }
       ]
     },
     {
-      badge: "سناریو ۴ از ۴: مسئولیت‌پذیری و اخلاق الگوریتم",
-      title: "یک سامانه تصمیم‌یار در مدیریت منابع عمومی دچار سوگیری در تخصیص شده است؛ چه اقدامی اولویت دارد؟",
-      desc: "الگوریتم‌ها می‌توانند سوگیری داده‌های گذشته را تکرار کنند؛ ص ۱۰۵ و ۱۱۱ کتاب مسئله شفافیت و پاسخ‌گویی را مطرح می‌سازد.",
+      badge: "سناریو ۴ از ۴: اخلاق و انصاف در سامانه‌ها",
+      title: "یه سیستم خودکار وام‌دهی فقط به افراد یک منطقه خاص وام میده و بقیه رو رد می‌کنه! راه چاره چیه؟",
+      desc: "برنامه‌نویس‌ها متوجه شدن داده‌های گذشته تبعیض‌آمیز بوده و هوش مصنوعی هم همون رو یاد گرفته.",
       options: [
         {
-          text: "پنهان‌سازی تصمیمات درون «جعبه سیاه» و توجیه آن به عنوان خروجی هوشمند و خطاناپذیر",
-          feedbackTitle: "بحران پاسخ‌گویی",
-          feedbackText: "مسئولیت‌پذیری نیازمند شفافیت است. نبود امکان حسابرسی الگوریتم به بی‌عدالتی دامن می‌زند و خلاف اصول اخلاق فناوری است (ص ۱۰۵)."
+          text: "می‌گیم کامپیوتر عقلش رسیده و لابد یه چیزی می‌دونه، پس دست به تنظیماتش نمی‌زنیم!",
+          feedbackTitle: "توجیه اشتباه تبعیض!",
+          feedbackText: "هوش مصنوعی بی‌طرف به دنیا نمیاد، بلکه تعصبات داده‌های قبلی رو بزرگ‌نمایی می‌کنه. کتاب در فصل اخلاق توضیح میده که نباید پشت جعبه سیاه پنهان شد (ص ۱۰۵)."
         },
         {
-          text: "ایجاد مکانیزم توضیح‌پذیری، ارزیابی دوره‌ای سوگیری داده‌ها و نظارت نهاد مسئول",
-          feedbackTitle: "حکمرانی اخلاقی فناوری",
-          feedbackText: "همان‌طور که در فصل اخلاق کتاب آمده، تعیین مسئولیت و پایش بی‌طرفی، شرط اصلی توسعه امن و عادلانه هوش مصنوعی برای جامعه است (ص ۱۱۰-۱۱۱)."
+          text: "سامانه باید شفاف بشه، الگوریتم بازبینی بشه و ناظر انسانی جلوی سوگیری‌ها رو بگیره.",
+          feedbackTitle: "فناوری در خدمت عدالت و اخلاق! ⚖️",
+          feedbackText: "آفرین! شفافیت و مسئولیت‌پذیری شرط اصلی آرامش جامعه در آینده‌ست. ابزارها باید در خدمت عدالت انسانی باشن، نه بازتولید اشتباهات (ص ۱۱۰ کتاب)."
         }
       ]
     }
@@ -439,20 +520,20 @@
       showSuccess(btn, statusEl);
     } catch (err) {
       statusEl.style.color = "#f43f5e";
-      statusEl.textContent = "خطا در کپی خودکار؛ لطفاً شماره را دستی یادداشت فرمایید.";
+      statusEl.textContent = "خطا در کپی خودکار؛ لطفاً شماره را یادداشت فرمایید.";
       statusEl.style.display = "block";
     }
     document.body.removeChild(tempInput);
   }
 
   function showSuccess(btn, statusEl) {
-    btn.textContent = "کپی شد ✓";
+    btn.textContent = "کپی شد! ✓";
     btn.style.background = "#38bdf8";
     statusEl.style.display = "block";
-    statusEl.style.color = "#10b981";
-    statusEl.textContent = "✓ شماره کارت با موفقیت کپی شد";
+    statusEl.style.color = "#34d399";
+    statusEl.textContent = "✓ شماره کارت بانک صادرات کپی شد؛ سپاس از لطف و همراهی شما";
     setTimeout(() => {
-      btn.textContent = "کپی شماره کارت";
+      btn.textContent = "کپی شماره کارت 📋";
       btn.style.background = "#10b981";
       statusEl.style.display = "none";
     }, 4000);
