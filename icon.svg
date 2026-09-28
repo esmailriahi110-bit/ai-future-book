@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b172a"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+    <linearGradient id="neon" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#10b981"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="110" fill="url(#bg)"/>
+  <!-- هوش مصنوعی / شبکه عصبی -->
+  <circle cx="256" cy="140" r="28" fill="#38bdf8"/>
+  <circle cx="150" cy="220" r="24" fill="#38bdf8"/>
+  <circle cx="362" cy="220" r="24" fill="#38bdf8"/>
+  <circle cx="190" cy="330" r="22" fill="#10b981"/>
+  <circle cx="322" cy="330" r="22" fill="#10b981"/>
+  <!-- اتصالات نورانی -->
+  <path d="M256 140 L150 220 M256 140 L362 220 M150 220 L190 330 M362 220 L322 330 M190 330 L322 330 M150 220 L362 220" stroke="rgba(56, 189, 248, 0.45)" stroke-width="8" stroke-linecap="round"/>
+  <!-- نماد کتاب باز شده در پایه -->
+  <path d="M120 400 C 180 375, 235 385, 256 405 C 277 385, 332 375, 392 400 L 392 430 C 332 405, 277 415, 256 435 C 235 415, 180 405, 120 430 Z" fill="url(#neon)"/>
+</svg>
