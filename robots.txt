@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://esmailriahi110-bit.github.io/ai-future-book/sitemap.xml
+Sitemap: https://zherfai.ir/sitemap.xml
