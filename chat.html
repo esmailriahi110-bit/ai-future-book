@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>هوش مصنوعی ژرف | ناظر هوشمند و دستیار پروژه</title>
-  <meta name="description" content="دستیار هوشمند ژرف؛ دارای حافظه لوکال و ناظر روی قوانین پروژه شما. همراه کتاب AI نقشه‌ای برای آینده اسماعیل ریاحی.">
+  <title>ژرف | هوش مصنوعی</title>
+  <meta name="description" content="دستیار هوشمند ژرف؛ همراه و راهنمای کتاب AI نقشه‌ای برای آینده اثر اسماعیل ریاحی.">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/chat.html">
+  <link rel="canonical" href="https://zherfai.ir/chat.html">
 
   <style>
     :root {
@@ -44,9 +44,13 @@
     }
 
     .brand {
-      font-size: 1rem;
-      font-weight: bold;
+      font-size: 1.15rem;
+      font-weight: 800;
       color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      letter-spacing: 0.5px;
     }
 
     .top-actions {
@@ -63,6 +67,8 @@
       font-size: 0.78rem;
       cursor: pointer;
       text-decoration: none;
+      display: inline-flex;
+      align-items: center;
     }
     .btn-top:hover { background: #334155; }
     .btn-del { color: var(--danger); }
@@ -78,7 +84,6 @@
       overflow: hidden;
     }
 
-    /* بخش قوانین ویژه این گفتگو */
     .rules-box {
       background: #0b1322;
       border: 1px solid var(--border);
@@ -195,7 +200,7 @@
 <body>
 
   <header>
-    <div class="brand">🧠 هوش مصنوعی ژرف (ناظر پروژه)</div>
+    <div class="brand">✦ ژرف</div>
     <div class="top-actions">
       <button class="btn-top" onclick="createNewSession()">➕ گفتگوی جدید</button>
       <button class="btn-top btn-del" onclick="deleteCurrentSession()">🗑 حذف این گفتگو</button>
@@ -207,16 +212,16 @@
     <!-- بنر تبلیغاتی بالا -->
     <div id="ad-slot-top"></div>
 
-    <!-- جعبه ناظر قوانین اختصاصی همین گفتگو -->
+    <!-- جعبه تنظیم قوانین اختصاصی -->
     <div class="rules-box">
       <div class="rules-header" onclick="toggleRules()">
-        <span>⚙️ قوانین و نقش اختصاصی ژرف برای این پروژه (کلیک برای ویرایش)</span>
+        <span>⚙️ تنظیمات و نقش دستیار در این گفتگو (کلیک برای ویرایش)</span>
         <span id="rulesStatus">▼</span>
       </div>
-      <textarea id="rulesInput" class="rules-input" placeholder="مثال: همیشه نام فایل را داخل کادر مجزا بگذار. پاسخ‌ها مرحله‌به‌مرحله باشد..."></textarea>
+      <textarea id="rulesInput" class="rules-input" placeholder="مثال: پاسخ‌ها روان و گام‌به‌گام باشد..."></textarea>
     </div>
 
-    <!-- جریان گفتگو -->
+    <!-- بخش پیام‌ها -->
     <div class="chat-box" id="chatContainer"></div>
 
     <!-- بنر تبلیغاتی پایین -->
@@ -224,18 +229,22 @@
 
     <!-- فرم ورودی -->
     <form class="input-box" id="chatForm">
-      <textarea id="userInput" placeholder="پیام یا دستور پروژه خود را بنویسید..." rows="1"></textarea>
+      <textarea id="userInput" placeholder="پیام یا پرسش خود را بنویسید..." rows="1"></textarea>
       <button type="submit" id="sendBtn" class="btn-send">ارسال</button>
     </form>
   </div>
 
   <script src="ads.js"></script>
   <script>
-    const PROXY_URL = "https://zherf-proxy.esmailriahi110.workers.dev";
+    const ENDPOINTS = [
+      "https://zherf-proxy.esmailriahi110.workers.dev",
+      "https://api.zherfai.ir"
+    ];
+
     const STORE_SESSIONS = "zherf_sessions_v2";
-    const CURRENT_SESSION_ID = "zherf_current_id";
+    const CURRENT_SESSION_ID = "GAPGPTMASKTOKENsu27zoygkdoX0X";
     const LIMIT_KEY = "zherf_rate_limit";
-    const MAX_REQUESTS = 12;
+    const MAX_REQUESTS = 20;
 
     const chatContainer = document.getElementById('chatContainer');
     const chatForm = document.getElementById('chatForm');
@@ -264,11 +273,11 @@
         activeId = "session_" + Date.now();
         sessions[activeId] = {
           id: activeId,
-          rules: "همیشه نام فایل‌ها را در کادر مجزا قرار بده. پاسخ‌ها عملی، کوتاه و بدون حاشیه باشد.",
+          rules: "همیشه پاسخ‌ها کاربردی، روان و ساختاریافته باشد.",
           messages: [
             {
               role: "assistant",
-              content: "سلام! من «ژرف» هستم؛ ناظر هوشمند همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی. این گفتگو پایگاه داده و قوانین اختصاصی خود را دارد. دستورات پروژه را بفرمایید تا دقیق اجرا کنیم."
+              content: "سلام! من «ژرف» هستم؛ دستیار هوشمند همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی. آماده‌ام تا به پرسش‌ها و ایده‌های شما پاسخ دهم."
             }
           ]
         };
@@ -321,6 +330,34 @@
       return true;
     }
 
+    async function sendToWorker(payload) {
+      let lastError = null;
+      for (const url of ENDPOINTS) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 12000);
+
+          const res = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            signal: controller.signal
+          });
+          clearTimeout(timeoutId);
+
+          if (res.ok) {
+            return await res.json();
+          } else {
+            const errBody = await res.text();
+            lastError = new Error(`HTTP ${res.status}: ${errBody}`);
+          }
+        } catch (e) {
+          lastError = e;
+        }
+      }
+      throw lastError || new Error("عدم برقراری ارتباط با سرور");
+    }
+
     chatForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const text = userInput.value.trim();
@@ -329,7 +366,7 @@
       if (!checkLimit()) {
         const notice = document.createElement('div');
         notice.className = 'msg system-notice';
-        notice.textContent = "⏳ سرور هوش مصنوعی ژرف در حال به‌روزرسانی ظرفیت لحظه‌ای و مرتب‌سازی صف است. لطفاً دقایقی دیگر تلاش فرمایید.";
+        notice.textContent = "⏳ ظرفیت موقت درخواست‌ها تکمیل است. لطفاً چند دقیقه دیگر مجدداً ارسال کنید.";
         chatContainer.appendChild(notice);
         chatContainer.scrollTop = chatContainer.scrollHeight;
         return;
@@ -346,36 +383,30 @@
 
       const loading = document.createElement('div');
       loading.className = 'msg bot';
-      loading.textContent = 'در حال نظارت بر خروجی و پردازش پاسخ عمیق...';
+      loading.textContent = 'در حال تحلیل و آماده‌سازی پاسخ...';
       chatContainer.appendChild(loading);
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
-      // پایش و ارسال به همراه ناظر پرامپت اختصاصی
       const payloadMessages = [
         {
           role: "system",
-          content: `شما «ژرف» هستید؛ دستیار هوشمند و ناظر همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی.
-قوانین الزامی این گفتگو که توسط کاربر تعیین شده است:
+          content: `شما «ژرف» هستید؛ دستیار هوشمند، تحلیل‌گر و همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر پژوهشگر اسماعیل ریاحی.
+دستورالعمل‌های این گفتگو:
 [ ${currentSession.rules} ]
-موظف هستید این قوانین را به دقت رعایت کنید. در صورت لزوم، کتاب رسمی را در طاقچه معرفی کنید.`
+در صورت مرتبط بودن موضوع با سرفصل‌های آینده هوش مصنوعی، مخاطب را به مطالعه نسخه کامل در اپلیکیشن رسمی طاقچه هدایت کنید (https://taaghche.com/book/296988).`
         },
         ...currentSession.messages.map(m => ({ role: m.role, content: m.content }))
       ];
 
       try {
-        const res = await fetch(PROXY_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: payloadMessages })
-        });
-
-        if (!res.ok) throw new Error();
-        const data = await res.json();
+        const data = await sendToWorker({ messages: payloadMessages });
         const reply = data.choices[0].message.content;
-
         currentSession.messages.push({ role: "assistant", content: reply });
       } catch (err) {
-        currentSession.messages.push({ role: "assistant", content: "ارتباط با پردازنده مرکزی با کندی همراه شد. لطفاً دستور را مجدداً ارسال کنید." });
+        currentSession.messages.push({
+          role: "assistant",
+          content: "⚠️ ارتباط با پردازنده هوش مصنوعی برقرار نشد. لطفاً وضعیت اینترنت را بررسی و مجدداً امتحان کنید."
+        });
       } finally {
         sessions[currentSession.id] = currentSession;
         saveSessions(sessions);
@@ -389,9 +420,9 @@
       let sessions = getSessions();
       sessions[activeId] = {
         id: activeId,
-        rules: "همیشه نام فایل‌ها را در کادر مجزا قرار بده. پاسخ‌ها گام‌به‌گام باشد.",
+        rules: "همیشه پاسخ‌ها کاربردی، روان و ساختاریافته باشد.",
         messages: [
-          { role: "assistant", content: "گفتگوی جدید با شناسه مستقل باز شد. قوانین و دستورات جدید را وارد کنید." }
+          { role: "assistant", content: "گفتگوی جدید آغاز شد. پرسش خود را مطرح بفرمایید." }
         ]
       };
       saveSessions(sessions);
@@ -402,7 +433,7 @@
     }
 
     function deleteCurrentSession() {
-      if (!confirm("آیا این گفتگوی مستقل و کلیه قوانین آن کاملاً حذف شوند؟")) return;
+      if (!confirm("آیا این گفتگو حذف شود؟")) return;
       let sessions = getSessions();
       delete sessions[currentSession.id];
       saveSessions(sessions);
