@@ -209,10 +209,8 @@
   </header>
 
   <div class="main-area">
-    <!-- بنر تبلیغاتی بالا -->
     <div id="ad-slot-top"></div>
 
-    <!-- جعبه تنظیم قوانین اختصاصی -->
     <div class="rules-box">
       <div class="rules-header" onclick="toggleRules()">
         <span>⚙️ تنظیمات و نقش دستیار در این گفتگو (کلیک برای ویرایش)</span>
@@ -221,13 +219,10 @@
       <textarea id="rulesInput" class="rules-input" placeholder="مثال: پاسخ‌ها روان و گام‌به‌گام باشد..."></textarea>
     </div>
 
-    <!-- بخش پیام‌ها -->
     <div class="chat-box" id="chatContainer"></div>
 
-    <!-- بنر تبلیغاتی پایین -->
     <div id="ad-slot-bottom"></div>
 
-    <!-- فرم ورودی -->
     <form class="input-box" id="chatForm">
       <textarea id="userInput" placeholder="پیام یا پرسش خود را بنویسید..." rows="1"></textarea>
       <button type="submit" id="sendBtn" class="btn-send">ارسال</button>
@@ -237,12 +232,12 @@
   <script src="ads.js"></script>
   <script>
     const ENDPOINTS = [
-      "https://zherf-proxy.esmailriahi110.workers.dev",
-      "https://api.zherfai.ir"
+      "https://api.zherfai.ir",
+      "https://zherf-proxy.esmailriahi110.workers.dev"
     ];
 
     const STORE_SESSIONS = "zherf_sessions_v2";
-    const CURRENT_SESSION_ID = "GAPGPTMASKTOKENsu27zoygkdoX0X";
+    const CURRENT_SESSION_ID = "GAPGPTMASKTOKENpl5q1e97znX0X";
     const LIMIT_KEY = "zherf_rate_limit";
     const MAX_REQUESTS = 20;
 
@@ -273,11 +268,11 @@
         activeId = "session_" + Date.now();
         sessions[activeId] = {
           id: activeId,
-          rules: "همیشه پاسخ‌ها کاربردی، روان و ساختاریافته باشد.",
+          rules: "پاسخ‌ها کاربردی، روان و جذاب باشد.",
           messages: [
             {
               role: "assistant",
-              content: "سلام! من «ژرف» هستم؛ دستیار هوشمند همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی. آماده‌ام تا به پرسش‌ها و ایده‌های شما پاسخ دهم."
+              content: "سلام! چطور می‌تونم کمکتون کنم؟"
             }
           ]
         };
@@ -383,17 +378,16 @@
 
       const loading = document.createElement('div');
       loading.className = 'msg bot';
-      loading.textContent = 'در حال تحلیل و آماده‌سازی پاسخ...';
+      loading.textContent = 'در حال آماده‌سازی پاسخ...';
       chatContainer.appendChild(loading);
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
       const payloadMessages = [
         {
           role: "system",
-          content: `شما «ژرف» هستید؛ دستیار هوشمند، تحلیل‌گر و همراه کتاب «AI؛ نقشه‌ای برای آینده» اثر پژوهشگر اسماعیل ریاحی.
-دستورالعمل‌های این گفتگو:
-[ ${currentSession.rules} ]
-در صورت مرتبط بودن موضوع با سرفصل‌های آینده هوش مصنوعی، مخاطب را به مطالعه نسخه کامل در اپلیکیشن رسمی طاقچه هدایت کنید (https://taaghche.com/book/296988).`
+          content: `شما «ژرف» هستید؛ دستیار هوشمند، همراه و پاسخگوی کاربران درباره کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی.
+دستورالعمل: [ ${currentSession.rules} ]
+در صورت مرتبط بودن گفتگو با مباحث هوش مصنوعی و آینده، مخاطب را به مطالعه کتاب در طاقچه تشویق کنید (https://taaghche.com/book/296988).`
         },
         ...currentSession.messages.map(m => ({ role: m.role, content: m.content }))
       ];
@@ -420,9 +414,9 @@
       let sessions = getSessions();
       sessions[activeId] = {
         id: activeId,
-        rules: "همیشه پاسخ‌ها کاربردی، روان و ساختاریافته باشد.",
+        rules: "پاسخ‌ها کاربردی، روان و جذاب باشد.",
         messages: [
-          { role: "assistant", content: "گفتگوی جدید آغاز شد. پرسش خود را مطرح بفرمایید." }
+          { role: "assistant", content: "سلام! چطور می‌تونم کمکتون کنم؟" }
         ]
       };
       saveSessions(sessions);
