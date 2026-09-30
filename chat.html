@@ -3,362 +3,348 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#060c0e" />
+  <title>ژرف AI | Zherf AI</title>
+  
+  <!-- فونت وزیر متن -->
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" />
+  
+  <!-- تنظیمات PWA برای نصب روی گوشی -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <title>ژرف AI | سامانه هوش مصنوعی پیشرفته</title>
-
-  <!-- فونت استاندارد وزیرمتن -->
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <meta name="theme-color" content="#0d1117" />
 
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Vazirmatn', sans-serif;
+      font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
-    :root {
-      --bg-deep: #060c0e;
-      --bg-surface: #0a171c;
-      --bg-sidebar: #04080a;
-      --border-glow: rgba(0, 255, 178, 0.22);
-      --border-active: #00ffb2;
-
-      --neon-green: #00ffb2;
-      --cyan-accent: #00e5ff;
-      --neon-glow: rgba(0, 255, 178, 0.35);
-
-      --text-main: #f0fdfa;
-      --text-dim: #8baab4;
-      --text-dark: #041214;
-
-      --bubble-user: linear-gradient(135deg, #00d28d, #00c0ff);
-      --bubble-bot: #0e1e24;
-      --danger: #ff4d6d;
-      --ok: #00ffb2;
-    }
-
-    html, body {
+    body {
+      background-color: #0b0f19;
+      color: #e6edf3;
       height: 100dvh;
-      width: 100vw;
-      overflow: hidden;
-      background-color: var(--bg-deep);
-      color: var(--text-main);
-      background-image:
-        radial-gradient(circle at top right, rgba(0, 229, 255, 0.12), transparent 45%),
-        radial-gradient(circle at bottom left, rgba(0, 255, 178, 0.08), transparent 50%);
-    }
-
-    .app-container {
-      display: flex;
-      height: 100dvh;
-      width: 100vw;
-      position: relative;
-    }
-
-    /* سایدبار استاندارد */
-    .sidebar {
-      width: 300px;
-      background-color: var(--bg-sidebar);
-      border-left: 1px solid var(--border-glow);
       display: flex;
       flex-direction: column;
-      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 1000;
+      overflow: hidden;
     }
-    .sidebar-header {
-      padding: 16px;
+
+    /* هدر برنامه */
+    header {
+      height: 60px;
+      background: rgba(13, 17, 23, 0.95);
+      border-bottom: 1px solid #30363d;
       display: flex;
       align-items: center;
-      gap: 10px;
-      border-bottom: 1px solid var(--border-glow);
+      justify-content: space-between;
+      padding: 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(10px);
     }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-btn {
+      background: none;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu-btn:active {
+      background: #21262d;
+    }
+
+    .brand-title {
+      font-weight: 800;
+      font-size: 1.15rem;
+      background: linear-gradient(135deg, #58a6ff 0%, #a371f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-badge {
+      font-size: 0.75rem;
+      background: #238636;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-weight: 500;
+    }
+
+    /* سایدبار کشویی */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100%;
+      background: #161b22;
+      border-left: 1px solid #30363d;
+      z-index: 100;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .sidebar.open {
+      right: 0;
+    }
+
+    .sidebar-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #30363d;
+      margin-bottom: 12px;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      color: #8b949e;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
     .new-chat-btn {
-      flex: 1;
+      width: 100%;
+      background: #238636;
+      color: #fff;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      background: linear-gradient(135deg, rgba(0, 255, 178, 0.15), rgba(0, 229, 255, 0.15));
-      border: 1px solid var(--neon-green);
-      color: var(--neon-green);
-      padding: 12px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 800;
-      box-shadow: 0 0 15px rgba(0, 255, 178, 0.15);
-      transition: all 0.2s ease;
-    }
-    .new-chat-btn:hover {
-      background: var(--neon-green);
-      color: var(--text-dark);
-      box-shadow: 0 0 22px rgba(0, 255, 178, 0.4);
-    }
-    .close-sidebar-btn {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--border-glow);
-      color: var(--text-dim);
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      transition: 0.2s;
-    }
-    .close-sidebar-btn:hover {
-      color: var(--danger);
-      border-color: var(--danger);
     }
 
     .history-list {
       flex: 1;
       overflow-y: auto;
-      padding: 12px 10px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 8px;
     }
+
     .history-item {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 12px;
-      border-radius: 10px;
-      color: var(--text-dim);
-      font-size: 0.88rem;
-      cursor: pointer;
-      border: 1px solid transparent;
-      transition: all 0.2s ease;
+      background: #21262d;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #c9d1d9;
     }
-    .history-item:hover, .history-item.active {
-      background-color: var(--bg-surface);
-      border-color: var(--border-glow);
-      color: var(--cyan-accent);
-    }
+
     .history-title {
+      flex: 1;
+      white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      white-space: nowrap;
-      flex: 1;
+      cursor: pointer;
     }
+
     .delete-chat-btn {
       background: none;
       border: none;
-      color: var(--text-dim);
-      padding: 4px 6px;
+      color: #f85149;
       cursor: pointer;
-      opacity: 0.6;
-      transition: 0.2s;
-    }
-    .delete-chat-btn:hover {
-      color: var(--danger);
-      opacity: 1;
+      padding: 2px 6px;
+      font-size: 1rem;
     }
 
     .sidebar-footer {
-      padding: 14px 16px;
-      border-top: 1px solid var(--border-glow);
+      border-top: 1px solid #30363d;
+      padding-top: 12px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
+
     .sidebar-link {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      color: #58a6ff;
       text-decoration: none;
-      color: var(--neon-green);
-      font-size: 0.9rem;
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(0, 255, 178, 0.06);
-      border: 1px dashed var(--border-glow);
-      transition: 0.2s;
-    }
-    .sidebar-link:hover {
-      background: rgba(0, 255, 178, 0.15);
-      border-color: var(--neon-green);
+      font-size: 0.85rem;
+      text-align: center;
     }
 
-    /* محیط چت اصلی */
-    .main-chat {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      height: 100dvh;
-      position: relative;
-    }
-
-    .chat-header {
-      height: 64px;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-glow);
-      background: rgba(6, 12, 14, 0.85);
-      backdrop-filter: blur(12px);
-      z-index: 10;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 1.25rem;
-      font-weight: 900;
-      color: var(--neon-green);
-      text-shadow: 0 0 12px rgba(0, 255, 178, 0.4);
-      letter-spacing: 0.5px;
-    }
-    .menu-toggle-btn {
-      background: rgba(0, 255, 178, 0.1);
-      border: 1px solid var(--border-glow);
-      color: var(--neon-green);
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 90;
       display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3rem;
-      cursor: pointer;
+      backdrop-filter: blur(2px);
     }
 
-    /* فضای پیام‌ها */
-    .chat-messages {
+    .overlay.active {
+      display: block;
+    }
+
+    /* بدنه چت */
+    main {
       flex: 1;
       overflow-y: auto;
       padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 16px;
-      max-width: 920px;
-      width: 100%;
-      margin: 0 auto;
     }
 
-    /* ۴ باکس تبلیغاتی استاندارد */
-    .promo-container {
+    /* بنرهای تبلیغاتی و خوش‌آمدگویی */
+    .promo-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-      margin-bottom: 16px;
-      width: 100%;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
     }
+
     .promo-card {
-      background: linear-gradient(135deg, rgba(14, 30, 36, 0.85), rgba(6, 12, 14, 0.95));
-      border: 1px solid var(--border-glow);
-      border-radius: 14px;
-      padding: 14px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 0.8rem;
+      color: #8b949e;
+      text-decoration: none;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.25s ease;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-    }
-    .promo-card:hover {
-      transform: translateY(-3px);
-      border-color: var(--cyan-accent);
-      box-shadow: 0 6px 20px rgba(0, 229, 255, 0.25);
-    }
-    .promo-badge {
-      font-size: 0.75rem;
-      color: var(--neon-green);
-      font-weight: 800;
-    }
-    .promo-title {
-      font-size: 0.88rem;
-      color: var(--text-main);
-      font-weight: 700;
-    }
-    .promo-sub {
-      font-size: 0.75rem;
-      color: var(--text-dim);
+      justify-content: space-between;
+      transition: all 0.2s;
     }
 
+    .promo-card:active {
+      background: #21262d;
+      transform: scale(0.98);
+    }
+
+    .promo-card strong {
+      color: #58a6ff;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.85rem;
+    }
+
+    /* حباب پیام‌ها */
     .message {
       display: flex;
       flex-direction: column;
       max-width: 85%;
-      animation: popIn 0.25s ease-out;
+      word-wrap: break-word;
+      animation: fadeIn 0.2s ease-in-out;
     }
-    .message.bot { align-self: flex-start; }
-    .message.user { align-self: flex-end; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .message.user {
+      align-self: flex-start;
+    }
+
+    .message.bot {
+      align-self: flex-end;
+    }
 
     .bubble {
-      padding: 14px 18px;
+      padding: 12px 16px;
       border-radius: 16px;
-      line-height: 1.75;
       font-size: 0.95rem;
-      word-break: break-word;
+      line-height: 1.6;
     }
-    .message.bot .bubble {
-      background: var(--bubble-bot);
-      border: 1px solid var(--border-glow);
-      color: var(--text-main);
+
+    .message.user .bubble {
+      background: #1f6feb;
+      color: #ffffff;
       border-bottom-right-radius: 4px;
     }
-    .message.user .bubble {
-      background: var(--bubble-user);
-      color: var(--text-dark);
-      font-weight: 700;
+
+    .message.bot .bubble {
+      background: #21262d;
+      color: #c9d1d9;
+      border: 1px solid #30363d;
       border-bottom-left-radius: 4px;
     }
-    .meta {
-      margin-top: 5px;
-      font-size: 0.72rem;
-      color: var(--text-dim);
-    }
-    .meta.err { color: var(--danger); font-weight: bold; }
-    .meta.ok { color: var(--ok); }
 
-    /* پیش‌نمایش فایل ارسالی */
-    .file-preview {
+    .meta {
+      font-size: 0.7rem;
+      color: #8b949e;
+      margin-top: 4px;
+      padding: 0 4px;
+    }
+
+    .meta.err {
+      color: #f85149;
+    }
+
+    /* پیش‌نمایش فایل پیوست */
+    .file-preview-bar {
       display: none;
       align-items: center;
-      gap: 8px;
-      background: rgba(0, 255, 178, 0.1);
-      border: 1px solid var(--border-glow);
+      justify-content: space-between;
+      background: #161b22;
+      border: 1px solid #30363d;
       padding: 6px 12px;
       border-radius: 8px;
-      margin-bottom: 8px;
+      margin: 0 16px 8px 16px;
       font-size: 0.8rem;
-      color: var(--neon-green);
+      color: #58a6ff;
     }
-    .file-preview span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
-    .remove-file-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-weight: bold; font-size: 1rem; }
 
-    /* نوار ورودی چت */
-    .chat-input-area {
-      padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
-      background: linear-gradient(to top, rgba(6, 12, 14, 0.98), rgba(6, 12, 14, 0.7));
-      border-top: 1px solid rgba(0, 255, 178, 0.12);
+    .file-preview-bar button {
+      background: none;
+      border: none;
+      color: #f85149;
+      cursor: pointer;
+      font-size: 14px;
     }
+
+    /* نوار ورودی پایین */
+    footer {
+      background: #0d1117;
+      border-top: 1px solid #30363d;
+      padding: 10px 16px 14px 16px;
+    }
+
     .input-box {
-      width: 100%;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-glow);
-      border-radius: 24px;
       display: flex;
       align-items: flex-end;
-      padding: 8px 12px;
       gap: 8px;
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
-      transition: all 0.25s ease;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 6px 8px;
     }
+
     .input-box:focus-within {
-      border-color: var(--neon-green);
-      box-shadow: 0 0 20px rgba(0, 255, 178, 0.25);
+      border-color: #58a6ff;
     }
 
     textarea {
@@ -366,367 +352,123 @@
       background: transparent;
       border: none;
       outline: none;
-      color: var(--text-main);
+      color: #e6edf3;
       font-size: 0.95rem;
       resize: none;
-      max-height: 160px;
-      min-height: 28px;
-      line-height: 1.6;
-      padding: 4px 0;
+      max-height: 120px;
+      min-height: 24px;
+      padding: 4px;
+      line-height: 1.4;
     }
-    textarea::placeholder { color: var(--text-dim); }
 
-    .action-btn {
+    .icon-btn {
       background: none;
       border: none;
-      color: var(--text-dim);
+      color: #8b949e;
+      font-size: 20px;
+      padding: 6px 8px;
       cursor: pointer;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.35rem;
-      transition: 0.2s;
+      border-radius: 6px;
     }
-    .action-btn:hover { color: var(--neon-green); }
 
-    .plus-btn {
-      background: rgba(0, 255, 178, 0.1);
-      border: 1px solid var(--border-glow);
-      color: var(--neon-green);
-      font-weight: 900;
-    }
-    .plus-btn:hover {
-      background: var(--neon-green);
-      color: var(--text-dark);
+    .icon-btn:active {
+      color: #e6edf3;
+      background: #21262d;
     }
 
     .send-btn {
-      background: linear-gradient(135deg, var(--neon-green), var(--cyan-accent));
-      color: var(--text-dark);
-      font-weight: 900;
-      border-radius: 14px;
-      box-shadow: 0 0 12px var(--neon-glow);
-    }
-    .send-btn:hover {
-      box-shadow: 0 0 20px rgba(0, 255, 178, 0.5);
-      transform: scale(1.04);
+      background: #238636;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-weight: 600;
+      cursor: pointer;
     }
 
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(4px);
-      z-index: 900;
-    }
-
-    @media (max-width: 768px) {
-      .menu-toggle-btn { display: flex; }
-      .sidebar {
-        position: fixed;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        transform: translateX(100%);
-      }
-      .sidebar.open { transform: translateX(0); }
-      .sidebar-overlay.active { display: block; }
-      .promo-container { grid-template-columns: 1fr; }
-    }
-
-    @keyframes popIn {
-      from { opacity: 0; transform: scale(0.97) translateY(8px); }
-      to { opacity: 1; transform: scale(1) translateY(0); }
+    .send-btn:active {
+      background: #2ea043;
     }
   </style>
 </head>
-
 <body>
-  <div class="app-container">
-    <div class="sidebar-overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-    <!-- سایدبار گفتگوها و تنظیمات -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <button class="new-chat-btn" onclick="startNewChat()"><span>⚡ گفتگوی تازه</span></button>
-        <button class="close-sidebar-btn" onclick="toggleSidebar()" title="بستن سایدبار">✕</button>
+  <!-- هدر -->
+  <header>
+    <div class="brand-group">
+      <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+      <div class="brand-title">ژرف AI</div>
+    </div>
+    <div class="header-badge">هوش مصنوعی چندمنظوره</div>
+  </header>
+
+  <!-- لایه تاریک پشت منو -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+  <!-- منوی کشویی سایدبار -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <strong>تاریخچه گفتگوها</strong>
+      <button class="close-btn" onclick="toggleSidebar()">✕</button>
+    </div>
+    <button class="new-chat-btn" onclick="startNewChat()">+ گفتگوی تازه</button>
+    <div class="history-list" id="historyList"></div>
+    <div class="sidebar-footer">
+      <a href="contact.html" class="sidebar-link">📩 تماس با پشتیبانی و سفارش تبلیغات</a>
+    </div>
+  </aside>
+
+  <!-- محتوای اصلی چت -->
+  <main id="chatArea">
+    <!-- ۴ باکس تبلیغاتی و همکاری -->
+    <div class="promo-grid">
+      <a href="https://zherfai.ir/book" class="promo-card">
+        <strong>📚 کتاب اختصاصی ژرف</strong>
+        راهنمای جامع هوش مصنوعی و زندگی آینده
+      </a>
+      <a href="https://mihanwebhost.com" target="_blank" class="promo-card">
+        <strong>🚀 هاست و سرور ابری</strong>
+        با تخفیف ویژه کاربران ژرف AI
+      </a>
+      <a href="contact.html" class="promo-card">
+        <strong>📢 جایگاه تبلیغاتی شما</strong>
+        نمایش برند شما به هزاران کاربر فعال
+      </a>
+      <a href="contact.html" class="promo-card">
+        <strong>💼 اسپانسری و همکاری</strong>
+        رزرو جایگاه بنر و همکاری تجاری
+      </a>
+    </div>
+
+    <!-- پیام آغازین ربات -->
+    <div class="message bot">
+      <div class="bubble">
+        سلام! من **ژرف AI** هستم؛ دستیار هوشمند و نسل جدید شما. هر سؤالی داری، متنی که می‌خواهی ویرایش شود یا ایده‌ای برای تحلیل، بنویس تا بررسی کنیم!
       </div>
+      <div class="meta">سیستم آماده است</div>
+    </div>
+  </main>
 
-      <div class="history-list" id="historyList">
-        <!-- تاریخچه گفتگوها به صورت پویا ساخته می‌شود -->
-      </div>
-
-      <div class="sidebar-footer">
-        <a href="contact.html" class="sidebar-link">
-          <span>📬 تماس با ما و سفارش تبلیغات</span>
-        </a>
-      </div>
-    </aside>
-
-    <!-- محیط اصلی چت -->
-    <main class="main-chat">
-      <header class="chat-header">
-        <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="منو">☰</button>
-        <div class="brand"><span>✦ ژرف AI</span></div>
-        <div style="width: 42px;"></div>
-      </header>
-
-      <section class="chat-messages" id="chatArea">
-        <!-- ۴ باکس تبلیغاتی استاندارد با لینک -->
-        <div class="promo-container">
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📚 اثر اختصاصی</span>
-            <span class="promo-title">معرفی و خرید کتاب</span>
-            <span class="promo-sub">برای مشاهده و ثبت سفارش کلیک کنید</span>
-          </a>
-
-          <a href="https://mihanwebhost.com" target="_blank" rel="noopener" class="promo-card">
-            <span class="promo-badge">🚀 هاست و سرور ابری</span>
-            <span class="promo-title">همکاری در فروش میهن‌وب‌هاست</span>
-            <span class="promo-sub">خرید هاست پرسرعت با تخفیف ویژه</span>
-          </a>
-
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📢 فرصت همکاری</span>
-            <span class="promo-title">جایگاه تبلیغات شما</span>
-            <span class="promo-sub">جهت رزرو بنر کلیک کنید</span>
-          </a>
-
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📢 فرصت همکاری</span>
-            <span class="promo-title">جایگاه تبلیغات شما</span>
-            <span class="promo-sub">جهت رزرو بنر کلیک کنید</span>
-          </a>
-        </div>
-
-        <div class="message bot">
-          <div class="bubble">سلام! به ژرف AI خوش آمدید. چگونه می‌توانم کمکتان کنم؟</div>
-          <div class="meta ok">سیستم آنلاین است</div>
-        </div>
-      </section>
-
-      <!-- نوار ورودی پیام و دکمه + -->
-      <footer class="chat-input-area">
-        <div class="file-preview" id="filePreview">
-          <span id="fileNameSpan"></span>
-          <button class="remove-file-btn" onclick="removeSelectedFile()" title="حذف فایل">✕</button>
-        </div>
-
-        <div class="input-box">
-          <input type="file" id="mediaInput" style="display: none;" accept="image/*,.pdf,.doc,.docx,.txt" onchange="handleFileSelected(event)" />
-          <button class="action-btn plus-btn" onclick="document.getElementById('mediaInput').click()" title="ارسال عکس یا فایل">+</button>
-          
-          <textarea id="promptInput" rows="1" placeholder="پیام خود را بنویسید..." oninput="autoResize(this)" onkeydown="checkEnter(event)"></textarea>
-          
-          <button class="action-btn send-btn" onclick="sendMessage()" title="ارسال پیام">➤</button>
-        </div>
-      </footer>
-    </main>
+  <!-- پیش‌نمایش فایل انتخاب شده -->
+  <div class="file-preview-bar" id="filePreview">
+    <span id="fileNameSpan"></span>
+    <button onclick="removeSelectedFile()">✕ حذف</button>
   </div>
 
-  <script>
-    // آدرس ورکر اختصاصی Cloudflare
-    const WORKER_URL = "https://zherf-proxy.esmailriahi110.workers.dev";
+  <!-- نوار پایینی و ورودی متن -->
+  <footer>
+    <div class="input-box">
+      <input type="file" id="mediaInput" style="display: none;" onchange="handleFileSelected(event)" />
+      <button class="icon-btn" onclick="document.getElementById('mediaInput').click()" title="ارسال فایل یا عکس">+</button>
+      <textarea id="promptInput" rows="1" placeholder="پیام خود را بنویسید..." oninput="autoResize(this)" onkeydown="checkEnter(event)"></textarea>
+      <button class="send-btn" onclick="sendMessage()">ارسال</button>
+    </div>
+  </footer>
 
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('overlay');
-    const chatArea = document.getElementById('chatArea');
-    const promptInput = document.getElementById('promptInput');
-    const historyList = document.getElementById('historyList');
-    const mediaInput = document.getElementById('mediaInput');
-    const filePreview = document.getElementById('filePreview');
-    const fileNameSpan = document.getElementById('fileNameSpan');
-
-    let currentSessionId = Date.now().toString();
-    let attachedFile = null;
-
-    function toggleSidebar() {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('active');
-    }
-
-    function autoResize(textarea) {
-      textarea.style.height = 'auto';
-      textarea.style.height = Math.min(textarea.scrollHeight, 160) + 'px';
-    }
-
-    function checkEnter(event) {
-      if (event.key === 'Enter' && !event.shiftKey) {
-        event.preventDefault();
-        sendMessage();
-      }
-    }
-
-    function handleFileSelected(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      attachedFile = file;
-      fileNameSpan.textContent = `📎 ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
-      filePreview.style.display = 'flex';
-    }
-
-    function removeSelectedFile() {
-      attachedFile = null;
-      mediaInput.value = '';
-      filePreview.style.display = 'none';
-    }
-
-    function escapeHtml(text) {
-      const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-      return text.replace(/[&<>"']/g, m => map[m]);
-    }
-
-    function appendMessage(text, role, metaText) {
-      const msg = document.createElement('div');
-      msg.className = 'message ' + (role === 'user' ? 'user' : 'bot');
-
-      const bubble = document.createElement('div');
-      bubble.className = 'bubble';
-      bubble.innerHTML = escapeHtml(text).replace(/\n/g, '<br/>');
-      msg.appendChild(bubble);
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      meta.textContent = metaText || '';
-      msg.appendChild(meta);
-
-      const id = 'msg_' + Math.random().toString(36).substring(2, 9);
-      msg.id = id;
-
-      chatArea.appendChild(msg);
-      chatArea.scrollTop = chatArea.scrollHeight;
-      return id;
-    }
-
-    function updateMessage(id, text, metaText, isError = false) {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const bubble = el.querySelector('.bubble');
-      const meta = el.querySelector('.meta');
-      bubble.innerHTML = escapeHtml(text).replace(/\n/g, '<br/>');
-      meta.textContent = metaText || '';
-      meta.className = 'meta ' + (isError ? 'err' : 'ok');
-      chatArea.scrollTop = chatArea.scrollHeight;
-    }
-
-    function saveHistory(firstPrompt) {
-      let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
-      if (!chats.find(c => c.id === currentSessionId)) {
-        chats.unshift({ id: currentSessionId, title: firstPrompt.slice(0, 25) + '...' });
-        localStorage.setItem('zherf_chats', JSON.stringify(chats));
-        renderHistory();
-      }
-    }
-
-    function renderHistory() {
-      let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
-      historyList.innerHTML = '';
-      chats.forEach(chat => {
-        const item = document.createElement('div');
-        item.className = 'history-item' + (chat.id === currentSessionId ? ' active' : '');
-        item.innerHTML = `
-          <span class="history-title" onclick="loadChat('${chat.id}')">💬 ${escapeHtml(chat.title)}</span>
-          <button class="delete-chat-btn" onclick="deleteChat('${chat.id}', event)" title="حذف">🗑</button>
-        `;
-        historyList.appendChild(item);
-      });
-    }
-
-    function deleteChat(id, e) {
-      e.stopPropagation();
-      let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
-      chats = chats.filter(c => c.id !== id);
-      localStorage.setItem('zherf_chats', JSON.stringify(chats));
-      if (currentSessionId === id) startNewChat();
-      else renderHistory();
-    }
-
-    function loadChat(id) {
-      currentSessionId = id;
-      renderHistory();
-      if (window.innerWidth <= 768) toggleSidebar();
-    }
-
-    async function sendMessage() {
-      const text = promptInput.value.trim();
-      if (!text && !attachedFile) return;
-
-      const userDisplay = attachedFile ? `[فایل: ${attachedFile.name}]\n${text}` : text;
-      appendMessage(userDisplay, 'user', 'ارسال شد');
-      saveHistory(text || attachedFile.name);
-
-      promptInput.value = '';
-      promptInput.style.height = 'auto';
-      const fileToSend = attachedFile;
-      removeSelectedFile();
-
-      const botMsgId = appendMessage('در حال پردازش درخواست...', 'bot', 'پاسخ‌دهی هوشمند');
-
-      try {
-        const response = await fetch(WORKER_URL, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            prompt: text,
-            hasFile: !!fileToSend,
-            fileName: fileToSend ? fileToSend.name : null
-          })
-        });
-
-        if (!response.ok) {
-          const errText = await response.text().catch(() => '');
-          throw new Error(`پاسخ سرور (${response.status}): ${errText.slice(0, 100)}`);
-        }
-
-        const data = await response.json();
-        const reply = data?.choices?.[0]?.message?.content || data?.reply || 'پاسخی دریافت نشد.';
-        updateMessage(botMsgId, reply, 'ژرف AI', false);
-
-      } catch (err) {
-        updateMessage(botMsgId, `خطا در برقراری ارتباط با سرور: ${err.message}`, 'عدم ارتباط', true);
-      }
-    }
-
-    function startNewChat() {
-      currentSessionId = Date.now().toString();
-      chatArea.innerHTML = `
-        <div class="promo-container">
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📚 اثر اختصاصی</span>
-            <span class="promo-title">معرفی و خرید کتاب</span>
-            <span class="promo-sub">برای مشاهده و ثبت سفارش کلیک کنید</span>
-          </a>
-          <a href="https://mihanwebhost.com" target="_blank" rel="noopener" class="promo-card">
-            <span class="promo-badge">🚀 هاست و سرور ابری</span>
-            <span class="promo-title">همکاری در فروش میهن‌وب‌هاست</span>
-            <span class="promo-sub">خرید هاست پرسرعت با تخفیف ویژه</span>
-          </a>
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📢 فرصت همکاری</span>
-            <span class="promo-title">جایگاه تبلیغات شما</span>
-            <span class="promo-sub">جهت رزرو بنر کلیک کنید</span>
-          </a>
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📢 فرصت همکاری</span>
-            <span class="promo-title">جایگاه تبلیغات شما</span>
-            <span class="promo-sub">جهت رزرو بنر کلیک کنید</span>
-          </a>
-        </div>
-        <div class="message bot">
-          <div class="bubble">سلام! به ژرف AI خوش آمدید. چگونه می‌توانم کمکتان کنم؟</div>
-          <div class="meta ok">سیستم آنلاین است</div>
-        </div>
-      `;
-      renderHistory();
-      if (window.innerWidth <= 768 && sidebar.classList.contains('open')) toggleSidebar();
-    }
-
-    // مقداردهی اولیه
-    renderHistory();
-  </script>
+  <!-- فراخوانی اسکریپت جداگانه -->
+  <script src="script.js"></script>
 </body>
 </html>
