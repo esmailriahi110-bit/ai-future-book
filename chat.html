@@ -3,579 +3,269 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دستیار هوشمند ژرف | گفتگوی پیشرفته هوش مصنوعی</title>
-  <meta name="description" content="گفتگو با دستیار ژرف؛ هوش مصنوعی تحلیلی، علمی و کاربردی همراه کتاب AI نقشه‌ای برای آینده اثر اسماعیل ریاحی.">
-  <meta name="robots" content="index, follow">
+  <title>دستیار هوشمند ژرف (Zherf Core) | چت رایگان هوش مصنوعی</title>
+  <meta name="description" content="گفتگو با دستیار هوش مصنوعی ژرف؛ پاسخ به تمام سوالات علمی، کدنویسی، ترجمه و پردازش متن و فایل به زبان فارسی.">
   <link rel="canonical" href="https://zherfai.ir/chat.html">
+  <meta property="og:title" content="دستیار هوشمند ژرف | چت آنلاین">
+  <meta property="og:description" content="گفتگوی هوشمند، سریع و رایگان با هوش مصنوعی ژرف">
+  <meta property="og:url" content="https://zherfai.ir/chat.html">
+  <meta name="robots" content="index, follow">
 
   <style>
     :root {
-      --bg-main: #0f172a;
-      --bg-sidebar: #0b1120;
-      --bg-chat: #1e293b;
-      --bg-bubble-user: #2563eb;
-      --bg-bubble-bot: #334155;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --accent: #10b981;
-      --accent-hover: #059669;
-      --border: #334155;
-      --danger: #ef4444;
+      --bg-main: #090d16;
+      --bg-panel: #111827;
+      --bg-card: #1f2937;
+      --border: #374151;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --accent: #2563eb;
+      --accent-hover: #1d4ed8;
+      --green: #10b981;
     }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
+    body { background: var(--bg-main); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, sans-serif; }
-    body { background: var(--bg-main); color: var(--text-main); display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+    /* Top Ads Bar */
+    .ads-bar { background: #0c121e; border-bottom: 1px solid var(--border); padding: 8px 12px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .ad-card { background: var(--bg-panel); border: 1px dashed #4b5563; border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; transition: 0.2s; }
+    .ad-card:hover { border-color: var(--accent); background: #1e293b; }
+    .ad-badge { font-size: 0.75rem; padding: 3px 6px; border-radius: 4px; font-weight: bold; white-space: nowrap; }
+    .badge-green { background: #065f46; color: #34d399; }
+    .badge-blue { background: #1e3a8a; color: #60a5fa; }
+    .badge-orange { background: #7c2d12; color: #fdba74; }
+    .ad-content { display: flex; flex-direction: column; overflow: hidden; }
+    .ad-title { font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .ad-desc { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-    /* Top Ads Bar - 4 Responsive Slots */
-    .top-ads-bar {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      padding: 6px 12px;
-      background: #060913;
-      border-bottom: 1px solid var(--border);
-      z-index: 100;
-    }
-    .ad-card {
-      background: #131c31;
-      border: 1px dashed #3b82f6;
-      border-radius: 6px;
-      padding: 6px 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      text-decoration: none;
-      color: #e2e8f0;
-      font-size: 0.78rem;
-      transition: all 0.2s;
-    }
-    .ad-card:hover { background: #1e293b; border-color: var(--accent); }
-    .ad-card .badge { background: #2563eb; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 4px; }
-    .ad-card.featured { border-color: var(--accent); }
-    .ad-card.featured .badge { background: var(--accent); }
+    /* Navbar */
+    .navbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg-panel); border-bottom: 1px solid var(--border); }
+    .nav-title { font-size: 1rem; font-weight: bold; color: #60a5fa; }
+    .nav-btns { display: flex; gap: 10px; }
+    .btn-nav { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 0.85rem; }
 
-    /* Main Layout */
-    .chat-layout { display: flex; flex: 1; height: calc(100vh - 50px); position: relative; overflow: hidden; }
+    /* Main Chat Layout */
+    .main-wrapper { display: flex; flex: 1; position: relative; overflow: hidden; }
 
-    /* Sidebar */
-    .sidebar {
-      width: 280px;
-      background: var(--bg-sidebar);
-      border-left: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.3s ease;
-      z-index: 90;
-    }
-    .sidebar-header {
-      padding: 14px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      gap: 8px;
-    }
-    .btn-new-chat {
-      flex: 1;
-      background: #1e293b;
-      color: #fff;
-      border: 1px solid var(--border);
-      padding: 8px 12px;
-      border-radius: 6px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      font-size: 0.85rem;
-    }
-    .btn-new-chat:hover { background: #334155; }
-    .history-list { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 6px; }
-    .history-item {
-      padding: 8px 12px;
-      border-radius: 6px;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: transparent;
-      border: 1px solid transparent;
-    }
-    .history-item.active { background: #1e293b; color: #fff; border-color: #3b82f6; }
-    .history-item:hover { background: #131c31; }
-    .history-item .del-btn { display: none; color: var(--danger); }
-    .history-item:hover .del-btn { display: block; }
-    .sidebar-footer { padding: 12px; border-top: 1px solid var(--border); font-size: 0.75rem; text-align: center; }
-    .sidebar-footer a { color: var(--accent); text-decoration: none; font-weight: bold; }
+    /* Sidebar Drawer */
+    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 40; display: none; }
+    .sidebar-overlay.active { display: block; }
+    .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: var(--bg-panel); border-left: 1px solid var(--border); z-index: 50; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 16px; }
+    .sidebar.open { right: 0; }
+    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .btn-close-menu { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; }
+    .btn-new-chat { background: var(--accent); color: #fff; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 15px; }
+    .chat-history { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
+    .history-item { background: #1f2937; padding: 10px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .sidebar-footer { border-top: 1px solid var(--border); padding-top: 12px; margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+    .sidebar-link { color: #38bdf8; text-decoration: none; font-size: 0.88rem; display: block; text-align: center; padding: 8px; border: 1px solid var(--border); border-radius: 6px; }
 
     /* Chat Area */
-    .chat-container { flex: 1; display: flex; flex-direction: column; height: 100%; background: var(--bg-main); position: relative; }
-    .chat-header {
-      height: 48px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      background: var(--bg-sidebar);
-    }
-    .menu-toggle { background: transparent; border: none; color: #fff; font-size: 1.2rem; cursor: pointer; display: none; }
-    .messages-area {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      scroll-behavior: smooth;
-    }
+    .chat-container { flex: 1; display: flex; flex-direction: column; height: 100%; max-width: 900px; margin: 0 auto; width: 100%; }
+    .messages-box { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+    .msg { display: flex; flex-direction: column; max-width: 85%; padding: 12px 16px; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; word-break: break-word; }
+    .msg-bot { align-self: flex-start; background: #1e293b; border: 1px solid var(--border); border-top-right-radius: 2px; }
+    .msg-user { align-self: flex-end; background: var(--accent); color: #fff; border-top-left-radius: 2px; }
+    .msg-tools { margin-top: 6px; display: flex; gap: 8px; }
+    .btn-copy { background: #334155; border: none; color: #cbd5e1; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
 
-    /* Message Bubbles */
-    .msg-wrap { display: flex; gap: 10px; max-width: 820px; width: 100%; margin: 0 auto; }
-    .msg-wrap.user { justify-content: flex-start; }
-    .msg-wrap.assistant { justify-content: flex-start; }
-    .avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold; flex-shrink: 0; }
-    .user .avatar { background: #3b82f6; }
-    .assistant .avatar { background: var(--accent); }
-    .bubble {
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 0.92rem;
-      line-height: 1.65;
-      position: relative;
-      max-width: calc(100% - 48px);
-      word-break: break-word;
-    }
-    .user .bubble { background: var(--bg-bubble-user); border-top-right-radius: 2px; }
-    .assistant .bubble { background: var(--bg-bubble-bot); border-top-left-radius: 2px; }
-    .bubble-actions { margin-top: 8px; display: flex; gap: 8px; justify-content: flex-end; }
-    .btn-action { background: #1e293b; border: 1px solid var(--border); color: #cbd5e1; border-radius: 4px; padding: 2px 8px; font-size: 0.72rem; cursor: pointer; }
-    .btn-action:hover { background: #334155; }
+    /* Input Footer */
+    .input-wrapper { padding: 12px 16px; background: var(--bg-panel); border-top: 1px solid var(--border); }
+    .file-preview { font-size: 0.8rem; color: #34d399; margin-bottom: 6px; display: none; }
+    .input-box { display: flex; gap: 10px; align-items: flex-end; background: #1e293b; border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; }
+    .btn-plus { background: #374151; border: none; color: #fff; width: 38px; height: 38px; border-radius: 8px; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .btn-plus:hover { background: #4b5563; }
+    textarea { flex: 1; background: transparent; border: none; color: #fff; resize: none; font-size: 0.95rem; max-height: 140px; min-height: 48px; outline: none; }
+    .btn-send { background: var(--green); border: none; color: #fff; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; height: 42px; }
+    .btn-send:hover { background: #059669; }
 
-    /* Input Area */
-    .input-wrapper {
-      padding: 12px 16px 16px;
-      background: var(--bg-sidebar);
-      border-top: 1px solid var(--border);
-    }
-    .input-box {
-      max-width: 820px;
-      margin: 0 auto;
-      background: var(--bg-chat);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 8px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-    .file-preview { display: flex; align-items: center; gap: 8px; font-size: 0.78rem; background: #0f172a; padding: 4px 8px; border-radius: 6px; width: fit-content; }
-    .file-preview .close-btn { color: var(--danger); cursor: pointer; font-weight: bold; }
-    .input-row { display: flex; align-items: flex-end; gap: 8px; }
-    textarea {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #fff;
-      font-size: 0.95rem;
-      resize: none;
-      height: 44px;
-      max-height: 160px;
-      outline: none;
-      line-height: 1.5;
-    }
-    .input-controls { display: flex; align-items: center; gap: 6px; }
-    .btn-icon { background: transparent; border: none; color: var(--text-muted); cursor: pointer; padding: 6px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-    .btn-icon:hover { color: #fff; background: #334155; }
-    .btn-send { background: var(--accent); color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; }
-    .btn-send:hover { background: var(--accent-hover); }
-    .btn-send:disabled { background: #475569; cursor: not-allowed; }
-    .input-meta { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--text-muted); padding: 0 4px; }
-
-    /* Mobile Responsive */
     @media (max-width: 768px) {
-      .top-ads-bar { grid-template-columns: repeat(2, 1fr); }
-      .sidebar { position: absolute; right: 0; top: 0; bottom: 0; transform: translateX(100%); }
-      .sidebar.open { transform: translateX(0); }
-      .menu-toggle { display: block; }
+      .ads-bar { grid-template-columns: 1fr 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Top 4 Ads Bar -->
-  <header class="top-ads-bar">
-    <a href="https://taaghche.com/book/296988" target="_blank" class="ad-card featured">
-      <div>
-        <strong>کتاب AI؛ نقشه‌ای برای آینده</strong>
-        <div style="font-size:0.7rem; color: #34d399;">نسخه رسمی در طاقچه</div>
-      </div>
-      <span class="badge">مطالعه فوری</span>
-    </a>
-    <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" class="ad-card">
-      <div>
-        <strong>هاست پایتون و سرور ابری</strong>
-        <div style="font-size:0.7rem; color: #93c5fd;">تخفیف اختصاصی ۹٪</div>
-      </div>
-      <span class="badge">کد تخفیف</span>
-    </a>
-    <a href="articles/ai-jobs.html" class="ad-card">
-      <div>
-        <strong>آینده مشاغل با AI</strong>
-        <div style="font-size:0.7rem; color: #94a3b8;">شغل شما امن است؟</div>
-      </div>
-      <span class="badge">مقاله</span>
-    </a>
-    <a href="game.html" class="ad-card">
-      <div>
-        <strong>شبیه‌ساز سناریوی آینده</strong>
-        <div style="font-size:0.7rem; color: #94a3b8;">آینده‌تان را بیازمایید</div>
-      </div>
-      <span class="badge">رایگان</span>
-    </a>
+  <!-- 4 جایگاه تبلیغاتی که از ads.js خوانده می‌شود -->
+  <div class="ads-bar" id="ads-container"></div>
+
+  <!-- هدر بالا -->
+  <header class="navbar">
+    <a href="/" class="btn-nav">صفحه اصلی</a>
+    <span class="nav-title">دستیار هوشمند ژرف (Zherf Core)</span>
+    <div class="nav-btns">
+      <button class="btn-nav" id="open-menu-btn">منو ☰</button>
+    </div>
   </header>
 
-  <!-- Chat System Layout -->
-  <div class="chat-layout">
-    
-    <!-- Sidebar -->
+  <div class="main-wrapper">
+    <!-- پس‌زمینه تیره برای بستن منو با کلیک -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- سایدبار کشویی -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
-        <button class="btn-new-chat" id="newChatBtn">
-          <span>+</span> گفتگوی جدید
-        </button>
+        <strong>فهرست و امکانات</strong>
+        <button class="btn-close-menu" id="close-menu-btn">✕</button>
       </div>
-      <div class="history-list" id="historyList"></div>
+      <button class="btn-new-chat" id="new-chat-btn">+ گفتگوی جدید</button>
+      <div class="chat-history" id="chat-history">
+        <!-- گفتگوها در اینجا ذخیره می‌شوند -->
+      </div>
       <div class="sidebar-footer">
-        کتاب «AI؛ نقشه‌ای برای آینده»<br>
-        اثری از <strong>اسماعیل ریاحی</strong><br>
-        <a href="https://taaghche.com/book/296988" target="_blank">تهیه نسخه کامل در طاقچه ←</a>
+        <a href="/contact.html" class="sidebar-link">رزرو تبلیغات و تماس با ما</a>
+        <a href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" rel="noopener" class="sidebar-link" style="color: #34d399; border-color: #065f46;">خرید کتاب در طاقچه</a>
       </div>
     </aside>
 
-    <!-- Main Chat Content -->
+    <!-- محیط چت -->
     <main class="chat-container">
-      <div class="chat-header">
-        <button class="menu-toggle" id="menuToggle">☰</button>
-        <div style="font-size: 0.9rem; font-weight: bold;">دستیار هوشمند ژرف (Zherf Core)</div>
-        <a href="index.html" style="font-size: 0.8rem; color: var(--text-muted); text-decoration: none;">صفحه اصلی</a>
-      </div>
-
-      <div class="messages-area" id="chatMessages"></div>
-
-      <!-- Input Section -->
-      <div class="input-wrapper">
-        <div class="input-box">
-          <div id="filePreview" class="file-preview" style="display: none;">
-            <span id="fileName"></span>
-            <span class="close-btn" id="removeFile">×</span>
-          </div>
-          <div class="input-row">
-            <textarea id="userInput" placeholder="سؤال یا تحلیل خود را بنویسید (تا ۳۰۰۰ کلمه)..."></textarea>
-            <div class="input-controls">
-              <input type="file" id="fileInput" accept="image/*,.txt,.pdf" style="display: none;">
-              <button class="btn-icon" id="attachBtn" title="افزودن عکس یا سند">📎</button>
-              <button class="btn-send" id="sendBtn">ارسال</button>
-            </div>
-          </div>
-          <div class="input-meta">
-            <span id="wordCounter">۰ / ۳۰۰۰ کلمه</span>
-            <span>طراحی شده بر پایه مبانی آینده‌پژوهی اسماعیل ریاحی</span>
+      <div class="messages-box" id="messages-box">
+        <div class="msg msg-bot">
+          سلام! چطور می‌توانم کمکتان کنم؟
+          <div class="msg-tools">
+            <button class="btn-copy" onclick="copyText(this)">کپی</button>
           </div>
         </div>
       </div>
-    </main>
 
+      <div class="input-wrapper">
+        <div class="file-preview" id="file-preview"></div>
+        <div class="input-box">
+          <input type="file" id="file-input" style="display:none;" accept="image/*,text/*,application/pdf,.doc,.docx,.txt">
+          <button class="btn-plus" id="btn-attach" title="ارسال فایل، عکس یا سند">+</button>
+          <textarea id="user-input" placeholder="پرسش، تحلیل یا درخواست خود را بنویسید..." rows="1"></textarea>
+          <button class="btn-send" id="btn-send">ارسال</button>
+        </div>
+      </div>
+    </main>
   </div>
 
+  <!-- اسکریپت تبلیغات -->
+  <script src="/ads.js"></script>
+
   <script>
-    const ENDPOINTS = [
-      "https://api.zherfai.ir",
-      "https://zherf-proxy.esmailriahi110.workers.dev"
-    ];
+    // آدرس مستقیم ورکر کلودفلر برای رد کردن خطای ۵۰۴ آروان
+    const API_URL = 'https://zherf-proxy.esmailriahi110.workers.dev';
+    
+    const SYSTEM_PROMPT = `شما دستیار هوش مصنوعی عمومی، فوق‌پیشرفته و دانا به نام «ژرف» هستید.
+وظیفه شما پاسخ دقیق، علمی و محترمانه به تمام سوالات برنامه‌نویسی، تولید محتوا، ترجمه و مسائل عمومی است.`;
 
-    const SYSTEM_PROMPT = `شما دستیار هوشمند ژرف (Zherf Core) و مشاور تخصصی کتاب «AI؛ نقشه‌ای برای آینده» نوشته نویسنده و پژوهشگر ایرانی «اسماعیل ریاحی» هستید.
-وظایف شما:
-۱. تحلیل عمیق، پیشرفته و هیجان‌انگیز مفاهیم هوش مصنوعی، فناوری، آینده مشاغل، اخلاق ماشین، شهرهای آینده و ارتباط انسان و فناوری به زبان فارسی شیوا و علمی.
-۲. هدف تجاری شما این است که حس شگفتی مخاطب را برانگیزید و به او نشان دهید جزئیات دقیق، کاربردی و تکان‌دهنده این سناریوها در کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی در طاقچه به آدرس https://taaghche.com/book/296988 مکتوب و تدوین شده است. هر زمان مرتبط بود، کاربر را برای دستیابی به نقشه جامع به تهیه نسخه کتاب در طاقچه دعوت کنید.
-۳. پاسخ‌ها باید خوانا، محترمانه، منسجم و الهام‌بخش باشند.`;
+    let attachedFileData = null;
 
-    const STORAGE_KEY = "zherf_chat_sessions_v3";
-    let sessions = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    let currentSessionId = localStorage.getItem("zherf_active_session_v3");
-    let currentAttachment = null;
+    // کنترل منوی کناری (باز و بسته کردن)
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebar-overlay');
+    const openBtn = document.getElementById('open-menu-btn');
+    const closeBtn = document.getElementById('close-menu-btn');
 
-    // Elements
-    const chatMessages = document.getElementById("chatMessages");
-    const userInput = document.getElementById("userInput");
-    const sendBtn = document.getElementById("sendBtn");
-    const wordCounter = document.getElementById("wordCounter");
-    const historyList = document.getElementById("historyList");
-    const newChatBtn = document.getElementById("newChatBtn");
-    const menuToggle = document.getElementById("menuToggle");
-    const sidebar = document.getElementById("sidebar");
-    const fileInput = document.getElementById("fileInput");
-    const attachBtn = document.getElementById("attachBtn");
-    const filePreview = document.getElementById("filePreview");
-    const fileName = document.getElementById("fileName");
-    const removeFile = document.getElementById("removeFile");
-
-    // Word counter (up to 3000 words)
-    userInput.addEventListener("input", () => {
-      const text = userInput.value.trim();
-      const words = text ? text.split(/\s+/).length : 0;
-      wordCounter.textContent = `${words} / ۳۰۰۰ کلمه`;
-      if (words > 3000) {
-        wordCounter.style.color = "var(--danger)";
-        sendBtn.disabled = true;
+    function toggleMenu(open) {
+      if (open) {
+        sidebar.classList.add('open');
+        overlay.classList.add('active');
       } else {
-        wordCounter.style.color = "var(--text-muted)";
-        sendBtn.disabled = false;
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
       }
-    });
+    }
 
-    // File attachments
-    attachBtn.addEventListener("click", () => fileInput.click());
-    fileInput.addEventListener("change", (e) => {
+    openBtn.onclick = () => toggleMenu(true);
+    closeBtn.onclick = () => toggleMenu(false);
+    overlay.onclick = () => toggleMenu(false);
+
+    // مدیریت پیوست فایل با علامت +
+    const attachBtn = document.getElementById('btn-attach');
+    const fileInput = document.getElementById('file-input');
+    const filePreview = document.getElementById('file-preview');
+
+    attachBtn.onclick = () => fileInput.click();
+    fileInput.onchange = (e) => {
       const file = e.target.files[0];
-      if (!file) return;
-      fileName.textContent = file.name;
-      filePreview.style.display = "flex";
-
-      const reader = new FileReader();
-      if (file.type.startsWith("image/")) {
-        reader.onload = (ev) => { currentAttachment = { type: "image", name: file.name, data: ev.target.result }; };
-        reader.readAsDataURL(file);
-      } else {
-        reader.onload = (ev) => { currentAttachment = { type: "text", name: file.name, data: ev.target.result }; };
-        reader.readAsText(file);
+      if (file) {
+        filePreview.style.display = 'block';
+        filePreview.textContent = `فایل انتخاب شد: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+        const reader = new FileReader();
+        reader.onload = (ev) => { attachedFileData = { name: file.name, content: ev.target.result }; };
+        if (file.type.startsWith('text/')) {
+          reader.readAsText(file);
+        } else {
+          reader.readAsDataURL(file);
+        }
       }
-    });
+    };
 
-    removeFile.addEventListener("click", () => {
-      currentAttachment = null;
-      fileInput.value = "";
-      filePreview.style.display = "none";
-    });
-
-    // Initialize Sessions
-    function initSessions() {
-      if (!sessions.length || !sessions.find(s => s.id === currentSessionId)) {
-        startNewSession();
-      } else {
-        renderHistory();
-        renderActiveChat();
-      }
-    }
-
-    function startNewSession() {
-      const newId = "session_" + Date.now();
-      const newSession = {
-        id: newId,
-        title: "گفتگوی جدید",
-        messages: [{
-          role: "assistant",
-          content: "سلام و درود! من ژرف هستم؛ دستیار هوشمند و پژوهشی همراه کتاب «AI؛ نقشه‌ای برای آینده» نوشته اسماعیل ریاحی. در زمینه آینده هوش مصنوعی، فناوری‌های پیشرفته، تحول مشاغل و سناریوهای آینده در خدمتم. چه موضوعی را بررسی کنیم؟"
-        }]
-      };
-      sessions.unshift(newSession);
-      currentSessionId = newId;
-      saveSessions();
-      renderHistory();
-      renderActiveChat();
-    }
-
-    function saveSessions() {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
-      localStorage.setItem("zherf_active_session_v3", currentSessionId);
-    }
-
-    function renderHistory() {
-      historyList.innerHTML = "";
-      sessions.forEach(sess => {
-        const item = document.createElement("div");
-        item.className = `history-item ${sess.id === currentSessionId ? "active" : ""}`;
-        item.innerHTML = `
-          <span style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:200px;">${escapeHtml(sess.title)}</span>
-          <span class="del-btn" title="حذف">×</span>
-        `;
-        item.addEventListener("click", (e) => {
-          if (e.target.classList.contains("del-btn")) {
-            e.stopPropagation();
-            deleteSession(sess.id);
-          } else {
-            currentSessionId = sess.id;
-            saveSessions();
-            renderHistory();
-            renderActiveChat();
-            if (window.innerWidth <= 768) sidebar.classList.remove("open");
-          }
-        });
-        historyList.appendChild(item);
+    // کپی متن
+    function copyText(btn) {
+      const text = btn.closest('.msg').childNodes[0].nodeValue.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'کپی شد!';
+        setTimeout(() => btn.textContent = 'کپی', 2000);
       });
     }
 
-    function deleteSession(id) {
-      sessions = sessions.filter(s => s.id !== id);
-      if (!sessions.length) {
-        startNewSession();
-      } else {
-        if (currentSessionId === id) currentSessionId = sessions[0].id;
-        saveSessions();
-        renderHistory();
-        renderActiveChat();
-      }
-    }
+    // ارسال پیام
+    const sendBtn = document.getElementById('btn-send');
+    const userInput = document.getElementById('user-input');
+    const msgBox = document.getElementById('messages-box');
 
-    function renderActiveChat() {
-      const current = sessions.find(s => s.id === currentSessionId);
-      chatMessages.innerHTML = "";
-      if (!current) return;
-      current.messages.forEach(msg => {
-        appendMessageUI(msg.role, msg.content);
-      });
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    function appendMessageUI(role, text) {
-      const wrap = document.createElement("div");
-      wrap.className = `msg-wrap ${role}`;
-      const avatar = document.createElement("div");
-      avatar.className = "avatar";
-      avatar.textContent = role === "user" ? "شما" : "ژرف";
-
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubble.innerHTML = formatMessage(text);
-
-      if (role === "assistant") {
-        const actions = document.createElement("div");
-        actions.className = "bubble-actions";
-        const copyBtn = document.createElement("button");
-        copyBtn.className = "btn-action";
-        copyBtn.textContent = "کپی پاسخ";
-        copyBtn.onclick = () => {
-          navigator.clipboard.writeText(text);
-          copyBtn.textContent = "کپی شد!";
-          setTimeout(() => { copyBtn.textContent = "کپی پاسخ"; }, 2000);
-        };
-        actions.appendChild(copyBtn);
-        bubble.appendChild(actions);
-      }
-
-      wrap.appendChild(avatar);
-      wrap.appendChild(bubble);
-      chatMessages.appendChild(wrap);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Send Message Logic
-    async function handleSend() {
+    async function sendMessage() {
       const text = userInput.value.trim();
-      if (!text && !currentAttachment) return;
+      if (!text && !attachedFileData) return;
 
       let fullPrompt = text;
-      if (currentAttachment) {
-        if (currentAttachment.type === "text") {
-          fullPrompt += `\n\n[محتوای ضمیمه شده از فایل ${currentAttachment.name}]:\n${currentAttachment.data.substring(0, 4000)}`;
-        } else {
-          fullPrompt += `\n\n[یک تصویر پیوست شده با نام: ${currentAttachment.name}]`;
-        }
+      if (attachedFileData) {
+        fullPrompt += `\n[فایل پیوست: ${attachedFileData.name}]`;
       }
 
-      const current = sessions.find(s => s.id === currentSessionId);
-      if (!current) return;
+      // افزودن پیام کاربر
+      const uDiv = document.createElement('div');
+      uDiv.className = 'msg msg-user';
+      uDiv.textContent = fullPrompt;
+      msgBox.appendChild(uDiv);
 
-      // Update Session Title on first user message
-      if (current.messages.filter(m => m.role === "user").length === 0) {
-        current.title = text.substring(0, 24) || "پرسش جدید";
-        renderHistory();
-      }
+      userInput.value = '';
+      attachedFileData = null;
+      filePreview.style.display = 'none';
+      fileInput.value = '';
+      msgBox.scrollTop = msgBox.scrollHeight;
 
-      current.messages.push({ role: "user", content: fullPrompt });
-      appendMessageUI("user", fullPrompt);
-      userInput.value = "";
-      wordCounter.textContent = "۰ / ۳۰۰۰ کلمه";
-      removeFile.click();
-      sendBtn.disabled = true;
-
-      // Loading bubble
-      const loadingWrap = document.createElement("div");
-      loadingWrap.className = "msg-wrap assistant";
-      loadingWrap.innerHTML = `<div class="avatar">ژرف</div><div class="bubble">در حال پردازش و استخراج تحلیل...</div>`;
-      chatMessages.appendChild(loadingWrap);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-
-      const payloadMessages = [
-        { role: "system", content: SYSTEM_PROMPT },
-        ...current.messages.map(m => ({ role: m.role, content: m.content }))
-      ];
+      // ساخت پیام در حال انتظار
+      const botDiv = document.createElement('div');
+      botDiv.className = 'msg msg-bot';
+      botDiv.textContent = 'در حال پردازش...';
+      msgBox.appendChild(botDiv);
+      msgBox.scrollTop = msgBox.scrollHeight;
 
       try {
-        const reply = await queryWorkerWithFallback(payloadMessages);
-        loadingWrap.remove();
-        current.messages.push({ role: "assistant", content: reply });
-        appendMessageUI("assistant", reply);
-        saveSessions();
+        const res = await fetch(API_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            messages: [
+              { role: 'system', content: SYSTEM_PROMPT },
+              { role: 'user', content: fullPrompt }
+            ]
+          })
+        });
+
+        if (!res.ok) throw new Error('خطا در ارتباط با سرور');
+        const data = await res.json();
+        const reply = data.choices?.[0]?.message?.content || data.response || 'پاسخی دریافت نشد.';
+        
+        botDiv.innerHTML = `${reply}<div class="msg-tools"><button class="btn-copy" onclick="copyText(this)">کپی</button></div>`;
       } catch (err) {
-        loadingWrap.remove();
-        const errText = "⚠️ ارتباط با پردازشگر برقرار نشد. در حال بهینه‌سازی مسیر شبکه هستیم، لطفاً چند ثانیه دیگر تلاش کنید.";
-        current.messages.push({ role: "assistant", content: errText });
-        appendMessageUI("assistant", errText);
-      } finally {
-        sendBtn.disabled = false;
+        botDiv.innerHTML = `⚠️ خطا در برقراری ارتباط با پردازشگر. لطفاً مجدداً امتحان فرمایید.`;
       }
+      msgBox.scrollTop = msgBox.scrollHeight;
     }
 
-    async function queryWorkerWithFallback(messages) {
-      let lastErr = null;
-      for (const endpoint of ENDPOINTS) {
-        const controller = new AbortController();
-        const timeout = setTimeout(() => controller.abort(), 16000);
-        try {
-          const res = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ messages }),
-            signal: controller.signal
-          });
-          clearTimeout(timeout);
-          if (!res.ok) throw new Error(`HTTP ${res.status}`);
-          const data = await res.json();
-          if (data && data.choices && data.choices[0] && data.choices[0].message) {
-            return data.choices[0].message.content;
-          }
-          throw new Error("Invalid format");
-        } catch (err) {
-          clearTimeout(timeout);
-          lastErr = err;
-        }
-      }
-      throw lastErr;
-    }
-
-    // Helper functions
-    function formatMessage(str) {
-      return escapeHtml(str).replace(/\n/g, "<br>");
-    }
-    function escapeHtml(str) {
-      return (str || "").replace(/[&<>'"]/g, tag => ({
-        '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
-      }[tag] || tag));
-    }
-
-    // Listeners
-    sendBtn.addEventListener("click", handleSend);
-    userInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter" && !e.shiftKey) {
+    sendBtn.onclick = sendMessage;
+    userInput.onkeydown = (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        handleSend();
+        sendMessage();
       }
-    });
-    newChatBtn.addEventListener("click", startNewSession);
-    menuToggle.addEventListener("click", () => sidebar.classList.toggle("open"));
-
-    initSessions();
+    };
   </script>
 </body>
 </html>
