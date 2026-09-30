@@ -59,7 +59,7 @@
       position: relative;
     }
 
-    /* سایدبار حرفه‌ای با دکمه بستن و مدیریت کامل */
+    /* سایدبار استاندارد */
     .sidebar {
       width: 300px;
       background-color: var(--bg-sidebar);
@@ -245,7 +245,7 @@
       margin: 0 auto;
     }
 
-    /* کارت‌های تبلیغاتی اختصاصی و مدرن */
+    /* ۴ باکس تبلیغاتی استاندارد */
     .promo-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -335,10 +335,10 @@
       font-size: 0.8rem;
       color: var(--neon-green);
     }
-    .file-preview span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 200px; }
-    .remove-file-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-weight: bold; }
+    .file-preview span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 220px; }
+    .remove-file-btn { background: none; border: none; color: var(--danger); cursor: pointer; font-weight: bold; font-size: 1rem; }
 
-    /* نوار ورود متن و دکمه + گالری */
+    /* نوار ورودی چت */
     .chat-input-area {
       padding: 12px 16px calc(16px + env(safe-area-inset-bottom));
       background: linear-gradient(to top, rgba(6, 12, 14, 0.98), rgba(6, 12, 14, 0.7));
@@ -503,50 +503,49 @@
           </a>
         </div>
 
-        <div class="message bot      </div>
-    </aside>
-
-    <!-- محیط اصلی چت -->
-    <main class="main-chat">
-      <header class="chat-header">
-        <button class="menu-toggle-btn" onclick="toggleSidebar()" aria-label="منو">☰</button>
-        <div class="brand"><span>✦ ژرف AI</span></div>
-        <div style="width: 42px;"></div>
-      </header>
-
-      <section class="chat-messages" id="chatArea">
-        <!-- ۴ باکس تبلیغاتی استاندارد با لینک -->
-        <div class="promo-container">
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📚 اثر اختصاصی</span>
-            <span class="promo-title">معرفی و خرید کتاب</span>
-            <span class="promo-sub">برای مشاهده و ثبت سفارش کلیک کنید</span>
-          </a>
-
-          <a href="https://mihanwebhost.com" target="_blank" rel="noopener" class="promo-card">
-            <span class="promo-badge">🚀 هاست و سرور ابری</span>
-            <span class="promo-title">همکاری در فروش میهن‌وب‌هاست</span>
-            <span class="promo-sub">خرید هاست پرسرعت با تخفیف ویژه</span>
-          </a>
-
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📢 فرصت همکاری</span>
-            <span class="promo-title">جایگاه تبلیغات شما</span>
-            <span class="promo-sub">جهت رزرو بنر کلیک کنید</span>
-          </a>
-
-          <a href="contact.html" class="promo-card">
-            <span class="promo-badge">📢 فرصت همکاری</span>
-            <span class="promo-title">جایگاه تبلیغات شما</span>
-            <span class="promo-sub">جهت رزرو بنر کلیک کنید</span>
-          </a>
-        </div>
-
         <div class="message bot">
           <div class="bubble">سلام! به ژرف AI خوش آمدید. چگونه می‌توانم کمکتان کنم؟</div>
           <div class="meta ok">سیستم آنلاین است</div>
         </div>
-      </.classList.toggle('open');
+      </section>
+
+      <!-- نوار ورودی پیام و دکمه + -->
+      <footer class="chat-input-area">
+        <div class="file-preview" id="filePreview">
+          <span id="fileNameSpan"></span>
+          <button class="remove-file-btn" onclick="removeSelectedFile()" title="حذف فایل">✕</button>
+        </div>
+
+        <div class="input-box">
+          <input type="file" id="mediaInput" style="display: none;" accept="image/*,.pdf,.doc,.docx,.txt" onchange="handleFileSelected(event)" />
+          <button class="action-btn plus-btn" onclick="document.getElementById('mediaInput').click()" title="ارسال عکس یا فایل">+</button>
+          
+          <textarea id="promptInput" rows="1" placeholder="پیام خود را بنویسید..." oninput="autoResize(this)" onkeydown="checkEnter(event)"></textarea>
+          
+          <button class="action-btn send-btn" onclick="sendMessage()" title="ارسال پیام">➤</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    // آدرس ورکر اختصاصی Cloudflare
+    const WORKER_URL = "https://zherf-proxy.esmailriahi110.workers.dev";
+
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+    const chatArea = document.getElementById('chatArea');
+    const promptInput = document.getElementById('promptInput');
+    const historyList = document.getElementById('historyList');
+    const mediaInput = document.getElementById('mediaInput');
+    const filePreview = document.getElementById('filePreview');
+    const fileNameSpan = document.getElementById('fileNameSpan');
+
+    let currentSessionId = Date.now().toString();
+    let attachedFile = null;
+
+    function toggleSidebar() {
+      sidebar.classList.toggle('open');
       overlay.classList.toggle('active');
     }
 
@@ -614,7 +613,6 @@
       chatArea.scrollTop = chatArea.scrollHeight;
     }
 
-    // ذخیره تاریخچه در حافظه محلی
     function saveHistory(firstPrompt) {
       let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
       if (!chats.find(c => c.id === currentSessionId)) {
@@ -689,7 +687,7 @@
         updateMessage(botMsgId, reply, 'ژرف AI', false);
 
       } catch (err) {
-        updateMessage(botMsgId, `خطا در برقراری ارتباط با سرور هوش مصنوعی: ${err.message}`, 'عدم ارتباط', true);
+        updateMessage(botMsgId, `خطا در برقراری ارتباط با سرور: ${err.message}`, 'عدم ارتباط', true);
       }
     }
 
