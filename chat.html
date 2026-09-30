@@ -2,270 +2,87 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>دستیار هوشمند ژرف (Zherf Core) | چت رایگان هوش مصنوعی</title>
-  <meta name="description" content="گفتگو با دستیار هوش مصنوعی ژرف؛ پاسخ به تمام سوالات علمی، کدنویسی، ترجمه و پردازش متن و فایل به زبان فارسی.">
-  <link rel="canonical" href="https://zherfai.ir/chat.html">
-  <meta property="og:title" content="دستیار هوشمند ژرف | چت آنلاین">
-  <meta property="og:description" content="گفتگوی هوشمند، سریع و رایگان با هوش مصنوعی ژرف">
-  <meta property="og:url" content="https://zherfai.ir/chat.html">
-  <meta name="robots" content="index, follow">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>دستیار ژرف | هوش مصنوعی فارسی</title>
   <style>
-    :root {
-      --bg-main: #090d16;
-      --bg-panel: #111827;
-      --bg-card: #1f2937;
-      --border: #374151;
-      --text-main: #f9fafb;
-      --text-muted: #9ca3af;
-      --accent: #2563eb;
-      --accent-hover: #1d4ed8;
-      --green: #10b981;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background: var(--bg-main); color: var(--text-main); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+    :root { --bg: #0f172a; --panel: #1e293b; --accent: #3b82f6; --text: #f1f5f9; --border: #334155; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: Tahoma, Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
 
-    /* Top Ads Bar */
-    .ads-bar { background: #0c121e; border-bottom: 1px solid var(--border); padding: 8px 12px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-    .ad-card { background: var(--bg-panel); border: 1px dashed #4b5563; border-radius: 8px; padding: 6px 10px; display: flex; align-items: center; gap: 8px; text-decoration: none; color: inherit; transition: 0.2s; }
-    .ad-card:hover { border-color: var(--accent); background: #1e293b; }
-    .ad-badge { font-size: 0.75rem; padding: 3px 6px; border-radius: 4px; font-weight: bold; white-space: nowrap; }
-    .badge-green { background: #065f46; color: #34d399; }
-    .badge-blue { background: #1e3a8a; color: #60a5fa; }
-    .badge-orange { background: #7c2d12; color: #fdba74; }
-    .ad-content { display: flex; flex-direction: column; overflow: hidden; }
-    .ad-title { font-size: 0.82rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .ad-desc { font-size: 0.72rem; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* تبلیغات منعطف */
+    .ads-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 5px; background: #020617; }
+    @media (max-width: 600px) { .ads-bar { grid-template-columns: repeat(2, 1fr); } }
+    .ad-card { background: var(--panel); padding: 5px; border-radius: 4px; text-decoration: none; color: #94a3b8; font-size: 0.7rem; border: 1px solid var(--border); }
 
-    /* Navbar */
-    .navbar { display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; background: var(--bg-panel); border-bottom: 1px solid var(--border); }
-    .nav-title { font-size: 1rem; font-weight: bold; color: #60a5fa; }
-    .nav-btns { display: flex; gap: 10px; }
-    .btn-nav { background: transparent; border: 1px solid var(--border); color: var(--text-main); padding: 6px 12px; border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 0.85rem; }
+    /* چیدمان اصلی */
+    .chat-wrapper { flex: 1; display: flex; flex-direction: column; width: 100%; max-width: 800px; margin: 0 auto; height: 100%; }
+    .msg-area { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+    
+    /* پیام‌ها */
+    .msg { padding: 12px; border-radius: 10px; max-width: 90%; line-height: 1.5; font-size: 0.95rem; }
+    .msg-user { align-self: flex-end; background: var(--accent); color: white; }
+    .msg-bot { align-self: flex-start; background: var(--panel); border: 1px solid var(--border); }
 
-    /* Main Chat Layout */
-    .main-wrapper { display: flex; flex: 1; position: relative; overflow: hidden; }
-
-    /* Sidebar Drawer */
-    .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 40; display: none; }
-    .sidebar-overlay.active { display: block; }
-    .sidebar { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: var(--bg-panel); border-left: 1px solid var(--border); z-index: 50; transition: right 0.3s ease; display: flex; flex-direction: column; padding: 16px; }
-    .sidebar.open { right: 0; }
-    .sidebar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-    .btn-close-menu { background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer; }
-    .btn-new-chat { background: var(--accent); color: #fff; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; margin-bottom: 15px; }
-    .chat-history { flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; }
-    .history-item { background: #1f2937; padding: 10px; border-radius: 6px; font-size: 0.85rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-    .sidebar-footer { border-top: 1px solid var(--border); padding-top: 12px; margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
-    .sidebar-link { color: #38bdf8; text-decoration: none; font-size: 0.88rem; display: block; text-align: center; padding: 8px; border: 1px solid var(--border); border-radius: 6px; }
-
-    /* Chat Area */
-    .chat-container { flex: 1; display: flex; flex-direction: column; height: 100%; max-width: 900px; margin: 0 auto; width: 100%; }
-    .messages-box { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 14px; }
-    .msg { display: flex; flex-direction: column; max-width: 85%; padding: 12px 16px; border-radius: 12px; font-size: 0.95rem; line-height: 1.6; word-break: break-word; }
-    .msg-bot { align-self: flex-start; background: #1e293b; border: 1px solid var(--border); border-top-right-radius: 2px; }
-    .msg-user { align-self: flex-end; background: var(--accent); color: #fff; border-top-left-radius: 2px; }
-    .msg-tools { margin-top: 6px; display: flex; gap: 8px; }
-    .btn-copy { background: #334155; border: none; color: #cbd5e1; font-size: 0.75rem; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
-
-    /* Input Footer */
-    .input-wrapper { padding: 12px 16px; background: var(--bg-panel); border-top: 1px solid var(--border); }
-    .file-preview { font-size: 0.8rem; color: #34d399; margin-bottom: 6px; display: none; }
-    .input-box { display: flex; gap: 10px; align-items: flex-end; background: #1e293b; border: 1px solid var(--border); border-radius: 12px; padding: 8px 12px; }
-    .btn-plus { background: #374151; border: none; color: #fff; width: 38px; height: 38px; border-radius: 8px; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-    .btn-plus:hover { background: #4b5563; }
-    textarea { flex: 1; background: transparent; border: none; color: #fff; resize: none; font-size: 0.95rem; max-height: 140px; min-height: 48px; outline: none; }
-    .btn-send { background: var(--green); border: none; color: #fff; padding: 10px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 0.95rem; height: 42px; }
-    .btn-send:hover { background: #059669; }
-
-    @media (max-width: 768px) {
-      .ads-bar { grid-template-columns: 1fr 1fr; }
-    }
+    /* ورودی */
+    .input-area { padding: 15px; background: var(--panel); border-top: 1px solid var(--border); display: flex; gap: 10px; }
+    textarea { flex: 1; background: #0f172a; border: 1px solid var(--border); color: white; padding: 10px; border-radius: 8px; resize: none; height: 50px; outline: none; }
+    .btn-send { background: #10b981; color: white; border: none; padding: 0 20px; border-radius: 8px; cursor: pointer; }
   </style>
 </head>
 <body>
-
-  <!-- 4 جایگاه تبلیغاتی که از ads.js خوانده می‌شود -->
   <div class="ads-bar" id="ads-container"></div>
-
-  <!-- هدر بالا -->
-  <header class="navbar">
-    <a href="/" class="btn-nav">صفحه اصلی</a>
-    <span class="nav-title">دستیار هوشمند ژرف (Zherf Core)</span>
-    <div class="nav-btns">
-      <button class="btn-nav" id="open-menu-btn">منو ☰</button>
+  <div class="chat-wrapper">
+    <div class="msg-area" id="messages-box">
+       <div class="msg msg-bot">سلام! ژرف هستم، چطور کمکتان کنم؟</div>
     </div>
-  </header>
-
-  <div class="main-wrapper">
-    <!-- پس‌زمینه تیره برای بستن منو با کلیک -->
-    <div class="sidebar-overlay" id="sidebar-overlay"></div>
-
-    <!-- سایدبار کشویی -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-header">
-        <strong>فهرست و امکانات</strong>
-        <button class="btn-close-menu" id="close-menu-btn">✕</button>
-      </div>
-      <button class="btn-new-chat" id="new-chat-btn">+ گفتگوی جدید</button>
-      <div class="chat-history" id="chat-history">
-        <!-- گفتگوها در اینجا ذخیره می‌شوند -->
-      </div>
-      <div class="sidebar-footer">
-        <a href="/contact.html" class="sidebar-link">رزرو تبلیغات و تماس با ما</a>
-        <a href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" rel="noopener" class="sidebar-link" style="color: #34d399; border-color: #065f46;">خرید کتاب در طاقچه</a>
-      </div>
-    </aside>
-
-    <!-- محیط چت -->
-    <main class="chat-container">
-      <div class="messages-box" id="messages-box">
-        <div class="msg msg-bot">
-          سلام! چطور می‌توانم کمکتان کنم؟
-          <div class="msg-tools">
-            <button class="btn-copy" onclick="copyText(this)">کپی</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="input-wrapper">
-        <div class="file-preview" id="file-preview"></div>
-        <div class="input-box">
-          <input type="file" id="file-input" style="display:none;" accept="image/*,text/*,application/pdf,.doc,.docx,.txt">
-          <button class="btn-plus" id="btn-attach" title="ارسال فایل، عکس یا سند">+</button>
-          <textarea id="user-input" placeholder="پرسش، تحلیل یا درخواست خود را بنویسید..." rows="1"></textarea>
-          <button class="btn-send" id="btn-send">ارسال</button>
-        </div>
-      </div>
-    </main>
+    <div class="input-area">
+      <textarea id="user-input" placeholder="پرسش خود را بنویسید..."></textarea>
+      <button class="btn-send" id="btn-send">ارسال</button>
+    </div>
   </div>
 
-  <!-- اسکریپت تبلیغات -->
   <script src="/ads.js"></script>
-
   <script>
-    // آدرس مستقیم ورکر کلودفلر برای رد کردن خطای ۵۰۴ آروان
+    // آدرس مستقیم برای عبور از فیلترینگ و خطاهای آروان
     const API_URL = 'https://zherf-proxy.esmailriahi110.workers.dev';
     
-    const SYSTEM_PROMPT = `شما دستیار هوش مصنوعی عمومی، فوق‌پیشرفته و دانا به نام «ژرف» هستید.
-وظیفه شما پاسخ دقیق، علمی و محترمانه به تمام سوالات برنامه‌نویسی، تولید محتوا، ترجمه و مسائل عمومی است.`;
-
-    let attachedFileData = null;
-
-    // کنترل منوی کناری (باز و بسته کردن)
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebar-overlay');
-    const openBtn = document.getElementById('open-menu-btn');
-    const closeBtn = document.getElementById('close-menu-btn');
-
-    function toggleMenu(open) {
-      if (open) {
-        sidebar.classList.add('open');
-        overlay.classList.add('active');
-      } else {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
-      }
-    }
-
-    openBtn.onclick = () => toggleMenu(true);
-    closeBtn.onclick = () => toggleMenu(false);
-    overlay.onclick = () => toggleMenu(false);
-
-    // مدیریت پیوست فایل با علامت +
-    const attachBtn = document.getElementById('btn-attach');
-    const fileInput = document.getElementById('file-input');
-    const filePreview = document.getElementById('file-preview');
-
-    attachBtn.onclick = () => fileInput.click();
-    fileInput.onchange = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        filePreview.style.display = 'block';
-        filePreview.textContent = `فایل انتخاب شد: ${file.name} (${(file.size/1024).toFixed(1)} KB)`;
-        const reader = new FileReader();
-        reader.onload = (ev) => { attachedFileData = { name: file.name, content: ev.target.result }; };
-        if (file.type.startsWith('text/')) {
-          reader.readAsText(file);
-        } else {
-          reader.readAsDataURL(file);
-        }
-      }
-    };
-
-    // کپی متن
-    function copyText(btn) {
-      const text = btn.closest('.msg').childNodes[0].nodeValue.trim();
-      navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = 'کپی شد!';
-        setTimeout(() => btn.textContent = 'کپی', 2000);
-      });
-    }
-
-    // ارسال پیام
     const sendBtn = document.getElementById('btn-send');
-    const userInput = document.getElementById('user-input');
+    const input = document.getElementById('user-input');
     const msgBox = document.getElementById('messages-box');
 
     async function sendMessage() {
-      const text = userInput.value.trim();
-      if (!text && !attachedFileData) return;
+      const text = input.value.trim();
+      if (!text) return;
 
-      let fullPrompt = text;
-      if (attachedFileData) {
-        fullPrompt += `\n[فایل پیوست: ${attachedFileData.name}]`;
-      }
-
-      // افزودن پیام کاربر
+      // نمایش پیام کاربر
       const uDiv = document.createElement('div');
       uDiv.className = 'msg msg-user';
-      uDiv.textContent = fullPrompt;
+      uDiv.textContent = text;
       msgBox.appendChild(uDiv);
-
-      userInput.value = '';
-      attachedFileData = null;
-      filePreview.style.display = 'none';
-      fileInput.value = '';
-      msgBox.scrollTop = msgBox.scrollHeight;
-
-      // ساخت پیام در حال انتظار
-      const botDiv = document.createElement('div');
-      botDiv.className = 'msg msg-bot';
-      botDiv.textContent = 'در حال پردازش...';
-      msgBox.appendChild(botDiv);
-      msgBox.scrollTop = msgBox.scrollHeight;
+      input.value = '';
+      
+      // نمایش لودینگ
+      const bDiv = document.createElement('div');
+      bDiv.className = 'msg msg-bot';
+      bDiv.textContent = '...';
+      msgBox.appendChild(bDiv);
 
       try {
         const res = await fetch(API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            messages: [
-              { role: 'system', content: SYSTEM_PROMPT },
-              { role: 'user', content: fullPrompt }
-            ]
-          })
+          body: JSON.stringify({ messages: [{ role: 'user', content: text }] })
         });
-
-        if (!res.ok) throw new Error('خطا در ارتباط با سرور');
         const data = await res.json();
-        const reply = data.choices?.[0]?.message?.content || data.response || 'پاسخی دریافت نشد.';
-        
-        botDiv.innerHTML = `${reply}<div class="msg-tools"><button class="btn-copy" onclick="copyText(this)">کپی</button></div>`;
-      } catch (err) {
-        botDiv.innerHTML = `⚠️ خطا در برقراری ارتباط با پردازشگر. لطفاً مجدداً امتحان فرمایید.`;
+        bDiv.textContent = data.choices[0].message.content;
+      } catch (e) {
+        bDiv.textContent = 'خطای اتصال. لطفا مجدد تلاش کنید.';
       }
       msgBox.scrollTop = msgBox.scrollHeight;
     }
 
     sendBtn.onclick = sendMessage;
-    userInput.onkeydown = (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
-      }
-    };
+    renderZherfAds(); // فراخوانی تابع تبلیغات
   </script>
 </body>
 </html>
