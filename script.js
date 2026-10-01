@@ -4,6 +4,12 @@ const STORAGE_KEY = "zherf_chat_history";
 let attachedFile = null;
 let currentChatId = null;
 
+// تغییر خودکار و هوشمند ارتفاع textarea
+function autoResizeTextarea(el) {
+  el.style.height = "auto";
+  el.style.height = Math.min(el.scrollHeight, 150) + "px";
+}
+
 // کنترل سایدبار سمت راست
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
@@ -69,7 +75,7 @@ async function sendMessage() {
   if (!input || (!input.value.trim() && !attachedFile)) return;
 
   const userText = input.value.trim();
-  let userDisplayHtml = userText;
+  let userDisplayHtml = userText.replace(/\n/g, "<br>");
   if (attachedFile) {
     userDisplayHtml += `<br><small style="color: #ffd166;">📎 [پیوست: ${attachedFile.name}]</small>`;
   }
@@ -78,6 +84,7 @@ async function sendMessage() {
   const fileNameToSend = attachedFile ? attachedFile.name : null;
   
   input.value = "";
+  input.style.height = "auto";
   removeSelectedFile();
   
   const loadingDiv = document.createElement("div");
@@ -109,12 +116,15 @@ async function sendMessage() {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
-// مدیریت کلید Enter
+// مدیریت کلید Enter برای ارسال و Shift+Enter برای رفتن به خط بعد
 document.addEventListener("DOMContentLoaded", () => {
   const userInput = document.getElementById("userInput");
   if (userInput) {
-    userInput.addEventListener("keypress", (e) => {
-      if (e.key === "Enter") sendMessage();
+    userInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
     });
   }
   loadHistory();
