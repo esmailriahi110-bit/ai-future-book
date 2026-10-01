@@ -1,708 +1,511 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>چت هوشمند ژرف AI | دستیار بدون تحریم و رایگان فارسی</title>
-    <meta name="description" content="گفتگو با هوش مصنوعی رایگان ژرف AI بدون فیلتر و تحریم، با پشتیبانی از متن، فایل و پاسخگویی آنی. مرجع نوآوری و فناوری اسماعیل ریاحی.">
-    <meta name="keywords" content="هوش مصنوعی رایگان, چت جی پی تی رایگان, هوش مصنوعی بدون فیلتر, ژرف AI, اسماعیل ریاحی, ربات هوش مصنوعی فارسی">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://zherfai.ir/chat.html">
-
-    <!-- Open Graph & Twitter Cards -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="چت هوشمند ژرف AI | بدون تحریم و فیلتر">
-    <meta property="og:description" content="پاسخ به سوالات علمی، آموزشی و تخصصی با هوش مصنوعی ژرف.">
-    <meta property="og:url" content="https://zherfai.ir/chat.html">
-    <meta property="og:site_name" content="ژرف AI">
-    <meta name="twitter:card" content="summary_large_image">
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <!-- Schema.org Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "ژرف AI",
-      "url": "https://zherfai.ir/chat.html",
-      "applicationCategory": "EducationalApplication",
-      "operatingSystem": "All",
-      "author": {
-        "@type": "Person",
-        "name": "اسماعیل ریاحی",
-        "url": "https://eitaa.com/Esmailriahi"
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>ژرف AI | Zherf AI</title>
+  <meta name="description" content="سامانه هوش مصنوعی رایگان ژرف، دستیار پیشرفته برای پاسخگویی، نگارش، کدنویسی، تحلیل و ایده پردازی">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  <style>
+    :root GAPGPTMASKTOKENcomnxl6kx66X0X
+      --bg-dark: #0b0f19;
+      --panel-dark: #111827;
+      --card-bg: #1f2937;
+      --neon-green: #10b981;
+      --neon-hover: #059669;
+      --neon-orange: #f97316;
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-color: #374151;
+      --user-bubble: #15803d;
+      --bot-bubble: #1f2937;
     }
-    </script>
-
-    <style>
-        :root {
-            --bg-main: #0b1120;
-            --panel-bg: #1e293b;
-            --surface-bg: #131d31;
-            --neon-green: #10b981;
-            --neon-green-glow: rgba(16, 185, 129, 0.35);
-            --neon-orange: #f97316;
-            --neon-orange-glow: rgba(249, 115, 22, 0.35);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            --user-msg-bg: #047857;
-            --ai-msg-bg: #1e293b;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: system-ui, -apple-system, "Segoe UI", Roboto, Tahoma, sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-main);
-            height: 100dvh;
-            display: flex;
-            overflow: hidden;
-            direction: rtl;
-        }
-
-        /* سایدبار سمت راست */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -320px;
-            width: 300px;
-            height: 100%;
-            background-color: var(--panel-bg);
-            border-left: 1px solid var(--border-color);
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -5px 0 25px rgba(0,0,0,0.6);
-        }
-
-        .sidebar.active {
-            right: 0;
-        }
-
-        .sidebar-header {
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .btn-new-chat {
-            flex: 1;
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 0 10px var(--neon-green-glow);
-            transition: 0.2s;
-        }
-
-        .btn-new-chat:hover {
-            opacity: 0.9;
-            transform: scale(0.98);
-        }
-
-        .btn-close-sidebar {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 20px;
-            cursor: pointer;
-            margin-right: 10px;
-            padding: 6px 10px;
-            border-radius: 6px;
-        }
-
-        .btn-close-sidebar:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.05);
-        }
-
-        .sidebar-nav-links {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .sidebar-nav-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 13px;
-            padding: 8px 12px;
-            border-radius: 6px;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .sidebar-nav-link:hover {
-            color: #fff;
-            background: rgba(255,255,255,0.04);
-        }
-
-        .sidebar-nav-link.active-link {
-            color: var(--neon-green);
-        }
-
-        .history-list {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .history-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            background: var(--surface-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .history-item:hover {
-            border-color: var(--neon-green);
-        }
-
-        .history-item.active {
-            border-color: var(--neon-green);
-            background: rgba(16, 185, 129, 0.1);
-        }
-
-        .history-title {
-            font-size: 13px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 190px;
-            color: var(--text-main);
-        }
-
-        .btn-del-single {
-            background: none;
-            border: none;
-            color: #ef4444;
-            cursor: pointer;
-            padding: 4px 6px;
-            border-radius: 4px;
-            font-size: 13px;
-            transition: 0.2s;
-        }
-
-        .btn-del-single:hover {
-            background: rgba(239, 68, 68, 0.15);
-        }
-
-        .sidebar-footer {
-            padding: 12px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .btn-clear-all {
-            width: 100%;
-            background: none;
-            border: 1px dashed #ef4444;
-            color: #ef4444;
-            padding: 9px;
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            transition: 0.2s;
-        }
-
-        .btn-clear-all:hover {
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        /* لایه تیره پشت سایدبار روی موبایل */
-        .sidebar-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(3px);
-            z-index: 9999;
-            display: none;
-        }
-
-        .sidebar-overlay.active {
-            display: block;
-        }
-
-        /* ساختار محتوای اصلی چت */
-        .main-chat {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        /* هدر اصلی شامل منو و ۴ باکس تبلیغاتی */
-        .chat-header {
-            padding: 10px 14px;
-            background: var(--surface-bg);
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .header-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .btn-menu-toggle {
-            background: #1e293b;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            padding: 8px 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 500;
-            box-shadow: 0 0 8px var(--neon-green-glow);
-        }
-
-        .chat-brand {
-            font-size: 16px;
-            font-weight: bold;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .chat-brand span {
-            color: var(--neon-green);
-        }
-
-        /* ۴ باکس تبلیغاتی با کادر نارنجی دیجیتالی نئونی */
-        .ads-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-        }
-
-        .ad-item {
-            background: rgba(15, 23, 42, 0.8);
-            border: 1.5px solid var(--neon-orange);
-            box-shadow: 0 0 10px var(--neon-orange-glow);
-            border-radius: 8px;
-            padding: 8px 4px;
-            text-align: center;
-            text-decoration: none;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-            transition: 0.2s;
-        }
-
-        .ad-item:hover {
-            transform: translateY(-2px);
-            background: rgba(249, 115, 22, 0.1);
-        }
-
-        .ad-item i {
-            color: var(--neon-orange);
-            font-size: 15px;
-        }
-
-        .ad-item span {
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            max-width: 100%;
-        }
-
-        /* بخش نمایش پیام‌ها */
-        .messages-wrapper {
-            flex: 1;
-            overflow-y: auto;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-        }
-
-        .msg-bubble {
-            max-width: 85%;
-            padding: 14px 16px;
-            border-radius: 12px;
-            line-height: 1.7;
-            font-size: 14.5px;
-            word-break: break-word;
-            position: relative;
-        }
-
-        .msg-user {
-            background-color: var(--user-msg-bg);
-            color: #fff;
-            align-self: flex-start;
-            border-bottom-right-radius: 2px;
-        }
-
-        .msg-ai {
-            background-color: var(--ai-msg-bg);
-            color: var(--text-main);
-            align-self: flex-end;
-            border-bottom-left-radius: 2px;
-            border: 1px solid var(--border-color);
-        }
-
-        .msg-tools {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 8px;
-            font-size: 12px;
-            color: var(--text-muted);
-            justify-content: flex-end;
-        }
-
-        .btn-copy-msg {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 13px;
-        }
-
-        .btn-copy-msg:hover {
-            color: var(--neon-green);
-        }
-
-        .file-attachment-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(0, 0, 0, 0.25);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            margin-bottom: 6px;
-        }
-
-        /* لودینگ پاسخ هوش مصنوعی */
-        .ai-loading-dots {
-            display: flex;
-            gap: 5px;
-            align-items: center;
-            padding: 8px 12px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--neon-green);
-            border-radius: 50%;
-            animation: bounce 1.4s infinite ease-in-out both;
-        }
-
-        .dot:nth-child(1) { animation-delay: -0.32s; }
-        .dot:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes bounce {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-
-        /* بخش ورودی پیام (۴ برابر بزرگتر و شیک) */
-        .chat-input-container {
-            padding: 16px;
-            background: var(--surface-bg);
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .file-preview-strip {
-            display: none;
-            align-items: center;
-            justify-content: space-between;
-            background: #1e293b;
-            padding: 8px 12px;
-            border-radius: 8px;
-            border: 1px dashed var(--neon-green);
-            font-size: 12px;
-        }
-
-        .file-preview-strip.active {
-            display: flex;
-        }
-
-        .btn-remove-file {
-            background: none;
-            border: none;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .input-row {
-            display: flex;
-            align-items: flex-end;
-            gap: 12px;
-        }
-
-        .input-box-wrapper {
-            flex: 1;
-            position: relative;
-            background: var(--bg-main);
-            border: 1.5px solid var(--neon-green);
-            box-shadow: 0 0 10px var(--neon-green-glow);
-            border-radius: 14px;
-            display: flex;
-            flex-direction: column;
-            padding: 10px 12px;
-        }
-
-        .chat-textarea {
-            width: 100%;
-            min-height: 120px;
-            max-height: 220px;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: #fff;
-            font-size: 15px;
-            line-height: 1.6;
-            resize: none;
-        }
-
-        .chat-textarea::placeholder {
-            color: var(--text-muted);
-        }
-
-        .input-actions-bar {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding-top: 6px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-
-        .btn-action-icon {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            cursor: pointer;
-            font-size: 17px;
-            transition: 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-action-icon:hover {
-            color: var(--neon-green);
-        }
-
-        /* دکمه ارسال دایره‌ای بزرگ با فلش رو به بالا */
-        .btn-send-circle {
-            width: 62px;
-            height: 62px;
-            border-radius: 50%;
-            background: var(--neon-green);
-            color: #000;
-            border: none;
-            font-size: 22px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            box-shadow: 0 0 15px var(--neon-green-glow);
-            transition: 0.2s;
-        }
-
-        .btn-send-circle:hover {
-            transform: scale(1.05);
-            background: #059669;
-            color: #fff;
-        }
-
-        .btn-send-circle:active {
-            transform: scale(0.95);
-        }
-
-        /* ریسپانسیو برای نمایشگرهای کوچک */
-        @media (max-width: 640px) {
-            .ads-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .chat-textarea {
-                min-height: 100px;
-            }
-            .btn-send-circle {
-                width: 52px;
-                height: 52px;
-                font-size: 18px;
-            }
-        }
-    </style>
+    * GAPGPTMASKTOKENcomnxl6kx66X1X
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Vazirmatn', Tahoma, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body GAPGPTMASKTOKENcomnxl6kx66X2X
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* هدر */
+    header GAPGPTMASKTOKENcomnxl6kx66X3X
+      background: var(--panel-dark);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    .menu-btn GAPGPTMASKTOKENcomnxl6kx66X4X
+      background: transparent;
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: 0.2s;
+    }
+    .menu-btn:hover GAPGPTMASKTOKENcomnxl6kx66X5X
+      border-color: var(--neon-green);
+      color: var(--neon-green);
+    }
+    .brand-title GAPGPTMASKTOKENcomnxl6kx66X6X
+      font-weight: 800;
+      font-size: 18px;
+      background: linear-gradient(135deg, var(--neon-green), #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-badge GAPGPTMASKTOKENcomnxl6kx66X7X
+      font-size: 11px;
+      background: rgba(16, 185, 129, 0.12);
+      color: var(--neon-green);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 8px;
+      border-radius: 6px;
+    }
+
+    /* سایدبار تاریخچه */
+    .overlay GAPGPTMASKTOKENcomnxl6kx66X8X
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 90;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .overlay.active GAPGPTMASKTOKENcomnxl6kx66X9X
+      display: block;
+      opacity: 1;
+    }
+    .sidebar GAPGPTMASKTOKENcomnxl6kx66X10X
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 290px;
+      height: 100%;
+      background: var(--panel-dark);
+      z-index: 100;
+      border-left: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .sidebar.open GAPGPTMASKTOKENcomnxl6kx66X11X
+      right: 0;
+    }
+    .sidebar-header GAPGPTMASKTOKENcomnxl6kx66X12X
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .sidebar-header h3 GAPGPTMASKTOKENcomnxl6kx66X13X
+      font-size: 15px;
+      color: var(--neon-green);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .new-chat-btn GAPGPTMASKTOKENcomnxl6kx66X14X
+      margin: 12px 14px 6px;
+      background: var(--neon-green);
+      color: #000;
+      border: none;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .new-chat-btn:hover GAPGPTMASKTOKENcomnxl6kx66X15X
+      background: var(--neon-hover);
+    }
+    .history-list GAPGPTMASKTOKENcomnxl6kx66X16X
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .history-item GAPGPTMASKTOKENcomnxl6kx66X17X
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .history-item:hover GAPGPTMASKTOKENcomnxl6kx66X18X
+      border-color: var(--neon-green);
+    }
+    .history-item.active GAPGPTMASKTOKENcomnxl6kx66X19X
+      border-color: var(--neon-green);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .history-item-text GAPGPTMASKTOKENcomnxl6kx66X20X
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 190px;
+    }
+    .history-del-btn GAPGPTMASKTOKENcomnxl6kx66X21X
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+    .history-del-btn:hover GAPGPTMASKTOKENcomnxl6kx66X22X
+      color: #ef4444;
+    }
+    .sidebar-footer GAPGPTMASKTOKENcomnxl6kx66X23X
+      padding: 14px;
+      border-top: 1px solid var(--border-color);
+    }
+    .sidebar-footer a GAPGPTMASKTOKENcomnxl6kx66X24X
+      display: block;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px;
+    }
+    .sidebar-footer a:hover GAPGPTMASKTOKENcomnxl6kx66X25X
+      color: var(--neon-green);
+    }
+
+    /* فضای گفتگو */
+    #chatArea GAPGPTMASKTOKENcomnxl6kx66X26X
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      scroll-behavior: smooth;
+    }
+
+    /* کارت‌های تبلیغاتی */
+    .ads-container GAPGPTMASKTOKENcomnxl6kx66X27X
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .ad-card GAPGPTMASKTOKENcomnxl6kx66X28X
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px 4px;
+      text-align: center;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 11px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      min-height: 52px;
+      transition: 0.2s;
+    }
+    .ad-card:hover GAPGPTMASKTOKENcomnxl6kx66X29X
+      border-color: var(--neon-green);
+      transform: translateY(-1px);
+    }
+    .ad-card.highlight GAPGPTMASKTOKENcomnxl6kx66X30X
+      border-color: var(--neon-orange);
+    }
+    .ad-card i GAPGPTMASKTOKENcomnxl6kx66X31X
+      font-size: 14px;
+      color: var(--neon-green);
+    }
+    .ad-card.highlight i GAPGPTMASKTOKENcomnxl6kx66X32X
+      color: var(--neon-orange);
+    }
+    .ad-card span GAPGPTMASKTOKENcomnxl6kx66X33X
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+    }
+
+    /* حباب پیام‌ها */
+    .msg-row GAPGPTMASKTOKENcomnxl6kx66X34X
+      display: flex;
+      gap: 10px;
+      max-width: 88%;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    .msg-row.user GAPGPTMASKTOKENcomnxl6kx66X35X
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .msg-row.assistant GAPGPTMASKTOKENcomnxl6kx66X36X
+      align-self: flex-start;
+    }
+    .msg-avatar GAPGPTMASKTOKENcomnxl6kx66X37X
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+    .msg-row.user .msg-avatar GAPGPTMASKTOKENcomnxl6kx66X38X
+      background: var(--border-color);
+      color: #fff;
+    }
+    .msg-row.assistant .msg-avatar GAPGPTMASKTOKENcomnxl6kx66X39X
+      background: var(--neon-green);
+      color: #000;
+      font-weight: bold;
+    }
+    .msg-bubble GAPGPTMASKTOKENcomnxl6kx66X40X
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-size: 14px;
+      line-height: 1.7;
+      word-break: break-word;
+      position: relative;
+    }
+    .msg-row.user .msg-bubble GAPGPTMASKTOKENcomnxl6kx66X41X
+      background: var(--user-bubble);
+      color: #ffffff;
+      border-bottom-left-radius: 2px;
+    }
+    .msg-row.assistant .msg-bubble GAPGPTMASKTOKENcomnxl6kx66X42X
+      background: var(--bot-bubble);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      border-bottom-right-radius: 2px;
+    }
+    .msg-copy-btn GAPGPTMASKTOKENcomnxl6kx66X43X
+      margin-top: 8px;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 11px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: 0.2s;
+    }
+    .msg-copy-btn:hover GAPGPTMASKTOKENcomnxl6kx66X44X
+      color: var(--neon-green);
+      border-color: var(--neon-green);
+    }
+
+    /* پیش‌نمایش فایل */
+    .file-preview-bar GAPGPTMASKTOKENcomnxl6kx66X45X
+      background: var(--panel-dark);
+      border-top: 1px solid var(--border-color);
+      padding: 8px 14px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--neon-green);
+    }
+    .file-preview-bar button GAPGPTMASKTOKENcomnxl6kx66X46X
+      background: transparent;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    /* نوار ورودی پایین */
+    .input-bar GAPGPTMASKTOKENcomnxl6kx66X47X
+      background: var(--panel-dark);
+      border-top: 1px solid var(--border-color);
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+    .input-box-wrapper GAPGPTMASKTOKENcomnxl6kx66X48X
+      flex: 1;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      display: flex;
+      align-items: flex-end;
+      padding: 4px 8px;
+      transition: border-color 0.2s;
+    }
+    .input-box-wrapper:focus-within GAPGPTMASKTOKENcomnxl6kx66X49X
+      border-color: var(--neon-green);
+    }
+    .input-box-wrapper textarea GAPGPTMASKTOKENcomnxl6kx66X50X
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: #fff;
+      font-size: 14px;
+      resize: none;
+      max-height: 120px;
+      min-height: 40px;
+      padding: 8px 4px;
+      line-height: 1.5;
+    }
+    .icon-btn GAPGPTMASKTOKENcomnxl6kx66X51X
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 17px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s;
+    }
+    .icon-btn:hover GAPGPTMASKTOKENcomnxl6kx66X52X
+      color: var(--neon-green);
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .send-btn GAPGPTMASKTOKENcomnxl6kx66X53X
+      background: var(--neon-green);
+      color: #000;
+      border: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: 0.2s;
+    }
+    .send-btn:hover GAPGPTMASKTOKENcomnxl6kx66X54X
+      background: var(--neon-hover);
+      transform: scale(1.04);
+    }
+
+    @keyframes fadeIn GAPGPTMASKTOKENcomnxl6kx66X55X
+      from GAPGPTMASKTOKENcomnxl6kx66X56X opacity: 0; transform: translateY(6px); }
+      to GAPGPTMASKTOKENcomnxl6kx66X57X opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
 <body>
 
-    <!-- لایه تاریک پشت سایدبار -->
-    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <!-- هدر -->
+  <header>
+    <button class="menu-btn" onclick="toggleSidebar()" title="منوی تاریخچه">☰</button>
+    <div class="brand-title">ژرف AI</div>
+    <div class="header-badge">هوش مصنوعی چندمنظوره</div>
+  </header>
 
-    <!-- سایدبار گفتگوها و دسترسی سریع -->
-    <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
-            <button class="btn-new-chat" onclick="startNewChat()">
-                <i class="fa fa-plus"></i> گفتگوی جدید
-            </button>
-            <button class="btn-close-sidebar" onclick="closeSidebar()">
-                <i class="fa fa-times"></i>
-            </button>
-        </div>
+  <!-- لایه محافظ و سایدبار تاریخچه -->
+  <div class="overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h3><i class="fa fa-history"></i> تاریخچه گفتگوها</h3>
+      <button class="menu-btn" onclick="toggleSidebar()" style="width: 32px; height: 32px;"><i class="fa fa-times"></i></button>
+    </div>
+    <button class="new-chat-btn" onclick="startNewChat()">+ گفتگوی تازه</button>
+    <div class="history-list" id="historyList"></div>
+    <div class="sidebar-footer">
+      <a href="contact.html"><i class="fa fa-bullhorn"></i> تماس با پشتیبانی و سفارش تبلیغات</a>
+    </div>
+  </aside>
 
-        <nav class="sidebar-nav-links">
-            <a href="index.html" class="sidebar-nav-link"><i class="fa fa-home"></i> صفحه اصلی کتاب و سایت</a>
-            <a href="articles.html" class="sidebar-nav-link"><i class="fa fa-newspaper"></i> مقالات تخصصی و دانشنامه</a>
-            <a href="contact.html" class="sidebar-nav-link"><i class="fa fa-envelope"></i> تماس با ما و ثبت تبلیغات</a>
-            <a href="donate.html" class="sidebar-nav-link"><i class="fa fa-heart"></i> حمایت مالی و توسعه سایت</a>
-        </nav>
+  <!-- فضای چت -->
+  <main id="chatArea">
+    <!-- ۴ کارت تبلیغاتی استاندارد -->
+    <div class="ads-container" id="adsContainer">
+      <a href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" class="ad-card highlight">
+        <i class="fa-solid fa-book-open"></i>
+        <span>کتاب در طاقچه</span>
+      </a>
+      <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" class="ad-card highlight">
+        <i class="fa-solid fa-server"></i>
+        <span>میهن وب‌هاست</span>
+      </a>
+      <a href="contact.html" class="ad-card">
+        <i class="fa-solid fa-bullhorn"></i>
+        <span>جایگاه تبلیغاتی</span>
+      </a>
+      <a href="contact.html" class="ad-card">
+        <i class="fa-solid fa-handshake"></i>
+        <span>اسپانسرینگ</span>
+      </a>
+    </div>
 
-        <div class="history-list" id="historyList">
-            <!-- آیتم‌های تاریخچه گفتگو توسط جاوااسکریپت افزوده می‌شوند -->
-        </div>
+    <!-- پیام آغازین -->
+    <div class="msg-row assistant">
+      <div class="msg-avatar">ژ</div>
+      <div class="msg-bubble">
+        سلام! من ژرف AI هستم؛ دستیار هوشمند و همراه شما. هر سؤالی در زمینه برنامه‌نویسی، نگارش، تحلیل متن، تکنولوژی یا ایده‌پردازی دارید بنویسید تا همراهی‌تان کنم.
+      </div>
+    </div>
+  </main>
 
-        <div class="sidebar-footer">
-            <button class="btn-clear-all" onclick="clearAllHistory()">
-                <i class="fa fa-trash-can"></i> پاکسازی کل تاریخچه
-            </button>
-        </div>
-    </aside>
+  <!-- نوار پیش‌نمایش فایل پیوست -->
+  <div class="file-preview-bar" id="filePreview">
+    <span><i class="fa fa-paperclip"></i> <span id="fileName"></span></span>
+    <button onclick="removeFile()"><i class="fa fa-times"></i> حذف</button>
+  </div>
 
-    <!-- کادر اصلی چت -->
-    <main class="main-chat">
-        <!-- هدر و تبلیغات چهارگانه -->
-        <header class="chat-header">
-            <div class="header-top">
-                <button class="btn-menu-toggle" onclick="openSidebar()">
-                    <i class="fa fa-bars"></i> تاریخچه و منو
-                </button>
-                <div class="chat-brand">
-                    <span>ژرف AI</span> | دستیار هوشمند آینده
-                </div>
-            </div>
+  <!-- نوار ورودی پایین صفحه -->
+  <footer class="input-bar">
+    <div class="input-box-wrapper">
+      <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelect(event)">
+      <button class="icon-btn" onclick="document.getElementById('fileInput').click()" title="پیوست فایل"><i class="fa fa-paperclip"></i></button>
+      
+      <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display: none;" onchange="handleFileSelect(event)">
+      <button class="icon-btn" onclick="document.getElementById('cameraInput').click()" title="عکس از دوربین"><i class="fa fa-camera"></i></button>
 
-            <!-- ۴ مستطیل تبلیغاتی با کادر نارنجی نئونی -->
-            <div class="ads-grid">
-                <!-- ۱. تبلیغ هاست میهن وب هاست با لینک پورسانت -->
-                <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" rel="noopener sponsored" class="ad-item">
-                    <i class="fa fa-server"></i>
-                    <span>هاست و سرور ابری</span>
-                </a>
+      <textarea id="userInput" rows="1" placeholder="پیام خود را بنویسید..." oninput="autoResize(this)" onkeydown="handleKeyDown(event)"></textarea>
+    </div>
+    <button class="send-btn" onclick="sendMessage()" title="ارسال پیام"><i class="fa fa-paper-plane"></i></button>
+  </footer>
 
-                <!-- ۲. تبلیغ کتاب در طاقچه -->
-                <a href="https://taaghche.com/book/296988/AI%D8%9B-%D9%86%D9%82%D8%B4%D9%87-%D8%A7%DB%8C-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%A2%DB%8C%D9%86%D8%AF%D9%87" target="_blank" rel="noopener" class="ad-item">
-                    <i class="fa fa-book-open"></i>
-                    <span>کتاب نقشه‌ای برای آینده</span>
-                </a>
-
-                <!-- ۳. محل تبلیغ شما ۱ -> هدایت به تماس با ما -->
-                <a href="contact.html" class="ad-item">
-                    <i class="fa fa-bullhorn"></i>
-                    <span>محل تبلیغ شما (رزرو)</span>
-                </a>
-
-                <!-- ۴. محل تبلیغ شما ۲ -> هدایت به تماس با ما -->
-                <a href="contact.html" class="ad-item">
-                    <i class="fa fa-rectangle-ad"></i>
-                    <span>سفارش بنر و اسپانسر</span>
-                </a>
-            </div>
-        </header>
-
-        <!-- محل نمایش پیام‌ها -->
-        <div class="messages-wrapper" id="messagesContainer">
-            <div class="msg-bubble msg-ai">
-                <p>سلام. من ژرف AI هستم؛ دستیار هوشمند و پژوهشی شما. چطور می‌توانم کمکتان کنم؟</p>
-            </div>
-        </div>
-
-        <!-- فوتر و فیلد ورودی پیام -->
-        <footer class="chat-input-container">
-            <!-- نوار پیش‌نمایش فایل انتخاب شده -->
-            <div class="file-preview-strip" id="filePreviewStrip">
-                <span><i class="fa fa-paperclip"></i> <span id="fileNameSpan">فایلی انتخاب نشده</span></span>
-                <button class="btn-remove-file" onclick="removeSelectedFile()"><i class="fa fa-times"></i></button>
-            </div>
-
-            <div class="input-row">
-                <div class="input-box-wrapper">
-                    <textarea 
-                        class="chat-textarea" 
-                        id="userInput" 
-                        placeholder="پیام یا درخواست خود را اینجا با جزئیات بنویسید...fileInput" class="btn-action-icon" title="ارسال فایل، عکس یا سند">
-                            <i class="fa<div class="input-actions-bar">
-                        <!-- دکمه الصاق فایل و اسناد -->
-                        <label for="fileInput" class="btn-action-icon" title="ارسال فایل، عکس یا سند">
-                            <i class="fa fa-paperclip"></i>
-                        </label>
-                        <input type="file" id="fileInput" style="display:none" onchange="handleFileSelect(event)">
-
-                        <!-- دکمه مستقیم دوربین در موبایل -->
-                        <label for="cameraInput" class="btn-action-icon" title="عکس فوری با دوربین">
-                            <i class="fa fa-camera"></i>
-                        </label>
-                        <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none" onchange="handleFileSelect(event)">
-                    </div>
-                </div>
-
-                <!-- دکمه ارسال دایره‌ای بزرگ با آیکون فلش رو به بالا -->
-                <button class="btn-send-circle" id="btnSend" onclick="sendMessage()" title="ارسال پیام">
-                    <i class="fa fa-arrow-up"></i>
-                </button>
-            </div>
-        </footer>
-    </main>
-
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
