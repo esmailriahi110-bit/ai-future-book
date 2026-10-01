@@ -1,4 +1,5 @@
-const WORKER_URL = "https://zherf-proxy.esmailriahi110.workers.dev";
+// آدرس موتور فعال هاگینگ‌فیس ژرف
+const HF_ENGINE_URL = "https://esmailr-helektelek-engine.hf.space";
 let currentSessionId = Date.now().toString();
 let attachedFile = null;
 
@@ -149,12 +150,6 @@ async function sendMessage() {
 
   input.value = "";
   input.style.height = "auto";
-
-  const payload = {
-    prompt: promptToSend,
-    fileName: attachedFile ? attachedFile.name : null
-  };
-
   removeFile();
 
   const loadingMsg = document.createElement("div");
@@ -165,32 +160,89 @@ async function sendMessage() {
   document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
 
   try {
-    const response = await fetch(WORKER_URL, {
+    // ۱. ارسال درخواست اولیه به موتور هاگینگ‌فیس و دریافت event_id
+    const response = await fetch(`${HF_ENGINE_URL}/call/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({
+        data: [{ text: promptToSend, files: [] }, []]
+      })
     });
 
-    const loadingElement = document.getElementById("loadingMsg");
-    if (loadingElement) loadingElement.remove();
-
     if (!response.ok) {
-      appendMessage("assistant", `خطای سرور: ${response.status}`);
+      // حالت پشتیبان برای نسخه‌های تک‌متنی Gradio
+      const fallbackResponse = await fetch(`${HF_ENGINE_URL}/call/predict`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: [promptToSend, []]
+        })
+      });
+      
+      if (!fallbackResponse.ok) {
+        throw new Error(`خطای سرور: ${response.status}`);
+      }
+      
+      const fallbackData = await fallbackResponse.json();
+      const eventId = fallbackData.event_id;
+      const streamRes = await fetch(`${HF_ENGINE_URL}/call/predict/${eventId}`);
+      const rawText = await streamRes.text();
+      
+      const lines = rawText.split('\n');
+      let finalReply = "";
+      for (const line of lines) {
+        if (line.startsWith("data:")) {
+          try {
+            const parsed = JSON.parse(line.replace("data:", "").trim());
+            if (Array.isArray(parsed) && parsed.length > 0) {
+              finalReply = parsed[0];
+            } else {
+              finalReply = parsed;
+            }
+          } catch(e) {
+            finalReply = line.replace("data:", "").trim();
+          }
+        }
+      }
+      
+      const loadingElement = document.getElementById("loadingMsg");
+      if (loadingElement) loadingElement.remove();
+      appendMessage("assistant", finalReply || "پاسخی دریافت نشد.");
       return;
     }
 
     const data = await response.json();
-    let reply = "پاسخی از سرور دریافت نشد.";
-    if (data.reply) reply = data.reply;
-    else if (data.response) reply = data.response;
-    else if (data.result) reply = data.result;
-    else if (typeof data === "string") reply = data;
+    const eventId = data.event_id;
 
-    appendMessage("assistant", reply);
+    // ۲. دریافت پاسخ پردازش‌شده
+    const streamRes = await fetch(`${HF_ENGINE_URL}/call/chat/${eventId}`);
+    const rawText = await streamRes.text();
+
+    const lines = rawText.split('\n');
+    let finalReply = "";
+    for (const line of lines) {
+      if (line.startsWith("data:")) {
+        try {
+          const parsed = JSON.parse(line.replace("data:", "").trim());
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            finalReply = parsed[0];
+          } else {
+            finalReply = parsed;
+          }
+        } catch(e) {
+          finalReply = line.replace("data:", "").trim();
+        }
+      }
+    }
+
+    const loadingElement = document.getElementById("loadingMsg");
+    if (loadingElement) loadingElement.remove();
+    appendMessage("assistant", finalReply || "پاسخ دریافت شد.");
+
   } catch (err) {
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", `خطا در اتصال: لطفاً ارتباط اینترنت یا وضعیت سرویس را بررسی فرمایید.`);
+    appendMessage("assistant", "خطا در برقراری ارتباط با موتور ژرف. لطفاً وضعیت سرویس یا اینترنت را بررسی فرمایید.");
   }
 }
 
