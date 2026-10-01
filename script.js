@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let sessions = JSON.parse(localStorage.getItem('zherf_chat_sessions')) || [];
     let currentSessionId = localStorage.getItem('zherf_current_session_id') || null;
 
-    // تنظیم خودکار ارتفاع تکست‌اریا
+    // تنظیم خودکار ارتفاع ورودی پیام
     userInput.addEventListener('input', () => {
         userInput.style.height = 'auto';
-        userInput.style.height = Math.min(userInput.scrollHeight, 140) + 'px';
+        userInput.style.height = Math.min(Math.max(userInput.scrollHeight, 52), 160) + 'px';
     });
 
-    // مدیریت سایدبار در موبایل
+    // مدیریت باز و بسته شدن سایدبار در موبایل
     if (btnOpenSidebar) {
         btnOpenSidebar.addEventListener('click', () => {
             chatSidebar.classList.add('active');
@@ -34,9 +34,9 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // مقداردهی اولیه جلسه چت
+    // مقداردهی اولیه سشن‌ها
     function initSession() {
-        if (!currentSessionId || !sessions.find(s => s.id === currentSessionId)) {
+        if (!currentSessionId || !sessions.some(s => s.id === currentSessionId)) {
             createNewSession();
         } else {
             renderHistoryList();
@@ -64,6 +64,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function deleteSession(id, event) {
+        event.stopPropagation();
+        sessions = sessions.filter(s => s.id !== id);
+        if (currentSessionId === id) {
+            currentSessionId = sessions.length > 0 ? sessions[0].id : null;
+        }
+        saveSessions();
+        if (!currentSessionId) {
+            createNewSession();
+        } else {
+            renderHistoryList();
+            loadCurrentSessionMessages();
+        }
+    }
+
     function saveSessions() {
         localStorage.setItem('zherf_chat_sessions', JSON.stringify(sessions));
         localStorage.setItem('zherf_current_session_id', currentSessionId);
@@ -74,7 +89,20 @@ document.addEventListener('DOMContentLoaded', () => {
         sessions.forEach(session => {
             const item = document.createElement('div');
             item.className = `history-item ${session.id === currentSessionId ? 'active' : ''}`;
-            item.textContent = session.title || 'گفتگوی بدون عنوان';
+            
+            const titleSpan = document.createElement('span');
+            titleSpan.className = 'history-item-title';
+            titleSpan.textContent = session.title || 'گفتگوی بدون عنوان';
+
+            const btnDelete = document.createElement('button');
+            btnDelete.className = 'btn-delete-session';
+            btnDelete.title = 'حذف این گفتگو';
+            btnDelete.innerHTML = '<i class="fa fa-trash-can"></i>';
+            btnDelete.addEventListener('click', (e) => deleteSession(session.id, e));
+
+            item.appendChild(titleSpan);
+            item.appendChild(btnDelete);
+
             item.addEventListener('click', () => {
                 currentSessionId = session.id;
                 saveSessions();
@@ -84,6 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     chatSidebar.classList.remove('active');
                 }
             });
+
             chatHistoryList.appendChild(item);
         });
     }
@@ -148,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         appendMessageUI('user', text, true);
         userInput.value = '';
-        userInput.style.height = 'auto';
+        userInput.style.height = '52px';
 
         const loadingDiv = document.createElement('div');
         loadingDiv.className = 'message assistant';
@@ -201,6 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // شروع
+    // شروع کار
     initSession();
 });
