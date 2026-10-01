@@ -2,10 +2,41 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>ژِرف AI | هوش مصنوعی آزاد و دستیار هوشمند</title>
-  <meta name="description" content="گفتگوی هوشمند با ژرف AI، دستیار رایگان هوش مصنوعی جهت پاسخ به سوالات، تحلیل و آموزش">
+  <meta name="description" content="گفتگوی هوشمند و رایگان با ژرف AI؛ دستیار ایرانی هوش مصنوعی برای پاسخ به سوالات تخصصی، کدنویسی، تحلیل و نگارش متن بدون فیلتر">
+  <meta name="keywords" content="هوش مصنوعی ژرف, چت با هوش مصنوعی, هوش مصنوعی رایگان, اسماعیل ریاحی, ژرف AI, هوش مصنوعی بدون فیلتر">
+  <meta name="author" content="اسماعیل ریاحی">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
   <link rel="canonical" href="https://zherfai.ir/chat.html">
+  
+  <!-- Open Graph / تلگرام و ایتا -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ژِرف AI | دستیار هوشمند و هوش مصنوعی آزاد">
+  <meta property="og:description" content="مرکز گفتگوی هوشمند و پردازش متنی ژِرف AI - بدون محدودیت و سریع">
+  <meta property="og:url" content="https://zherfai.ir/chat.html">
+  <meta property="og:site_name" content="ژِرف AI">
+  
+  <!-- توییتر -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ژِرف AI | هوش مصنوعی آزاد">
+  <meta name="twitter:description" content="دستیار هوشمند و رایگان برای پاسخ به سوالات شما در ژِرف AI">
+
+  <!-- اسکیما برای موتورهای جستجو -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ژِرف AI",
+    "url": "https://zherfai.ir/chat.html",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "author": {
+      "@type": "Person",
+      "name": "اسماعیل ریاحی"
+    }
+  }
+  </script>
   
   <style>
     :root {
@@ -41,7 +72,8 @@
       color: var(--text-main);
       display: flex;
       justify-content: center;
-      min-height: 100vh;
+      height: 100vh;
+      height: 100dvh;
       overflow: hidden;
     }
 
@@ -49,6 +81,7 @@
       width: 100%;
       max-width: 900px;
       height: 100vh;
+      height: 100dvh;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -68,6 +101,7 @@
       justify-content: space-between;
       align-items: center;
       z-index: 10;
+      flex-shrink: 0;
     }
 
     .header-left {
@@ -125,6 +159,7 @@
       padding: 8px 12px;
       background: rgba(8, 12, 20, 0.6);
       border-bottom: 1px solid var(--border-solid);
+      flex-shrink: 0;
     }
 
     .ad-card {
@@ -241,6 +276,7 @@
       border-radius: 8px;
       margin: 0 12px 6px 12px;
       font-size: 0.8rem;
+      flex-shrink: 0;
     }
 
     .file-preview span {
@@ -259,21 +295,22 @@
       padding: 0 4px;
     }
 
-    /* نوار ورودی پایین (کامپکت، زیبا و با عرض کامل) */
+    /* نوار ورودی پایین (حرفه‌ای، جادار و چندخطی هوشمند) */
     .input-wrapper {
       padding: 10px 12px 14px 12px;
       background: rgba(10, 15, 26, 0.98);
       border-top: 1px solid var(--border);
+      flex-shrink: 0;
     }
 
     .input-box {
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       gap: 8px;
       background: #121a2c;
       border: 1.5px solid var(--border);
-      border-radius: 12px;
-      padding: 4px 8px;
+      border-radius: 14px;
+      padding: 6px 10px;
       width: 100%;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
       transition: border-color 0.2s;
@@ -295,12 +332,14 @@
       align-items: center;
       justify-content: center;
       transition: color 0.2s;
+      height: 40px;
     }
 
     .attach-btn:hover {
       color: var(--accent-orange);
     }
 
+    /* فضای نوشتاری مشابه دستیارهای هوش مصنوعی مدرن */
     #userInput {
       flex: 1;
       background: transparent;
@@ -310,6 +349,11 @@
       font-size: 0.98rem;
       padding: 8px 4px;
       min-width: 0;
+      resize: none;
+      min-height: 28px;
+      max-height: 150px;
+      line-height: 1.55;
+      overflow-y: auto;
     }
 
     #userInput::placeholder {
@@ -322,23 +366,27 @@
       font-weight: bold;
       border: none;
       padding: 8px 18px;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 0.92rem;
       box-shadow: 0 2px 8px rgba(255, 81, 0, 0.4);
       transition: transform 0.15s ease;
       white-space: nowrap;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .btn-send:active {
       transform: scale(0.96);
     }
 
-    /* سایدبار کاملاً در سمت راست (Right-aligned) */
+    /* سایدبار در سمت راست */
     .sidebar {
       position: absolute;
       top: 0;
-      right: -100%; /* در حالت پیش‌فرض خارج از صفحه راست */
+      right: -100%;
       left: auto;
       width: 80%;
       max-width: 320px;
@@ -354,7 +402,7 @@
     }
 
     .sidebar.active {
-      right: 0; /* باز شدن به سمت راست */
+      right: 0;
     }
 
     .sidebar-overlay {
@@ -522,15 +570,15 @@
       </div>
     </header>
 
-    <!-- ۴ کارت تبلیغات بالای چت با لینک‌های استاندارد و معتبر -->
+    <!-- ۴ کارت تبلیغات بالای چت -->
     <section class="top-ads-grid">
       <a href="https://taaghche.com/book/296988" target="_blank" class="ad-card ad-book">
         <span class="ad-title">📚 کتاب اختصاصی AI</span>
-        <span class="ad-desc">مطالعه در طاقچه</span>
+        <span class="ad-desc">مطالعه نسخه کامل در طاقچه</span>
       </a>
-      <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" class="ad-card ad-host">
-        <span class="ad-title">🚀 هاست و سرور ابری</span>
-        <span class="ad-desc">تخفیف ویژه میهن‌وب‌هاست</span>
+      <a href="contact.html" class="ad-card ad-host">
+        <span class="ad-title">🚀 هاست و زیرساخت ابری</span>
+        <span class="ad-desc">سفارش و مشاوره فنی وب</span>
       </a>
       <a href="contact.html" class="ad-card ad-sponsor">
         <span class="ad-title">💼 اسپانسری و همکاری</span>
@@ -538,7 +586,7 @@
       </a>
       <a href="contact.html" class="ad-card ad-vip">
         <span class="ad-title">📢 جایگاه تبلیغات شما</span>
-        <span class="ad-desc">رزرو تبلیغات و بنر</span>
+        <span class="ad-desc">رزرو تبلیغات و معرفی خدمات</span>
       </a>
     </section>
 
@@ -561,7 +609,7 @@
       <div class="input-box">
         <input type="file" id="fileInput" style="display: none;" onchange="handleFileSelected(event)">
         <button class="attach-btn" title="افزودن فایل یا عکس" onclick="document.getElementById('fileInput').click()">+</button>
-        <input type="text" id="userInput" placeholder="پیام خود را بنویسید..." autocomplete="off">
+        <textarea id="userInput" placeholder="پیام خود را بنویسید..." rows="1" oninput="autoResizeTextarea(this)"></textarea>
         <button class="btn-send" id="sendBtn" onclick="sendMessage()">ارسال</button>
       </div>
     </footer>
