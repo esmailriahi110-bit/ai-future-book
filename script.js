@@ -144,7 +144,7 @@ async function sendMessage() {
   const text = input.value.trim();
   if (!text && !attachedFile) return;
 
-  const promptToSend = text || (attachedFile ? `[فایل پیوست: ${attachedFile.name}]` : "");
+  const promptToSend = text || (attachedFile ? `[فایل: ${attachedFile.name}]` : "");
   appendMessage("user", promptToSend);
   saveHistory(promptToSend);
 
@@ -160,12 +160,8 @@ async function sendMessage() {
   document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
 
   try {
-    // مسیر سازگار با گرادیو نسخه ۶ موتور هاگینگ‌فیس
-    let eventId = null;
-    let endpointPrefix = "/gradio_api/call";
-
-    // تلاش اول: فرمت استریم نسخه ۶
-    let response = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
+    // گام اول: ثبت درخواست در اندپوینت رسمی سرور شما
+    const postResponse = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -173,67 +169,57 @@ async function sendMessage() {
       })
     });
 
-    // پشتیبانی چندمسیره در صورت نیاز
-    if (!response.ok) {
-      endpointPrefix = "/gradio_api/call";
-      response = await fetch(`${HF_ENGINE_URL}/gradio_api/call/chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data: [{ text: promptToSend, files: [] }]
-        })
-      });
+    if (!postResponse.ok) {
+      throw new Error(`خطای سرور: ${postResponse.status}`);
     }
 
-    if (!response.ok) {
-      endpointPrefix = "/call";
-      response = await fetch(`${HF_ENGINE_URL}/call/zherf_chat`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data: [{ text: promptToSend, files: [] }]
-        })
-      });
-    }
+    const { event_id } = await postResponse.json();
 
-    if (!response.ok) {
-      throw new Error(`خطای سرور: ${response.status}`);
-    }
+    // گام دوم: خواندن پاسخ استریم از شناسه اختصاصی رویداد
+    const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${event_id}`);
+    const rawData = await streamRes.text();
 
-    const data = await response.json();
-    eventId = data.event_id;
-
-    // دریافت داده‌های استریم
-    const streamRes = await fetch(`${HF_ENGINE_URL}${endpointPrefix}/${response.url.split('/').pop()}/${eventId}`);
-    const rawText = await streamRes.text();
-
-    const lines = rawText.split('\n');
     let finalReply = "";
+    const lines = rawData.split("\n");
+
     for (const line of lines) {
       if (line.startsWith("data:")) {
+        const payload = line.replace("data:", "").trim();
         try {
-          const parsed = JSON.parse(line.replace("data:", "").trim());
+          const parsed = JSON.parse(payload);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            finalReply = parsed[0];
+            finalReply = typeof parsed[0] === "string" ? parsed[0] : JSON.stringify(parsed[0]);
           } else if (typeof parsed === "string") {
             finalReply = parsed;
+          } else if (parsed && typeof parsed === "object") {
+            finalReply = parsed.text || JSON.stringify(parsed);
           }
-        } catch(e) {
-          // دریافت محتوای خام
-          const content = line.replace("data:", "").trim();
-          if (content && content !== "null") finalReply = content;
+        } catch (e) {
+          if (payload && payload !== "null") {
+            finalReply = payload;
+          }
         }
       }
     }
 
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", finalReply || "پاسخ دریافت شد.");
+
+    if (finalReply) {
+      // حذف دابل‌کوت‌ها یا فرمت‌های احتمالی JSON از دور متن
+      if (finalReply.startsWith('"') && finalReply.endsWith('"')) {
+        try { finalReply = JSON.parse(finalReply); } catch(_) {}
+      }
+      appendMessage("assistant", finalReply);
+    } else {
+      appendMessage("assistant", "پاسخی از سمت سرور بازگردانده نشد. لطفاً مجدد امتحان کنید.");
+    }
 
   } catch (err) {
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", "خطا در برقراری ارتباط با موتور ژرف. لطفاً وضعیت سرویس یا اینترنت را بررسی فرمایید.");
+    appendMessage("assistant", "خطا در اتصال به موتور ژرف. اتصال به اینترنت یا سرور را بررسی فرمایید.");
+    console.error("Zherf Engine Error:", err);
   }
 }
 
