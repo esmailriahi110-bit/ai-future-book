@@ -5,8 +5,8 @@ let attachedFile = null;
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
-  sidebar.classList.toggle("open");
-  overlay.classList.toggle("active");
+  if (sidebar) sidebar.classList.toggle("open");
+  if (overlay) overlay.classList.toggle("active");
 }
 
 function autoResize(textarea) {
@@ -27,15 +27,19 @@ function handleFileSelect(event) {
     attachedFile = file;
     const preview = document.getElementById("filePreview");
     const nameSpan = document.getElementById("fileName");
-    nameSpan.innerHTML = `<i class="fa-solid fa-paperclip"></i> ${escapeHtml(file.name)}`;
-    preview.style.display = "flex";
+    if (preview && nameSpan) {
+      nameSpan.innerHTML = `<i class="fa-solid fa-paperclip"></i> ${escapeHtml(file.name)}`;
+      preview.style.display = "flex";
+    }
   }
 }
 
 function removeFile() {
   attachedFile = null;
-  document.getElementById("fileInput").value = "";
-  document.getElementById("filePreview").style.display = "none";
+  const fileInput = document.getElementById("fileInput");
+  const filePreview = document.getElementById("filePreview");
+  if (fileInput) fileInput.value = "";
+  if (filePreview) filePreview.style.display = "none";
 }
 
 function escapeHtml(text) {
@@ -46,6 +50,8 @@ function escapeHtml(text) {
 
 function appendMessage(role, text) {
   const chatArea = document.getElementById("chatArea");
+  if (!chatArea) return;
+  
   const msgDiv = document.createElement("div");
   msgDiv.className = `message ${role}`;
 
@@ -74,6 +80,7 @@ function saveHistory(firstMessageText) {
 
 function renderHistoryList() {
   const container = document.getElementById("historyList");
+  if (!container) return;
   const history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
   container.innerHTML = "";
 
@@ -104,32 +111,16 @@ function deleteHistoryItem(event, id) {
 function startNewChat() {
   currentSessionId = Date.now().toString();
   const chatArea = document.getElementById("chatArea");
-  chatArea.innerHTML = `
-    <div class="promo-grid">
-      <a href="https://taaghche.com/book/296988" target="_blank" rel="noopener" class="promo-card highlight">
-        <div class="promo-title"><i class="fa-solid fa-book" style="color:var(--neon-green)"></i> کتاب نقشه ای برای آینده</div>
-        <div class="promo-desc">بررسی تحولات هوش مصنوعی اثر اسماعیل ریاحی در طاقچه</div>
-      </a>
-      <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" rel="noopener" class="promo-card highlight">
-        <div class="promo-title"><i class="fa-solid fa-server" style="color:var(--accent-blue)"></i> هاست و سرور پرسرعت</div>
-        <div class="promo-desc">خرید هاست قدرتمند و مطمئن میهن‌وب‌هاست</div>
-      </a>
-      <a href="contact.html" class="promo-card">
-        <div class="promo-title"><i class="fa-solid fa-rectangle-ad"></i> محل تبلیغ شما</div>
-        <div class="promo-desc">رزرو جایگاه بنر و معرفی خدمات شما در این بخش</div>
-      </a>
-      <a href="contact.html" class="promo-card">
-        <div class="promo-title"><i class="fa-solid fa-handshake"></i> اسپانسری و همکاری</div>
-        <div class="promo-desc">جهت ارتباط مستقیم و رزرو تبلیغات کلیک کنید</div>
-      </a>
-    </div>
-    <div class="message assistant">
-      <div class="bubble">سلام</div>
-    </div>
-  `;
+  if (chatArea) {
+    chatArea.innerHTML = `
+      <div class="message assistant">
+        <div class="bubble">سلام</div>
+      </div>
+    `;
+  }
   removeFile();
   const sidebar = document.getElementById("sidebar");
-  if (sidebar.classList.contains("open")) {
+  if (sidebar && sidebar.classList.contains("open")) {
     toggleSidebar();
   }
 }
@@ -137,11 +128,13 @@ function startNewChat() {
 function loadChat(id) {
   currentSessionId = id;
   const chatArea = document.getElementById("chatArea");
-  chatArea.innerHTML = `
-    <div class="message assistant">
-      <div class="bubble">گفتگوی قبلی بارگذاری شد. می‌توانید ادامه دهید.</div>
-    </div>
-  `;
+  if (chatArea) {
+    chatArea.innerHTML = `
+      <div class="message assistant">
+        <div class="bubble">گفتگوی قبلی بازیابی شد. بفرمایید، در خدمتم.</div>
+      </div>
+    `;
+  }
   toggleSidebar();
 }
 
@@ -197,7 +190,7 @@ async function sendMessage() {
   } catch (err) {
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", `خطا در برقراری ارتباط: ${err.message}. لطفاً اتصال اینترنت خود را بررسی کنید.`);
+    appendMessage("assistant", `خطا در اتصال: لطفاً ارتباط اینترنت یا وضعیت سرویس را بررسی فرمایید.`);
   }
 }
 
