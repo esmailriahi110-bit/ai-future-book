@@ -160,62 +160,51 @@ async function sendMessage() {
   document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
 
   try {
-    // ۱. ارسال درخواست اولیه به موتور هاگینگ‌فیس و دریافت event_id
-    const response = await fetch(`${HF_ENGINE_URL}/call/chat`, {
+    // مسیر سازگار با گرادیو نسخه ۶ موتور هاگینگ‌فیس
+    let eventId = null;
+    let endpointPrefix = "/gradio_api/call";
+
+    // تلاش اول: فرمت استریم نسخه ۶
+    let response = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        data: [{ text: promptToSend, files: [] }, []]
+        data: [{ text: promptToSend, files: [] }]
       })
     });
 
+    // پشتیبانی چندمسیره در صورت نیاز
     if (!response.ok) {
-      // حالت پشتیبان برای نسخه‌های تک‌متنی Gradio
-      const fallbackResponse = await fetch(`${HF_ENGINE_URL}/call/predict`, {
+      endpointPrefix = "/gradio_api/call";
+      response = await fetch(`${HF_ENGINE_URL}/gradio_api/call/chat`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          data: [promptToSend, []]
+          data: [{ text: promptToSend, files: [] }]
         })
       });
-      
-      if (!fallbackResponse.ok) {
-        throw new Error(`خطای سرور: ${response.status}`);
-      }
-      
-      const fallbackData = await fallbackResponse.json();
-      const eventId = fallbackData.event_id;
-      const streamRes = await fetch(`${HF_ENGINE_URL}/call/predict/${eventId}`);
-      const rawText = await streamRes.text();
-      
-      const lines = rawText.split('\n');
-      let finalReply = "";
-      for (const line of lines) {
-        if (line.startsWith("data:")) {
-          try {
-            const parsed = JSON.parse(line.replace("data:", "").trim());
-            if (Array.isArray(parsed) && parsed.length > 0) {
-              finalReply = parsed[0];
-            } else {
-              finalReply = parsed;
-            }
-          } catch(e) {
-            finalReply = line.replace("data:", "").trim();
-          }
-        }
-      }
-      
-      const loadingElement = document.getElementById("loadingMsg");
-      if (loadingElement) loadingElement.remove();
-      appendMessage("assistant", finalReply || "پاسخی دریافت نشد.");
-      return;
+    }
+
+    if (!response.ok) {
+      endpointPrefix = "/call";
+      response = await fetch(`${HF_ENGINE_URL}/call/zherf_chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: [{ text: promptToSend, files: [] }]
+        })
+      });
+    }
+
+    if (!response.ok) {
+      throw new Error(`خطای سرور: ${response.status}`);
     }
 
     const data = await response.json();
-    const eventId = data.event_id;
+    eventId = data.event_id;
 
-    // ۲. دریافت پاسخ پردازش‌شده
-    const streamRes = await fetch(`${HF_ENGINE_URL}/call/chat/${eventId}`);
+    // دریافت داده‌های استریم
+    const streamRes = await fetch(`${HF_ENGINE_URL}${endpointPrefix}/${response.url.split('/').pop()}/${eventId}`);
     const rawText = await streamRes.text();
 
     const lines = rawText.split('\n');
@@ -226,11 +215,13 @@ async function sendMessage() {
           const parsed = JSON.parse(line.replace("data:", "").trim());
           if (Array.isArray(parsed) && parsed.length > 0) {
             finalReply = parsed[0];
-          } else {
+          } else if (typeof parsed === "string") {
             finalReply = parsed;
           }
         } catch(e) {
-          finalReply = line.replace("data:", "").trim();
+          // دریافت محتوای خام
+          const content = line.replace("data:", "").trim();
+          if (content && content !== "null") finalReply = content;
         }
       }
     }
