@@ -1,213 +1,244 @@
 const WORKER_URL = "https://zherf-proxy.esmailriahi110.workers.dev";
-const sidebar = document.getElementById('sidebar');
-const overlay = document.getElementById('overlay');
-const chatArea = document.getElementById('chatArea');
-const promptInput = document.getElementById('promptInput');
-const historyList = document.getElementById('historyList');
-const mediaInput = document.getElementById('mediaInput');
-const filePreview = document.getElementById('filePreview');
-const fileNameSpan = document.getElementById('fileNameSpan');
-
 let currentSessionId = Date.now().toString();
 let attachedFile = null;
 
-// کنترل باز و بسته شدن سایدبار
 function toggleSidebar() {
-  sidebar.classList.toggle('open');
-  overlay.classList.toggle('active');
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebarOverlay");
+  sidebar.classList.toggle("open");
+  overlay.classList.toggle("active");
 }
 
-// تنظیم خودکار ارتفاع کادر متن
 function autoResize(textarea) {
-  textarea.style.height = 'auto';
-  textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+  textarea.style.height = "auto";
+  textarea.style.height = Math.min(textarea.scrollHeight, 120) + "px";
 }
 
-// تشخیص کلید اینتر برای ارسال
-function checkEnter(event) {
-  if (event.key === 'Enter' && !event.shiftKey) {
+function handleKeyDown(event) {
+  if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
     sendMessage();
   }
 }
 
-// انتخاب فایل توسط دکمه +
-function handleFileSelected(e) {
-  const file = e.target.files[0];
+function handleFileSelect(event) {
+  const file = event.target.files[0];
   if (!file) return;
   attachedFile = file;
-  fileNameSpan.textContent = `📎 ${file.name}`;
-  filePreview.style.display = 'flex';
+  document.getElementById("fileName").textContent = file.name;
+  document.getElementById("filePreview").style.display = "flex";
 }
 
-// حذف فایل پیوست شده
-function removeSelectedFile() {
+function removeFile() {
   attachedFile = null;
-  mediaInput.value = '';
-  filePreview.style.display = 'none';
+  document.getElementById("fileInput").value = "";
+  document.getElementById("filePreview").style.display = "none";
 }
 
-// جلوگیری از باگ کاراکترهای خطرناک
 function escapeHtml(text) {
-  const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
-  return text.replace(/[&<>"']/g, m => map[m]);
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
 }
 
-// اضافه کردن پیام جدید به صفحه
-function appendMessage(text, role, metaText) {
-  const msg = document.createElement('div');
-  msg.className = 'message ' + (role === 'user' ? 'user' : 'bot');
-  
-  const bubble = document.createElement('div');
-  bubble.className = 'bubble';
-  bubble.innerHTML = escapeHtml(text).replace(/\n/g, '<br/>');
-  msg.appendChild(bubble);
+function appendMessage(role, text) {
+  const chatArea = document.getElementById("chatArea");
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `message ${role}`;
 
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  meta.textContent = metaText || '';
-  msg.appendChild(meta);
+  const headerDiv = document.createElement("div");
+  headerDiv.className = "message-header";
+  headerDiv.innerHTML = `<span>${role === "user" ? "شما" : "ژرف AI"}</span>`;
 
-  const id = 'msg_' + Math.random().toString(36).substring(2, 9);
-  msg.id = id;
-  
-  chatArea.appendChild(msg);
+  const copyBtn = document.createElement("button");
+  copyBtn.className = "copy-btn";
+  copyBtn.textContent = "کپی";
+  copyBtn.onclick = () => {
+    navigator.clipboard.writeText(text);
+    copyBtn.textContent = "کپی شد!";
+    setTimeout(() => (copyBtn.textContent = "کپی"), 2000);
+  };
+  headerDiv.appendChild(copyBtn);
+
+  const contentDiv = document.createElement("div");
+  contentDiv.className = "message-content";
+  contentDiv.innerHTML = escapeHtml(text).replace(/\n/g, "<br>");
+
+  msgDiv.appendChild(headerDiv);
+  msgDiv.appendChild(contentDiv);
+  chatArea.appendChild(msgDiv);
   chatArea.scrollTop = chatArea.scrollHeight;
-  return id;
+
+  return msgDiv;
 }
 
-// ویرایش پیام (مثلاً تبدیل پیام در حال پردازش به جواب نهایی)
-function updateMessage(id, text, metaText, isError = false) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  const bubble = el.querySelector('.bubble');
-  const meta = el.querySelector('.meta');
-  bubble.innerHTML = escapeHtml(text).replace(/\n/g, '<br/>');
-  meta.textContent = metaText || '';
-  meta.className = 'meta ' + (isError ? 'err' : '');
-  chatArea.scrollTop = chatArea.scrollHeight;
+function saveHistory(firstMessageText) {
+  const history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+  const existingIndex = history.findIndex((h) => h.id === currentSessionId);
+  const title = firstMessageText.substring(0, 28) + (firstMessageText.length > 28 ? "..." : "");
+
+  const chatArea = document.getElementById("chatArea");
+  const chatHtml = chatArea.innerHTML;
+
+  if (existingIndex > -1) {
+    history[existingIndex].html = chatHtml;
+  } else {
+    history.unshift({
+      id: currentSessionId,
+      title: title,
+      date: new Date().toLocaleDateString("fa-IR"),
+      html: chatHtml
+    });
+  }
+
+  localStorage.setItem("zherf_chat_history", JSON.stringify(history.slice(0, 30)));
+  renderHistoryList();
 }
 
-// نمایش لیست گفتگوهای پیشین
-function renderHistory() {
-  let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
-  historyList.innerHTML = '';
-  chats.forEach(chat => {
-    const item = document.createElement('div');
-    item.className = 'history-item';
-    item.innerHTML = `
-      <span class="history-title" onclick="loadChat('${chat.id}')">💬 ${escapeHtml(chat.title)}</span>
-      <button class="delete-chat-btn" onclick="deleteChat('${chat.id}', event)">✕</button>
+function renderHistoryList() {
+  const historyList = document.getElementById("historyList");
+  if (!historyList) return;
+  const history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+
+  historyList.innerHTML = "";
+  if (history.length === 0) {
+    historyList.innerHTML = '<li class="empty-history">گفتگویی یافت نشد.</li>';
+    return;
+  }
+
+  history.forEach((item) => {
+    const li = document.createElement("li");
+    li.className = "history-item" + (item.id === currentSessionId ? " active" : "");
+    li.innerHTML = `
+      <span class="history-title" onclick="loadChat('${item.id}')">${escapeHtml(item.title)}</span>
+      <button class="delete-history-btn" onclick="deleteHistoryItem(event, '${item.id}')" title="حذف">×</button>
     `;
-    historyList.appendChild(item);
+    historyList.appendChild(li);
   });
 }
 
-// ذخیره چت در حافظه گوشی
-function saveChatToStorage(userPrompt) {
-  let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
-  let currentChat = chats.find(c => c.id === currentSessionId);
-  if (!currentChat) {
-    currentChat = {
-      id: currentSessionId,
-      title: userPrompt.substring(0, 24) + (userPrompt.length > 24 ? '...' : ''),
-      messages: []
-    };
-    chats.unshift(currentChat);
-    localStorage.setItem('zherf_chats', JSON.stringify(chats));
-    renderHistory();
-  }
-}
+function deleteHistoryItem(event, id) {
+  event.stopPropagation();
+  let history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+  history = history.filter((h) => h.id !== id);
+  localStorage.setItem("zherf_chat_history", JSON.stringify(history));
 
-// حذف چت از تاریخچه
-function deleteChat(id, e) {
-  e.stopPropagation();
-  let chats = JSON.parse(localStorage.getItem('zherf_chats') || '[]');
-  chats = chats.filter(c => c.id !== id);
-  localStorage.setItem('zherf_chats', JSON.stringify(chats));
-  renderHistory();
   if (id === currentSessionId) {
     startNewChat();
+  } else {
+    renderHistoryList();
   }
 }
 
-// شروع گفتگوی نو
 function startNewChat() {
   currentSessionId = Date.now().toString();
+  removeFile();
+  const chatArea = document.getElementById("chatArea");
   chatArea.innerHTML = `
-    <div class="promo-grid">
-      <a href="https://zherfai.ir/book" class="promo-card">
-        <strong>📚 کتاب اختصاصی ژرف</strong>
-        راهنمای جامع هوش مصنوعی و زندگی آینده
-      </a>
-      <a href="https://mihanwebhost.com" target="_blank" class="promo-card">
-        <strong>🚀 هاست و سرور ابری</strong>
-        با تخفیف ویژه کاربران ژرف AI
-      </a>
-      <a href="contact.html" class="promo-card">
-        <strong>📢 جایگاه تبلیغاتی شما</strong>
-        نمایش برند شما به هزاران کاربر فعال
-      </a>
-      <a href="contact.html" class="promo-card">
-        <strong>💼 اسپانسری و همکاری</strong>
-        رزرو جایگاه بنر و همکاری تجاری
-      </a>
+    <div class="message assistant">
+      <div class="message-header"><span>ژرف AI</span></div>
+      <div class="message-content">سلام! چطور می‌تونم کمکتون کنم؟</div>
     </div>
-    <div class="message bot">
-      <div class="bubble">گفتگوی جدید آغاز شد. در چه زمینه‌ای می‌توانم کمکتان کنم؟</div>
-      <div class="meta">ژرف AI آماده پاسخ‌گویی است</div>
+    <div class="promo-grid">
+      <a href="https://taaghche.com/book/296988" target="_blank" rel="noopener" class="promo-card">
+        <span class="promo-badge">کتاب رسمی</span>
+        <span class="promo-title">کتاب AI؛ نقشه‌ای برای آینده</span>
+        <span class="promo-desc">مطالعه نسخه رسمی در اپلیکیشن طاقچه</span>
+      </a>
+      <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" rel="noopener" class="promo-card">
+        <span class="promo-badge">پیشنهاد ویژه</span>
+        <span class="promo-title">هاست و سرور ابری میهن‌وب‌هاست</span>
+        <span class="promo-desc">راه‌اندازی سایت و سرور هوش مصنوعی</span>
+      </a>
+      <a href="contact.html" class="promo-card reserved">
+        <span class="promo-badge">تبلیغات شما</span>
+        <span class="promo-title">محل تبلیغ و معرفی کسب‌وکار</span>
+        <span class="promo-desc">کلیک برای رزرو و سفارش جایگاه</span>
+      </a>
+      <a href="contact.html" class="promo-card reserved">
+        <span class="promo-badge">اسپانسرینگ</span>
+        <span class="promo-title">محل تبلیغ و معرفی محصول</span>
+        <span class="promo-desc">کلیک برای همکاری و رزرو تبلیغ</span>
+      </a>
     </div>
   `;
-  if (sidebar.classList.contains('open')) {
-    toggleSidebar();
+  renderHistoryList();
+  const sidebar = document.getElementById("sidebar");
+  if (sidebar.classList.contains("open")) toggleSidebar();
+}
+
+function loadChat(id) {
+  const history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+  const target = history.find((h) => h.id === id);
+  if (target && target.html) {
+    currentSessionId = target.id;
+    document.getElementById("chatArea").innerHTML = target.html;
+    renderHistoryList();
+    if (window.innerWidth <= 768) toggleSidebar();
   }
 }
 
-// بارگذاری یک چت از حافظه
-function loadChat(id) {
-  alert('این گفتگو قبلاً ثبت شده است. به زودی مرور پیام‌های گذشته فعال می‌شود.');
-  toggleSidebar();
-}
-
-// تابع اصلی ارسال پیام به ورکر کلودفلر
 async function sendMessage() {
-  const text = promptInput.value.trim();
+  const input = document.getElementById("userInput");
+  const text = input.value.trim();
   if (!text && !attachedFile) return;
 
-  let sendText = text;
+  const isFirstMessage = document.querySelectorAll(".message.user").length === 0;
+
+  let displayMsg = text;
   if (attachedFile) {
-    sendText += `\n[فایل پیوست: ${attachedFile.name}]`;
+    displayMsg += `\n📎 [پیوست: ${attachedFile.name}]`;
   }
 
-  appendMessage(sendText, 'user', 'ارسال شد');
-  saveChatToStorage(text || attachedFile.name);
-  
-  promptInput.value = '';
-  promptInput.style.height = 'auto';
-  removeSelectedFile();
+  appendMessage("user", displayMsg);
+  input.value = "";
+  input.style.height = "auto";
 
-  const botMsgId = appendMessage('در حال پردازش و استخراج پاسخ...', 'bot', 'ژرف AI');
+  const promoGrid = document.querySelector(".promo-grid");
+  if (promoGrid) promoGrid.remove();
+
+  const loadingMsg = appendMessage("assistant", "در حال پردازش و پاسخ...");
 
   try {
+    const payload = {
+      prompt: text,
+      fileName: attachedFile ? attachedFile.name : null
+    };
+
+    removeFile();
+
     const response = await fetch(WORKER_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ prompt: text })
+      body: JSON.stringify(payload)
     });
 
-    if (!response.ok) {
-      throw new Error(`خطای سرور: ${response.status}`);
-    }
+    if (!response.ok) throw new Error(`خطای سرور: ${response.status}`);
 
     const data = await response.json();
-    const replyText = data.reply || 'پاسخی از سرور دریافت نشد.';
-    updateMessage(botMsgId, replyText, 'ژرف AI - تکمیل شد');
+    let replyText = "";
+
+    if (data.reply) {
+      replyText = data.reply;
+    } else if (data.choices && data.choices[0] && data.choices[0].message) {
+      replyText = data.choices[0].message.content;
+    } else if (data.result) {
+      replyText = data.result;
+    } else {
+      replyText = "پاسخی از سرور دریافت نشد.";
+    }
+
+    loadingMsg.querySelector(".message-content").innerHTML = escapeHtml(replyText).replace(/\n/g, "<br>");
+    loadingMsg.querySelector(".copy-btn").onclick = () => {
+      navigator.clipboard.writeText(replyText);
+    };
+
+    saveHistory(text || "گفتگوی فایل");
   } catch (err) {
-    updateMessage(botMsgId, 'متأسفانه در اتصال به ورکر خطایی رخ داد. لطفاً چند لحظه بعد دوباره تلاش کنید.', 'عدم پاسخ‌گویی', true);
+    loadingMsg.querySelector(".message-content").innerHTML = `<span style="color: #ff6b6b;">خطا در برقراری ارتباط: ${err.message}. لطفاً اتصال را بررسی کنید.</span>`;
   }
 }
 
-// اجرای اولیه هنگام لود صفحه
-window.addEventListener('DOMContentLoaded', () => {
-  renderHistory();
+document.addEventListener("DOMContentLoaded", () => {
+  renderHistoryList();
 });
