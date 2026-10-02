@@ -61,26 +61,7 @@
       {
         "@type": "ItemList",
         "@id": "https://zherfai.ir/articles.html#list",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "url": "https://zherfai.ir/articles/ai-hosting-server-guide.html",
-            "name": "راهنمای جامع راه‌اندازی هاست و سرور برای هوش مصنوعی"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "url": "https://zherfai.ir/articles/ai-jobs.html",
-            "name": "تحول مشاغل در عصر هوش مصنوعی"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "url": "https://zherfai.ir/articles/ai-wildlife-nature.html",
-            "name": "کاربرد هوش مصنوعی در حفاظت از حیات‌وحش و طبیعت"
-          }
-        ]
+        "itemListElement": []
       },
       {
         "@type": "BreadcrumbList",
@@ -348,7 +329,7 @@
 
       <div class="controls">
         <input type="text" id="search-input" class="search-input" placeholder="جستجو در عنوان یا موضوع مقاله..." oninput="renderArticles()" />
-        <span class="badge" id="article-count">تعداد مقالات: ۳</span>
+        <span class="badge" id="article-count">تعداد مقالات: ۰</span>
       </div>
     </section>
 
@@ -380,10 +361,12 @@
 
   <script>
     // ===== ARTICLES DATABASE (Easily add new articles here) =====
+    // نکته: برای هر مقاله، می‌توانی keywords هم اضافه کنی تا جستجو قوی‌تر شود.
     const ARTICLES = [
       {
         url: "articles/ai-hosting-server-guide.html",
         date: "2026-10-02",
+        keywords: ["هاست", "سرور", "AI", "hosting", "server", "infra", "زیرساخت", "کلود", "cloud"],
         fa: {
           tag: "هاست و سرور",
           title: "راهنمای جامع راه‌اندازی هاست و سرور برای پروژه‌های هوش مصنوعی",
@@ -401,8 +384,29 @@
         }
       },
       {
+        url: "articles/ultimate-keyboard-shortcuts-guide.html",
+        date: "2026-10-02",
+        keywords: ["کیبورد", "میانبر", "shortcut", "Windows", "ویندوز", "ترفند", "کلید", "hotkeys"],
+        fa: {
+          tag: "ترفندهای ویندوز",
+          title: "راهنمای جامع ۲۰۰+ میانبر جادویی کیبورد کامپیوتر و لپ‌تاپ",
+          desc: "مرجع کامل میانبرهای صفحه کلید برای تسریع کارها، ویرایش متن، مرورگر و ترفندهای مخفی ویندوز."
+        },
+        en: {
+          tag: "Windows Tips",
+          title: "Ultimate Guide to 200+ Keyboard Shortcuts for PC & Laptop",
+          desc: "Complete reference for Windows keyboard shortcuts to boost productivity and speed up daily tasks."
+        },
+        ar: {
+          tag: "حيل ويندوز",
+          title: "الدليل الشامل لأكثر من 200 اختصار سحري للوحة المفاتيح",
+          desc: "مرجع كامل لاختصارات لوحة المفاتيح لزيادة الإنتاجية وتسريع المهام اليومية."
+        }
+      },
+      {
         url: "articles/ai-jobs.html",
         date: "2026-10-01",
+        keywords: ["مشاغل", "کار", "jobs", "automation", "آینده", "بازار کار", "AI"],
         fa: {
           tag: "آینده مشاغل",
           title: "تحول مشاغل در عصر هوش مصنوعی؛ فرصت‌ها و سناریوهای پیش‌رو",
@@ -422,6 +426,7 @@
       {
         url: "articles/ai-wildlife-nature.html",
         date: "2026-09-30",
+        keywords: ["حیات وحش", "طبیعت", "محیط زیست", "wildlife", "nature", "bioacoustics", "vision"],
         fa: {
           tag: "محیط زیست و طبیعت",
           title: "کاربرد هوش مصنوعی در حفاظت از حیات‌وحش و محیط‌زیست",
@@ -514,6 +519,12 @@
       document.title = t.metaTitle;
       document.getElementById('meta-desc').setAttribute('content', t.metaDesc);
 
+      // OpenGraph/Twitter (هوشمند)
+      document.getElementById('og-title').setAttribute('content', lang === 'fa' ? 'بانک مقالات تخصصی هوش مصنوعی | ژرف AI' : t.metaTitle);
+      document.getElementById('og-desc').setAttribute('content', t.metaDesc);
+      document.getElementById('tw-title').setAttribute('content', t.metaTitle);
+      document.getElementById('tw-desc').setAttribute('content', t.metaDesc);
+
       // Nav
       document.getElementById('nav-home').textContent = t.navHome;
       document.getElementById('nav-articles').textContent = t.navArticles;
@@ -545,16 +556,26 @@
       renderArticles();
     }
 
+    function normalize(s) {
+      return (s || '').toString().toLowerCase().trim();
+    }
+
     function renderArticles() {
-      const query = (document.getElementById('search-input').value || '').toLowerCase().trim();
+      const query = normalize(document.getElementById('search-input').value);
       const container = document.getElementById('articles-grid');
       const t = I18N[currentLang];
 
-      const filtered = ARTICLES.filter(item => {
+      // Sort: newest first (stable)
+      const sorted = [...ARTICLES].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+
+      const filtered = sorted.filter(item => {
         const data = item[currentLang] || item.fa;
-        return data.title.toLowerCase().includes(query) || 
-               data.desc.toLowerCase().includes(query) || 
-               data.tag.toLowerCase().includes(query);
+        const blob = [
+          data.title, data.desc, data.tag,
+          ...(Array.isArray(item.keywords) ? item.keywords : [])
+        ].map(normalize).join(' | ');
+
+        return query ? blob.includes(query) : true;
       });
 
       document.getElementById('article-count').textContent = t.articleCount + filtered.length;
@@ -575,6 +596,33 @@
           </article>
         `;
       }).join('');
+
+      updateSchemaItemList(sorted);
+    }
+
+    // SEO: keep ItemList in Schema synchronized with real list
+    function updateSchemaItemList(sortedFullList) {
+      try {
+        const el = document.getElementById('schema-jsonld');
+        const data = JSON.parse(el.textContent);
+
+        const itemList = data["@graph"].find(x => x["@type"] === "ItemList");
+        if (!itemList) return;
+
+        itemList.itemListElement = sortedFullList.map((item, idx) => {
+          const faTitle = (item.fa && item.fa.title) ? item.fa.title : item.url;
+          return {
+            "@type": "ListItem",
+            "position": idx + 1,
+            "url": new URL(item.url, "https://zherfai.ir/").toString(),
+            "name": faTitle
+          };
+        });
+
+        el.textContent = JSON.stringify(data, null, 2);
+      } catch (e) {
+        // silent: schema update is best-effort
+      }
     }
 
     function copyCard() {
@@ -582,7 +630,11 @@
       if (navigator.clipboard) {
         navigator.clipboard.writeText(card).then(() => {
           showToast(I18N[currentLang].copied);
+        }).catch(() => {
+          showToast(I18N[currentLang].copied);
         });
+      } else {
+        showToast(I18N[currentLang].copied);
       }
     }
 
@@ -597,7 +649,8 @@
     (function init() {
       const params = new URLSearchParams(location.search);
       const q = params.get('lang');
-      const saved = localStorage.getItem('zherf_lang');
+      let saved = null;
+      try { saved = localStorage.getItem('zherf_lang'); } catch(e) {}
       const lang = q || saved || 'fa';
       setLanguage(lang);
     })();
