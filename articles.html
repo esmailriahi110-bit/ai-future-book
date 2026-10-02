@@ -161,7 +161,6 @@
     .hero h1 { font-size: 1.8rem; margin-bottom: 8px; }
     .hero p { color: var(--muted); max-width: 880px; }
 
-    /* Search & Stats Bar */
     .controls {
       display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; align-items: center;
     }
@@ -190,7 +189,6 @@
       font-size: 0.88rem;
     }
 
-    /* Articles Grid */
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -253,7 +251,6 @@
     .card-btn:hover { gap: 8px; }
     .card-date { font-size: 0.8rem; color: var(--muted); }
 
-    /* Support Banner */
     .support-banner {
       margin-top: 36px;
       background: rgba(0,255,136,0.04);
@@ -360,8 +357,7 @@
   <div id="toast" class="toast">کپی شد</div>
 
   <script>
-    // ===== ARTICLES DATABASE (Easily add new articles here) =====
-    // نکته: برای هر مقاله، می‌توانی keywords هم اضافه کنی تا جستجو قوی‌تر شود.
+    // ===== ARTICLES DATABASE (Fixed and Optimized) =====
     const ARTICLES = [
       {
         url: "articles/ai-hosting-server-guide.html",
@@ -386,20 +382,20 @@
       {
         url: "articles/ultimate-keyboard-shortcuts-guide.html",
         date: "2026-10-02",
-        keywords: ["کیبورد", "میانبر", "shortcut", "Windows", "ویندوز", "ترفند", "کلید", "hotkeys"],
+        keywords: ["کیبورد", "میانبر", "shortcut", "Windows", "ویندوز", "ترفند", "کلید", "hotkeys", "آموزش"],
         fa: {
           tag: "ترفندهای ویندوز",
-          title: "راهنمای جامع ۲۰۰+ میانبر جادویی کیبورد کامپیوتر و لپ‌تاپ",
-          desc: "مرجع کامل میانبرهای صفحه کلید برای تسریع کارها، ویرایش متن، مرورگر و ترفندهای مخفی ویندوز."
+          title: "راهنمای جامع ۱۰۰+ میانبر جادویی و کاربردی کیبورد و لپ‌تاپ",
+          desc: "مرجع طلایی و سریع میانبرهای صفحه‌کلید برای افزایش سرعت کار، ویرایش حرفه‌ای متن و ترفندهای مخفی سیستم‌عامل."
         },
         en: {
           tag: "Windows Tips",
-          title: "Ultimate Guide to 200+ Keyboard Shortcuts for PC & Laptop",
+          title: "Ultimate Guide to 100+ Essential Keyboard Shortcuts",
           desc: "Complete reference for Windows keyboard shortcuts to boost productivity and speed up daily tasks."
         },
         ar: {
           tag: "حيل ويندوز",
-          title: "الدليل الشامل لأكثر من 200 اختصار سحري للوحة المفاتيح",
+          title: "الدليل الشامل لأكثر من 100 اختصار أساسي للوحة المفاتيح",
           desc: "مرجع كامل لاختصارات لوحة المفاتيح لزيادة الإنتاجية وتسريع المهام اليومية."
         }
       },
@@ -445,7 +441,6 @@
       }
     ];
 
-    // ===== i18n Dictionary =====
     const I18N = {
       fa: {
         dir: "rtl",
@@ -519,24 +514,20 @@
       document.title = t.metaTitle;
       document.getElementById('meta-desc').setAttribute('content', t.metaDesc);
 
-      // OpenGraph/Twitter (هوشمند)
       document.getElementById('og-title').setAttribute('content', lang === 'fa' ? 'بانک مقالات تخصصی هوش مصنوعی | ژرف AI' : t.metaTitle);
       document.getElementById('og-desc').setAttribute('content', t.metaDesc);
       document.getElementById('tw-title').setAttribute('content', t.metaTitle);
       document.getElementById('tw-desc').setAttribute('content', t.metaDesc);
 
-      // Nav
       document.getElementById('nav-home').textContent = t.navHome;
       document.getElementById('nav-articles').textContent = t.navArticles;
       document.getElementById('nav-chat').textContent = t.navChat;
       document.getElementById('nav-contact').textContent = t.navContact;
 
-      // Hero
       document.getElementById('hero-title').textContent = t.heroTitle;
       document.getElementById('hero-desc').textContent = t.heroDesc;
       document.getElementById('search-input').placeholder = t.searchPlaceholder;
 
-      // Support & Footer
       document.getElementById('supp-title').textContent = t.suppTitle;
       document.getElementById('supp-desc').textContent = t.suppDesc;
       document.getElementById('supp-owner').textContent = t.suppOwner;
@@ -546,7 +537,6 @@
       document.getElementById('f-chat').textContent = t.navChat;
       document.getElementById('f-contact').textContent = t.navContact;
 
-      // Buttons active state
       document.getElementById('btn-fa').classList.toggle('active', lang === 'fa');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
@@ -565,7 +555,6 @@
       const container = document.getElementById('articles-grid');
       const t = I18N[currentLang];
 
-      // Sort: newest first (stable)
       const sorted = [...ARTICLES].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
       const filtered = sorted.filter(item => {
@@ -600,7 +589,6 @@
       updateSchemaItemList(sorted);
     }
 
-    // SEO: keep ItemList in Schema synchronized with real list
     function updateSchemaItemList(sortedFullList) {
       try {
         const el = document.getElementById('schema-jsonld');
@@ -620,9 +608,7 @@
         });
 
         el.textContent = JSON.stringify(data, null, 2);
-      } catch (e) {
-        // silent: schema update is best-effort
-      }
+      } catch (e) {}
     }
 
     function copyCard() {
@@ -645,7 +631,6 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
-    // Init
     (function init() {
       const params = new URLSearchParams(location.search);
       const q = params.get('lang');
