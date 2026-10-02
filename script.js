@@ -3,7 +3,7 @@ const HF_ENGINE_URL = "https://esmailr-helektelek-engine.hf.space";
 let currentSessionId = Date.now().toString();
 let attachedFile = null;
 
-// جلوگیری از ارسال همزمان (برای کاهش لگ و دوباره‌کاری)
+// جلوگیری از ارسال همزمان
 let isSending = false;
 
 // باز و بسته کردن سایدبار منو
@@ -71,7 +71,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// کپی به کلیپ‌بورد (با fallback برای موبایل/مرورگرهای قدیمی)
+// کپی به کلیپ‌بورد (با fallback)
 async function copyToClipboard(text) {
   try {
     if (navigator.clipboard && window.isSecureContext) {
@@ -80,7 +80,6 @@ async function copyToClipboard(text) {
     }
   } catch (_) {}
 
-  // fallback
   try {
     const ta = document.createElement("textarea");
     ta.value = text;
@@ -98,24 +97,21 @@ async function copyToClipboard(text) {
   }
 }
 
-// ---------- Markdown سبک + کدباکس + کپی کد ----------
-// هدف: بدون کتابخانه سنگین، فقط:
-// 1)
-```code```
-// 2) لینک‌ها
-// 3) خط جدید
+/* --------- Markdown سبک (کدباکس + لینک) فقط برای پاسخ دستیار --------- */
 function renderAssistantTextToHtml(text) {
-  // ابتدا کل متن را escape می‌کنیم (امن)
+  // 1) امن‌سازی کامل
   const safe = escapeHtml(text);
 
-  // کدهای سه‌بک‌تیک
+  // 2) تبدیل
+```lang\ncode
+``` به کادر کد + دکمه کپی
   const codeFence = /
 ```([\w+-]*)\n([\s\S]*?)
 ```/g;
+
   let html = safe.replace(codeFence, (m, lang, code) => {
     const langLabel = lang ? `<div class="z-code-lang">${escapeHtml(lang)}</div>` : "";
-    // code اینجا escape شده است (چون از safe آمده)
-    // برای کپی: نسخه raw لازم داریم -> از code escaped به متن برمی‌گردانیم با decode ساده در زمان کلیک
+    // code اینجا escape شده است (خطر XSS ندارد)
     return `
       <div class="z-code-block">
         ${langLabel}
@@ -125,11 +121,11 @@ function renderAssistantTextToHtml(text) {
     `;
   });
 
-  // لینک‌ها (روی html موجود)
+  // 3) تبدیل لینک‌ها
   const urlRegex = /(https?:\/\/[^\s<]+)/g;
   html = html.replace(urlRegex, (u) => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
 
-  // خط جدید
+  // 4) خط جدید
   html = html.replace(/\n/g, "<br>");
 
   return html;
@@ -139,17 +135,15 @@ function wireCopyButtons(scopeEl) {
   if (!scopeEl) return;
 
   // کپی کد
-  const codeBtns = scopeEl.querySelectorAll(".z-copy-code-btn");
-  codeBtns.forEach(btn => {
+  scopeEl.querySelectorAll(".z-copy-code-btn").forEach(btn => {
     btn.addEventListener("click", async () => {
       const encoded = btn.getAttribute("data-code") || "";
-      let code = "";
-      try { code = decodeURIComponent(encoded); } catch (_) { code = encoded; }
+      let codeEscaped = "";
+      try { codeEscaped = decodeURIComponent(encoded); } catch (_) { codeEscaped = encoded; }
 
-      // code الان escape شده نیست؟ این code از safe آمده و escaped است.
-      // تبدیل escape HTML به متن واقعی برای کپی:
+      // تبدیل escape html به متن واقعی
       const tmp = document.createElement("div");
-      tmp.innerHTML = code.replace(/<br>/g, "\n");
+      tmp.innerHTML = codeEscaped;
       const plain = tmp.textContent || tmp.innerText || "";
 
       const ok = await copyToClipboard(plain);
@@ -158,13 +152,13 @@ function wireCopyButtons(scopeEl) {
     });
   });
 
-  // کپی کل پاسخ
-  const msgBtns = scopeEl.querySelectorAll(".z-copy-msg-btn");
-  msgBtns.forEach(btn => {
+  // کپی پاسخ
+  scopeEl.querySelectorAll(".z-copy-msg-btn").forEach(btn => {
     btn.addEventListener("click", async () => {
-      const text = btn.getAttribute("data-text") || "";
+      const encoded = btn.getAttribute("data-text") || "";
       let plain = "";
-      try { plain = decodeURIComponent(text); } catch(_) { plain = text; }
+      try { plain = decodeURIComponent(encoded); } catch (_) { plain = encoded; }
+
       const ok = await copyToClipboard(plain);
       btn.textContent = ok ? "کپی شد" : "خطا";
       setTimeout(() => (btn.textContent = "کپی پاسخ"), 1200);
@@ -172,9 +166,7 @@ function wireCopyButtons(scopeEl) {
   });
 }
 
-// ---------- درج پیام ----------
-// تغییر کلیدی: برای assistant از innerHTML امن استفاده می‌کنیم تا کدباکس/Markdown فعال شود.
-// برای user همچنان innerText می‌ماند.
+// درج حباب پیام کاربر یا هوش مصنوعی در صفحه
 function appendMessage(role, text) {
   const chatArea = document.getElementById("chatArea");
   if (!chatArea) return;
@@ -186,25 +178,23 @@ function appendMessage(role, text) {
   bubbleDiv.className = "bubble";
 
   if (role === "assistant") {
+    // این کلید اصلی: برای دستیار HTML امن تولید می‌کنیم
     bubbleDiv.innerHTML = renderAssistantTextToHtml(text);
 
-    // نوار ابزار (کپی پاسخ)
+    // ابزار کپی پاسخ (زیر پیام)
     const tools = document.createElement("div");
     tools.className = "z-msg-tools";
-    tools.innerHTML = `
-      <button class="z-copy-msg-btn" type="button" data-text="${encodeURIComponent(text)}">کپی پاسخ</button>
-    `;
-
+    tools.innerHTML = `<button class="z-copy-msg-btn" type="button" data-text="${encodeURIComponent(text)}">کپی پاسخ</button>`;
     msgDiv.appendChild(tools);
   } else {
-    bubbleDiv.innerText = text; // امنیت کامل برای متن کاربر
+    // متن کاربر همیشه امن و ساده
+    bubbleDiv.innerText = text;
   }
 
   msgDiv.appendChild(bubbleDiv);
   chatArea.appendChild(msgDiv);
   chatArea.scrollTop = chatArea.scrollHeight;
 
-  // فعال‌سازی دکمه‌های کپی داخل همین پیام
   if (role === "assistant") wireCopyButtons(msgDiv);
 }
 
@@ -287,7 +277,7 @@ function loadChat(id) {
   toggleSidebar();
 }
 
-// تابع کمکی برای خواندن فایل به صورت متن (برای اسناد، کدها، لاگ‌ها و ...)
+// تابع کمکی برای خواندن فایل به صورت متن
 function readFileAsText(file) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -297,7 +287,7 @@ function readFileAsText(file) {
   });
 }
 
-// تابع کمکی برای خواندن فایل به صورت Base64 (برای تصاویر و صوت)
+// تابع کمکی برای خواندن فایل به صورت Base64 (فعلاً نگه می‌داریم برای آینده)
 function readFileAsDataURL(file) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -307,21 +297,20 @@ function readFileAsDataURL(file) {
   });
 }
 
-// کنترل تایم‌اوت جداگانه برای POST و STREAM (پایدارتر از یک تایم‌اوت کلی)
+// کنترل تایم‌اوت ۴۵ ثانیه‌ای (همان منطق شما، بدون کاهش)
 async function fetchWithTimeout(url, options = {}, timeoutMs = 45000) {
   const controller = new AbortController();
   const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
   try {
-    const res = await fetch(url, { ...options, signal: controller.signal });
-    return res;
+    return await fetch(url, { ...options, signal: controller.signal });
   } finally {
     clearTimeout(timeoutId);
   }
 }
 
-// تابع اصلی ارسال و دریافت پیام با پشتیبانی واقعی از فایل و کنترل وقفه
+// تابع اصلی ارسال و دریافت پیام
 async function sendMessage() {
-  if (isSending) return; // جلوگیری از دوبار ارسال
+  if (isSending) return;
   isSending = true;
 
   const input = document.getElementById("userInput");
@@ -332,7 +321,7 @@ async function sendMessage() {
 
   if (!userText && !currentFile) { isSending = false; return; }
 
-  // ۱. ساخت متن پیام برای نمایش در رابط کاربری
+  // ۱. پیام نمایشی
   let displayMessage = userText;
   if (currentFile) {
     const fileLabel = `📎 [پیوست: ${currentFile.name}]`;
@@ -342,12 +331,10 @@ async function sendMessage() {
   appendMessage("user", displayMessage);
   saveHistory(displayMessage);
 
-  // ریست کادر ورودی
   input.value = "";
   input.style.height = "auto";
   removeFile();
 
-  // افزودن لودینگ با ظاهر هماهنگ
   const chatArea = document.getElementById("chatArea");
   const loadingMsg = document.createElement("div");
   loadingMsg.className = "message assistant";
@@ -357,7 +344,7 @@ async function sendMessage() {
   chatArea.scrollTop = chatArea.scrollHeight;
 
   try {
-    // ۲. استخراج محتوای واقعی فایل بر اساس نوع آن
+    // ۲. prompt واقعی
     let processedPrompt = userText;
 
     if (currentFile) {
@@ -368,21 +355,19 @@ async function sendMessage() {
         const textContent = await readFileAsText(currentFile);
         if (textContent) {
           processedPrompt =
-            `[محتوای فایل پیوست شده "${currentFile.name}":]\n` +
-            `\`\`\`\n${String(textContent).slice(0, 8000)}\n\`\`\`\n\n` +
+            `[محتوای فایل پیوست شده "${currentFile.name}":]\n\`\`\`\n${String(textContent).slice(0, 8000)}\n\`\`\`\n\n` +
             `${userText || "لطفاً این فایل را بررسی و تحلیل کن."}`;
         } else {
           processedPrompt = `[خطا در خواندن فایل متنی ${currentFile.name}]\n${userText}`;
         }
       } else if (currentFile.type.startsWith("image/")) {
-        // فعلاً متادیتا (تا بک‌اند Vision آماده شود)
         processedPrompt =
           `[تصویر پیوست شد: ${currentFile.name} - فرمت: ${currentFile.type} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n` +
-          `${userText || "این تصویر را تحلیل کن (اگر بک‌اند تصویر فعال نیست، توضیح بده داخل تصویر چیست)."}`
+          `${userText || "این تصویر را تحلیل کن (اگر مدل تصویر فعال نیست، توضیح بده داخل تصویر چیست)."}`
       } else if (currentFile.type.startsWith("audio/")) {
         processedPrompt =
           `[فایل صوتی پیوست شد: ${currentFile.name} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n` +
-          `${userText || "این فایل صوتی را بررسی کن (اگر STT فعال نیست، متنش را بنویس)."}`
+          `${userText || "این فایل صوتی را بررسی کن (اگر تبدیل صوت به متن فعال نیست، متن را بنویس)."}`
       } else {
         processedPrompt =
           `[فایل پیوست شد: ${currentFile.name} - نوع: ${currentFile.type || "ناشناخته"}]\n` +
@@ -390,45 +375,28 @@ async function sendMessage() {
       }
     }
 
-    // ۳. ارسال درخواست شروع فرایند به Gradio API (POST)
-    const postResponse = await fetchWithTimeout(
-      `${HF_ENGINE_URL}/gradio_api/call/zherf_chat`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          data: [{ text: processedPrompt, files: [] }]
-        })
-      },
-      45000
-    );
+    // ۳. POST
+    const postResponse = await fetchWithTimeout(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: [{ text: processedPrompt, files: [] }]
+      })
+    }, 45000);
 
-    if (!postResponse.ok) {
-      throw new Error(`خطای سرور: ${postResponse.status}`);
-    }
+    if (!postResponse.ok) throw new Error(`خطای سرور: ${postResponse.status}`);
 
     const postData = await postResponse.json();
     const eventId = postData.event_id;
+    if (!eventId) throw new Error("شناسه رویداد معتبر دریافت نشد");
 
-    if (!eventId) {
-      throw new Error("شناسه رویداد معتبر دریافت نشد");
-    }
-
-    // ۴. دریافت استریم پاسخ بر اساس Event ID (GET)
-    const streamRes = await fetchWithTimeout(
-      `${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`,
-      {},
-      45000
-    );
-
-    if (!streamRes.ok) {
-      throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
-    }
+    // ۴. STREAM
+    const streamRes = await fetchWithTimeout(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`, {}, 45000);
+    if (!streamRes.ok) throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
 
     const rawData = await streamRes.text();
     let finalReply = "";
 
-    // تفکیک خطوط data: استریم Gradio
     const lines = rawData.split("\n");
     for (const line of lines) {
       if (line.startsWith("data:")) {
@@ -442,10 +410,8 @@ async function sendMessage() {
           } else if (parsed && typeof parsed === "object") {
             finalReply = parsed.text || JSON.stringify(parsed);
           }
-        } catch (e) {
-          if (payload && payload !== "null") {
-            finalReply = payload;
-          }
+        } catch (_) {
+          if (payload && payload !== "null") finalReply = payload;
         }
       }
     }
