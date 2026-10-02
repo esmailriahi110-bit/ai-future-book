@@ -3,18 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <!-- Canonical -->
   <link rel="canonical" href="https://zherfai.ir/articles.html" />
 
-  <!-- Primary Meta -->
   <title id="meta-title">بانک مقالات تخصصی هوش مصنوعی و فناوری | ژرف AI</title>
   <meta id="meta-desc" name="description" content="فهرست کامل مقالات مرجع، کاربردی و آموزشی هوش مصنوعی، سرور، مشاغل آینده و فناوری‌های نوین به قلم اسماعیل ریاحی در ژرف AI." />
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="theme-color" content="#00ff88" />
   <meta name="author" content="اسماعیل ریاحی (Esmail Riahi)" />
 
-  <!-- Open Graph / Telegram / Eitaa -->
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://zherfai.ir/articles.html" />
   <meta id="og-title" property="og:title" content="بانک مقالات تخصصی هوش مصنوعی | ژرف AI" />
@@ -22,18 +18,15 @@
   <meta property="og:site_name" content="ژرف AI" />
   <meta property="og:image" content="https://zherfai.ir/icon.svg" />
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta id="tw-title" name="twitter:title" content="Zherf AI - Articles & Insights" />
   <meta id="tw-desc" name="twitter:description" content="Comprehensive directory of AI, server setup, future jobs, and technological tutorials by Esmail Riahi." />
 
-  <!-- Multi-language Hints -->
   <link rel="alternate" hreflang="x-default" href="https://zherfai.ir/articles.html" />
   <link rel="alternate" hreflang="fa" href="https://zherfai.ir/articles.html" />
   <link rel="alternate" hreflang="en" href="https://zherfai.ir/articles.html" />
   <link rel="alternate" hreflang="ar" href="https://zherfai.ir/articles.html" />
 
-  <!-- Schema.org (CollectionPage + ItemList + BreadcrumbList) -->
   <script type="application/ld+json" id="schema-jsonld">
   {
     "@context": "https://schema.org",
@@ -326,13 +319,13 @@
 
       <div class="controls">
         <input type="text" id="search-input" class="search-input" placeholder="جستجو در عنوان یا موضوع مقاله..." oninput="renderArticles()" />
-        <span class="badge" id="article-count">تعداد مقالات: ۰</span>
+        <span class="badge" id="article-count">در حال بارگذاری...</span>
       </div>
     </section>
 
     <!-- Articles Container -->
     <section class="grid" id="articles-grid" aria-label="Articles List">
-      <!-- Generated via JS -->
+      <!-- Cards rendered via JS -->
     </section>
 
     <!-- Support Section -->
@@ -357,87 +350,39 @@
   <div id="toast" class="toast">کپی شد</div>
 
   <script>
-    // ===== ARTICLES DATABASE (Fixed and Optimized) =====
-    const ARTICLES = [
+    // Fallback default list
+    let loadedArticles = [
       {
         url: "articles/ai-hosting-server-guide.html",
         date: "2026-10-02",
-        keywords: ["هاست", "سرور", "AI", "hosting", "server", "infra", "زیرساخت", "کلود", "cloud"],
-        fa: {
-          tag: "هاست و سرور",
-          title: "راهنمای جامع راه‌اندازی هاست و سرور برای پروژه‌های هوش مصنوعی",
-          desc: "آموزش گام‌به‌گام و کاربردی پیکربندی زیرساخت‌های سرور و میزبانی امن برای مدل‌های هوش مصنوعی با کمترین هزینه و بیشترین بازدهی."
-        },
-        en: {
-          tag: "Hosting & Server",
-          title: "Complete Guide to Setting Up AI Hosting & Infrastructure",
-          desc: "Step-by-step practical tutorial on configuring server hosting for AI models with maximum efficiency and high availability."
-        },
-        ar: {
-          tag: "الاستضافة والخوادم",
-          title: "الدليل الشامل لإعداد الاستضافة والخوادم لمشاريع الذكاء الاصطناعي",
-          desc: "شرح عملي خطوة بخطوة لتهيئة خوادم الذكاء الاصطناعي والبنية التحتية بأعلى كفاءة وأقل تكلفة."
-        }
+        keywords: ["هاست", "سرور", "AI", "hosting", "server"],
+        fa: { tag: "هاست و سرور", title: "راهنمای جامع راه‌اندازی هاست و سرور برای پروژه‌های هوش مصنوعی", desc: "آموزش گام‌به‌گام و کاربردی پیکربندی زیرساخت‌های سرور و میزبانی امن برای مدل‌های هوش مصنوعی." },
+        en: { tag: "Hosting & Server", title: "Complete Guide to Setting Up AI Hosting & Infrastructure", desc: "Step-by-step practical tutorial on configuring server hosting for AI models." },
+        ar: { tag: "الاستضافة والخوادم", title: "الدليل الشامل لإعداد الاستضافة والخوادم لمشاريع الذكاء الاصطناعي", desc: "شرح عملي خطوة بخطوة لتهيئة خوادم الذكاء الاصطناعي والبنية التحتية." }
       },
       {
         url: "articles/ultimate-keyboard-shortcuts-guide.html",
         date: "2026-10-02",
-        keywords: ["کیبورد", "میانبر", "shortcut", "Windows", "ویندوز", "ترفند", "کلید", "hotkeys", "آموزش"],
-        fa: {
-          tag: "ترفندهای ویندوز",
-          title: "راهنمای جامع ۱۰۰+ میانبر جادویی و کاربردی کیبورد و لپ‌تاپ",
-          desc: "مرجع طلایی و سریع میانبرهای صفحه‌کلید برای افزایش سرعت کار، ویرایش حرفه‌ای متن و ترفندهای مخفی سیستم‌عامل."
-        },
-        en: {
-          tag: "Windows Tips",
-          title: "Ultimate Guide to 100+ Essential Keyboard Shortcuts",
-          desc: "Complete reference for Windows keyboard shortcuts to boost productivity and speed up daily tasks."
-        },
-        ar: {
-          tag: "حيل ويندوز",
-          title: "الدليل الشامل لأكثر من 100 اختصار أساسي للوحة المفاتيح",
-          desc: "مرجع كامل لاختصارات لوحة المفاتيح لزيادة الإنتاجية وتسريع المهام اليومية."
-        }
+        keywords: ["کیبورد", "میانبر", "shortcut", "ویندوز"],
+        fa: { tag: "ترفندهای ویندوز", title: "راهنمای جامع ۱۰۰+ میانبر جادویی و کاربردی کیبورد و لپ‌تاپ", desc: "مرجع طلایی و سریع میانبرهای صفحه‌کلید برای افزایش سرعت کار و ترفندهای مخفی ویندوز." },
+        en: { tag: "Windows Tips", title: "Ultimate Guide to 100+ Essential Keyboard Shortcuts", desc: "Complete reference for Windows keyboard shortcuts to boost productivity." },
+        ar: { tag: "حيل ويندوز", title: "الدليل الشامل لأكثر من 100 اختصار أساسي للوحة المفاتيح", desc: "مرجع كامل لاختصارات لوحة المفاتيح لزيادة الإنتاجية وتسريع المهام." }
       },
       {
         url: "articles/ai-jobs.html",
         date: "2026-10-01",
-        keywords: ["مشاغل", "کار", "jobs", "automation", "آینده", "بازار کار", "AI"],
-        fa: {
-          tag: "آینده مشاغل",
-          title: "تحول مشاغل در عصر هوش مصنوعی؛ فرصت‌ها و سناریوهای پیش‌رو",
-          desc: "بررسی عمیق فصول کتاب «AI؛ نقشه‌ای برای آینده» پیرامون تغییر بازار کار، مشاغل در معرض تحول و استراتژی‌های پیشگامی انسان."
-        },
-        en: {
-          tag: "Future of Jobs",
-          title: "The Transformation of Jobs in the AI Era: Opportunities Ahead",
-          desc: "Deep analysis from 'AI: A Map for the Future' on labor market shifts, emerging roles, and human-AI collaboration."
-        },
-        ar: {
-          tag: "مستقبل الوظائف",
-          title: "تحول الوظائف في عصر الذكاء الاصطناعي: الفرص والسيناريوهات",
-          desc: "تحليل معمق ومستوحى من كتاب 'AI؛ خريطة للمستقبل' حول تغير سوق العمل وتأثير الأتمتة وكيفية التفوق."
-        }
+        keywords: ["مشاغل", "کار", "jobs", "automation"],
+        fa: { tag: "آینده مشاغل", title: "تحول مشاغل در عصر هوش مصنوعی؛ فرصت‌ها و سناریوهای پیش‌رو", desc: "بررسی عمیق فصول کتاب «AI؛ نقشه‌ای برای آینده» پیرامون تغییر بازار کار." },
+        en: { tag: "Future of Jobs", title: "The Transformation of Jobs in the AI Era: Opportunities Ahead", desc: "Deep analysis from 'AI: A Map for the Future' on labor market shifts." },
+        ar: { tag: "مستقبل الوظائف", title: "تحول الوظائف في عصر الذكاء الاصطناعي: الفرص والسيناريوهات", desc: "تحليل معمق ومستوحى من كتاب 'AI؛ خريطة للمستقبل' حول سوق العمل." }
       },
       {
         url: "articles/ai-wildlife-nature.html",
         date: "2026-09-30",
-        keywords: ["حیات وحش", "طبیعت", "محیط زیست", "wildlife", "nature", "bioacoustics", "vision"],
-        fa: {
-          tag: "محیط زیست و طبیعت",
-          title: "کاربرد هوش مصنوعی در حفاظت از حیات‌وحش و محیط‌زیست",
-          desc: "چگونه الگوریتم‌های پردازش صوت و تصویر به رمزگشایی از ارتباطات حیوانات و پایش هوشمند اکوسیستم‌ها کمک می‌کنند؟"
-        },
-        en: {
-          tag: "Wildlife & Nature",
-          title: "AI in Wildlife Conservation & Ecosystem Protection",
-          desc: "How bioacoustics and vision AI decode animal communication and automate global ecosystem monitoring."
-        },
-        ar: {
-          tag: "الحياة البرية والبيئة",
-          title: "تطبيقات الذكاء الاصطناعي في حماية الحياة البرية والبيئة",
-          desc: "كيف تساهم خوارزميات الصوت والرؤية الحاسوبية في فك شيفرة لغات الكائنات الحية وحماية النظم البيئية."
-        }
+        keywords: ["حیات وحش", "طبیعت", "محیط زیست", "nature"],
+        fa: { tag: "محیط زیست و طبیعت", title: "کاربرد هوش مصنوعی در حفاظت از حیات‌وحش و محیط‌زیست", desc: "چگونه الگوریتم‌های پردازش صوت و تصویر به رمزگشایی از ارتباطات حیوانات کمک می‌کنند؟" },
+        en: { tag: "Wildlife & Nature", title: "AI in Wildlife Conservation & Ecosystem Protection", desc: "How bioacoustics and vision AI decode animal communication." },
+        ar: { tag: "الحياة البرية والبيئة", title: "تطبيقات الذكاء الاصطناعي في حماية الحياة البرية والبيئة", desc: "كيف تساهم خوارزميات الصوت والرؤية في حماية النظم البيئية." }
       }
     ];
 
@@ -446,12 +391,9 @@
         dir: "rtl",
         metaTitle: "بانک مقالات تخصصی هوش مصنوعی و فناوری | ژرف AI",
         metaDesc: "فهرست کامل مقالات مرجع، کاربردی و آموزشی هوش مصنوعی، سرور، مشاغل آینده و فناوری‌های نوین به قلم اسماعیل ریاحی در ژرف AI.",
-        navHome: "خانه",
-        navArticles: "مقالات",
-        navChat: "هوش مصنوعی ژرف",
-        navContact: "تماس با ما",
+        navHome: "خانه", navArticles: "مقالات", navChat: "هوش مصنوعی ژرف", navContact: "تماس با ما",
         heroTitle: "بانک مقالات و دانشنامه تخصصی ژرف AI",
-        heroDesc: "مجموعه مقالات کاربردی، اصیل و مرجع در حوزه هوش مصنوعی، زیرساخت سرور و آینده شغلی، طراحی‌شده برای حل مسائل فنی و گشایش فرصت‌های نوین فناوری به قلم اسماعیل ریاحی.",
+        heroDesc: "مجموعه مقالات کاربردی، اصیل و مرجع در حوزه هوش مصنوعی، زیرساخت سرور و آینده شغلی به قلم اسماعیل ریاحی.",
         searchPlaceholder: "جستجو در عنوان یا موضوع مقاله...",
         articleCount: "تعداد مقالات: ",
         readMore: "مطالعه مقاله ←",
@@ -464,18 +406,15 @@
       en: {
         dir: "ltr",
         metaTitle: "AI & Technology Knowledge Base | Zherf AI Articles",
-        metaDesc: "Complete archive of reference, practical, and educational articles on AI, server setups, future jobs, and cutting-edge tech by Esmail Riahi.",
-        navHome: "Home",
-        navArticles: "Articles",
-        navChat: "Zherf AI Chat",
-        navContact: "Contact",
+        metaDesc: "Complete archive of reference articles on AI, server setups, and future jobs by Esmail Riahi.",
+        navHome: "Home", navArticles: "Articles", navChat: "Zherf AI Chat", navContact: "Contact",
         heroTitle: "Zherf AI Knowledge Base & Articles",
         heroDesc: "Practical and reference articles on artificial intelligence, server architecture, and future careers by Esmail Riahi.",
         searchPlaceholder: "Search articles by title or keyword...",
         articleCount: "Total Articles: ",
         readMore: "Read Article →",
         suppTitle: "🌱 Support Free Educational Growth",
-        suppDesc: "To maintain server infrastructure and sustainable creation of tutorials, voluntary donations are welcomed.",
+        suppDesc: "To maintain server infrastructure, voluntary donations are welcomed.",
         suppOwner: "Bank Saderat Iran — Beneficiary: Esmail Riahi",
         footer: "© All rights reserved for Zherf AI and Esmail Riahi.",
         copied: "Card number copied"
@@ -483,13 +422,10 @@
       ar: {
         dir: "rtl",
         metaTitle: "بنك مقالات الذكاء الاصطناعي والتكنولوجيا | جَرف AI",
-        metaDesc: "الفهرس الكامل للمقالات المرجعية والتعليمية حول الذكاء الاصطناعي، الخوادم، مستقبل المهن والتقنية بقلم إسماعيل رياحي.",
-        navHome: "الرئيسية",
-        navArticles: "المقالات",
-        navChat: "دردشة جَرف AI",
-        navContact: "اتصل بنا",
+        metaDesc: "الفهرس الكامل للمقالات المرجعية والتعليمية حول الذكاء الاصطناعي والخوادم ومستقبل المهن بقلم إسماعيل رياحي.",
+        navHome: "الرئيسية", navArticles: "المقالات", navChat: "دردشة جَرف AI", navContact: "اتصل بنا",
         heroTitle: "بنك مقالات وموسوعة جَرف AI التخصصية",
-        heroDesc: "مجموعة مقالات عملية ومرجعية في مجالات الذكاء الاصطناعي، الخوادم، ومستقبل العمل للمؤلف والباحث إسماعيل رياحي.",
+        heroDesc: "مجموعة مقالات عملية ومرجعية في مجالات الذكاء الاصطناعي ومستقبل العمل للمؤلف إسماعيل رياحی.",
         searchPlaceholder: "ابحث في المقالات...",
         articleCount: "عدد المقالات: ",
         readMore: "قراءة المقال ←",
@@ -503,6 +439,31 @@
 
     let currentLang = 'fa';
 
+    async function loadDynamicArticles() {
+      try {
+        const res = await fetch('articles.json?t=' + Date.now());
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            loadedArticles = data.map(item => {
+              const urlClean = item.url.startsWith('/') ? item.url.substring(1) : item.url;
+              return {
+                url: urlClean,
+                date: item.date || "2026-10-02",
+                keywords: (item.title + " " + (item.desc || "")).split(" "),
+                fa: { tag: "مقاله تخصصی", title: item.title, desc: item.desc || "" },
+                en: { tag: "Article", title: item.title, desc: item.desc || "" },
+                ar: { tag: "مقال تخصصي", title: item.title, desc: item.desc || "" }
+              };
+            });
+          }
+        }
+      } catch (e) {
+        console.warn("Using fallback articles array");
+      }
+      renderArticles();
+    }
+
     function setLanguage(lang) {
       if (!I18N[lang]) return;
       currentLang = lang;
@@ -513,11 +474,8 @@
 
       document.title = t.metaTitle;
       document.getElementById('meta-desc').setAttribute('content', t.metaDesc);
-
       document.getElementById('og-title').setAttribute('content', lang === 'fa' ? 'بانک مقالات تخصصی هوش مصنوعی | ژرف AI' : t.metaTitle);
       document.getElementById('og-desc').setAttribute('content', t.metaDesc);
-      document.getElementById('tw-title').setAttribute('content', t.metaTitle);
-      document.getElementById('tw-desc').setAttribute('content', t.metaDesc);
 
       document.getElementById('nav-home').textContent = t.navHome;
       document.getElementById('nav-articles').textContent = t.navArticles;
@@ -532,10 +490,6 @@
       document.getElementById('supp-desc').textContent = t.suppDesc;
       document.getElementById('supp-owner').textContent = t.suppOwner;
       document.getElementById('footer-text').textContent = t.footer;
-      document.getElementById('f-home').textContent = t.navHome;
-      document.getElementById('f-articles').textContent = t.navArticles;
-      document.getElementById('f-chat').textContent = t.navChat;
-      document.getElementById('f-contact').textContent = t.navContact;
 
       document.getElementById('btn-fa').classList.toggle('active', lang === 'fa');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
@@ -555,7 +509,7 @@
       const container = document.getElementById('articles-grid');
       const t = I18N[currentLang];
 
-      const sorted = [...ARTICLES].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+      const sorted = [...loadedArticles].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
 
       const filtered = sorted.filter(item => {
         const data = item[currentLang] || item.fa;
@@ -593,7 +547,6 @@
       try {
         const el = document.getElementById('schema-jsonld');
         const data = JSON.parse(el.textContent);
-
         const itemList = data["@graph"].find(x => x["@type"] === "ItemList");
         if (!itemList) return;
 
@@ -606,7 +559,6 @@
             "name": faTitle
           };
         });
-
         el.textContent = JSON.stringify(data, null, 2);
       } catch (e) {}
     }
@@ -614,11 +566,7 @@
     function copyCard() {
       const card = "6037697439990810";
       if (navigator.clipboard) {
-        navigator.clipboard.writeText(card).then(() => {
-          showToast(I18N[currentLang].copied);
-        }).catch(() => {
-          showToast(I18N[currentLang].copied);
-        });
+        navigator.clipboard.writeText(card).then(() => showToast(I18N[currentLang].copied));
       } else {
         showToast(I18N[currentLang].copied);
       }
@@ -638,6 +586,7 @@
       try { saved = localStorage.getItem('zherf_lang'); } catch(e) {}
       const lang = q || saved || 'fa';
       setLanguage(lang);
+      loadDynamicArticles();
     })();
   </script>
 </body>
