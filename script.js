@@ -73,7 +73,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// کپی به کلیپ‌بورد با روش ایمن و سازگار با تمام مرورگرها و موبایل‌ها
+// کپی به کلیپ‌بورد با روش ایمن و تست‌شده برای موبایل و دسکتاپ
 async function copyToClipboard(text) {
   const value = text == null ? "" : String(text);
 
@@ -106,10 +106,8 @@ async function copyToClipboard(text) {
 function renderAssistantTextToHtml(text) {
   const safe = escapeHtml(text);
 
-  // ریجکس مستقیم و مقاوم بدون ایجاد خطای چندخطی
-  const codeFence = /
-```([\w+-]*)\n([\s\S]*?)
-```/g;
+  // تعریف کاملاً ایمن بدون شکستن کاراکترها
+  const codeFence = new RegExp("\\x60\\x60\\x60([\\w+-]*)\\n([\\s\\S]*?)\\x60\\x60\\x60", "g");
 
   let html = safe.replace(codeFence, function(match, lang, code) {
     const langLabel = lang ? `<div class="z-code-lang">${escapeHtml(lang)}</div>` : "";
@@ -379,7 +377,8 @@ async function sendMessage() {
       if (isTextType) {
         const textContent = await readFileAsText(currentFile);
         if (textContent != null) {
-          processedPrompt = `[محتوای فایل پیوست شده "${currentFile.name}":]\n\`\`\`\n${String(textContent).slice(0, 8000)}\n\`\`\`\n\n${userText || "لطفاً این فایل را بررسی و تحلیل کن."}`;
+          const rawFence = String.fromCharCode(96, 96, 96);
+          processedPrompt = `[محتوای فایل پیوست شده "${currentFile.name}":]\n${rawFence}\n${String(textContent).slice(0, 8000)}\n${rawFence}\n\n${userText || "لطفاً این فایل را بررسی و تحلیل کن."}`;
         } else {
           processedPrompt = `[خطا در خواندن فایل متنی ${currentFile.name}]\n${userText}`;
         }
