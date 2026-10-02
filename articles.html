@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://zherfai.ir/articles.html" />
+
+  <!-- Primary Meta -->
+  <title id="meta-title">بانک مقالات تخصصی هوش مصنوعی و فناوری | ژرف AI</title>
+  <meta id="meta-desc" name="description" content="فهرست کامل مقالات مرجع، کاربردی و آموزشی هوش مصنوعی، سرور، مشاغل آینده و فناوری‌های نوین به قلم اسماعیل ریاحی در ژرف AI." />
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+  <meta name="theme-color" content="#00ff88" />
+  <meta name="author" content="اسماعیل ریاحی (Esmail Riahi)" />
+
+  <!-- Open Graph / Telegram / Eitaa -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zherfai.ir/articles.html" />
+  <meta id="og-title" property="og:title" content="بانک مقالات تخصصی هوش مصنوعی | ژرف AI" />
+  <meta id="og-desc" property="og:description" content="مجموعه جامع مقالات آموزشی رایگان هوش مصنوعی، فناوری، سرور و آینده شغلی به قلم اسماعیل ریاحی." />
+  <meta property="og:site_name" content="ژرف AI" />
+  <meta property="og:image" content="https://zherfai.ir/icon.svg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta id="tw-title" name="twitter:title" content="Zherf AI - Articles & Insights" />
+  <meta id="tw-desc" name="twitter:description" content="Comprehensive directory of AI, server setup, future jobs, and technological tutorials by Esmail Riahi." />
+
+  <!-- Multi-language Hints -->
+  <link rel="alternate" hreflang="x-default" href="https://zherfai.ir/articles.html" />
+  <link rel="alternate" hreflang="fa" href="https://zherfai.ir/articles.html" />
+  <link rel="alternate" hreflang="en" href="https://zherfai.ir/articles.html" />
+  <link rel="alternate" hreflang="ar" href="https://zherfai.ir/articles.html" />
+
+  <!-- Schema.org (CollectionPage + ItemList + BreadcrumbList) -->
+  <script type="application/ld+json" id="schema-jsonld">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://zherfai.ir/articles.html#collection",
+        "url": "https://zherfai.ir/articles.html",
+        "name": "بانک مقالات ژرف AI",
+        "description": "فهرست مقالات راهبردی، آموزشی و تخصصی هوش مصنوعی و وب",
+        "inLanguage": ["fa-IR", "en", "ar"],
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://zherfai.ir/#website",
+          "name": "Zherf AI",
+          "url": "https://zherfai.ir/"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "اسماعیل ریاحی",
+          "alternateName": "Esmail Riahi",
+          "url": "https://zherfai.ir/"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://zherfai.ir/articles.html#list",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://zherfai.ir/articles/ai-hosting-server-guide.html",
+            "name": "راهنمای جامع راه‌اندازی هاست و سرور برای هوش مصنوعی"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://zherfai.ir/articles/ai-jobs.html",
+            "name": "تحول مشاغل در عصر هوش مصنوعی"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://zherfai.ir/articles/ai-wildlife-nature.html",
+            "name": "کاربرد هوش مصنوعی در حفاظت از حیات‌وحش و طبیعت"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://zherfai.ir/articles.html#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "خانه", "item": "https://zherfai.ir/" },
+          { "@type": "ListItem", "position": 2, "name": "مقالات", "item": "https://zherfai.ir/articles.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #070b09;
+      --panel: #0e1612;
+      --panel2: #0b120f;
+      --border: #1b2f25;
+      --green: #00ff88;
+      --glow: rgba(0, 255, 136, 0.18);
+      --text: #e7fff4;
+      --muted: #8fb2a0;
+      --font: system-ui, -apple-system, "Segoe UI", Roboto, "Vazirmatn", Tahoma, sans-serif;
+      --radius: 14px;
+      --shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(1200px 800px at 70% -10%, rgba(0,255,136,0.08), transparent 55%),
+                  radial-gradient(900px 700px at 10% 0%, rgba(0,255,136,0.05), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      line-height: 1.85;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(7, 11, 9, 0.86);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav {
+      max-width: 1120px; margin: 0 auto; padding: 12px 18px;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--green); text-decoration: none; font-weight: 900;
+      letter-spacing: .2px; text-shadow: 0 0 16px var(--glow);
+      white-space: nowrap;
+    }
+
+    .navlinks { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+    .navlinks a {
+      color: var(--muted); text-decoration: none; font-size: .95rem;
+      padding: 8px 12px; border-radius: 10px; border: 1px solid transparent;
+      transition: .18s ease;
+    }
+    .navlinks a:hover, .navlinks a.active {
+      color: var(--green);
+      border-color: rgba(0,255,136,0.25);
+      background: rgba(0,255,136,0.06);
+    }
+
+    .lang {
+      display: flex; gap: 6px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 4px;
+    }
+    .lang button {
+      border: 0; background: transparent; color: var(--muted);
+      padding: 6px 10px; border-radius: 10px; cursor: pointer; font-weight: 700; font-size: .82rem;
+      transition: .18s ease;
+    }
+    .lang button.active { background: var(--green); color: #00150b; }
+
+    main { flex: 1; max-width: 1120px; margin: 0 auto; padding: 28px 18px 50px; width: 100%; }
+
+    .hero {
+      background: linear-gradient(180deg, rgba(0,255,136,0.08), transparent 65%);
+      border: 1px solid rgba(0,255,136,0.18);
+      border-radius: var(--radius);
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    .hero h1 { font-size: 1.8rem; margin-bottom: 8px; }
+    .hero p { color: var(--muted); max-width: 880px; }
+
+    /* Search & Stats Bar */
+    .controls {
+      display: flex; gap: 12px; margin-top: 18px; flex-wrap: wrap; align-items: center;
+    }
+    .search-input {
+      flex: 1; min-width: 240px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-family: inherit;
+      outline: none;
+      transition: .2s ease;
+    }
+    .search-input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 10px var(--glow);
+    }
+    .badge {
+      background: rgba(0,255,136,0.1);
+      border: 1px solid rgba(0,255,136,0.25);
+      color: var(--green);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 0.88rem;
+    }
+
+    /* Articles Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 70%), var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+      box-shadow: var(--shadow);
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0,255,136,0.35);
+      box-shadow: 0 12px 30px rgba(0,255,136,0.1);
+    }
+    .card-tag {
+      font-size: 0.75rem;
+      color: var(--green);
+      font-weight: 800;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      display: inline-block;
+    }
+    .card h2 {
+      font-size: 1.2rem;
+      color: #fff;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding-top: 12px;
+    }
+    .card-btn {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: gap .2s ease;
+    }
+    .card-btn:hover { gap: 8px; }
+    .card-date { font-size: 0.8rem; color: var(--muted); }
+
+    /* Support Banner */
+    .support-banner {
+      margin-top: 36px;
+      background: rgba(0,255,136,0.04);
+      border: 1px dashed rgba(0,255,136,0.3);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+    }
+    .support-banner h3 { color: var(--green); margin-bottom: 6px; }
+    .support-banner p { color: var(--muted); font-size: 0.9rem; margin-bottom: 12px; }
+    .cardnum {
+      display: inline-block;
+      font-family: monospace;
+      font-size: 1.15rem;
+      letter-spacing: 1.5px;
+      padding: 8px 16px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(0,255,136,0.3);
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      background: rgba(7, 11, 9, 0.92);
+      padding: 20px 18px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--green); text-decoration: none; }
+
+    .toast {
+      position: fixed; bottom: 18px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--green); color: #00150b;
+      padding: 8px 16px; border-radius: 999px;
+      font-weight: 900; font-size: .85rem;
+      opacity: 0; pointer-events: none; transition: .25s ease; z-index: 999;
+      box-shadow: 0 12px 30px rgba(0,0,0,.35);
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="Zherf AI Home">⚡ ژرف AI</a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="index.html" id="nav-home">خانه</a>
+        <a href="articles.html" class="active" id="nav-articles">مقالات</a>
+        <a href="chat.html" id="nav-chat">هوش مصنوعی ژرف</a>
+        <a href="contact.html" id="nav-contact">تماس با ما</a>
+      </nav>
+
+      <div class="lang" role="group" aria-label="Language switcher">
+        <button class="active" id="btn-fa" onclick="setLanguage('fa')" type="button">فا</button>
+        <button id="btn-en" onclick="setLanguage('en')" type="button">EN</button>
+        <button id="btn-ar" onclick="setLanguage('ar')" type="button">عر</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 id="hero-title">بانک مقالات و دانشنامه تخصصی ژرف AI</h1>
+      <p id="hero-desc">
+        مجموعه مقالات کاربردی، اصیل و مرجع در حوزه هوش مصنوعی، زیرساخت سرور و آینده شغلی، طراحی‌شده برای حل مسائل فنی و گشایش فرصت‌های نوین فناوری به قلم اسماعیل ریاحی.
+      </p>
+
+      <div class="controls">
+        <input type="text" id="search-input" class="search-input" placeholder="جستجو در عنوان یا موضوع مقاله..." oninput="renderArticles()" />
+        <span class="badge" id="article-count">تعداد مقالات: ۳</span>
+      </div>
+    </section>
+
+    <!-- Articles Container -->
+    <section class="grid" id="articles-grid" aria-label="Articles List">
+      <!-- Generated via JS -->
+    </section>
+
+    <!-- Support Section -->
+    <section class="support-banner">
+      <h3 id="supp-title">🌱 حمایت از گسترش آموزش‌های رایگان</h3>
+      <p id="supp-desc">برای حفظ پایداری سرورها و تولید مستمر مقالات مرجع، می‌توانید با حمایت اختیاری خود همراه ما باشید.</p>
+      <div class="cardnum" onclick="copyCard()" title="کلیک برای کپی">6037-6974-3999-0810</div>
+      <div style="font-size:0.8rem; color:var(--muted); margin-top:6px;" id="supp-owner">بانک صادرات ایران - به نام اسماعیل ریاحی</div>
+    </section>
+  </main>
+
+  <footer>
+    <div id="footer-text">© تمامی حقوق برای وب‌سایت ژرف AI و اسماعیل ریاحی محفوظ است.</div>
+    <div style="margin-top: 6px;">
+      <a href="index.html" id="f-home">خانه</a> ·
+      <a href="articles.html" id="f-articles">مقالات</a> ·
+      <a href="chat.html" id="f-chat">هوش مصنوعی ژرف</a> ·
+      <a href="contact.html" id="f-contact">تماس با ما</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast">کپی شد</div>
+
+  <script>
+    // ===== ARTICLES DATABASE (Easily add new articles here) =====
+    const ARTICLES = [
+      {
+        url: "articles/ai-hosting-server-guide.html",
+        date: "2026-10-02",
+        fa: {
+          tag: "هاست و سرور",
+          title: "راهنمای جامع راه‌اندازی هاست و سرور برای پروژه‌های هوش مصنوعی",
+          desc: "آموزش گام‌به‌گام و کاربردی پیکربندی زیرساخت‌های سرور و میزبانی امن برای مدل‌های هوش مصنوعی با کمترین هزینه و بیشترین بازدهی."
+        },
+        en: {
+          tag: "Hosting & Server",
+          title: "Complete Guide to Setting Up AI Hosting & Infrastructure",
+          desc: "Step-by-step practical tutorial on configuring server hosting for AI models with maximum efficiency and high availability."
+        },
+        ar: {
+          tag: "الاستضافة والخوادم",
+          title: "الدليل الشامل لإعداد الاستضافة والخوادم لمشاريع الذكاء الاصطناعي",
+          desc: "شرح عملي خطوة بخطوة لتهيئة خوادم الذكاء الاصطناعي والبنية التحتية بأعلى كفاءة وأقل تكلفة."
+        }
+      },
+      {
+        url: "articles/ai-jobs.html",
+        date: "2026-10-01",
+        fa: {
+          tag: "آینده مشاغل",
+          title: "تحول مشاغل در عصر هوش مصنوعی؛ فرصت‌ها و سناریوهای پیش‌رو",
+          desc: "بررسی عمیق فصول کتاب «AI؛ نقشه‌ای برای آینده» پیرامون تغییر بازار کار، مشاغل در معرض تحول و استراتژی‌های پیشگامی انسان."
+        },
+        en: {
+          tag: "Future of Jobs",
+          title: "The Transformation of Jobs in the AI Era: Opportunities Ahead",
+          desc: "Deep analysis from 'AI: A Map for the Future' on labor market shifts, emerging roles, and human-AI collaboration."
+        },
+        ar: {
+          tag: "مستقبل الوظائف",
+          title: "تحول الوظائف في عصر الذكاء الاصطناعي: الفرص والسيناريوهات",
+          desc: "تحليل معمق ومستوحى من كتاب 'AI؛ خريطة للمستقبل' حول تغير سوق العمل وتأثير الأتمتة وكيفية التفوق."
+        }
+      },
+      {
+        url: "articles/ai-wildlife-nature.html",
+        date: "2026-09-30",
+        fa: {
+          tag: "محیط زیست و طبیعت",
+          title: "کاربرد هوش مصنوعی در حفاظت از حیات‌وحش و محیط‌زیست",
+          desc: "چگونه الگوریتم‌های پردازش صوت و تصویر به رمزگشایی از ارتباطات حیوانات و پایش هوشمند اکوسیستم‌ها کمک می‌کنند؟"
+        },
+        en: {
+          tag: "Wildlife & Nature",
+          title: "AI in Wildlife Conservation & Ecosystem Protection",
+          desc: "How bioacoustics and vision AI decode animal communication and automate global ecosystem monitoring."
+        },
+        ar: {
+          tag: "الحياة البرية والبيئة",
+          title: "تطبيقات الذكاء الاصطناعي في حماية الحياة البرية والبيئة",
+          desc: "كيف تساهم خوارزميات الصوت والرؤية الحاسوبية في فك شيفرة لغات الكائنات الحية وحماية النظم البيئية."
+        }
+      }
+    ];
+
+    // ===== i18n Dictionary =====
+    const I18N = {
+      fa: {
+        dir: "rtl",
+        metaTitle: "بانک مقالات تخصصی هوش مصنوعی و فناوری | ژرف AI",
+        metaDesc: "فهرست کامل مقالات مرجع، کاربردی و آموزشی هوش مصنوعی، سرور، مشاغل آینده و فناوری‌های نوین به قلم اسماعیل ریاحی در ژرف AI.",
+        navHome: "خانه",
+        navArticles: "مقالات",
+        navChat: "هوش مصنوعی ژرف",
+        navContact: "تماس با ما",
+        heroTitle: "بانک مقالات و دانشنامه تخصصی ژرف AI",
+        heroDesc: "مجموعه مقالات کاربردی، اصیل و مرجع در حوزه هوش مصنوعی، زیرساخت سرور و آینده شغلی، طراحی‌شده برای حل مسائل فنی و گشایش فرصت‌های نوین فناوری به قلم اسماعیل ریاحی.",
+        searchPlaceholder: "جستجو در عنوان یا موضوع مقاله...",
+        articleCount: "تعداد مقالات: ",
+        readMore: "مطالعه مقاله ←",
+        suppTitle: "🌱 حمایت از گسترش آموزش‌های رایگان",
+        suppDesc: "برای حفظ پایداری سرورها و تولید مستمر مقالات مرجع، می‌توانید با حمایت اختیاری خود همراه ما باشید.",
+        suppOwner: "بانک صادرات ایران - به نام اسماعیل ریاحی",
+        footer: "© تمامی حقوق برای وب‌سایت ژرف AI و اسماعیل ریاحی محفوظ است.",
+        copied: "شماره کارت کپی شد"
+      },
+      en: {
+        dir: "ltr",
+        metaTitle: "AI & Technology Knowledge Base | Zherf AI Articles",
+        metaDesc: "Complete archive of reference, practical, and educational articles on AI, server setups, future jobs, and cutting-edge tech by Esmail Riahi.",
+        navHome: "Home",
+        navArticles: "Articles",
+        navChat: "Zherf AI Chat",
+        navContact: "Contact",
+        heroTitle: "Zherf AI Knowledge Base & Articles",
+        heroDesc: "Practical and reference articles on artificial intelligence, server architecture, and future careers by Esmail Riahi.",
+        searchPlaceholder: "Search articles by title or keyword...",
+        articleCount: "Total Articles: ",
+        readMore: "Read Article →",
+        suppTitle: "🌱 Support Free Educational Growth",
+        suppDesc: "To maintain server infrastructure and sustainable creation of tutorials, voluntary donations are welcomed.",
+        suppOwner: "Bank Saderat Iran — Beneficiary: Esmail Riahi",
+        footer: "© All rights reserved for Zherf AI and Esmail Riahi.",
+        copied: "Card number copied"
+      },
+      ar: {
+        dir: "rtl",
+        metaTitle: "بنك مقالات الذكاء الاصطناعي والتكنولوجيا | جَرف AI",
+        metaDesc: "الفهرس الكامل للمقالات المرجعية والتعليمية حول الذكاء الاصطناعي، الخوادم، مستقبل المهن والتقنية بقلم إسماعيل رياحي.",
+        navHome: "الرئيسية",
+        navArticles: "المقالات",
+        navChat: "دردشة جَرف AI",
+        navContact: "اتصل بنا",
+        heroTitle: "بنك مقالات وموسوعة جَرف AI التخصصية",
+        heroDesc: "مجموعة مقالات عملية ومرجعية في مجالات الذكاء الاصطناعي، الخوادم، ومستقبل العمل للمؤلف والباحث إسماعيل رياحي.",
+        searchPlaceholder: "ابحث في المقالات...",
+        articleCount: "عدد المقالات: ",
+        readMore: "قراءة المقال ←",
+        suppTitle: "🌱 دعم نشر المعرفة المجانية",
+        suppDesc: "لضمان استمرار البنية التحتية ونشر المزيد من المقالات المرجعية، نرحب بالدعم الاختياري.",
+        suppOwner: "بنك صادرات إيران — باسم إسماعيل رياحي",
+        footer: "© جميع الحقوق محفوظة لمنصة جَرف AI وإسماعيل رياحي.",
+        copied: "تم نسخ رقم البطاقة"
+      }
+    };
+
+    let currentLang = 'fa';
+
+    function setLanguage(lang) {
+      if (!I18N[lang]) return;
+      currentLang = lang;
+      const t = I18N[lang];
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = t.dir;
+
+      document.title = t.metaTitle;
+      document.getElementById('meta-desc').setAttribute('content', t.metaDesc);
+
+      // Nav
+      document.getElementById('nav-home').textContent = t.navHome;
+      document.getElementById('nav-articles').textContent = t.navArticles;
+      document.getElementById('nav-chat').textContent = t.navChat;
+      document.getElementById('nav-contact').textContent = t.navContact;
+
+      // Hero
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-desc').textContent = t.heroDesc;
+      document.getElementById('search-input').placeholder = t.searchPlaceholder;
+
+      // Support & Footer
+      document.getElementById('supp-title').textContent = t.suppTitle;
+      document.getElementById('supp-desc').textContent = t.suppDesc;
+      document.getElementById('supp-owner').textContent = t.suppOwner;
+      document.getElementById('footer-text').textContent = t.footer;
+      document.getElementById('f-home').textContent = t.navHome;
+      document.getElementById('f-articles').textContent = t.navArticles;
+      document.getElementById('f-chat').textContent = t.navChat;
+      document.getElementById('f-contact').textContent = t.navContact;
+
+      // Buttons active state
+      document.getElementById('btn-fa').classList.toggle('active', lang === 'fa');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+
+      try { localStorage.setItem('zherf_lang', lang); } catch (e) {}
+
+      renderArticles();
+    }
+
+    function renderArticles() {
+      const query = (document.getElementById('search-input').value || '').toLowerCase().trim();
+      const container = document.getElementById('articles-grid');
+      const t = I18N[currentLang];
+
+      const filtered = ARTICLES.filter(item => {
+        const data = item[currentLang] || item.fa;
+        return data.title.toLowerCase().includes(query) || 
+               data.desc.toLowerCase().includes(query) || 
+               data.tag.toLowerCase().includes(query);
+      });
+
+      document.getElementById('article-count').textContent = t.articleCount + filtered.length;
+
+      container.innerHTML = filtered.map(item => {
+        const data = item[currentLang] || item.fa;
+        return `
+          <article class="card">
+            <div>
+              <span class="card-tag">${data.tag}</span>
+              <h2>${data.title}</h2>
+              <p>${data.desc}</p>
+            </div>
+            <div class="card-footer">
+              <span class="card-date">${item.date}</span>
+              <a href="${item.url}" class="card-btn">${t.readMore}</a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function copyCard() {
+      const card = "6037697439990810";
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(card).then(() => {
+          showToast(I18N[currentLang].copied);
+        });
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // Init
+    (function init() {
+      const params = new URLSearchParams(location.search);
+      const q = params.get('lang');
+      const saved = localStorage.getItem('zherf_lang');
+      const lang = q || saved || 'fa';
+      setLanguage(lang);
+    })();
+  </script>
+</body>
+</html>
