@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ماشین حساب آنلاین فوق سریع و مهندسی | ژرف AI</title>
+  
+  <meta name="description" content="ماشین حساب آنلاین علمی، مهندسی و عمومی ژرف. محاسبات پیشرفته ریاضی، توابع مثلثاتی، جذر، توان و درصد با بالاترین سرعت و بدون تبلیغات.">
+  <meta name="keywords" content="ماشین حساب آنلاین, ماشین حساب مهندسی, محاسبه آنلاین فرمول, ابزار محاسباتی ژرف, ماشین حساب علمی سریع">
+  <meta name="author" content="اسماعیل ریاحی">
+  <link rel="canonical" href="https://zherfai.ir/calculator.html">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="ماشین حساب مهندسی و پیشرفته ژرف AI">
+  <meta property="og:description" content="ابزار آنلاین محاسبات مهندسی، علمی و روزمره با سرعت فوق‌العاده و تم تاریک مدرن.">
+  <meta property="og:url" content="https://zherfai.ir/calculator.html">
+  <meta property="og:image" content="https://zherfai.ir/icon.svg">
+
+  <!-- Schema.org WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "ماشین حساب آنلاین مهندسی ژرف",
+    "url": "https://zherfai.ir/calculator.html",
+    "description": "ماشین حساب علمی و مهندسی پیشرفته با رابط کاربری روان و محاسبات آنی.",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IRR"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "اسماعیل ریاحی",
+      "url": "https://zherfai.ir/about.html"
+    }
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #070b14;
+      --panel: rgba(15, 23, 42, 0.92);
+      --border: rgba(16, 185, 129, 0.3);
+      --neon: #10b981;
+      --cyan: #38bdf8;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --btn-num: #1e293b;
+      --btn-op: #0f766e;
+      --btn-sci: #1e1b4b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Vazirmatn", Tahoma, sans-serif;
+      /* ضد کپی: جلوگیری از سلکت کردن المان‌ها */
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(16, 185, 129, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 10px;
+    }
+
+    .calc-container {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.8), 0 0 25px rgba(16, 185, 129, 0.2);
+      border-radius: 24px;
+      padding: 24px;
+      max-width: 480px;
+      width: 100%;
+      backdrop-filter: blur(16px);
+    }
+
+    .header-calc {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .header-calc h1 {
+      font-size: 17px;
+      color: var(--neon);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .mode-badge {
+      font-size: 11px;
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--cyan);
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* صفحه نمایشگر */
+    .screen {
+      background: #020617;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: left;
+      margin-bottom: 18px;
+      box-shadow: inset 0 3px 8px rgba(0, 0, 0, 0.7);
+    }
+
+    .screen-history {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 20px;
+      word-break: break-all;
+      direction: ltr;
+    }
+
+    .screen-main {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      margin-top: 4px;
+      overflow-x: auto;
+      white-space: nowrap;
+      direction: ltr;
+    }
+
+    /* شبکه کلیدها */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    button.btn {
+      background: var(--btn-num);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: #fff;
+      border-radius: 12px;
+      padding: 14px 4px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      touch-action: manipulation;
+    }
+
+    button.btn:active {
+      transform: scale(0.95);
+    }
+
+    button.btn-num {
+      background: #1e293b;
+      font-size: 18px;
+    }
+
+    button.btn-num:hover {
+      background: #334155;
+    }
+
+    button.btn-op {
+      background: #0f766e;
+      color: #ccfbf1;
+      font-size: 18px;
+    }
+
+    button.btn-op:hover {
+      background: #14b8a6;
+      color: #042f2e;
+    }
+
+    button.btn-sci {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: rgba(99, 102, 241, 0.3);
+      color: #a5b4fc;
+      font-size: 13px;
+    }
+
+    button.btn-sci:hover {
+      background: rgba(99, 102, 241, 0.3);
+      color: #fff;
+    }
+
+    button.btn-clear {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
+    button.btn-clear:hover {
+      background: #ef4444;
+      color: #fff;
+    }
+
+    button.btn-equal {
+      background: var(--neon);
+      color: #042f2e;
+      font-size: 22px;
+      font-weight: 800;
+      grid-column: span 2;
+    }
+
+    button.btn-equal:hover {
+      background: #34d399;
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.6);
+    }
+
+    /* نوار ناوبری پایین برای چرخه ترافیک و ثروت */
+    .ecosystem-nav {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .ecosystem-nav a {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(30, 41, 59, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      text-decoration: none;
+      padding: 10px 8px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.2s;
+    }
+
+    .ecosystem-nav a:hover {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: var(--neon);
+      color: #fff;
+    }
+
+    .ecosystem-nav a.featured {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: var(--neon);
+      color: #fff;
+    }
+
+    @media (max-width: 440px) {
+      .grid {
+        gap: 6px;
+      }
+      button.btn {
+        padding: 12px 2px;
+        font-size: 13px;
+      }
+      button.btn-num {
+        font-size: 16px;
+      }
+      .screen-main {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+  <main class="calc-container" role="application">
+    <div class="header-calc">
+      <h1><span>⚡</span> ماشین حساب پیشرفته ژرف</h1>
+      <span class="mode-badge" id="angle-mode">RAD</span>
+    </div>
+
+    <!-- صفحه نمایشگر -->
+    <div class="screen">
+      <div class="screen-history" id="calc-history"></div>
+      <div class="screen-main" id="calc-display">0</div>
+    </div>
+
+    <!-- دکمه‌ها -->
+    <div class="grid">
+      <!-- ردیف ۱ مهندسی -->
+      <button type="button" class="btn btn-sci" onclick="setAngleMode()">RAD/DEG</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('sin')">sin</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('cos')">cos</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('tan')">tan</button>
+      <button type="button" class="btn btn-clear" onclick="clearAll()">AC</button>
+
+      <!-- ردیف ۲ مهندسی و عملگر -->
+      <button type="button" class="btn btn-sci" onclick="execFunc('ln')">ln</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('log')">log</button>
+      <button type="button" class="btn btn-sci" onclick="appendChar('(')">(</button>
+      <button type="button" class="btn btn-sci" onclick="appendChar(')')">)</button>
+      <button type="button" class="btn btn-clear" onclick="backspace()">⌫</button>
+
+      <!-- ردیف ۳ -->
+      <button type="button" class="btn btn-sci" onclick="execFunc('sqrt')">√</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('7')">7</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('8')">8</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('9')">9</button>
+      <button type="button" class="btn btn-op" onclick="appendChar('/')">÷</button>
+
+      <!-- ردیف ۴ -->
+      <button type="button" class="btn btn-sci" onclick="appendChar('^')">xʸ</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('4')">4</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('5')">5</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('6')">6</button>
+      <button type="button" class="btn btn-op" onclick="appendChar('*')">×</button>
+
+      <!-- ردیف ۵ -->
+      <button type="button" class="btn btn-sci" onclick="appendChar('π')">π</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('1')">1</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('2')">2</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('3')">3</button>
+      <button type="button" class="btn btn-op" onclick="appendChar('-')">−</button>
+
+      <!-- ردیف ۶ -->
+      <button type="button" class="btn btn-sci" onclick="appendChar('e')">e</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('0')">0</button>
+      <button type="button" class="btn btn-num" onclick="appendChar('.')">.</button>
+      <button type="button" class="btn btn-op" onclick="appendChar('+')">+</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('fact')">n!</button>
+
+      <!-- ردیف ۷: دکمه مساوی بزرگ و درصد -->
+      <button type="button" class="btn btn-sci" onclick="execFunc('pct')">%</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('abs')">|x|</button>
+      <button type="button" class="btn btn-sci" onclick="execFunc('inv')">1/x</button>
+      <button type="button" class="btn btn-equal" onclick="calcResult()">=</button>
+    </div>
+
+    <!-- هدایت هوشمند به بقیه بخش‌های ژرف -->
+    <nav class="ecosystem-nav" aria-label="بخش‌های مرتبط ژرف">
+      <a href="chat.html" class="featured">🤖 چت با هوش مصنوعی</a>
+      <a href="articles.html">📚 بانک مقالات</a>
+      <a href="index.html">🏛️ صفحه اصلی</a>
+    </nav>
+  </main>
+
+  <!-- اسکریپت محاسباتی همراه با سیستم ضدکپی و ایمن -->
+  <script>
+    // بستن میانبرهای باز کردن سورس (F12, Ctrl+U, Ctrl+Shift+I)
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'F12' || 
+         (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'C' || e.key === 'c' || e.key === 'J' || e.key === 'j')) || 
+         (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.key === 'S' || e.key === 's'))) {
+        e.preventDefault();
+        return false;
+      }
+    });
+
+    let expr = '';
+    let isDeg = false;
+    const display = document.getElementById('calc-display');
+    const historyDisp = document.getElementById('calc-history');
+    const modeBadge = document.getElementById('angle-mode');
+
+    function updateView() {
+      display.textContent = expr || '0';
+    }
+
+    function appendChar(c) {
+      if (expr === '0' && c !== '.') expr = '';
+      expr += c;
+      updateView();
+    }
+
+    function clearAll() {
+      expr = '';
+      historyDisp.textContent = '';
+      updateView();
+    }
+
+    function backspace() {
+      expr = expr.slice(0, -1);
+      updateView();
+    }
+
+    function setAngleMode() {
+      isDeg = !isDeg;
+      modeBadge.textContent = isDeg ? 'DEG' : 'RAD';
+    }
+
+    function factorial(n) {
+      if (n < 0) return NaN;
+      if (n === 0 || n === 1) return 1;
+      let res = 1;
+      for (let i = 2; i <= n; i++) res *= i;
+      return res;
+    }
+
+    function execFunc(type) {
+      try {
+        let current = expr ? evalSafe(expr) : 0;
+        let val = Number(current);
+        if (isNaN(val)) return;
+
+        let result;
+        if (type === 'sin') {
+          let angle = isDeg ? (val * Math.PI / 180) : val;
+          result = Math.sin(angle);
+        } else if (type === 'cos') {
+          let angle = isDeg ? (val * Math.PI / 180) : val;
+          result = Math.cos(angle);
+        } else if (type === 'tan') {
+          let angle = isDeg ? (val * Math.PI / 180) : val;
+          result = Math.tan(angle);
+        } else if (type === 'sqrt') {
+          result = Math.sqrt(val);
+        } else if (type === 'ln') {
+          result = Math.log(val);
+        } else if (type === 'log') {
+          result = Math.log10(val);
+        } else if (type === 'fact') {
+          result = factorial(Math.floor(val));
+        } else if (type === 'pct') {
+          result = val / 100;
+        } else if (type === 'abs') {
+          result = Math.abs(val);
+        } else if (type === 'inv') {
+          result = 1 / val;
+        }
+
+        historyDisp.textContent = type + '(' + val + ')';
+        expr = String(Number(result.toFixed(8)));
+        updateView();
+      } catch (err) {
+        display.textContent = 'خطا';
+        expr = '';
+      }
+    }
+
+    function evalSafe(str) {
+      let parsed = str
+        .replace(/π/g, 'Math.PI')
+        .replace(/\be\b/g, 'Math.E')
+        .replace(/\^/g, '**');
+      
+      // اعتبارسنجی امن جهت جلوگیری از کدهای مخرب
+      if (!/^[0-9+\-*/().MathPIE\s*]+$/.test(parsed)) {
+        throw new Error('نامعتبر');
+      }
+      return Function('"use strict";return (' + parsed + ')')();
+    }
+
+    function calcResult() {
+      if (!expr) return;
+      try {
+        historyDisp.textContent = expr + ' =';
+        let res = evalSafe(expr);
+        expr = String(Number(Number(res).toFixed(8)));
+        updateView();
+      } catch (e) {
+        display.textContent = 'خطا در محاسبه';
+        expr = '';
+      }
+    }
+  </script>
+
+</body>
+</html>
