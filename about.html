@@ -81,7 +81,7 @@
   }
   </script>
 
-  <!-- Google Fonts for Calligraphy & Cyberpunk Vibes -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Gulzar&family=Vazirmatn:wght@300;400;600;800;900&family=Orbitron:wght@500;800&family=Cinzel:wght@600;900&display=swap" rel="stylesheet">
@@ -121,14 +121,12 @@
       overflow-x: hidden;
     }
 
-    /* Container */
     .container {
       max-width: 1080px;
       margin: 0 auto;
       padding: 20px 18px;
     }
 
-    /* Header & Lang Switcher */
     header {
       background: rgba(10, 16, 26, 0.85);
       backdrop-filter: blur(14px);
@@ -179,7 +177,7 @@
       color: var(--neon-green);
     }
 
-    /* Language Bar */
+    /* Language Switcher Buttons */
     .lang-switcher {
       display: flex;
       background: rgba(255, 255, 255, 0.05);
@@ -208,7 +206,6 @@
       box-shadow: 0 0 12px rgba(0, 255, 136, 0.3);
     }
 
-    /* Hero Section */
     .hero {
       text-align: center;
       padding: 50px 10px 30px;
@@ -256,7 +253,6 @@
       margin: 0 auto 30px;
     }
 
-    /* CTA Grid */
     .cta-group {
       display: flex;
       justify-content: center;
@@ -301,7 +297,6 @@
       color: var(--neon-cyan);
     }
 
-    /* Content Cards & Sections */
     .card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -340,7 +335,6 @@
       color: var(--neon-green);
     }
 
-    /* Mathematical / Scientific Formula Box */
     .math-box {
       background: rgba(0, 0, 0, 0.5);
       border-right: 4px solid var(--neon-cyan);
@@ -355,7 +349,6 @@
       overflow-x: auto;
     }
 
-    /* Copyright & Legal Shield */
     .legal-shield {
       background: linear-gradient(135deg, rgba(255, 200, 55, 0.05), rgba(255, 75, 75, 0.05));
       border: 1px solid rgba(255, 200, 55, 0.3);
@@ -374,7 +367,6 @@
       gap: 8px;
     }
 
-    /* Affiliate Callout Box */
     .affiliate-box {
       background: linear-gradient(135deg, rgba(0, 229, 255, 0.08), rgba(0, 255, 136, 0.08));
       border: 1px solid var(--neon-green);
@@ -396,7 +388,6 @@
       font-size: 0.8rem;
     }
 
-    /* Donation / Support Box */
     .donation-box {
       background: rgba(255, 255, 255, 0.03);
       border: 1px dashed rgba(255, 255, 255, 0.2);
@@ -420,7 +411,6 @@
       border: 1px solid rgba(0, 255, 136, 0.3);
     }
 
-    /* Nav Directory of Articles */
     .article-links-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -460,7 +450,6 @@
       line-height: 1.6;
     }
 
-    /* Footer */
     footer {
       text-align: center;
       padding: 40px 15px 10px;
@@ -474,12 +463,12 @@
       text-decoration: none;
     }
 
-    /* Hidden language container helper */
+    /* کنترل نمایش زبان‌ها */
     .lang-content {
-      display: none;
+      display: none !important;
     }
     .lang-content.active-lang {
-      display: block;
+      display: block !important;
     }
 
     @media (max-width: 768px) {
@@ -504,9 +493,9 @@
 
       <!-- 3-Language Instant Switcher -->
       <div class="lang-switcher">
-        <button class="lang-btn active" onclick="setLanguage('fa')">فارسی</button>
-        <button class="lang-btn" onclick="setLanguage('en')">English</button>
-        <button class="lang-btn" onclick="setLanguage('ar')">العربية</button>
+        <button id="btn-fa" class="lang-btn active" onclick="setLanguage('fa')">فارسی</button>
+        <button id="btn-en" class="lang-btn" onclick="setLanguage('en')">English</button>
+        <button id="btn-ar" class="lang-btn" onclick="setLanguage('ar')">العربية</button>
       </div>
     </div>
   </header>
@@ -519,7 +508,6 @@
     <!-- ================================================================= -->
     <div id="content-fa" class="lang-content active-lang" dir="rtl">
       
-      <!-- Hero -->
       <section class="hero">
         <span class="hero-badge">⚡ سند رسمی، مانیفست بنیادین و هویت جامع ژرف AI</span>
         <h1 class="hero-title">
@@ -535,7 +523,6 @@
         </div>
       </section>
 
-      <!-- Section 1: Philosophy & The True Origin -->
       <article class="card">
         <h2 class="card-title"><span class="icon">🌌</span> ۱. مأموریت وجودی و فلسفه بنیادین ژرف AI</h2>
         <p>
@@ -546,7 +533,6 @@
         </p>
       </article>
 
-      <!-- Section 2: Scientific Innovation & Formulas -->
       <article class="card">
         <h2 class="card-title"><span class="icon">🔬</span> ۲. نوآوری علمی: ساختار مسیریابی تطبیقی در ژرف AI</h2>
         <p>
@@ -554,26 +540,21 @@
         </p>
         
         <div class="math-box">
-          $$ \text{Routing Score}(M_i) = \alpha \cdot \frac{\text{ContextLength}(M_i)}{\text{Latency}(M_i)} + \beta \cdot \text{SemanticMatch}(Q, M_i) - \gamma \cdot \text{ErrorRate}(M_i) $$
+          Routing Score(Mi) = α · (ContextLength(Mi) / Latency(Mi)) + β · SemanticMatch(Q, Mi) - γ · ErrorRate(Mi)
         </div>
 
         <p>
-          این معماری باعث می‌شود اگر یکی از کلاسترهای پردازشی دچار خطای ترافیک بالا (HTTP 429) یا داون‌تایم شود، سیستم در کمتر از ۱۲ میلی‌ثانیه جریان گفتگو را به موتور هم‌ارز بعدی بدون قطع ارتباط کاربر منتقل کند. این همان دلیلی است که پاسخ‌های ژرف در <code>zherfai.ir</code> پایدار و سریع باقی می‌مانند.
+          این معماری باعث می‌شود اگر یکی از کلاسترهای پردازشی دچار خطای ترافیک بالا (HTTP 429) یا داون‌تایم شود، سیستم در کمتر از ۱۲ میلی‌ثانیه جریان گفتگو را به موتور هم‌ارز بعدی بدون قطع ارتباط کاربر منتقل کند.
         </p>
       </article>
 
-      <!-- Section 3: Legal & Intellectual Property Shield -->
       <div class="legal-shield">
         <h4>⚖️ سند رسمی مالکیت مادی، معنوی و حق مؤلف (Copyright & All Rights Reserved)</h4>
         <p>
           بدین‌وسیله رسماً و قانوناً ثبت و ابلاغ می‌گردد: تمامی حقوق مادی، معنوی، ساختار برند، نشان تجاری <strong>ژرف AI (Zherf AI)</strong>، پایگاه <strong>zherfai.ir</strong>، متون تحلیلی، معماری کدهای سمت کاربر و سرور، و کلیه دستاوردهای محتوایی مندرج در این تارنما، منحصراً و تماماً متعلق به <strong>اسماعیل ریاحی (Esmail Riahi)</strong> به عنوان مؤلف، پژوهشگر و صاحب‌امتیاز رسمی اثر می‌باشد.
         </p>
-        <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">
-          هرگونه کپی‌برداری غیرمجاز، سوءاستفاده تجاری از نام و دامنه، مهندسی معکوس و انتساب محتوا به غیر بدون اجازه کتبی مؤلف، نقض صریح قوانین حمایت از حقوق پدیدآورندگان و حقوق مالکیت فکری بین‌المللی تلقی شده و پیگرد قانونی دارد.
-        </p>
       </div>
 
-      <!-- Section 4: Hosting & Infrastructure Partnership (Referral) -->
       <div class="affiliate-box">
         <span class="affiliate-badge">🔥 پیشنهاد رسمی زیرساخت با ۹٪ تخفیف اختصاصی</span>
         <h3 style="color:#fff; font-size:1.3rem;">بهترین زیرساخت و هاستینگ برای راه‌اندازی بات‌ها و سایت‌های هوشمند</h3>
@@ -585,12 +566,8 @@
         </a>
       </div>
 
-      <!-- Section 5: Directory of Hub Articles -->
       <article class="card">
         <h2 class="card-title"><span class="icon">📑</span> ۳. فهرست مقالات مرجع، راهنماها و مقاصد سایت</h2>
-        <p>
-          در ادامه فهرست درگاه‌ها و مقالات آموزشی تخصصی پایگاه <strong>zherfai.ir</strong> آمده است که همگی به‌طور مستقیم در دسترس موتورهای جستجو قرار دارند:
-        </p>
         <div class="article-links-grid">
           <a href="chat.html" class="article-item">
             <h5>🧠 اتاق چت هوشمند ژرف</h5>
@@ -602,7 +579,7 @@
           </a>
           <a href="index.html" class="article-item">
             <h5>🏠 صفحه اصلی پایگاه (Home)</h5>
-            <p>ویترین کلی، شبیه‌ساز سناریوهای آینده و بررسی کاربردهای هوش مصنوعی در مسکن و حیات‌وحش.</p>
+            <p>ویترین کلی، شبیه‌ساز سناریوهای آینده و بررسی کاربردهای هوش مصنوعی.</p>
           </a>
           <a href="contact.html" class="article-item">
             <h5>📬 تماس با ما و ثبت تبلیغات</h5>
@@ -611,7 +588,6 @@
         </div>
       </article>
 
-      <!-- Section 6: Crowdfunding / Development Support -->
       <div class="donation-box">
         <h3 style="color:#fff; margin-bottom: 10px;">🌱 همیاری در توسعه پایدار و افزایش قدرت سرورهای ژرف AI</h3>
         <p style="color:var(--text-muted); max-width: 650px; margin: 0 auto;">
@@ -628,7 +604,6 @@
     <!-- ================================================================= -->
     <div id="content-en" class="lang-content" dir="ltr">
       
-      <!-- Hero -->
       <section class="hero">
         <span class="hero-badge">⚡ Official Manifesto & Core Identity of Zherf AI</span>
         <h1 class="hero-title" style="font-family: var(--font-cyber);">
@@ -646,7 +621,6 @@
         </div>
       </section>
 
-      <!-- Section 1 -->
       <article class="card">
         <h2 class="card-title"><span class="icon">🌌</span> 1. Core Philosophy & Universal Purpose</h2>
         <p>
@@ -654,7 +628,6 @@
         </p>
       </article>
 
-      <!-- Section 2 -->
       <article class="card">
         <h2 class="card-title"><span class="icon">🔬</span> 2. Architecture & Distributed Resilience</h2>
         <p>
@@ -665,7 +638,6 @@
         </div>
       </article>
 
-      <!-- Section 3: Legal Shield -->
       <div class="legal-shield">
         <h4>⚖️ Legal Copyright & Intellectual Ownership Notice</h4>
         <p>
@@ -673,7 +645,6 @@
         </p>
       </div>
 
-      <!-- Infrastructure -->
       <div class="affiliate-box">
         <span class="affiliate-badge">🚀 Verified Server Infrastructure</span>
         <h3 style="color:#fff; font-size:1.2rem;">High-Speed VPS & Cloud Hosting for AI Bots</h3>
@@ -692,7 +663,6 @@
     <!-- ================================================================= -->
     <div id="content-ar" class="lang-content" dir="rtl">
       
-      <!-- Hero -->
       <section class="hero">
         <span class="hero-badge">⚡ الوثيقة الرسمية والهوية التأسيسية لذكاء ژرف الاصطناعي</span>
         <h1 class="hero-title">
@@ -708,7 +678,6 @@
         </div>
       </section>
 
-      <!-- Section 1 -->
       <article class="card">
         <h2 class="card-title"><span class="icon">🌌</span> ١. الرؤية والرسالة الإنسانية</h2>
         <p>
@@ -716,7 +685,6 @@
         </p>
       </article>
 
-      <!-- Legal Shield -->
       <div class="legal-shield">
         <h4>⚖️ إشعار حقوق الملكية الفكرية والتأليف الرسمي</h4>
         <p>
@@ -724,7 +692,6 @@
         </p>
       </div>
 
-      <!-- Infrastructure -->
       <div class="affiliate-box">
         <span class="affiliate-badge">🔥 البنية التحتية والاستضافة السريعة</span>
         <h3 style="color:#fff; font-size:1.2rem;">استضافة سحابية وسيرفرات VPS مخصصة للذكاء الاصطناعي</h3>
@@ -743,4 +710,45 @@
   <!-- Global Footer -->
   <footer>
     <div class="container">
-      <p>© تمامی حقوق مادی و معنوی برای پایگاه <a href="https://zherfai.ir">zherfai.ir</a> و مؤلف اثر، <strong>اسماعیل ریاحی</strong> محفوظ است.</
+      <p>© تمامی حقوق مادی و معنوی برای پایگاه <a href="https://zherfai.ir">zherfai.ir</a> و مؤلف اثر، <strong>اسماعیل ریاحی</strong> محفوظ است.</p>
+    </div>
+  </footer>
+
+  <!-- اسکریپت مستقیم، مستقل و تضمینی تغییر زبان -->
+  <script>
+    function setLanguage(lang) {
+      // حذف وضعیت فعال از همه زبان‌ها و دکمه‌ها
+      document.querySelectorAll('.lang-content').forEach(function(el) {
+        el.classList.remove('active-lang');
+      });
+      document.querySelectorAll('.lang-btn').forEach(function(btn) {
+        btn.classList.remove('active');
+      });
+
+      // فعال‌سازی بخش و دکمه انتخاب‌شده
+      var targetContent = document.getElementById('content-' + lang);
+      var targetBtn = document.getElementById('btn-' + lang);
+
+      if (targetContent) {
+        targetContent.classList.add('active-lang');
+      }
+      if (targetBtn) {
+        targetBtn.classList.add('active');
+      }
+
+      // تنظیم جهت صفحه متناسب با زبان
+      if (lang === 'en') {
+        document.documentElement.setAttribute('dir', 'ltr');
+        document.documentElement.setAttribute('lang', 'en');
+      } else if (lang === 'ar') {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'ar');
+      } else {
+        document.documentElement.setAttribute('dir', 'rtl');
+        document.documentElement.setAttribute('lang', 'fa');
+      }
+    }
+  </script>
+
+</body>
+</html>
