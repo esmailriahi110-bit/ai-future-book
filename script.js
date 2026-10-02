@@ -1,0 +1,254 @@
+// آدرس موتور فعال و رسمی هاگینگ‌فیس ژرف
+const HF_ENGINE_URL = "https://esmailr-helektelek-engine.hf.space";
+let currentSessionId = Date.now().toString();
+let attachedFile = null;
+
+// باز و بسته کردن سایدبار منو
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("sidebarOverlay");
+  if (sidebar) sidebar.classList.toggle("open");
+  if (overlay) overlay.classList.toggle("active");
+}
+
+// تنظیم خودکار ارتفاع کادر متن پیام
+function autoResize(textarea) {
+  textarea.style.height = "auto";
+  textarea.style.height = Math.min(textarea.scrollHeight, 120) + "px";
+}
+
+// ارسال پیام با کلید اینتر (Enter) بدون Shift
+function handleKeyDown(event) {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault();
+    sendMessage();
+  }
+}
+
+// مدیریت انتخاب و پیوست فایل
+function handleFileSelect(event) {
+  const file = event.target.files[0];
+  if (file) {
+    attachedFile = file;
+    const preview = document.getElementById("filePreview");
+    const nameSpan = document.getElementById("fileName");
+    if (preview && nameSpan) {
+      nameSpan.innerHTML = `<i class="fa-solid fa-paperclip"></i> ${escapeHtml(file.name)}`;
+      preview.style.display = "flex";
+    }
+  }
+}
+
+// حذف فایل پیوست شده
+function removeFile() {
+  attachedFile = null;
+  const fileInput = document.getElementById("fileInput");
+  const filePreview = document.getElementById("filePreview");
+  if (fileInput) fileInput.value = "";
+  if (filePreview) filePreview.style.display = "none";
+}
+
+// پاکسازی کاراکترهای خطرناک برای امنیت متن
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.innerText = text;
+  return div.innerHTML;
+}
+
+// درج حباب پیام کاربر یا هوش مصنوعی در صفحه (دقیقاً هماهنگ با CSS سایت)
+function appendMessage(role, text) {
+  const chatArea = document.getElementById("chatArea");
+  if (!chatArea) return;
+  
+  const msgDiv = document.createElement("div");
+  msgDiv.className = `message ${role}`;
+
+  const bubbleDiv = document.createElement("div");
+  bubbleDiv.className = "bubble";
+  bubbleDiv.innerText = text;
+
+  msgDiv.appendChild(bubbleDiv);
+  chatArea.appendChild(msgDiv);
+  chatArea.scrollTop = chatArea.scrollHeight;
+}
+
+// ذخیره عنوان چت در حافظه محلی مرورگر
+function saveHistory(firstMessageText) {
+  let history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+  const existing = history.find(h => h.id === currentSessionId);
+  if (!existing) {
+    history.unshift({
+      id: currentSessionId,
+      title: firstMessageText.substring(0, 30) + (firstMessageText.length > 30 ? "..." : ""),
+      date: new Date().toLocaleDateString("fa-IR")
+    });
+    localStorage.setItem("zherf_chat_history", JSON.stringify(history));
+    renderHistoryList();
+  }
+}
+
+// نمایش لیست تاریخچه گفتگوها در سایدبار
+function renderHistoryList() {
+  const container = document.getElementById("historyList");
+  if (!container) return;
+  const history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+  container.innerHTML = "";
+
+  if (history.length === 0) {
+    container.innerHTML = '<div style="font-size:0.8rem; color:var(--text-muted); text-align:center; padding:10px;">تاریخچه‌ای وجود ندارد</div>';
+    return;
+  }
+
+  history.forEach(item => {
+    const itemDiv = document.createElement("div");
+    itemDiv.className = "history-item";
+    itemDiv.innerHTML = `
+      <div class="history-text" onclick="loadChat('${item.id}')">${escapeHtml(item.title)}</div>
+      <button class="delete-item-btn" onclick="deleteHistoryItem(event, '${item.id}')"><i class="fa-solid fa-trash-can"></i></button>
+    `;
+    container.appendChild(itemDiv);
+  });
+}
+
+// حذف یک مورد از سابقه گفتگوها
+function deleteHistoryItem(event, id) {
+  event.stopPropagation();
+  let history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
+  history = history.filter(h => h.id !== id);
+  localStorage.setItem("zherf_chat_history", JSON.stringify(history));
+  renderHistoryList();
+}
+
+// شروع گفتگوی جدید
+function startNewChat() {
+  currentSessionId = Date.now().toString();
+  const chatArea = document.getElementById("chatArea");
+  if (chatArea) {
+    chatArea.innerHTML = `
+      <div class="message assistant">
+        <div class="bubble">سلام</div>
+      </div>
+    `;
+  }
+  removeFile();
+  const sidebar = document.getElementById("sidebar");
+  if (sidebar && sidebar.classList.contains("open")) {
+    toggleSidebar();
+  }
+}
+
+// بازخوانی یک گفتگوی قدیمی
+function loadChat(id) {
+  currentSessionId = id;
+  const chatArea = document.getElementById("chatArea");
+  if (chatArea) {
+    chatArea.innerHTML = `
+      <div class="message assistant">
+        <div class="bubble">گفتگوی قبلی بازیابی شد. بفرمایید، در خدمتم.</div>
+      </div>
+    `;
+  }
+  toggleSidebar();
+}
+
+// تابع اصلی ارسال و دریافت پیام از هوش مصنوعی (اصلاح شده و بدون گیر کردن)
+async function sendMessage() {
+  const input = document.getElementById("userInput");
+  if (!input) return;
+
+  const text = input.value.trim();
+  if (!text && !attachedFile) return;
+
+  const promptToSend = text || (attachedFile ? `[فایل: ${attachedFile.name}]` : "");
+  appendMessage("user", promptToSend);
+  saveHistory(promptToSend);
+
+  input.value = "";
+  input.style.height = "auto";
+  removeFile();
+
+  // اضافه کردن حالت لودینگ با انیمیشن
+  const loadingMsg = document.createElement("div");
+  loadingMsg.className = "message assistant";
+  loadingMsg.id = "loadingMsg";
+  loadingMsg.innerHTML = '<div class="bubble"><i class="fa-solid fa-circle-notch fa-spin"></i> ژرف در حال اندیشیدن...</div>';
+  document.getElementById("chatArea").appendChild(loadingMsg);
+  document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
+
+  try {
+    // ۱. ارسال درخواست شروع فرایند چت
+    const postResponse = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: [{ text: promptToSend, files: [] }]
+      })
+    });
+
+    if (!postResponse.ok) {
+      throw new Error(`خطای سرور: ${postResponse.status}`);
+    }
+
+    const postData = await postResponse.json();
+    const eventId = postData.event_id;
+
+    if (!eventId) {
+      throw new Error("شناسه رویداد معتبر دریافت نشد");
+    }
+
+    // ۲. دریافت استریم پاسخ بر اساس شناسه اختصاصی
+    const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`);
+    if (!streamRes.ok) {
+      throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
+    }
+
+    const rawData = await streamRes.text();
+    let finalReply = "";
+
+    // استخراج پاسخ نهایی از خطوط data: ارسالی Gradio
+    const lines = rawData.split("\n");
+    for (const line of lines) {
+      if (line.startsWith("data:")) {
+        const payload = line.replace("data:", "").trim();
+        try {
+          const parsed = JSON.parse(payload);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            finalReply = typeof parsed[0] === "string" ? parsed[0] : JSON.stringify(parsed[0]);
+          } else if (typeof parsed === "string") {
+            finalReply = parsed;
+          } else if (parsed && typeof parsed === "object") {
+            finalReply = parsed.text || JSON.stringify(parsed);
+          }
+        } catch (e) {
+          if (payload && payload !== "null") {
+            finalReply = payload;
+          }
+        }
+      }
+    }
+
+    // حذف حباب لودینگ
+    const loadingElement = document.getElementById("loadingMsg");
+    if (loadingElement) loadingElement.remove();
+
+    if (finalReply) {
+      if (finalReply.startsWith('"') && finalReply.endsWith('"')) {
+        try { finalReply = JSON.parse(finalReply); } catch(_) {}
+      }
+      appendMessage("assistant", finalReply);
+    } else {
+      appendMessage("assistant", "پاسخی از سمت مدل دریافت نشد. لطفاً دوباره تلاش کنید.");
+    }
+
+  } catch (err) {
+    const loadingElement = document.getElementById("loadingMsg");
+    if (loadingElement) loadingElement.remove();
+    appendMessage("assistant", "⚠️ در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
+    console.error("خطای موتور ژرف:", err);
+  }
+}
+
+// لود سوابق پس از بارگذاری DOM
+document.addEventListener("DOMContentLoaded", () => {
+  renderHistoryList();
+});
