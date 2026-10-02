@@ -55,7 +55,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// درج حباب پیام کاربر یا هوش مصنوعی در صفحه
+// درج حباب پیام کاربر یا هوش مصنوعی در صفحه (دقیقاً هماهنگ با CSS سایت)
 function appendMessage(role, text) {
   const chatArea = document.getElementById("chatArea");
   if (!chatArea) return;
@@ -151,9 +151,11 @@ function loadChat(id) {
   toggleSidebar();
 }
 
-// تابع اصلی ارسال و دریافت پیام از هوش مصنوعی
+// تابع اصلی ارسال و دریافت پیام از هوش مصنوعی (اصلاح شده و بدون گیر کردن)
 async function sendMessage() {
   const input = document.getElementById("userInput");
+  if (!input) return;
+
   const text = input.value.trim();
   if (!text && !attachedFile) return;
 
@@ -165,6 +167,7 @@ async function sendMessage() {
   input.style.height = "auto";
   removeFile();
 
+  // اضافه کردن حالت لودینگ با انیمیشن
   const loadingMsg = document.createElement("div");
   loadingMsg.className = "message assistant";
   loadingMsg.id = "loadingMsg";
@@ -173,7 +176,7 @@ async function sendMessage() {
   document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
 
   try {
-    // ارسال درخواست به سرور هاگینگ‌فیس
+    // ۱. ارسال درخواست شروع فرایند چت
     const postResponse = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -183,18 +186,27 @@ async function sendMessage() {
     });
 
     if (!postResponse.ok) {
-      throw new Error(`وضعیت سرور: ${postResponse.status}`);
+      throw new Error(`خطای سرور: ${postResponse.status}`);
     }
 
-    const { event_id } = await postResponse.json();
+    const postData = await postResponse.json();
+    const eventId = postData.event_id;
 
-    // دریافت داده‌های استریم
-    const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${event_id}`);
+    if (!eventId) {
+      throw new Error("شناسه رویداد معتبر دریافت نشد");
+    }
+
+    // ۲. دریافت استریم پاسخ بر اساس شناسه اختصاصی
+    const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`);
+    if (!streamRes.ok) {
+      throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
+    }
+
     const rawData = await streamRes.text();
-
     let finalReply = "";
-    const lines = rawData.split("\n");
 
+    // استخراج پاسخ نهایی از خطوط data: ارسالی Gradio
+    const lines = rawData.split("\n");
     for (const line of lines) {
       if (line.startsWith("data:")) {
         const payload = line.replace("data:", "").trim();
@@ -215,6 +227,7 @@ async function sendMessage() {
       }
     }
 
+    // حذف حباب لودینگ
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
 
@@ -230,12 +243,12 @@ async function sendMessage() {
   } catch (err) {
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", "در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
+    appendMessage("assistant", "⚠️ در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
     console.error("خطای موتور ژرف:", err);
   }
 }
 
-// اجرای اولیه لیست تاریخچه پس از لود صفحه
+// لود سوابق پس از بارگذاری DOM
 document.addEventListener("DOMContentLoaded", () => {
   renderHistoryList();
 });
