@@ -1,79 +1,661 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>تماس با ما و رزرو تبلیغات | سامانه هوشمند ژرف</title>
-  <meta name="description" content="ارتباط با مدیریت ژرف، سفارش آگهی و تبلیغات در صفحات پربازدید چت و ابزارهای هوش مصنوعی، و پیشنهادات همکاری.">
-  <link rel="canonical" href="https://zherfai.ir/contact.html">
-  <meta property="og:title" content="تماس با ما و رزرو تبلیغات | ژرف">
-  <meta property="og:url" content="https://zherfai.ir/contact.html">
-  <meta name="robots" content="index, follow">
-  
-  <script type="application/ld+json">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://zherfai.ir/contact.html" />
+
+  <!-- Primary Meta -->
+  <title id="meta-title">تماس با ژرف AI | ارتباط با اسماعیل ریاحی، سفارش تبلیغات و همکاری</title>
+  <meta id="meta-desc" name="description" content="صفحه تماس رسمی ژرف AI (zherfai.ir): ارتباط مستقیم با اسماعیل ریاحی، سفارش تبلیغات، همکاری محتوایی/فنی، پشتیبانی و پیشنهادات. ژرف AI یک سامانه هوش مصنوعی فارسی، سریع و دسترس‌پذیر برای همه است." />
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+  <meta name="theme-color" content="#00ff88" />
+  <meta name="author" content="اسماعیل ریاحی (Esmail Riahi)" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://zherfai.ir/contact.html" />
+  <meta id="og-title" property="og:title" content="تماس با ژرف AI | ارتباط مستقیم و همکاری" />
+  <meta id="og-desc" property="og:description" content="کانال‌های رسمی ارتباط با ژرف AI: ایتا، تلگرام، ایمیل. سفارش تبلیغات، همکاری فنی/محتوایی و پشتیبانی." />
+  <meta property="og:site_name" content="Zherf AI" />
+  <meta property="og:image" content="https://zherfai.ir/assets/cover.jpg" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta id="tw-title" name="twitter:title" content="Contact Zherf AI" />
+  <meta id="tw-desc" name="twitter:description" content="Official contact page for Zherf AI: ads, partnerships, support, suggestions." />
+
+  <!-- Language hints (single URL / multi-language UI) -->
+  <link rel="alternate" hreflang="x-default" href="https://zherfai.ir/contact.html" />
+  <link rel="alternate" hreflang="fa" href="https://zherfai.ir/contact.html" />
+  <link rel="alternate" hreflang="en" href="https://zherfai.ir/contact.html" />
+  <link rel="alternate" hreflang="ar" href="https://zherfai.ir/contact.html" />
+
+  <!-- Advanced Schema (ContactPage + WebSite + Person + Organization + BreadcrumbList) -->
+  <script type="application/ld+json" id="schema-jsonld">
   {
     "@context": "https://schema.org",
-    "@type": "ContactPage",
-    "name": "تماس با ما و رزرو تبلیغات ژرف",
-    "url": "https://zherfai.ir/contact.html",
-    "description": "صفحه رسمی ارتباط با مدیریت ژرف و سفارش جایگاه‌های تبلیغاتی"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://zherfai.ir/#website",
+        "url": "https://zherfai.ir/",
+        "name": "Zherf AI",
+        "inLanguage": ["fa-IR","en","ar"],
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://zherfai.ir/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://zherfai.ir/#org",
+        "name": "Zherf AI",
+        "url": "https://zherfai.ir/",
+        "founder": {
+          "@type": "Person",
+          "@id": "https://zherfai.ir/#author"
+        },
+        "contactPoint": [
+          {
+            "@type": "ContactPoint",
+            "contactType": "customer support",
+            "email": "info@zherfai.ir",
+            "availableLanguage": ["fa","en","ar"]
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://zherfai.ir/#author",
+        "name": "اسماعیل ریاحی",
+        "alternateName": "Esmail Riahi",
+        "jobTitle": "نویسنده و پژوهشگر | بنیان‌گذار ژرف AI",
+        "url": "https://zherfai.ir/",
+        "sameAs": [
+          "https://eitaa.com/Esmailriahi",
+          "https://t.me/SRiahi"
+        ]
+      },
+      {
+        "@type": "ContactPage",
+        "@id": "https://zherfai.ir/contact.html#webpage",
+        "url": "https://zherfai.ir/contact.html",
+        "name": "تماس با ژرف AI",
+        "isPartOf": { "@id": "https://zherfai.ir/#website" },
+        "about": [{ "@id": "https://zherfai.ir/#org" }, { "@id": "https://zherfai.ir/#author" }],
+        "inLanguage": ["fa-IR","en","ar"],
+        "mainEntity": {
+          "@type": "Organization",
+          "@id": "https://zherfai.ir/#org"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://zherfai.ir/contact.html#breadcrumbs",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "خانه", "item": "https://zherfai.ir/" },
+          { "@type": "ListItem", "position": 2, "name": "تماس با ما", "item": "https://zherfai.ir/contact.html" }
+        ]
+      }
+    ]
   }
   </script>
 
   <style>
-    :root {
-      --bg-dark: #0b1120;
-      --card-bg: #1e293b;
-      --text-main: #f8fafc;
-      --text-muted: #94a3b8;
-      --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --border: #334155;
+    :root{
+      --bg:#070b09;
+      --panel:#0e1612;
+      --panel2:#0b120f;
+      --border:#1b2f25;
+      --green:#00ff88;
+      --glow:rgba(0,255,136,.18);
+      --text:#e7fff4;
+      --muted:#8fb2a0;
+      --danger:#ff4d4d;
+      --font:system-ui,-apple-system,"Segoe UI",Roboto,"Vazirmatn",Tahoma,sans-serif;
+      --radius:14px;
+      --shadow:0 10px 28px rgba(0,0,0,.35);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    body { background-color: var(--bg-dark); color: var(--text-main); line-height: 1.6; padding: 20px 15px; }
-    .container { max-width: 750px; margin: 0 auto; background: var(--card-bg); border-radius: 16px; border: 1px solid var(--border); padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    h1 { font-size: 1.6rem; color: #60a5fa; margin-bottom: 12px; text-align: center; }
-    p.subtitle { text-align: center; color: var(--text-muted); margin-bottom: 25px; font-size: 0.95rem; }
-    .box { background: #0f172a; border: 1px dashed #475569; border-radius: 12px; padding: 20px; margin-bottom: 20px; }
-    .box h2 { font-size: 1.15rem; margin-bottom: 10px; color: #38bdf8; }
-    ul { margin-right: 20px; color: var(--text-muted); font-size: 0.92rem; }
-    li { margin-bottom: 8px; }
-    .contact-ways { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 25px; }
-    .card { background: #0f172a; padding: 18px; border-radius: 12px; border: 1px solid var(--border); text-align: center; }
-    .card strong { display: block; margin-bottom: 8px; font-size: 1rem; color: var(--text-main); }
-    .card a { color: #38bdf8; text-decoration: none; font-weight: bold; font-size: 0.95rem; word-break: break-all; }
-    .card a:hover { text-decoration: underline; }
-    .btn-back { display: block; width: 100%; text-align: center; margin-top: 30px; padding: 12px; background: var(--primary); color: #fff; text-decoration: none; border-radius: 10px; font-weight: bold; transition: 0.2s; }
-    .btn-back:hover { background: var(--primary-hover); }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background: radial-gradient(1200px 800px at 70% -10%, rgba(0,255,136,.08), transparent 55%),
+                  radial-gradient(900px 700px at 10% 0%, rgba(0,255,136,.05), transparent 60%),
+                  var(--bg);
+      color:var(--text);
+      font-family:var(--font);
+      line-height:1.85;
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    header{
+      position:sticky;top:0;z-index:50;
+      background: rgba(7,11,9,.86);
+      border-bottom:1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+
+    .nav{
+      max-width:1120px;margin:0 auto;padding:12px 18px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+    }
+
+    .brand{
+      display:flex;align-items:center;gap:10px;
+      color:var(--green);text-decoration:none;font-weight:900;
+      letter-spacing:.2px;text-shadow: 0 0 16px var(--glow);
+      white-space:nowrap;
+    }
+
+    .navlinks{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .navlinks a{
+      color:var(--muted);text-decoration:none;font-size:.95rem;
+      padding:8px 10px;border-radius:10px;border:1px solid transparent;
+      transition:.18s ease;
+    }
+    .navlinks a:hover,.navlinks a.active{
+      color:var(--green);
+      border-color:rgba(0,255,136,.25);
+      background:rgba(0,255,136,.06);
+    }
+
+    .lang{
+      display:flex;gap:6px;
+      background:var(--panel);
+      border:1px solid var(--border);
+      border-radius:12px;
+      padding:4px;
+    }
+    .lang button{
+      border:0;background:transparent;color:var(--muted);
+      padding:6px 10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:.82rem;
+      transition:.18s ease;
+    }
+    .lang button.active{background:var(--green);color:#00150b}
+    .lang button:focus{outline:2px solid rgba(0,255,136,.4);outline-offset:2px}
+
+    main{flex:1;max-width:1120px;margin:0 auto;padding:28px 18px 50px;width:100%}
+
+    .hero{
+      background:linear-gradient(180deg, rgba(0,255,136,.08), transparent 65%);
+      border:1px solid rgba(0,255,136,.18);
+      border-radius:var(--radius);
+      padding:22px 18px;
+      box-shadow:var(--shadow);
+      margin-bottom:18px;
+    }
+    .hero h1{font-size:1.8rem;margin-bottom:6px}
+    .hero p{color:var(--muted);max-width:880px}
+
+    .quick{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:14px
+    }
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:11px 14px;border-radius:12px;text-decoration:none;font-weight:900;
+      border:1px solid rgba(0,255,136,.28);
+      background:rgba(0,255,136,.07);
+      color:var(--green);
+      transition:.18s ease;
+    }
+    .btn:hover{box-shadow:0 0 0 6px rgba(0,255,136,.06);transform:translateY(-1px)}
+    .btn.primary{background:var(--green);color:#00150b;border-color:var(--green)}
+    .btn.primary:hover{filter:brightness(1.05)}
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .card{
+      background:linear-gradient(180deg, rgba(255,255,255,.02), transparent 70%), var(--panel2);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .card h2{
+      display:flex;align-items:center;gap:10px;
+      color:var(--green);font-size:1.15rem;margin-bottom:8px
+    }
+    .card p{color:var(--muted);font-size:.95rem;margin-bottom:12px}
+
+    .item{
+      display:flex;gap:12px;align-items:center;
+      padding:12px;border-radius:12px;
+      border:1px solid rgba(255,255,255,.06);
+      background:rgba(0,0,0,.30);
+      text-decoration:none;color:var(--text);
+      transition:.18s ease;
+      margin-bottom:10px;
+    }
+    .item:hover{border-color:rgba(0,255,136,.28);background:rgba(0,255,136,.06)}
+    .ico{font-size:1.25rem}
+    .meta{flex:1}
+    .meta small{display:block;color:var(--muted);font-size:.78rem}
+    .meta strong{display:block;color:#fff;font-size:1rem;direction:ltr}
+    .tag{color:var(--green);font-weight:900;font-size:.82rem;white-space:nowrap}
+
+    .faq details{
+      border:1px solid rgba(255,255,255,.06);
+      border-radius:12px;
+      background:rgba(0,0,0,.22);
+      padding:12px;
+      margin-bottom:10px;
+    }
+    .faq summary{cursor:pointer;font-weight:900;color:#fff}
+    .faq p{margin-top:8px}
+
+    .donate{
+      border:1px dashed rgba(0,255,136,.55);
+      background:rgba(0,255,136,.05);
+      border-radius:var(--radius);
+      padding:16px;
+      text-align:center;
+    }
+    .cardnum{
+      margin:10px auto 8px;
+      display:inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      letter-spacing:1.7px;
+      font-size:1.25rem;
+      padding:10px 14px;
+      border-radius:12px;
+      border:1px solid rgba(0,255,136,.25);
+      background:rgba(0,0,0,.50);
+      cursor:pointer;
+      user-select:none;
+    }
+    .note{font-size:.85rem;color:var(--muted)}
+
+    footer{
+      border-top:1px solid var(--border);
+      background: rgba(7,11,9,.92);
+      padding:18px;
+      color:var(--muted);
+      text-align:center;
+      font-size:.85rem;
+    }
+    footer a{color:var(--green);text-decoration:none}
+    .toast{
+      position:fixed;bottom:18px;left:50%;
+      transform:translateX(-50%);
+      background:var(--green);color:#00150b;
+      padding:8px 14px;border-radius:999px;
+      font-weight:900;font-size:.85rem;
+      opacity:0;pointer-events:none;transition:.25s ease;z-index:999;
+      box-shadow:0 12px 30px rgba(0,0,0,.35);
+    }
+    .toast.show{opacity:1}
   </style>
 </head>
-<body>
-  <main class="container">
-    <h1>تماس با ما و سفارش آگهی</h1>
-    <p class="subtitle">جهت رزرو جایگاه‌های تبلیغاتی در نوار بالای چت و صفحات سایت ژرف یا ارتباط با تیم توسعه</p>
-    
-    <section class="box">
-      <h2>شرایط و ویژگی‌های تبلیغات در ژرف:</h2>
-      <ul>
-        <li>نمایش در بالاترین نقطه صفحات چت هوشمند و ابزارهای پربازدید</li>
-        <li>نمایش دائمی به کاربران حوزه هوش مصنوعی، برنامه‌نویسی و وب</li>
-        <li>امکان درج بنر، لینک مستقیم با متن دلخواه و بج اختصاصی</li>
-      </ul>
-    </section>
 
-    <div class="contact-ways">
-      <div class="card">
-        <strong>پیام‌رسان ایتا و تلگرام</strong>
-        <a href="https://eitaa.com" target="_blank" rel="noopener">ارسال پیام در ایتا / تلگرام</a>
-      </div>
-      <div class="card">
-        <strong>پست الکترونیک (ایمیل)</strong>
-        <a href="mailto:info@zherfai.ir">info@zherfai.ir</a>
+<body>
+  <header>
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="Zherf AI Home">⚡ ژرف AI</a>
+
+      <nav class="navlinks" aria-label="Primary">
+        <a href="index.html" id="nav-home">خانه</a>
+        <a href="articles.html" id="nav-articles">مقالات</a>
+        <a href="chat.html" id="nav-chat">هوش مصنوعی ژرف</a>
+        <a href="contact.html" class="active" id="nav-contact">تماس با ما</a>
+      </nav>
+
+      <div class="lang" role="group" aria-label="Language switcher">
+        <button class="active" id="btn-fa" onclick="setLanguage('fa')" type="button">فا</button>
+        <button id="btn-en" onclick="setLanguage('en')" type="button">EN</button>
+        <button id="btn-ar" onclick="setLanguage('ar')" type="button">عر</button>
       </div>
     </div>
+  </header>
 
-    <a href="/chat.html" class="btn-back">بازگشت به دستیار چت هوشمند</a>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <h1 id="hero-title">تماس با ژرف AI</h1>
+      <p id="hero-desc">
+        ژرف AI یک وب‌سایت آموزشی و یک دستیار هوشمند گفتگومحور است که برای دسترسی سریع مردم به دانش و ابزارهای هوش مصنوعی ساخته شده.
+        از این صفحه می‌توانید برای پشتیبانی، پیشنهاد، گزارش مشکل، سفارش تبلیغات و همکاری با بنیان‌گذار پروژه اقدام کنید.
+      </p>
+
+      <div class="quick" aria-label="Quick actions">
+        <a class="btn primary" href="chat.html" id="btn-go-chat">ورود به هوش مصنوعی ژرف</a>
+        <a class="btn" href="index.html" id="btn-go-home">بازگشت به خانه</a>
+        <a class="btn" href="articles.html" id="btn-go-articles">رفتن به مقالات</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <article class="card" aria-labelledby="c1">
+        <h2 id="c1">📡 ارتباط مستقیم</h2>
+        <p id="c1p">سریع‌ترین راه ارتباط برای سفارش تبلیغات، پیگیری همکاری‌ها و پاسخ به سوالات:</p>
+
+        <a class="item" href="https://eitaa.com/Esmailriahi" target="_blank" rel="noopener noreferrer">
+          <span class="ico">🟠</span>
+          <span class="meta">
+            <small id="lbl-eitaa">پیام‌رسان ایتا (رسمی)</small>
+            <strong>@Esmailriahi</strong>
+          </span>
+          <span class="tag" id="cta-eitaa">ارسال پیام ↗</span>
+        </a>
+
+        <a class="item" href="https://t.me/SRiahi" target="_blank" rel="noopener noreferrer">
+          <span class="ico">🔵</span>
+          <span class="meta">
+            <small id="lbl-tg">تلگرام (رسمی)</small>
+            <strong>@SRiahi</strong>
+          </span>
+          <span class="tag" id="cta-tg">ارسال پیام ↗</span>
+        </a>
+
+        <a class="item" href="mailto:info@zherfai.ir">
+          <span class="ico">✉️</span>
+          <span class="meta">
+            <small id="lbl-email">ایمیل رسمی</small>
+            <strong>info@zherfai.ir</strong>
+          </span>
+          <span class="tag" id="cta-email">ارسال ایمیل ↗</span>
+        </a>
+      </article>
+
+      <article class="card" aria-labelledby="c2">
+        <h2 id="c2">🧠 این صفحه مربوط به چه سایتی و چه هوش مصنوعی است؟</h2>
+        <p id="c2p">
+          «ژرف AI» یک سایت محتوایی + یک چت هوشمند است. هدف: حل مسئله مردم در حوزه تکنولوژی، وب، آموزش‌های عملی و دستیار هوش مصنوعی
+          با سرعت بالا و دسترس‌پذیری ساده.
+        </p>
+
+        <div class="faq" aria-label="FAQ">
+          <details>
+            <summary id="q1">ژرف AI دقیقاً چه کاری انجام می‌دهد؟</summary>
+            <p id="a1">ژرف AI هم یک پایگاه آموزشی (مقالات) است و هم یک محیط چت برای راهنمایی فنی، تولید محتوا، کمک به کدنویسی و حل مشکلات روزمره کاربران.</p>
+          </details>
+
+          <details>
+            <summary id="q2">چه درخواست‌هایی از طریق «تماس با ما» بررسی می‌شود؟</summary>
+            <p id="a2">پیشنهاد توسعه، گزارش خطا، همکاری محتوایی/فنی، سفارش جایگاه تبلیغاتی، و درخواست‌های رسمی مرتبط با مالکیت محتوا.</p>
+          </details>
+
+          <details>
+            <summary id="q3">زمان پاسخ‌گویی چقدر است؟</summary>
+            <p id="a3">پاسخ‌گویی معمولاً سریع است؛ برای درخواست‌های رسمی، ایمیل بهترین گزینه است.</p>
+          </details>
+        </div>
+      </article>
+
+      <article class="card donate" aria-labelledby="c3">
+        <h2 id="c3">🌱 حمایت از توسعه (اختیاری)</h2>
+        <p id="c3p" class="note">
+          این بخش برای حفظ پایداری پروژه و پوشش هزینه‌های زیرساخت است. حمایت مالی کاملاً اختیاری است و به رشد کیفیت خدمات رایگان کمک می‌کند.
+        </p>
+
+        <div class="cardnum" id="cardnum" onclick="copyCard()" title="برای کپی شماره کارت کلیک کنید">
+          6037-6974-3999-0810
+        </div>
+
+        <div class="note" id="cardnote">بانک صادرات ایران - به نام اسماعیل ریاحی</div>
+      </article>
+    </section>
   </main>
+
+  <footer>
+    <div id="footer1">© تمامی حقوق این وب‌سایت و محتوای آن محفوظ است.</div>
+    <div style="margin-top:6px">
+      <a href="index.html" id="f-home">خانه</a> ·
+      <a href="articles.html" id="f-articles">مقالات</a> ·
+      <a href="chat.html" id="f-chat">هوش مصنوعی ژرف</a> ·
+      <a href="contact.html" id="f-contact">تماس با ما</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast">کپی شد</div>
+
+  <script>
+    // ===== Utilities =====
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2200);
+    }
+
+    function copyCard() {
+      const card = "6037697439990810";
+      if (!navigator.clipboard) {
+        showToast(currentLang === 'en' ? 'Copy not supported in this browser' : currentLang === 'ar' ? 'النسخ غير مدعوم في هذا المتصفح' : 'مرورگر شما کپی را پشتیبانی نمی‌کند');
+        return;
+      }
+      navigator.clipboard.writeText(card).then(() => {
+        showToast(currentLang === 'en' ? 'Card number copied' : currentLang === 'ar' ? 'تم نسخ رقم البطاقة' : 'شماره کارت کپی شد');
+      });
+    }
+
+    // ===== i18n =====
+    const translations = {
+      fa: {
+        dir: "rtl",
+        title: "تماس با ژرف AI | ارتباط با اسماعیل ریاحی، سفارش تبلیغات و همکاری",
+        desc: "صفحه تماس رسمی ژرف AI (zherfai.ir): ارتباط مستقیم با اسماعیل ریاحی، سفارش تبلیغات، همکاری محتوایی/فنی، پشتیبانی و پیشنهادات. ژرف AI یک سامانه هوش مصنوعی فارسی، سریع و دسترس‌پذیر برای همه است.",
+        ogTitle: "تماس با ژرف AI | ارتباط مستقیم و همکاری",
+        ogDesc: "کانال‌های رسمی ارتباط با ژرف AI: ایتا، تلگرام، ایمیل. سفارش تبلیغات، همکاری فنی/محتوایی و پشتیبانی.",
+        twTitle: "تماس با ژرف AI",
+        twDesc: "صفحه رسمی تماس: سفارش تبلیغات، همکاری، پشتیبانی و پیشنهادات.",
+        navHome: "خانه",
+        navArticles: "مقالات",
+        navChat: "هوش مصنوعی ژرف",
+        navContact: "تماس با ما",
+        heroTitle: "تماس با ژرف AI",
+        heroDesc: "ژرف AI یک وب‌سایت آموزشی و یک دستیار هوشمند گفتگومحور است که برای دسترسی سریع مردم به دانش و ابزارهای هوش مصنوعی ساخته شده. از این صفحه می‌توانید برای پشتیبانی، پیشنهاد، گزارش مشکل، سفارش تبلیغات و همکاری با بنیان‌گذار پروژه اقدام کنید.",
+        btnChat: "ورود به هوش مصنوعی ژرف",
+        btnHome: "بازگشت به خانه",
+        btnArticles: "رفتن به مقالات",
+        c1: "📡 ارتباط مستقیم",
+        c1p: "سریع‌ترین راه ارتباط برای سفارش تبلیغات، پیگیری همکاری‌ها و پاسخ به سوالات:",
+        lblEitaa: "پیام‌رسان ایتا (رسمی)",
+        lblTg: "تلگرام (رسمی)",
+        lblEmail: "ایمیل رسمی",
+        ctaMsg: "ارسال پیام ↗",
+        ctaMail: "ارسال ایمیل ↗",
+        c2: "🧠 این صفحه مربوط به چه سایتی و چه هوش مصنوعی است؟",
+        c2p: "«ژرف AI» یک سایت محتوایی + یک چت هوشمند است. هدف: حل مسئله مردم در حوزه تکنولوژی، وب، آموزش‌های عملی و دستیار هوش مصنوعی با سرعت بالا و دسترس‌پذیری ساده.",
+        q1: "ژرف AI دقیقاً چه کاری انجام می‌دهد؟",
+        a1: "ژرف AI هم یک پایگاه آموزشی (مقالات) است و هم یک محیط چت برای راهنمایی فنی، تولید محتوا، کمک به کدنویسی و حل مشکلات روزمره کاربران.",
+        q2: "چه درخواست‌هایی از طریق «تماس با ما» بررسی می‌شود؟",
+        a2: "پیشنهاد توسعه، گزارش خطا، همکاری محتوایی/فنی، سفارش جایگاه تبلیغاتی، و درخواست‌های رسمی مرتبط با مالکیت محتوا.",
+        q3: "زمان پاسخ‌گویی چقدر است؟",
+        a3: "پاسخ‌گویی معمولاً سریع است؛ برای درخواست‌های رسمی، ایمیل بهترین گزینه است.",
+        c3: "🌱 حمایت از توسعه (اختیاری)",
+        c3p: "این بخش برای حفظ پایداری پروژه و پوشش هزینه‌های زیرساخت است. حمایت مالی کاملاً اختیاری است و به رشد کیفیت خدمات رایگان کمک می‌کند.",
+        cardnote: "بانک صادرات ایران - به نام اسماعیل ریاحی",
+        footer1: "© تمامی حقوق این وب‌سایت و محتوای آن محفوظ است.",
+        fHome: "خانه",
+        fArticles: "مقالات",
+        fChat: "هوش مصنوعی ژرف",
+        fContact: "تماس با ما",
+        toastCopied: "شماره کارت کپی شد"
+      },
+
+      en: {
+        dir: "ltr",
+        title: "Contact Zherf AI | Esmail Riahi, Ads, Partnerships & Support",
+        desc: "Official contact page of Zherf AI (zherfai.ir): reach Esmail Riahi for advertising, partnerships, support requests, bug reports and suggestions. Zherf AI is a fast, accessible AI assistant + educational hub.",
+        ogTitle: "Contact Zherf AI | Official Channels",
+        ogDesc: "Official contact channels: Eitaa, Telegram, Email. Advertising, partnerships, support and feedback.",
+        twTitle: "Contact Zherf AI",
+        twDesc: "Official contact: advertising, partnerships, support and suggestions.",
+        navHome: "Home",
+        navArticles: "Articles",
+        navChat: "Zherf AI Chat",
+        navContact: "Contact",
+        heroTitle: "Contact Zherf AI",
+        heroDesc: "Zherf AI is an educational website plus a conversational AI assistant built to help people quickly access practical knowledge and tools. Use this page for support, feedback, bug reports, advertising and partnerships.",
+        btnChat: "Open Zherf AI Chat",
+        btnHome: "Back to Home",
+        btnArticles: "Go to Articles",
+        c1: "📡 Direct Contact",
+        c1p: "Fastest ways to reach us for ads, partnerships and support:",
+        lblEitaa: "Eitaa (Official)",
+        lblTg: "Telegram (Official)",
+        lblEmail: "Official Email",
+        ctaMsg: "Send Message ↗",
+        ctaMail: "Send Email ↗",
+        c2: "🧠 What is this site and what AI is it?",
+        c2p: "Zherf AI is a content hub + a smart chat assistant. Mission: solve real problems in tech, web, practical tutorials and AI-guided help with speed and accessibility.",
+        q1: "What does Zherf AI do?",
+        a1: "It provides SEO-friendly tutorials (articles) and an AI chat to help with coding, troubleshooting, writing and everyday technical tasks.",
+        q2: "What requests are handled here?",
+        a2: "Feature suggestions, bug reports, content/tech partnerships, ad placement and copyright-related requests.",
+        q3: "How fast do you reply?",
+        a3: "Usually fast; for official requests, email is best.",
+        c3: "🌱 Support Development (Optional)",
+        c3p: "This section helps sustain infrastructure costs. Donations are optional and directly support free services.",
+        cardnote: "Bank Saderat Iran — Beneficiary: Esmail Riahi",
+        footer1: "© All rights reserved.",
+        fHome: "Home",
+        fArticles: "Articles",
+        fChat: "Zherf AI Chat",
+        fContact: "Contact",
+        toastCopied: "Card number copied"
+      },
+
+      ar: {
+        dir: "rtl",
+        title: "اتصل بـ جَرف AI | إسماعيل رياحي، الإعلانات، الشراكات والدعم",
+        desc: "صفحة التواصل الرسمية لمنصة جَرف AI (zherfai.ir): للتواصل مع إسماعيل رياحي بخصوص الإعلانات، الشراكات، الدعم، البلاغات والاقتراحات. جَرف AI مساعد ذكي سريع ومركز محتوى تعليمي.",
+        ogTitle: "اتصل بـ جَرف AI | القنوات الرسمية",
+        ogDesc: "قنوات التواصل الرسمية: إيتا، تلغرام، البريد الإلكتروني. إعلانات، شراكات، دعم وملاحظات.",
+        twTitle: "اتصل بـ جَرف AI",
+        twDesc: "التواصل الرسمي: إعلانات، شراكات، دعم واقتراحات.",
+        navHome: "الرئيسية",
+        navArticles: "المقالات",
+        navChat: "دردشة جَرف AI",
+        navContact: "اتصل بنا",
+        heroTitle: "اتصل بـ جَرف AI",
+        heroDesc: "جَرف AI هو موقع تعليمي بالإضافة إلى مساعد دردشة ذكي لمساعدة الناس على الوصول السريع للمعرفة والأدوات العملية. استخدم هذه الصفحة للدعم، الاقتراحات، الإبلاغ عن الأخطاء، الإعلانات والشراكات.",
+        btnChat: "فتح دردشة جَرف AI",
+        btnHome: "العودة للرئيسية",
+        btnArticles: "الذهاب للمقالات",
+        c1: "📡 تواصل مباشر",
+        c1p: "أسرع طرق التواصل للإعلانات والشراكات والدعم:",
+        lblEitaa: "إيتا (رسمي)",
+        lblTg: "تلغرام (رسمي)",
+        lblEmail: "البريد الإلكتروني الرسمي",
+        ctaMsg: "إرسال رسالة ↗",
+        ctaMail: "إرسال بريد ↗",
+        c2: "🧠 ما هو هذا الموقع وما هو الذكاء الاصطناعي؟",
+        c2p: "جَرف AI منصة محتوى + مساعد دردشة ذكي. الهدف: حل مشاكل حقيقية في التقنية والويب والدروس العملية عبر إرشاد سريع وسهل الوصول.",
+        q1: "ماذا يفعل جَرف AI؟",
+        a1: "يقدّم مقالات تعليمية مفهرسة مع دردشة ذكاء اصطناعي للمساعدة في البرمجة، حل المشاكل، الكتابة والمهام التقنية اليومية.",
+        q2: "ما هي الطلبات التي تتم معالجتها هنا؟",
+        a2: "اقتراحات الميزات، تقارير الأخطاء، شراكات محتوى/تقنية، حجز الإعلانات وطلبات حقوق النشر.",
+        q3: "كم يستغرق الرد؟",
+        a3: "عادةً سريع؛ للطلبات الرسمية البريد الإلكتروني أفضل.",
+        c3: "🌱 دعم التطوير (اختياري)",
+        c3p: "يساعد هذا القسم في تغطية تكاليف البنية التحتية. الدعم اختياري ويعزز استمرار الخدمات المجانية.",
+        cardnote: "بنك صادرات إيران — باسم إسماعيل رياحي",
+        footer1: "© جميع الحقوق محفوظة.",
+        fHome: "الرئيسية",
+        fArticles: "المقالات",
+        fChat: "دردشة جَرف AI",
+        fContact: "اتصل بنا",
+        toastCopied: "تم نسخ رقم البطاقة"
+      }
+    };
+
+    let currentLang = 'fa';
+
+    function setLanguage(lang){
+      if(!translations[lang]) return;
+      currentLang = lang;
+      const t = translations[lang];
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = t.dir;
+
+      // meta
+      document.title = t.title;
+      document.getElementById('meta-desc').setAttribute('content', t.desc);
+
+      document.getElementById('og-title').setAttribute('content', t.ogTitle);
+      document.getElementById('og-desc').setAttribute('content', t.ogDesc);
+      document.getElementById('tw-title').setAttribute('content', t.twTitle);
+      document.getElementById('tw-desc').setAttribute('content', t.twDesc);
+
+      // nav
+      document.getElementById('nav-home').textContent = t.navHome;
+      document.getElementById('nav-articles').textContent = t.navArticles;
+      document.getElementById('nav-chat').textContent = t.navChat;
+      document.getElementById('nav-contact').textContent = t.navContact;
+
+      // hero
+      document.getElementById('hero-title').textContent = t.heroTitle;
+      document.getElementById('hero-desc').textContent = t.heroDesc;
+
+      // buttons
+      document.getElementById('btn-go-chat').textContent = t.btnChat;
+      document.getElementById('btn-go-home').textContent = t.btnHome;
+      document.getElementById('btn-go-articles').textContent = t.btnArticles;
+
+      // cards
+      document.getElementById('c1').textContent = t.c1;
+      document.getElementById('c1p').textContent = t.c1p;
+      document.getElementById('lbl-eitaa').textContent = t.lblEitaa;
+      document.getElementById('lbl-tg').textContent = t.lblTg;
+      document.getElementById('lbl-email').textContent = t.lblEmail;
+      document.getElementById('cta-eitaa').textContent = t.ctaMsg;
+      document.getElementById('cta-tg').textContent = t.ctaMsg;
+      document.getElementById('cta-email').textContent = t.ctaMail;
+
+      document.getElementById('c2').textContent = t.c2;
+      document.getElementById('c2p').textContent = t.c2p;
+      document.getElementById('q1').textContent = t.q1;
+      document.getElementById('a1').textContent = t.a1;
+      document.getElementById('q2').textContent = t.q2;
+      document.getElementById('a2').textContent = t.a2;
+      document.getElementById('q3').textContent = t.q3;
+      document.getElementById('a3').textContent = t.a3;
+
+      document.getElementById('c3').textContent = t.c3;
+      document.getElementById('c3p').textContent = t.c3p;
+      document.getElementById('cardnote').textContent = t.cardnote;
+
+      // footer
+      document.getElementById('footer1').textContent = t.footer1;
+      document.getElementById('f-home').textContent = t.fHome;
+      document.getElementById('f-articles').textContent = t.fArticles;
+      document.getElementById('f-chat').textContent = t.fChat;
+      document.getElementById('f-contact').textContent = t.fContact;
+
+      // active buttons
+      document.getElementById('btn-fa').classList.toggle('active', lang === 'fa');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
+    }
+
+    // Load language from URL param (?lang=en) or localStorage
+    (function init(){
+      const params = new URLSearchParams(location.search);
+      const q = params.get('lang');
+      const saved = localStorage.getItem('zherf_lang');
+      const lang = q || saved || 'fa';
+      setLanguage(lang);
+      localStorage.setItem('zherf_lang', lang);
+    })();
+
+    // Persist language on switch
+    const oldSetLanguage = setLanguage;
+    setLanguage = function(lang){
+      oldSetLanguage(lang);
+      try{ localStorage.setItem('zherf_lang', lang); }catch(e){}
+    }
+  </script>
 </body>
 </html>
