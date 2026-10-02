@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>دیده‌بان سلامت ژرف AI</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { background: #080c0e; color: #e0e0e0; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 15px; direction: rtl; }
+        h1 { color: #00ff88; font-size: 1.3rem; margin-bottom: 5px; }
+        .subtitle { font-size: 0.85rem; color: #888; margin-bottom: 15px; }
+        .card { background: #12181b; border: 1px solid #1f2b30; border-radius: 8px; padding: 12px; margin-bottom: 12px; }
+        .status-badge { display: inline-block; padding: 3px 8px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
+        .ok { background: #004422; color: #00ff88; border: 1px solid #00aa55; }
+        .err { background: #441111; color: #ff5555; border: 1px solid #aa2222; }
+        .warn { background: #443300; color: #ffbb00; border: 1px solid #aa8800; }
+        .log-box { background: #050708; border: 1px solid #1a2428; border-radius: 6px; padding: 10px; font-family: monospace; font-size: 0.8rem; height: 260px; overflow-y: auto; color: #a0c0a0; white-space: pre-wrap; word-break: break-all; }
+        button { background: #00ff88; color: #000; border: none; padding: 10px 18px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-bottom: 15px; }
+        button:active { background: #00cc6a; }
+    </style>
+</head>
+<body>
+
+    <h1>دیده‌بان شبکه و سلامت هوش مصنوعی ژرف</h1>
+    <div class="subtitle">تست لحظه‌ای اتصالات، سرور هاگینگ‌فیس و جریان داده (Gradio API)</div>
+
+    <button onclick="runDiagnostics()">اجرای تست مجدد اتصالات</button>
+
+    <div class="card">
+        <div>وضعیت اتصال کلاینت به سایت: <span id="siteStatus" class="status-badge warn">در حال بررسی...</span></div>
+        <div style="margin-top: 8px;">دسترسی به موتور HF Space: <span id="hfStatus" class="status-badge warn">در حال بررسی...</span></div>
+        <div style="margin-top: 8px;">تولید پاسخ تست (Gradio): <span id="gradioStatus" class="status-badge warn">در حال بررسی...</span></div>
+    </div>
+
+    <div class="card">
+        <strong style="font-size: 0.85rem; display: block; margin-bottom: 6px;">گزارش زنده رویدادها (Debug Logs):</strong>
+        <div class="log-box" id="logs"></div>
+    </div>
+
+    <script>
+        const HF_URL = "https://esmailr-helektelek-engine.hf.space";
+        const logsEl = document.getElementById("logs");
+
+        function log(msg, type = "info") {
+            const time = new Date().toLocaleTimeString('fa-IR');
+            const prefix = type === "error" ? "❌ " : (type === "success" ? "✅ " : "🔹 ");
+            logsEl.textContent += `[${time}] ${prefix}${msg}\n`;
+            logsEl.scrollTop = logsEl.scrollHeight;
+        }
+
+        async function runDiagnostics() {
+            logsEl.textContent = "";
+            document.getElementById("siteStatus").className = "status-badge warn";
+            document.getElementById("siteStatus").innerText = "در حال بررسی...";
+            document.getElementById("hfStatus").className = "status-badge warn";
+            document.getElementById("hfStatus").innerText = "در حال بررسی...";
+            document.getElementById("gradioStatus").className = "status-badge warn";
+            document.getElementById("gradioStatus").innerText = "در حال بررسی...";
+
+            log("شروع بررسی تشخیصی...");
+
+            // گام ۱: بررسی دسترسی به خود دامین
+            try {
+                const start = performance.now();
+                const res = await fetch(window.location.href, { cache: "no-store" });
+                const lat = Math.round(performance.now() - start);
+                if (res.ok) {
+                    document.getElementById("siteStatus").className = "status-badge ok";
+                    document.getElementById("siteStatus").innerText = `فعال (${lat}ms)`;
+                    log(`سایت Zherfai در دسترس است. (Status: ${res.status}, Latency: ${lat}ms)`, "success");
+                } else {
+                    throw new Error(`کد خطا: ${res.status}`);
+                }
+            } catch (e) {
+                document.getElementById("siteStatus").className = "status-badge err";
+                document.getElementById("siteStatus").innerText = "خطا در اتصال";
+                log(`عدم دسترسی به سایت: ${e.message}`, "error");
+            }
+
+            // گام ۲: بررسی کانفیگ اسپیس هاگینگ‌فیس
+            try {
+                log("ارسال پینگ به سرور پردازشی هاگینگ‌فیس...");
+                const start = performance.now();
+                const res = await fetch(`${HF_URL}/config`, { method: "GET" });
+                const lat = Math.round(performance.now() - start);
+                if (res.ok) {
+                    document.getElementById("hfStatus").className = "status-badge ok";
+                    document.getElementById("hfStatus").innerText = `متصل (${lat}ms)`;
+                    log(`ارتباط مستقیم با اسپیس برقرار است. (Status: ${res.status})`, "success");
+                } else {
+                    document.getElementById("hfStatus").className = "status-badge warn";
+                    document.getElementById("hfStatus").innerText = `کد ${res.status}`;
+                    log(`اسپیس پاسخ داد اما وضعیت غیرمنتظره است: ${res.status}`, "warn");
+                }
+            } catch (e) {
+                document.getElementById("hfStatus").className = "status-badge err";
+                document.getElementById("hfStatus").innerText = "قطعی ارتباط";
+                log(`خطا در اتصال به موتور هوش مصنوعی: ${e.message} (احتمال اختلال اینترنت یا مسدودی روی شبکه موبایل)`, "error");
+            }
+
+            // گام ۳: تست متد چت Gradio API
+            try {
+                log("ارسال پرامپت تستی به /gradio_api/call/zherf_chat ...");
+                const postRes = await fetch(`${HF_URL}/gradio_api/call/zherf_chat`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ data: [{ text: "سلام", files: [] }] })
+                });
+
+                if (!postRes.ok) {
+                    throw new Error(`خطای HTTP در مرحله POST: ${postRes.status}`);
+                }
+
+                const postData = await postRes.json();
+                if (!postData.event_id) {
+                    throw new Error("پاسخ سرور فاقد event_id است.");
+                }
+
+                log(`شناسه رویداد ثبت شد: ${postData.event_id}`, "success");
+                log("درخواست دریافت داده‌های استریم...");
+
+                const streamRes = await fetch(`${HF_URL}/gradio_api/call/zherf_chat/${postData.event_id}`);
+                if (!streamRes.ok) {
+                    throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
+                }
+
+                const streamText = await streamRes.text();
+                if (streamText.includes("data:")) {
+                    document.getElementById("gradioStatus").className = "status-badge ok";
+                    document.getElementById("gradioStatus").innerText = "پاسخ موفق";
+                    log("جریان داده با موفقیت از مدل هوش مصنوعی دریافت شد.", "success");
+                } else {
+                    document.getElementById("gradioStatus").className = "status-badge warn";
+                    document.getElementById("gradioStatus").innerText = "پاسخ ناقص";
+                    log(`داده استریم دریافت شد اما فرمت معتبر data: نداشت: ${streamText.substring(0, 80)}...`, "warn");
+                }
+            } catch (e) {
+                document.getElementById("gradioStatus").className = "status-badge err";
+                document.getElementById("gradioStatus").innerText = "ناموفق";
+                log(`خطا در ارسال یا دریافت پاسخ هوش مصنوعی: ${e.message}`, "error");
+            }
+
+            log("تست تشخیصی به پایان رسید.");
+        }
+
+        window.onload = runDiagnostics;
+    </script>
+</body>
+</html>
