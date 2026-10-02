@@ -3,6 +3,9 @@ const HF_ENGINE_URL = "https://esmailr-helektelek-engine.hf.space";
 let currentSessionId = Date.now().toString();
 let attachedFile = null;
 
+// جلوگیری از ارسال همزمان (برای کاهش لگ و دوباره‌کاری)
+let isSending = false;
+
 // باز و بسته کردن سایدبار منو
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
@@ -68,21 +71,141 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// درج حباب پیام کاربر یا هوش مصنوعی در صفحه
+// کپی به کلیپ‌بورد (با fallback برای موبایل/مرورگرهای قدیمی)
+async function copyToClipboard(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (_) {}
+
+  // fallback
+  try {
+    const ta = document.createElement("textarea");
+    ta.value = text;
+    ta.style.position = "fixed";
+    ta.style.left = "-9999px";
+    ta.style.top = "-9999px";
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    const ok = document.execCommand("copy");
+    document.body.removeChild(ta);
+    return ok;
+  } catch (_) {
+    return false;
+  }
+}
+
+// ---------- Markdown سبک + کدباکس + کپی کد ----------
+// هدف: بدون کتابخانه سنگین، فقط:
+// 1)
+```code```
+// 2) لینک‌ها
+// 3) خط جدید
+function renderAssistantTextToHtml(text) {
+  // ابتدا کل متن را escape می‌کنیم (امن)
+  const safe = escapeHtml(text);
+
+  // کدهای سه‌بک‌تیک
+  const codeFence = /
+```([\w+-]*)\n([\s\S]*?)
+```/g;
+  let html = safe.replace(codeFence, (m, lang, code) => {
+    const langLabel = lang ? `<div class="z-code-lang">${escapeHtml(lang)}</div>` : "";
+    // code اینجا escape شده است (چون از safe آمده)
+    // برای کپی: نسخه raw لازم داریم -> از code escaped به متن برمی‌گردانیم با decode ساده در زمان کلیک
+    return `
+      <div class="z-code-block">
+        ${langLabel}
+        <pre><code>${code}</code></pre>
+        <button class="z-copy-code-btn" type="button" data-code="${encodeURIComponent(code)}">کپی کد</button>
+      </div>
+    `;
+  });
+
+  // لینک‌ها (روی html موجود)
+  const urlRegex = /(https?:\/\/[^\s<]+)/g;
+  html = html.replace(urlRegex, (u) => `<a href="${u}" target="_blank" rel="noopener noreferrer">${u}</a>`);
+
+  // خط جدید
+  html = html.replace(/\n/g, "<br>");
+
+  return html;
+}
+
+function wireCopyButtons(scopeEl) {
+  if (!scopeEl) return;
+
+  // کپی کد
+  const codeBtns = scopeEl.querySelectorAll(".z-copy-code-btn");
+  codeBtns.forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const encoded = btn.getAttribute("data-code") || "";
+      let code = "";
+      try { code = decodeURIComponent(encoded); } catch (_) { code = encoded; }
+
+      // code الان escape شده نیست؟ این code از safe آمده و escaped است.
+      // تبدیل escape HTML به متن واقعی برای کپی:
+      const tmp = document.createElement("div");
+      tmp.innerHTML = code.replace(/<br>/g, "\n");
+      const plain = tmp.textContent || tmp.innerText || "";
+
+      const ok = await copyToClipboard(plain);
+      btn.textContent = ok ? "کپی شد" : "خطا";
+      setTimeout(() => (btn.textContent = "کپی کد"), 1200);
+    });
+  });
+
+  // کپی کل پاسخ
+  const msgBtns = scopeEl.querySelectorAll(".z-copy-msg-btn");
+  msgBtns.forEach(btn => {
+    btn.addEventListener("click", async () => {
+      const text = btn.getAttribute("data-text") || "";
+      let plain = "";
+      try { plain = decodeURIComponent(text); } catch(_) { plain = text; }
+      const ok = await copyToClipboard(plain);
+      btn.textContent = ok ? "کپی شد" : "خطا";
+      setTimeout(() => (btn.textContent = "کپی پاسخ"), 1200);
+    });
+  });
+}
+
+// ---------- درج پیام ----------
+// تغییر کلیدی: برای assistant از innerHTML امن استفاده می‌کنیم تا کدباکس/Markdown فعال شود.
+// برای user همچنان innerText می‌ماند.
 function appendMessage(role, text) {
   const chatArea = document.getElementById("chatArea");
   if (!chatArea) return;
-  
+
   const msgDiv = document.createElement("div");
   msgDiv.className = `message ${role}`;
 
   const bubbleDiv = document.createElement("div");
   bubbleDiv.className = "bubble";
-  bubbleDiv.innerText = text;
+
+  if (role === "assistant") {
+    bubbleDiv.innerHTML = renderAssistantTextToHtml(text);
+
+    // نوار ابزار (کپی پاسخ)
+    const tools = document.createElement("div");
+    tools.className = "z-msg-tools";
+    tools.innerHTML = `
+      <button class="z-copy-msg-btn" type="button" data-text="${encodeURIComponent(text)}">کپی پاسخ</button>
+    `;
+
+    msgDiv.appendChild(tools);
+  } else {
+    bubbleDiv.innerText = text; // امنیت کامل برای متن کاربر
+  }
 
   msgDiv.appendChild(bubbleDiv);
   chatArea.appendChild(msgDiv);
   chatArea.scrollTop = chatArea.scrollHeight;
+
+  // فعال‌سازی دکمه‌های کپی داخل همین پیام
+  if (role === "assistant") wireCopyButtons(msgDiv);
 }
 
 // ذخیره عنوان چت در حافظه محلی مرورگر
@@ -184,15 +307,30 @@ function readFileAsDataURL(file) {
   });
 }
 
+// کنترل تایم‌اوت جداگانه برای POST و STREAM (پایدارتر از یک تایم‌اوت کلی)
+async function fetchWithTimeout(url, options = {}, timeoutMs = 45000) {
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    return res;
+  } finally {
+    clearTimeout(timeoutId);
+  }
+}
+
 // تابع اصلی ارسال و دریافت پیام با پشتیبانی واقعی از فایل و کنترل وقفه
 async function sendMessage() {
+  if (isSending) return; // جلوگیری از دوبار ارسال
+  isSending = true;
+
   const input = document.getElementById("userInput");
-  if (!input) return;
+  if (!input) { isSending = false; return; }
 
   const userText = input.value.trim();
   const currentFile = attachedFile;
 
-  if (!userText && !currentFile) return;
+  if (!userText && !currentFile) { isSending = false; return; }
 
   // ۱. ساخت متن پیام برای نمایش در رابط کاربری
   let displayMessage = userText;
@@ -223,40 +361,47 @@ async function sendMessage() {
     let processedPrompt = userText;
 
     if (currentFile) {
-      const isTextType = currentFile.type.startsWith("text/") || 
-                         currentFile.name.match(/\.(txt|md|js|html|css|py|json|csv|xml|log|sh)$/i);
+      const isTextType = currentFile.type.startsWith("text/") ||
+        currentFile.name.match(/\.(txt|md|js|html|css|py|json|csv|xml|log|sh)$/i);
 
       if (isTextType) {
         const textContent = await readFileAsText(currentFile);
         if (textContent) {
-          processedPrompt = `[محتوای فایل پیوست شده "${currentFile.name}":]\n\`\`\`\n${textContent.slice(0, 8000)}\n\`\`\`\n\n${userText || "لطفاً این فایل را بررسی و تحلیل کن."}`;
+          processedPrompt =
+            `[محتوای فایل پیوست شده "${currentFile.name}":]\n` +
+            `\`\`\`\n${String(textContent).slice(0, 8000)}\n\`\`\`\n\n` +
+            `${userText || "لطفاً این فایل را بررسی و تحلیل کن."}`;
         } else {
           processedPrompt = `[خطا در خواندن فایل متنی ${currentFile.name}]\n${userText}`;
         }
       } else if (currentFile.type.startsWith("image/")) {
-        processedPrompt = `[تصویر پیوست شد: ${currentFile.name} - فرمت: ${currentFile.type} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n${userText || "این تصویر را تحلیل کن."}`;
+        // فعلاً متادیتا (تا بک‌اند Vision آماده شود)
+        processedPrompt =
+          `[تصویر پیوست شد: ${currentFile.name} - فرمت: ${currentFile.type} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n` +
+          `${userText || "این تصویر را تحلیل کن (اگر بک‌اند تصویر فعال نیست، توضیح بده داخل تصویر چیست)."}`
       } else if (currentFile.type.startsWith("audio/")) {
-        processedPrompt = `[فایل صوتی پیوست شد: ${currentFile.name} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n${userText || "این فایل صوتی را بررسی کن."}`;
+        processedPrompt =
+          `[فایل صوتی پیوست شد: ${currentFile.name} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n` +
+          `${userText || "این فایل صوتی را بررسی کن (اگر STT فعال نیست، متنش را بنویس)."}`
       } else {
-        processedPrompt = `[فایل پیوست شد: ${currentFile.name} - نوع: ${currentFile.type || "ناشناخته"}]\n${userText || "این سند را بررسی کن."}`;
+        processedPrompt =
+          `[فایل پیوست شد: ${currentFile.name} - نوع: ${currentFile.type || "ناشناخته"}]\n` +
+          `${userText || "این سند را بررسی کن."}`;
       }
     }
 
-    // کنترل تایم‌اوت ۴۵ ثانیه‌ای برای عدم فریز شدن چت در شبکه‌های ضعیف
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 45000);
-
-    // ۳. ارسال درخواست شروع فرایند به Gradio API
-    const postResponse = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      signal: controller.signal,
-      body: JSON.stringify({
-        data: [{ text: processedPrompt, files: [] }]
-      })
-    });
-
-    clearTimeout(timeoutId);
+    // ۳. ارسال درخواست شروع فرایند به Gradio API (POST)
+    const postResponse = await fetchWithTimeout(
+      `${HF_ENGINE_URL}/gradio_api/call/zherf_chat`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          data: [{ text: processedPrompt, files: [] }]
+        })
+      },
+      45000
+    );
 
     if (!postResponse.ok) {
       throw new Error(`خطای سرور: ${postResponse.status}`);
@@ -269,8 +414,13 @@ async function sendMessage() {
       throw new Error("شناسه رویداد معتبر دریافت نشد");
     }
 
-    // ۴. دریافت استریم پاسخ بر اساس Event ID
-    const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`);
+    // ۴. دریافت استریم پاسخ بر اساس Event ID (GET)
+    const streamRes = await fetchWithTimeout(
+      `${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`,
+      {},
+      45000
+    );
+
     if (!streamRes.ok) {
       throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
     }
@@ -305,7 +455,7 @@ async function sendMessage() {
 
     if (finalReply) {
       if (finalReply.startsWith('"') && finalReply.endsWith('"')) {
-        try { finalReply = JSON.parse(finalReply); } catch(_) {}
+        try { finalReply = JSON.parse(finalReply); } catch (_) {}
       }
       appendMessage("assistant", finalReply);
     } else {
@@ -322,6 +472,8 @@ async function sendMessage() {
       appendMessage("assistant", "⚠️ در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
     }
     console.error("خطای ارتباط با ژرف:", err);
+  } finally {
+    isSending = false;
   }
 }
 
