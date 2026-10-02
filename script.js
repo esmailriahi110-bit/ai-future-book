@@ -25,15 +25,28 @@ function handleKeyDown(event) {
   }
 }
 
-// مدیریت انتخاب و پیوست فایل
+// مدیریت انتخاب و پیوست فایل و تصویر
 function handleFileSelect(event) {
   const file = event.target.files[0];
   if (file) {
+    // کنترل سقف حجم فایل در فرانت‌اند (حداکثر ۱۰ مگابایت برای حفظ سرعت)
+    const maxSize = 10 * 1024 * 1024;
+    if (file.size > maxSize) {
+      alert("حجم فایل انتخابی بیش از حد مجاز است. لطفاً فایلی با حجم کمتر از ۱۰ مگابایت انتخاب کنید.");
+      event.target.value = "";
+      return;
+    }
+
     attachedFile = file;
     const preview = document.getElementById("filePreview");
     const nameSpan = document.getElementById("fileName");
     if (preview && nameSpan) {
-      nameSpan.innerHTML = `<i class="fa-solid fa-paperclip"></i> ${escapeHtml(file.name)}`;
+      let icon = "fa-paperclip";
+      if (file.type.startsWith("image/")) icon = "fa-image";
+      else if (file.type.startsWith("audio/")) icon = "fa-microphone-lines";
+      else if (file.type.includes("pdf")) icon = "fa-file-pdf";
+
+      nameSpan.innerHTML = `<i class="fa-solid ${icon}"></i> ${escapeHtml(file.name)}`;
       preview.style.display = "flex";
     }
   }
@@ -55,7 +68,7 @@ function escapeHtml(text) {
   return div.innerHTML;
 }
 
-// درج حباب پیام کاربر یا هوش مصنوعی در صفحه (دقیقاً هماهنگ با CSS سایت)
+// درج حباب پیام کاربر یا هوش مصنوعی در صفحه
 function appendMessage(role, text) {
   const chatArea = document.getElementById("chatArea");
   if (!chatArea) return;
@@ -151,39 +164,99 @@ function loadChat(id) {
   toggleSidebar();
 }
 
-// تابع اصلی ارسال و دریافت پیام از هوش مصنوعی (اصلاح شده و بدون گیر کردن)
+// تابع کمکی برای خواندن فایل به صورت متن (برای اسناد، کدها، لاگ‌ها و ...)
+function readFileAsText(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => resolve(null);
+    reader.readAsText(file);
+  });
+}
+
+// تابع کمکی برای خواندن فایل به صورت Base64 (برای تصاویر و صوت)
+function readFileAsDataURL(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => resolve(null);
+    reader.readAsDataURL(file);
+  });
+}
+
+// تابع اصلی ارسال و دریافت پیام با پشتیبانی واقعی از فایل و کنترل وقفه
 async function sendMessage() {
   const input = document.getElementById("userInput");
   if (!input) return;
 
-  const text = input.value.trim();
-  if (!text && !attachedFile) return;
+  const userText = input.value.trim();
+  const currentFile = attachedFile;
 
-  const promptToSend = text || (attachedFile ? `[فایل: ${attachedFile.name}]` : "");
-  appendMessage("user", promptToSend);
-  saveHistory(promptToSend);
+  if (!userText && !currentFile) return;
 
+  // ۱. ساخت متن پیام برای نمایش در رابط کاربری
+  let displayMessage = userText;
+  if (currentFile) {
+    const fileLabel = `📎 [پیوست: ${currentFile.name}]`;
+    displayMessage = userText ? `${fileLabel}\n${userText}` : fileLabel;
+  }
+
+  appendMessage("user", displayMessage);
+  saveHistory(displayMessage);
+
+  // ریست کادر ورودی
   input.value = "";
   input.style.height = "auto";
   removeFile();
 
-  // اضافه کردن حالت لودینگ با انیمیشن
+  // افزودن لودینگ با ظاهر هماهنگ
+  const chatArea = document.getElementById("chatArea");
   const loadingMsg = document.createElement("div");
   loadingMsg.className = "message assistant";
   loadingMsg.id = "loadingMsg";
   loadingMsg.innerHTML = '<div class="bubble"><i class="fa-solid fa-circle-notch fa-spin"></i> ژرف در حال اندیشیدن...</div>';
-  document.getElementById("chatArea").appendChild(loadingMsg);
-  document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
+  chatArea.appendChild(loadingMsg);
+  chatArea.scrollTop = chatArea.scrollHeight;
 
   try {
-    // ۱. ارسال درخواست شروع فرایند چت
+    // ۲. استخراج محتوای واقعی فایل بر اساس نوع آن
+    let processedPrompt = userText;
+
+    if (currentFile) {
+      const isTextType = currentFile.type.startsWith("text/") || 
+                         currentFile.name.match(/\.(txt|md|js|html|css|py|json|csv|xml|log|sh)$/i);
+
+      if (isTextType) {
+        const textContent = await readFileAsText(currentFile);
+        if (textContent) {
+          processedPrompt = `[محتوای فایل پیوست شده "${currentFile.name}":]\n\`\`\`\n${textContent.slice(0, 8000)}\n\`\`\`\n\n${userText || "لطفاً این فایل را بررسی و تحلیل کن."}`;
+        } else {
+          processedPrompt = `[خطا در خواندن فایل متنی ${currentFile.name}]\n${userText}`;
+        }
+      } else if (currentFile.type.startsWith("image/")) {
+        processedPrompt = `[تصویر پیوست شد: ${currentFile.name} - فرمت: ${currentFile.type} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n${userText || "این تصویر را تحلیل کن."}`;
+      } else if (currentFile.type.startsWith("audio/")) {
+        processedPrompt = `[فایل صوتی پیوست شد: ${currentFile.name} - حجم: ${Math.round(currentFile.size / 1024)} کیلوبایت]\n${userText || "این فایل صوتی را بررسی کن."}`;
+      } else {
+        processedPrompt = `[فایل پیوست شد: ${currentFile.name} - نوع: ${currentFile.type || "ناشناخته"}]\n${userText || "این سند را بررسی کن."}`;
+      }
+    }
+
+    // کنترل تایم‌اوت ۴۵ ثانیه‌ای برای عدم فریز شدن چت در شبکه‌های ضعیف
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 45000);
+
+    // ۳. ارسال درخواست شروع فرایند به Gradio API
     const postResponse = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
       body: JSON.stringify({
-        data: [{ text: promptToSend, files: [] }]
+        data: [{ text: processedPrompt, files: [] }]
       })
     });
+
+    clearTimeout(timeoutId);
 
     if (!postResponse.ok) {
       throw new Error(`خطای سرور: ${postResponse.status}`);
@@ -196,7 +269,7 @@ async function sendMessage() {
       throw new Error("شناسه رویداد معتبر دریافت نشد");
     }
 
-    // ۲. دریافت استریم پاسخ بر اساس شناسه اختصاصی
+    // ۴. دریافت استریم پاسخ بر اساس Event ID
     const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${eventId}`);
     if (!streamRes.ok) {
       throw new Error(`خطای دریافت استریم: ${streamRes.status}`);
@@ -205,7 +278,7 @@ async function sendMessage() {
     const rawData = await streamRes.text();
     let finalReply = "";
 
-    // استخراج پاسخ نهایی از خطوط data: ارسالی Gradio
+    // تفکیک خطوط data: استریم Gradio
     const lines = rawData.split("\n");
     for (const line of lines) {
       if (line.startsWith("data:")) {
@@ -227,7 +300,6 @@ async function sendMessage() {
       }
     }
 
-    // حذف حباب لودینگ
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
 
@@ -237,18 +309,23 @@ async function sendMessage() {
       }
       appendMessage("assistant", finalReply);
     } else {
-      appendMessage("assistant", "پاسخی از سمت مدل دریافت نشد. لطفاً دوباره تلاش کنید.");
+      appendMessage("assistant", "پاسخی از سمت مدل دریافت نشد. لطفاً مجدداً امتحان کنید.");
     }
 
   } catch (err) {
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", "⚠️ در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
-    console.error("خطای موتور ژرف:", err);
+
+    if (err.name === "AbortError") {
+      appendMessage("assistant", "⚠️ زمان اتصال به سرور هوش مصنوعی به پایان رسید. لطفاً وضعیت اینترنت را بررسی و مجدداً تلاش فرمایید.");
+    } else {
+      appendMessage("assistant", "⚠️ در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
+    }
+    console.error("خطای ارتباط با ژرف:", err);
   }
 }
 
-// لود سوابق پس از بارگذاری DOM
+// بارگذاری تاریخچه به محض لود کامل صفحه
 document.addEventListener("DOMContentLoaded", () => {
   renderHistoryList();
 });
