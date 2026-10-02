@@ -1,45 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- ۱. صفحه اصلی و ویترین پایگاه -->
   <url>
     <loc>https://zherfai.ir/</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
+
+  <!-- ۲. اتاق چت هوشمند و رایگان ژرف (بدون فیلتر) -->
   <url>
     <loc>https://zherfai.ir/chat.html</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.95</priority>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.98</priority>
   </url>
+
+  <!-- ۳. شناسنامه رسمی، مانیفست بنیادین و صفحه ۳ زبانه هوش مصنوعی ژرف -->
   <url>
-    <loc>https://zherfai.ir/contact.html</loc>
-    <lastmod>2026-09-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://zherfai.ir/about.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="fa" href="https://zherfai.ir/about.html#fa" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://zherfai.ir/about.html#en" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://zherfai.ir/about.html#ar" />
   </url>
+
+  <!-- ۴. مقاله تخصصی: هوش مصنوعی و آینده بازار کار -->
   <url>
     <loc>https://zherfai.ir/articles/ai-jobs.html</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
+
+  <!-- ۵. مقاله تخصصی: هوش مصنوعی، حیات‌وحش و نجات طبیعت -->
   <url>
     <loc>https://zherfai.ir/articles/ai-wildlife-nature.html</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.88</priority>
   </url>
+
+  <!-- ۶. راهنمای جامع زیرساخت، سرور و هاستینگ هوش مصنوعی (همکاری در فروش) -->
   <url>
     <loc>https://zherfai.ir/articles/ai-hosting-server-guide.html</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.90</priority>
   </url>
+
+  <!-- ۷. شبیه‌ساز تعاملی و سناریوهای آینده -->
   <url>
     <loc>https://zherfai.ir/game.html</loc>
-    <lastmod>2026-09-30</lastmod>
+    <lastmod>2026-10-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.75</priority>
   </url>
+
+  <!-- ۸. درگاه ارتباط رسمی، ثبت تبلیغات و تماس با ما -->
+  <url>
+    <loc>https://zherfai.ir/contact.html</loc>
+    <lastmod>2026-10-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
 </urlset>
