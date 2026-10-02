@@ -5,7 +5,7 @@
   <!-- ۱. صفحه اصلی (سه زبانه) -->
   <url>
     <loc>https://zherfai.ir/</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fa" href="https://zherfai.ir/" />
@@ -17,7 +17,7 @@
   <!-- ۲. فهرست مقالات آموزشی -->
   <url>
     <loc>https://zherfai.ir/articles.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fa" href="https://zherfai.ir/articles.html" />
@@ -29,72 +29,80 @@
   <!-- ۳. چت هوش مصنوعی رایگان ژرف (هوک اصلی جذب ترافیک) -->
   <url>
     <loc>https://zherfai.ir/chat.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
 
-  <!-- ۴. درباره اثر و اسماعیل ریاحی -->
+  <!-- ۴. ابزار آنلاین: ماشین حساب مهندسی و علمی فوق سریع -->
+  <url>
+    <loc>https://zherfai.ir/calculator.html</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- ۵. درباره اثر و اسماعیل ریاحی -->
   <url>
     <loc>https://zherfai.ir/about.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- ۵. تماس با ما و سفارش تبلیغات -->
+  <!-- ۶. تماس با ما و سفارش تبلیغات -->
   <url>
     <loc>https://zherfai.ir/contact.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- ۶. رادار تکنولوژی و هوش مصنوعی -->
+  <!-- ۷. رادار تکنولوژی و هوش مصنوعی -->
   <url>
     <loc>https://zherfai.ir/radar.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- ۷. بازی تعاملی سایبرپانک (کاهش نرخ پرش / Bounce Rate) -->
+  <!-- ۸. بازی تعاملی سایبرپانک (کاهش نرخ پرش / Bounce Rate) -->
   <url>
     <loc>https://zherfai.ir/game.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
   </url>
 
   <!-- مقالات تخصصی سئوشده -->
-  <!-- ۸. راهنمای خرید هاست و سرور ابری میهن وب هاست -->
+  <!-- ۹. راهنمای خرید هاست و سرور ابری میهن وب هاست -->
   <url>
     <loc>https://zherfai.ir/articles/ai-hosting-server-guide.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- ۹. مشاغل در معرض تغییر هوش مصنوعی -->
+  <!-- ۱۰. مشاغل در معرض تغییر هوش مصنوعی -->
   <url>
     <loc>https://zherfai.ir/articles/ai-jobs.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- ۱۰. هوش مصنوعی و حیات وحش و طبیعت -->
+  <!-- ۱۱. هوش مصنوعی و حیات وحش و طبیعت -->
   <url>
     <loc>https://zherfai.ir/articles/ai-wildlife-nature.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
 
-  <!-- ۱۱. کلیدهای میانبر کاربردی ویندوز و سیستم -->
+  <!-- ۱۲. کلیدهای میانبر کاربردی ویندوز و سیستم -->
   <url>
     <loc>https://zherfai.ir/articles/ultimate-keyboard-shortcuts-guide.html</loc>
-    <lastmod>2026-10-02</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
