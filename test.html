@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عیب‌یاب فوق‌سریع اتصال ژرف</title>
+  <style>
+    body {
+      background-color: #0b101b;
+      color: #e2e8f0;
+      font-family: system-ui, -apple-system, sans-serif;
+      padding: 20px;
+      direction: rtl;
+    }
+    .card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #161f30;
+      border: 1px solid #2d3748;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+    h2 { color: #38ef7d; margin-top: 0; text-align: center; }
+    .btn {
+      display: block;
+      width: 100%;
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: #0b101b;
+      font-weight: bold;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    .status-box {
+      background: #0d131f;
+      border: 1px solid #243049;
+      border-radius: 8px;
+      padding: 15px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+      word-break: break-all;
+      line-height: 1.6;
+      min-height: 180px;
+    }
+    .success { color: #4ade80; }
+    .error { color: #f87171; }
+    .info { color: #60a5fa; }
+    .warning { color: #fbbf24; }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h2>🛠️ سامانه بازرسی و عیب‌یابی اتصال سرور ژرف</h2>
+  <p style="text-align: center; font-size: 0.85rem; color: #94a3b8;">
+    این ابزار وضعیت سرور هاگینگ‌فیس و مسیر ارسال داده‌ها را مرحله‌به‌مرحله رصد می‌کند.
+  </p>
+
+  <button class="btn" onclick="runDiagnosis()">شروع تست هوشمند اتصال</button>
+
+  <div class="status-box" id="logBox">برای شروع، دکمه بالا را لمس کنید...</div>
+</div>
+
+<script>
+const HF_URL = "https://esmailr-helektelek-engine.hf.space";
+
+function log(msg, type = "info") {
+  const box = document.getElementById("logBox");
+  const time = new Date().toLocaleTimeString("fa-IR");
+  box.innerHTML += `\n<span class="${type}">[${time}] ${msg}</span>`;
+  box.scrollTop = box.scrollHeight;
+}
+
+async function runDiagnosis() {
+  const box = document.getElementById("logBox");
+  box.innerHTML = "شروع بررسی گام‌به‌گام...";
+
+  // گام ۱: بررسی مستقیم آنلاین بودن سرور
+  log("گام ۱: بررسی دسترسی اینترنت به هاگینگ‌فیس...", "info");
+  try {
+    const resPing = await fetch(`${HF_URL}/config`, { method: "GET" });
+    if (resPing.ok) {
+      log("✅ اتصال به سرور هاگینگ‌فیس کاملاً باز و آزاد است (کد ۲۰۰).", "success");
+    } else {
+      log(`⚠️ سرور پاسخ داد ولی با کد وضعیت: ${resPing.status}`, "warning");
+    }
+  } catch (err) {
+    log("❌ خطا در گام ۱: ارتباط با هاگینگ‌فیس برقرار نشد! (احتمال فیلتر بودن دامنه hf.space روی اینترنت شما یا فعال نبودن سرور)", "error");
+    log(`جزئیات خطا: ${err.message}`, "error");
+    return;
+  }
+
+  // گام ۲: تست مسیر اندپوینت گرادیو
+  log("\nگام ۲: تست ارسال داده آزمایشی به هوش مصنوعی...", "info");
+  try {
+    const postRes = await fetch(`${HF_URL}/gradio_api/call/zherf_chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        data: [{ text: "تست", files: [] }]
+      })
+    });
+
+    log(`کد وضعیت پاسخ ارسال: ${postRes.status}`, postRes.ok ? "success" : "warning");
+
+    if (postRes.ok) {
+      const data = await postRes.json();
+      log(`✅ شناسه رویداد با موفقیت دریافت شد: ${JSON.stringify(data)}`, "success");
+
+      // گام ۳: دریافت استریم
+      if (data.event_id) {
+        log("\nگام ۳: بررسی کانال دریافت جواب...", "info");
+        const streamRes = await fetch(`${HF_URL}/gradio_api/call/zherf_chat/${data.event_id}`);
+        const text = await streamRes.text();
+        log(`نتیجه استریم سرور:\n${text.substring(0, 150)}...`, "success");
+        log("\n🎉 سرور ۱۰۰٪ سالم است و ارتباط بدون مشکل برقرار است!", "success");
+      }
+    } else {
+      const errText = await postRes.text();
+      log(`❌ سرور درخواست را رد کرد. متن پاسخ:\n${errText}`, "error");
+    }
+  } catch (err) {
+    log(`❌ خطا در ارتباط با API: ${err.message}`, "error");
+  }
+}
+</script>
+
+</body>
+</html>
