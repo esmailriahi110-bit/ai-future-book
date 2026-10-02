@@ -2,16 +2,25 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>راهنمای انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها | ژرفای فناوری</title>
-  <meta name="description" content="راهنمای فنی انتخاب هاست، سرور مجازی VPS و سرور اختصاصی برای اجرای ربات‌های پایتون، ایتا، تلگرام و هوش مصنوعی به همراه کد تخفیف اختصاصی ۹ درصدی.">
-  <link rel="canonical" href="https://esmailriahi110-bit.github.io/ai-future-book/articles/ai-hosting-server-guide.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>راهنمای جامع انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها | ژرف AI</title>
+  <meta name="description" content="راهنمای تخصصی انتخاب هاست NVMe، سرور مجازی VPS و اختصاصی برای اجرای مدل‌های هوش مصنوعی، ربات پایتون، تلگرام و ایتا همراه با کد تخفیف ویژه.">
+  <link rel="canonical" href="https://zherfai.ir/articles/ai-hosting-server-guide.html">
 
+  <!-- Open Graph -->
   <meta property="og:type" content="article">
+  <meta property="og:site_name" content="ژرف AI">
   <meta property="og:title" content="راهنمای جامع انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها">
-  <meta property="og:description" content="مقایسه هاست، سرور مجازی و اختصاصی ایران و خارج برای پروژه‌های فناوری با تخفیف ۹٪">
-  <meta property="og:url" content="https://esmailriahi110-bit.github.io/ai-future-book/articles/ai-hosting-server-guide.html">
+  <meta property="og:description" content="مقایسه هاست اشتراکی، سرور مجازی ابری و سرور آلمان/ایران برای پروژه‌های فناوری و هوش مصنوعی.">
+  <meta property="og:url" content="https://zherfai.ir/articles/ai-hosting-server-guide.html">
+  <meta property="og:image" content="https://zherfai.ir/icon.svg">
 
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="راهنمای جامع انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها">
+  <meta name="twitter:description" content="راهنمای تخصصی سرورهای مناسب مدل‌های هوش مصنوعی و ربات‌ها اثر اسماعیل ریاحی.">
+
+  <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -19,6 +28,7 @@
       {
         "@type": "Article",
         "headline": "راهنمای جامع انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها",
+        "description": "راهنمای تخصصی انتخاب هاست، سرور مجازی VPS و سرور اختصاصی برای اجرای ربات‌های پایتون و هوش مصنوعی.",
         "author": {
           "@type": "Person",
           "name": "اسماعیل ریاحی",
@@ -26,19 +36,25 @@
         },
         "publisher": {
           "@type": "Organization",
-          "name": "AI؛ نقشه‌ای برای آینده"
-        }
+          "name": "ژرف AI",
+          "url": "https://zherfai.ir"
+        },
+        "mainEntityOfPage": "https://zherfai.ir/articles/ai-hosting-server-guide.html"
       },
       {
-        "@type": "FAQPage",
-        "mainEntity": [
+        "@type": "BreadcrumbList",
+        "itemListElement": [
           {
-            "@type": "Question",
-            "name": "آیا با هاست اشتراکی می‌توان ربات ساخت؟",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "برای ربات‌های ساده PHP وب‌هوک بله، اما برای ربات‌های پایتونی و هوش مصنوعی سرور مجازی VPS لازم است."
-            }
+            "@type": "ListItem",
+            "position": 1,
+            "name": "صفحه اصلی",
+            "item": "https://zherfai.ir/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "راهنمای هاست و سرور",
+            "item": "https://zherfai.ir/articles/ai-hosting-server-guide.html"
           }
         ]
       }
@@ -58,15 +74,9 @@
       --text-muted: #94a3b8;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html, body {
-      max-width: 100%;
-      overflow-x: hidden;
+    body {
       background-color: var(--bg);
       color: var(--text-white);
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
@@ -75,10 +85,9 @@
     }
 
     .container {
-      width: 100%;
       max-width: 760px;
       margin: 0 auto;
-      padding: 16px 14px;
+      padding: 16px 14px 80px 14px;
     }
 
     .nav-bar {
@@ -114,7 +123,6 @@
       padding-top: 0.7rem;
     }
 
-    /* باکس معرفی با تخفیف ۹ درصد */
     .discount-banner {
       background: linear-gradient(135deg, #162646 0%, #0c182e 100%);
       border: 2px solid #2563eb;
@@ -169,7 +177,6 @@
       transform: scale(1.02);
     }
 
-    /* متن و بخش‌های مقاله */
     .content-box {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -207,17 +214,14 @@
       margin: 0.8rem 0;
     }
 
-    ul, ol {
+    ul {
       margin-right: 1.3rem;
       color: #cbd5e1;
       font-size: 0.92rem;
     }
 
-    li {
-      margin-bottom: 0.5rem;
-    }
+    li { margin-bottom: 0.5rem; }
 
-    /* جدول واکنش‌گرا و امن */
     .table-wrapper {
       width: 100%;
       overflow-x: auto;
@@ -245,7 +249,6 @@
       color: var(--accent-cyan);
     }
 
-    /* کادر انتهای صفحه */
     .bottom-cta {
       background: linear-gradient(180deg, #111e38 0%, #091120 100%);
       border: 2px solid #224375;
@@ -253,12 +256,6 @@
       padding: 1.5rem 1.1rem;
       text-align: center;
       margin: 2rem 0 1.5rem;
-    }
-
-    .bottom-cta h3 {
-      color: #ffffff;
-      font-size: 1.25rem;
-      margin-bottom: 0.7rem;
     }
 
     .btn-taaghche {
@@ -275,54 +272,22 @@
       font-size: 0.96rem;
     }
 
-    /* کارت بانکی صادرات */
-    .bank-card {
-      background: #070d18;
-      border: 1.5px dashed #24426e;
-      border-radius: 10px;
-      padding: 1.2rem 1rem;
-      margin-top: 1.5rem;
-      text-align: right;
-    }
-
-    .card-flex {
+    .floating-chat-btn {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #10b981;
+      color: #022013;
+      padding: 10px 18px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.9rem;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+      z-index: 999;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
       align-items: center;
-      gap: 10px;
-      background: #101c31;
-      padding: 10px 14px;
-      border-radius: 8px;
-      margin-top: 0.8rem;
-    }
-
-    .card-digits {
-      font-family: monospace;
-      font-size: 1.2rem;
-      color: var(--accent-cyan);
-      direction: ltr;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .btn-copy {
-      background: var(--accent-green);
-      color: #032b1d;
-      border: none;
-      padding: 8px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 0.88rem;
-    }
-
-    .toast-msg {
-      font-size: 0.85rem;
-      color: #34d399;
-      margin-top: 6px;
-      display: none;
-      font-weight: bold;
+      gap: 8px;
     }
 
     footer {
@@ -335,6 +300,8 @@
   </style>
 </head>
 <body>
+
+<a href="../chat.html" class="floating-chat-btn">💬 گفتگوی رایگان با هوش مصنوعی ژرف</a>
 
 <div class="container">
   <div class="nav-bar">
@@ -351,24 +318,22 @@
   </header>
 
   <main>
-    <!-- بنر تخفیف اختصاصی ۹ درصد -->
     <div class="discount-banner">
       <span class="badge-discount">🔥 پیشنهاد و تخفیف ویژه ۹٪</span>
       <h2>دریافت ۹ درصد تخفیف سرور و هاست (با تایید معرف)</h2>
       <p>
-        اگر برای سایت یا ربات خود نیاز به هاست پرسرعت NVMe یا سرور مجازی (VPS) پایدار دارید، با ورود از لینک زیر و زدن دکمه <strong>«تایید کد»</strong>، سیستم به صورت خودکار <strong>۹٪ تخفیف اختصاصی معرف</strong> را برای خرید شما فعال خواهد کرد (حتی اگر هنوز در حال بررسی هستید، تایید کد را بزنید تا فرصت تخفیف حفظ شود):
+        اگر برای سایت یا ربات خود نیاز به هاست پرسرعت NVMe یا سرور مجازی (VPS) پایدار دارید، با ورود از لینک زیر و زدن دکمه <strong>«تایید کد»</strong>، سیستم به صورت خودکار <strong>۹٪ تخفیف اختصاصی معرف</strong> را برای خرید شما فعال خواهد کرد:
       </p>
       <a href="https://mihanwebhost.com/my/referrers_confirm.php?code=mwh-8b7c8" target="_blank" rel="noopener noreferrer nofollow" class="btn-affiliate">
         ورود به میهن وب هاست و فعال‌سازی ۹٪ تخفیف ↗
       </a>
     </div>
 
-    <!-- بدنه مقاله -->
     <article>
       <div class="content-box">
         <h2>مقدمه: زیرساخت پردازشی پایدار چیست؟</h2>
         <p>
-          اجرای اسکریپت‌های پایتون، هوش مصنوعی و ربات‌های پیام‌رسان بدون سرور اختصاصی یا VPS قدرتمند امکان‌پذیر نیست. انتخاب ناصحیح سرور باعث قطعی دائمی و افت سئو می‌شود.
+          اجرای اسکریپت‌های پایتون، پردازش مدل‌های زبانی و ربات‌های پیام‌رسان بدون سرور اختصاصی یا VPS قدرتمند امکان‌پذیر نیست. انتخاب ناصحیح سرور باعث قطعی دائمی و افت سئو می‌شود.
         </p>
       </div>
 
@@ -427,69 +392,27 @@
       <div class="content-box">
         <h2>۳. سرور ایران یا آلمان؟</h2>
         <p>
-          • <strong>سرور آلمان/خارج:</strong> جهت ارتباط بدون اختلال با APIهای خارجی (نظیر OpenAI، گیت‌هاب و تلگرام).<br>
-          • <strong>سرور ایران:</strong> جهت دستیابی به کمترین پینگ برای کاربران داخل کشور و پروژه‌های بومی مانند ربات ایتا.
+          • <strong>سرور آلمان/خارج:</strong> جهت ارتباط بدون اختلال با APIهای بین‌المللی.<br>
+          • <strong>سرور ایران:</strong> جهت دستیابی به کمترین پینگ برای کاربران داخل کشور و پروژه‌های بومی مانند بات ایتا.
         </p>
       </div>
     </article>
 
-    <!-- کال‌تو‌اکشن نهایی و کارت حمایت -->
     <div class="bottom-cta">
-      <h3>مطالعه جامع‌تر در کتاب «AI؛ نقشه‌ای برای آینده»</h3>
+      <h3 style="color:#fff;">مطالعه جامع‌تر در کتاب «AI؛ نقشه‌ای برای آینده»</h3>
       <p style="color: #cbd5e1; font-size: 0.94rem; margin-bottom: 1rem;">
-        برای شناخت دقیق تحولات هوش مصنوعی و جایگاه مهارت‌های نو، نسخه دیجیتال را در طاقچه بخوانید:
+        برای شناخت دقیق تحولات هوش مصنوعی و جایگاه مهارت‌های نو، نسخه رسمی را در طاقچه بخوانید:
       </p>
-
       <a href="https://taaghche.com/book/296988" target="_blank" rel="noopener noreferrer" class="btn-taaghche">
         📖 مطالعه کتاب در طاقچه
       </a>
-
-      <div class="bank-card">
-        <h4 style="color: #ffffff; font-size: 0.98rem; margin-bottom: 0.4rem;">حمایت دلخواه از پژوهش‌های مستقل</h4>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">
-          در صورت تمایل می‌توانید جهت حمایت از نگارش این آموزش‌ها، هر مبلغی را به شماره کارت زیر واریز فرمایید:
-        </p>
-        <div class="card-flex">
-          <span class="card-digits">6037697439990810</span>
-          <span style="font-size: 0.88rem; color: #e2e8f0;">بانک صادرات ایران — اسمعیل ریاحی</span>
-          <button class="btn-copy" onclick="copyCard()">کپی کارت</button>
-        </div>
-        <div id="copy-toast" class="toast-msg">✓ شماره کارت با موفقیت کپی شد</div>
-      </div>
     </div>
   </main>
 
   <footer>
-    <p>کتاب «AI؛ نقشه‌ای برای آینده» اثر اسماعیل ریاحی</p>
+    <p>کتاب «AI؛ نقشه‌ای برای آینده» اثر پژوهشگر اسماعیل ریاحی | سامانه ژرف AI</p>
   </footer>
 </div>
-
-<script>
-  function copyCard() {
-    const num = "6037697439990810";
-    const toast = document.getElementById("copy-toast");
-    if (navigator.clipboard && window.isSecureContext) {
-      navigator.clipboard.writeText(num).then(() => showToast(toast)).catch(() => fallback(num, toast));
-    } else {
-      fallback(num, toast);
-    }
-  }
-
-  function fallback(text, toast) {
-    const input = document.createElement("input");
-    input.value = text;
-    document.body.appendChild(input);
-    input.select();
-    document.execCommand("copy");
-    document.body.removeChild(input);
-    showToast(toast);
-  }
-
-  function showToast(el) {
-    el.style.display = "block";
-    setTimeout(() => { el.style.display = "none"; }, 3500);
-  }
-</script>
 
 </body>
 </html>
