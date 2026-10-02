@@ -1,0 +1,139 @@
+name: Zherf AI Ultimate SEO & Sitemap Engine
+
+on:
+  push:
+    paths:
+      - 'articles/**'
+      - 'index.html'
+      - 'chat.html'
+      - 'contact.html'
+      - 'articles.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: ⚙️ Generate Smart Sitemap & Article Catalog
+        run: |
+          python - << 'EOF'
+          import os
+          import re
+          import json
+          from datetime import datetime
+
+          SITE_URL = "https://zherfai.ir"
+          TODAY = datetime.utcnow().strftime('%Y-%m-%d')
+
+          # 1. Base Static Pages
+          static_pages = [
+              {"loc": f"{SITE_URL}/", "priority": "1.0", "changefreq": "daily", "multilang": True},
+              {"loc": f"{SITE_URL}/articles.html", "priority": "0.9", "changefreq": "daily", "multilang": True},
+              {"loc": f"{SITE_URL}/chat.html", "priority": "0.9", "changefreq": "daily", "multilang": False},
+              {"loc": f"{SITE_URL}/contact.html", "priority": "0.8", "changefreq": "monthly", "multilang": False},
+          ]
+
+          # 2. Scan articles directory
+          articles_list = []
+          articles_dir = "articles"
+          
+          if os.path.exists(articles_dir):
+              for file in sorted(os.listdir(articles_dir)):
+                  if file.endswith(".html"):
+                      filepath = os.path.join(articles_dir, file)
+                      with open(filepath, "r", encoding="utf-8") as f:
+                          content = f.read()
+                      
+                      # Extract Title
+                      title_match = re.search(r'<title>(.*?)</title>', content, re.IGNORECASE)
+                      title = title_match.group(1) if title_match else file
+                      
+                      # Extract Description
+                      desc_match = re.search(r'<meta\s+name=["\']description["\']\s+content=["\'](.*?)["\']', content, re.IGNORECASE)
+                      desc = desc_match.group(1) if desc_match else ""
+                      
+                      article_url = f"{SITE_URL}/articles/{file}"
+                      articles_list.append({
+                          "file": f"articles/{file}",
+                          "url": article_url,
+                          "title": title,
+                          "desc": desc,
+                          "date": TODAY,
+                          "priority": "0.85",
+                          "changefreq": "weekly"
+                      })
+
+          # 3. Build Sitemap XML
+          xml_lines = [
+              '<?xml version="1.0" encoding="UTF-8"?>',
+              '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+              '        xmlns:xhtml="http://www.w3.org/1999/xhtml">'
+          ]
+
+          for p in static_pages:
+              xml_lines.append('  <url>')
+              xml_lines.append(f'    <loc>{p["loc"]}</loc>')
+              xml_lines.append(f'    <lastmod>{TODAY}</lastmod>')
+              xml_lines.append(f'    <changefreq>{p["changefreq"]}</changefreq>')
+              xml_lines.append(f'    <priority>{p["priority"]}</priority>')
+              if p["multilang"]:
+                  base = p["loc"].rstrip('/')
+                  xml_lines.append(f'    <xhtml:link rel="alternate" hreflang="fa" href="{p["loc"]}" />')
+                  xml_lines.append(f'    <xhtml:link rel="alternate" hreflang="en" href="{p["loc"]}?lang=en" />')
+                  xml_lines.append(f'    <xhtml:link rel="alternate" hreflang="ar" href="{p["loc"]}?lang=ar" />')
+                  xml_lines.append(f'    <xhtml:link rel="alternate" hreflang="x-default" href="{p["loc"]}" />')
+              xml_lines.append('  </url>')
+
+          for a in articles_list:
+              xml_lines.append('  <url>')
+              xml_lines.append(f'    <loc>{a["url"]}</loc>')
+              xml_lines.append(f'    <lastmod>{a["date"]}</lastmod>')
+              xml_lines.append(f'    <changefreq>{a["changefreq"]}</changefreq>')
+              xml_lines.append(f'    <priority>{a["priority"]}</priority>')
+              xml_lines.append('  </url>')
+
+          xml_lines.append('</urlset>')
+
+          with open("sitemap.xml", "w", encoding="utf-8") as f:
+              f.write("\n".join(xml_lines) + "\n")
+
+          # 4. Save JSON directory for instantaneous articles.html auto-sync
+          with open("articles.json", "w", encoding="utf-8") as f:
+              json.dump(articles_list, f, ensure_ascii=False, indent=2)
+
+          print(f"✅ Auto-Generated sitemap.xml with {len(static_pages) + len(articles_list)} total indexed URLs!")
+          EOF
+
+      - name: 📥 Commit & Push Auto-Updated Sitemap
+        run: |
+          git config --global user.name "Zherf-SEO-Bot"
+          git config --global user.email "bot@zherfai.ir"
+          git add sitemap.xml articles.json
+          if git diff --staged --quiet; then
+            echo "No changes in sitemap or articles."
+          else
+            git commit -m "⚡ [Auto-SEO] Updated sitemap.xml & articles.json with live crawler data"
+            git push
+          fi
+
+      - name: 📡 Ping Search Engines & IndexNow (Instant Crawl Trigger)
+        run: |
+          echo "Triggering Google & Bing Crawlers..."
+          # Google Sitemap Ping
+          curl -s "https://www.google.com/ping?sitemap=https://zherfai.ir/sitemap.xml" || true
+          # Bing Sitemap Ping
+          curl -s "https://www.bing.com/ping?sitemap=https://zherfai.ir/sitemap.xml" || true
+          echo "✅ Crawlers notified successfully!"
