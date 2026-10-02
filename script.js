@@ -1,8 +1,9 @@
-// آدرس موتور فعال هاگینگ‌فیس ژرف
+// آدرس موتور فعال و رسمی هاگینگ‌فیس ژرف
 const HF_ENGINE_URL = "https://esmailr-helektelek-engine.hf.space";
 let currentSessionId = Date.now().toString();
 let attachedFile = null;
 
+// باز و بسته کردن سایدبار منو
 function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   const overlay = document.getElementById("sidebarOverlay");
@@ -10,11 +11,13 @@ function toggleSidebar() {
   if (overlay) overlay.classList.toggle("active");
 }
 
+// تنظیم خودکار ارتفاع کادر متن پیام
 function autoResize(textarea) {
   textarea.style.height = "auto";
   textarea.style.height = Math.min(textarea.scrollHeight, 120) + "px";
 }
 
+// ارسال پیام با کلید اینتر (Enter) بدون Shift
 function handleKeyDown(event) {
   if (event.key === "Enter" && !event.shiftKey) {
     event.preventDefault();
@@ -22,6 +25,7 @@ function handleKeyDown(event) {
   }
 }
 
+// مدیریت انتخاب و پیوست فایل
 function handleFileSelect(event) {
   const file = event.target.files[0];
   if (file) {
@@ -35,6 +39,7 @@ function handleFileSelect(event) {
   }
 }
 
+// حذف فایل پیوست شده
 function removeFile() {
   attachedFile = null;
   const fileInput = document.getElementById("fileInput");
@@ -43,12 +48,14 @@ function removeFile() {
   if (filePreview) filePreview.style.display = "none";
 }
 
+// پاکسازی کاراکترهای خطرناک برای امنیت متن
 function escapeHtml(text) {
   const div = document.createElement("div");
   div.innerText = text;
   return div.innerHTML;
 }
 
+// درج حباب پیام کاربر یا هوش مصنوعی در صفحه
 function appendMessage(role, text) {
   const chatArea = document.getElementById("chatArea");
   if (!chatArea) return;
@@ -65,6 +72,7 @@ function appendMessage(role, text) {
   chatArea.scrollTop = chatArea.scrollHeight;
 }
 
+// ذخیره عنوان چت در حافظه محلی مرورگر
 function saveHistory(firstMessageText) {
   let history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
   const existing = history.find(h => h.id === currentSessionId);
@@ -79,6 +87,7 @@ function saveHistory(firstMessageText) {
   }
 }
 
+// نمایش لیست تاریخچه گفتگوها در سایدبار
 function renderHistoryList() {
   const container = document.getElementById("historyList");
   if (!container) return;
@@ -101,6 +110,7 @@ function renderHistoryList() {
   });
 }
 
+// حذف یک مورد از سابقه گفتگوها
 function deleteHistoryItem(event, id) {
   event.stopPropagation();
   let history = JSON.parse(localStorage.getItem("zherf_chat_history") || "[]");
@@ -109,6 +119,7 @@ function deleteHistoryItem(event, id) {
   renderHistoryList();
 }
 
+// شروع گفتگوی جدید
 function startNewChat() {
   currentSessionId = Date.now().toString();
   const chatArea = document.getElementById("chatArea");
@@ -126,6 +137,7 @@ function startNewChat() {
   }
 }
 
+// بازخوانی یک گفتگوی قدیمی
 function loadChat(id) {
   currentSessionId = id;
   const chatArea = document.getElementById("chatArea");
@@ -139,6 +151,7 @@ function loadChat(id) {
   toggleSidebar();
 }
 
+// تابع اصلی ارسال و دریافت پیام از هوش مصنوعی
 async function sendMessage() {
   const input = document.getElementById("userInput");
   const text = input.value.trim();
@@ -155,12 +168,12 @@ async function sendMessage() {
   const loadingMsg = document.createElement("div");
   loadingMsg.className = "message assistant";
   loadingMsg.id = "loadingMsg";
-  loadingMsg.innerHTML = '<div class="bubble"><i class="fa-solid fa-circle-notch fa-spin"></i> در حال پردازش...</div>';
+  loadingMsg.innerHTML = '<div class="bubble"><i class="fa-solid fa-circle-notch fa-spin"></i> ژرف در حال اندیشیدن...</div>';
   document.getElementById("chatArea").appendChild(loadingMsg);
   document.getElementById("chatArea").scrollTop = document.getElementById("chatArea").scrollHeight;
 
   try {
-    // گام اول: ثبت درخواست در اندپوینت رسمی سرور شما
+    // ارسال درخواست به سرور هاگینگ‌فیس
     const postResponse = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -170,12 +183,12 @@ async function sendMessage() {
     });
 
     if (!postResponse.ok) {
-      throw new Error(`خطای سرور: ${postResponse.status}`);
+      throw new Error(`وضعیت سرور: ${postResponse.status}`);
     }
 
     const { event_id } = await postResponse.json();
 
-    // گام دوم: خواندن پاسخ استریم از شناسه اختصاصی رویداد
+    // دریافت داده‌های استریم
     const streamRes = await fetch(`${HF_ENGINE_URL}/gradio_api/call/zherf_chat/${event_id}`);
     const rawData = await streamRes.text();
 
@@ -206,23 +219,23 @@ async function sendMessage() {
     if (loadingElement) loadingElement.remove();
 
     if (finalReply) {
-      // حذف دابل‌کوت‌ها یا فرمت‌های احتمالی JSON از دور متن
       if (finalReply.startsWith('"') && finalReply.endsWith('"')) {
         try { finalReply = JSON.parse(finalReply); } catch(_) {}
       }
       appendMessage("assistant", finalReply);
     } else {
-      appendMessage("assistant", "پاسخی از سمت سرور بازگردانده نشد. لطفاً مجدد امتحان کنید.");
+      appendMessage("assistant", "پاسخی از سمت مدل دریافت نشد. لطفاً دوباره تلاش کنید.");
     }
 
   } catch (err) {
     const loadingElement = document.getElementById("loadingMsg");
     if (loadingElement) loadingElement.remove();
-    appendMessage("assistant", "خطا در اتصال به موتور ژرف. اتصال به اینترنت یا سرور را بررسی فرمایید.");
-    console.error("Zherf Engine Error:", err);
+    appendMessage("assistant", "در حال حاضر ارتباط با سرور هوش مصنوعی برقرار نشد، لطفاً چند ثانیه دیگر دوباره امتحان کنید.");
+    console.error("خطای موتور ژرف:", err);
   }
 }
 
+// اجرای اولیه لیست تاریخچه پس از لود صفحه
 document.addEventListener("DOMContentLoaded", () => {
   renderHistoryList();
 });
