@@ -471,3 +471,13 @@ async function sendMessage() {
 document.addEventListener("DOMContentLoaded", function() {
   renderHistoryList();
 });
+function setLanguage(lang) {
+  document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active-lang'));
+  document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+
+  const targetContent = document.getElementById('content-' + lang);
+  const targetBtn = document.getElementById('btn-' + lang);
+
+  if (targetContent) targetContent.classList.add('active-lang');
+  if (targetBtn) targetBtn.classList.add('active');
+}
