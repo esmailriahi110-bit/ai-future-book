@@ -17,6 +17,58 @@
       --text-muted: #94a3b8;
       --user-msg-bg: #ea580c;
     }
+/* ابزارهای پیام دستیار (کپی پاسخ) */
+.z-msg-tools{
+  display:flex;
+  gap:8px;
+  margin:6px 0 0;
+  justify-content:flex-start;
+}
+
+.z-copy-msg-btn, .z-copy-code-btn{
+  background: rgba(249,115,22,.12);
+  border: 1px solid rgba(249,115,22,.35);
+  color: #ffd7c2;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: .82rem;
+  cursor: pointer;
+}
+
+.z-copy-msg-btn:hover, .z-copy-code-btn:hover{
+  background: rgba(249,115,22,.20);
+}
+
+/* کدباکس‌ها */
+.z-code-block{
+  position: relative;
+  margin: 10px 0;
+  padding: 10px 10px 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(249,115,22,.22);
+  background: rgba(0,0,0,.28);
+}
+
+.z-code-block pre{
+  margin: 6px 0 10px;
+  overflow:auto;
+  direction:ltr;
+  text-align:left;
+  unicode-bidi: plaintext;
+}
+
+.z-code-block code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size: .9rem;
+  line-height: 1.6;
+}
+
+.z-code-lang{
+  font-size:.72rem;
+  color: rgba(255,215,194,.85);
+  direction:ltr;
+  text-align:left;
+}
 
     * {
       box-sizing: border-box;
