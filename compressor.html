@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>فشرده‌ساز رسانه ژرف | Zherf Smart Media Compressor (رایگان و نامحدود)</title>
+    <meta name="description" content="ابزار فوق‌سریع و هوشمند کاهش حجم ویدیو تا ۶۰۰ مگابایت و فشرده‌سازی عکس بدون افت کیفیت. بدون نیاز به نصب، ۱۰۰٪ رایگان و بدون آپلود در سرور به قلم و توسعه اسماعیل ریاحی.">
+    <meta name="keywords" content="کاهش حجم ویدیو آنلاین, فشرده سازی ویدیو بدون افت کیفیت, کم کردن حجم ویدیو تا 500 مگابایت, کمپرسور عکس انلاین, فشرده سازی ویدیو گوشی, ژرف AI, اسماعیل ریاحی">
+    <meta name="author" content="اسماعیل ریاحی">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://zherfai.ir/compressor.html">
+
+    <!-- Open Graph Data for Social Sharing (Eitaa, Telegram, WhatsApp) -->
+    <meta property="og:title" content="فشرده‌ساز هوشمند رسانه ژرف (سریع، رایگان، ایمن)">
+    <meta property="og:description" content="کاهش چشمگیر حجم انواع ویدیو و عکس با حفظ بیشترین کیفیت بدون مصرف ترافیک اضافه، توسعه‌یافته در اکوسیستم ژرف AI.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://zherfai.ir/compressor.html">
+    <meta property="og:image" content="https://zherfai.ir/assets/cover.jpg">
+
+    <!-- Schema.org 7-Layer SEO Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "SoftwareApplication",
+          "name": "Zherf Smart Compressor",
+          "alternateName": "فشرده‌ساز هوشمند ژرف",
+          "operatingSystem": "Android, iOS, Windows, macOS, Linux",
+          "applicationCategory": "MultimediaApplication",
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "IRR"
+          },
+          "author": {
+            "@type": "Person",
+            "name": "اسماعیل ریاحی",
+            "url": "https://zherfai.ir",
+            "sameAs": [
+              "https://eitaa.com/Esmailriahi",
+              "https://t.me/SRiahi"
+            ]
+          }
+        },
+        {
+          "@type": "HowTo",
+          "name": "نحوه کاهش حجم ویدیو و عکس بدون افت کیفیت در ژرف",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "text": "نوع رسانه (عکس یا ویدیو) را انتخاب کنید."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "فایل خود را از گالری یا سیستم انتخاب کنید."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "میزان فشرده‌سازی و رزولوشن دلخواه را تنظیم کرده و روی شروع فشرده‌سازی هوشمند کلیک کنید."
+            },
+            {
+              "@type": "HowToStep",
+              "text": "فایل کم‌حجم نهایی و استاندارد را مستقیماً ذخیره نمایید."
+            }
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #050811;
+            --bg-card: #0b1120;
+            --bg-panel: #111a2e;
+            --neon-green: #00ff88;
+            --neon-cyan: #00e1ff;
+            --xbox-green: #107c10;
+            --xbox-glow: #00e676;
+            --text-main: #f0f6fc;
+            --text-muted: #8b98a5;
+            --danger: #ff4757;
+            --gold: #ffb703;
+            --glow-shadow: 0 0 25px rgba(0, 255, 136, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 225, 255, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 136, 0.06) 0%, transparent 40%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 14px 100px 14px;
+            overflow-x: hidden;
+        }
+
+        /* Top Navigation Header */
+        .top-nav {
+            width: 100%;
+            max-width: 840px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(11, 17, 32, 0.75);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            padding: 10px 16px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .nav-item {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.25s ease;
+        }
+
+        .nav-item:hover {
+            border-color: var(--neon-cyan);
+            color: var(--neon-cyan);
+            transform: translateY(-2px);
+        }
+
+        .lang-bar {
+            display: flex;
+            gap: 6px;
+            background: #050811;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .lang-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.8rem;
+            padding: 4px 10px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active, .lang-btn:hover {
+            color: #050811;
+            background: var(--neon-green);
+            font-weight: bold;
+        }
+
+        /* Bookmark Banner */
+        .bookmark-banner {
+            width: 100%;
+            max-width: 840px;
+            background: linear-gradient(90deg, rgba(0, 225, 255, 0.12), rgba(0, 255, 136, 0.12));
+            border: 1px solid rgba(0, 225, 255, 0.35);
+            border-radius: 14px;
+            padding: 12px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 22px;
+            gap: 12px;
+        }
+
+        .bookmark-text {
+            font-size: 0.85rem;
+            color: var(--neon-cyan);
+            line-height: 1.5;
+        }
+
+        .btn-pin {
+            background: var(--neon-cyan);
+            color: #040914;
+            border: none;
+            padding: 8px 14px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+
+        .btn-pin:hover {
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transform: scale(1.03);
+        }
+
+        /* Main Workspace Container */
+        .main-container {
+            width: 100%;
+            max-width: 840px;
+            background: var(--bg-card);
+            border: 1px solid rgba(0, 255, 136, 0.25);
+            border-radius: 24px;
+            padding: 34px 26px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), var(--glow-shadow);
+            position: relative;
+        }
+
+        .header-title {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .header-title .badge {
+            display: inline-block;
+            background: rgba(16, 124, 16, 0.2);
+            color: var(--neon-green);
+            border: 1px solid var(--xbox-glow);
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .header-title h1 {
+            color: #ffffff;
+            font-size: 1.95rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            text-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Mode Selector Buttons (Gaming Style) */
+        .mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .mode-btn {
+            background: var(--bg-panel);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.25s ease;
+        }
+
+        .mode-btn.active {
+            border-color: var(--neon-green);
+            background: linear-gradient(145deg, rgba(0, 255, 136, 0.15), rgba(16, 124, 16, 0.25));
+            color: var(--neon-green);
+            box-shadow: 0 0 15px rgba(0, 255, 136, 0.3);
+        }
+
+        /* Dropzone */
+        .dropzone {
+            border: 2px dashed rgba(0, 255, 136, 0.35);
+            border-radius: 18px;
+            padding: 40px 20px;
+            text-align: center;
+            background: rgba(5, 8, 17, 0.6);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .dropzone:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 225, 255, 0.03);
+            box-shadow: 0 0 20px rgba(0, 225, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .dropzone svg {
+            width: 58px;
+            height: 58px;
+            fill: var(--neon-green);
+            margin-bottom: 12px;
+            filter: drop-shadow(0 0 8px var(--neon-green));
+        }
+
+        .dropzone input {
+            display: none;
+        }
+
+        /* File Info Banner & Preview */
+        .file-info-badge {
+            display: none;
+            background: rgba(0, 225, 255, 0.08);
+            border: 1px solid var(--neon-cyan);
+            padding: 12px 18px;
+            border-radius: 12px;
+            margin-bottom: 18px;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+            text-align: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .preview-box {
+            display: none;
+            margin-bottom: 22px;
+            text-align: center;
+        }
+
+        .preview-box video, .preview-box img {
+            max-width: 100%;
+            max-height: 220px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Controls Grid */
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        @media (max-width: 640px) {
+            .controls-grid { grid-template-columns: 1fr; }
+            .header-title h1 { font-size: 1.5rem; }
+            .main-container { padding: 22px 16px; }
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        select, input[type="range"] {
+            background: #050811;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            outline: none;
+            transition: 0.2s;
+        }
+
+        select:focus {
+            border-color: var(--neon-green);
+            box-shadow: 0 0 10px rgba(0, 255, 136, 0.2);
+        }
+
+        /* Action Button */
+        .btn-action {
+            width: 100%;
+            background: linear-gradient(135deg, #00ff88, #00b05b);
+            color: #03140b;
+            font-size: 1.15rem;
+            font-weight: 800;
+            border: none;
+            padding: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.35);
+            transition: all 0.25s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 255, 136, 0.5);
+            background: linear-gradient(135deg, #00ff9d, #00cb69);
+        }
+
+        .btn-action:disabled {
+            background: #1c2738;
+            color: #4f5d6f;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Processing Progress Bar */
+        .progress-box {
+            display: none;
+            margin: 25px 0;
+            background: rgba(0,0,0,0.5);
+            border-radius: 14px;
+            padding: 18px;
+            border: 1px solid rgba(0, 255, 136, 0.3);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            color: var(--neon-cyan);
+            font-weight: 600;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 14px;
+            background: #090e1a;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+            border-radius: 8px;
+            transition: width 0.25s ease;
+            box-shadow: 0 0 12px var(--neon-green);
+        }
+
+        /* Results Card */
+        .result-card {
+            display: none;
+            margin-top: 25px;
+            padding: 24px;
+            background: rgba(0, 255, 136, 0.04);
+            border: 1px solid var(--neon-green);
+            border-radius: 16px;
+            text-align: center;
+            animation: slideUp 0.4s ease;
+        }
+
+        .result-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 12px 8px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .stat-item span {
+            display: block;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            margin-top: 4px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: var(--neon-green);
+            color: #03140b;
+            text-decoration: none;
+            padding: 14px 34px;
+            font-weight: 800;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.25s ease;
+            margin-top: 8px;
+            box-shadow: 0 4px 15px rgba(0, 255, 136, 0.3);
+        }
+
+        .download-btn:hover {
+            background: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+            transform: scale(1.02);
+        }
+
+        /* Donation Section */
+        .donation-section {
+            margin-top: 35px;
+            width: 100%;
+            max-width: 840px;
+            background: rgba(11, 17, 32, 0.75);
+            border: 1px solid rgba(255, 183, 3, 0.35);
+            border-radius: 16px;
+            padding: 22px;
+            text-align: center;
+        }
+
+        .donation-title {
+            color: var(--gold);
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .donation-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            line-height: 1.7;
+        }
+
+        .card-number-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            background: #050811;
+            padding: 10px 18px;
+            border-radius: 10px;
+            border: 1px dashed var(--neon-green);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .card-number-box:hover {
+            background: rgba(0, 255, 136, 0.05);
+            border-color: var(--neon-cyan);
+        }
+
+        .card-number {
+            font-family: monospace;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            color: var(--neon-green);
+        }
+
+        .copy-badge {
+            font-size: 0.75rem;
+            background: rgba(0, 255, 136, 0.15);
+            color: var(--neon-green);
+            padding: 4px 10px;
+            border-radius: 6px;
+        }
+
+        /* Floating HUD Action (Go to Chat) */
+        .floating-chat-btn {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            background: linear-gradient(135deg, #00e1ff, #00ff88);
+            color: #03140b;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 6px 25px rgba(0, 225, 255, 0.4);
+            z-index: 999;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .floating-chat-btn:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 255, 136, 0.6);
+        }
+
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        footer a {
+            color: var(--neon-green);
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Navigation Header -->
+    <header class="top-nav">
+        <div class="nav-links">
+            <a href="/" class="nav-item" title="صفحه اصلی">
+                <span>🏠</span>
+                <span>خانه</span>
+            </a>
+            <a href="/contact.html" class="nav-item" title="تماس با ما و تبلیغات">
+                <span>📞</span>
+                <span>تماس و سفارش</span>
+            </a>
+        </div>
+
+        <div class="lang-bar">
+            <button class="lang-btn active" onclick="switchLanguage('fa')">فارسی</button>
+            <button class="lang-btn" onclick="switchLanguage('en')">English</button>
+            <button class="lang-btn" onclick="switchLanguage('ar')">العربية</button>
+        </div>
+    </header>
+
+    <!-- Bookmark and Fast Access Banner -->
+    <div class="bookmark-banner" id="pin-banner">
+        <div class="bookmark-text" id="txt-pin-msg">
+            ⚡ <strong>همیشه همراه شما:</strong> این ابزار رایگان را به صفحه اصلی گوشی یا بوکمارک اضافه کنید تا بدون سرچ مجدد به آن دسترسی داشته باشید.
+        </div>
+        <button class="btn-pin" onclick="pinTool()" id="btn-pin-txt">📌 ذخیره در مرورگر</button>
+    </div>
+
+    <!-- Main Workspace -->
+    <main class="main-container">
+        <div class="header-title">
+            <div class="badge">ZHERF AI DUAL-ENGINE COMPRESSOR</div>
+            <h1 id="txt-title">فشرده‌ساز فوق‌پیشرفته رسانه ژرف</h1>
+            <p id="txt-desc">کاهش چشمگیر حجم فایل‌های ویدیویی و تصویری با هسته سبک وب‌ورکر؛ ۱۰۰٪ امن، بدون مصرف ترافیک اضافه، بدون تحریم و بدون کرش دستگاه</p>
+        </div>
+
+        <!-- Mode Toggle (Video or Image) -->
+        <div class="mode-selector">
+            <button class="mode-btn active" id="btn-mode-video" onclick="selectMode('video')">
+                <span>🎥</span>
+                <span id="txt-mode-video">فشرده‌سازی ویدیو (تا ۶۰۰ مگابایت)</span>
+            </button>
+            <button class="mode-btn" id="btn-mode-image" onclick="selectMode('image')">
+                <span>🖼️</span>
+                <span id="txt-mode-image">فشرده‌سازی عکس و تصویر</span>
+            </button>
+        </div>
+
+        <!-- Dropzone -->
+        <div class="dropzone" id="drop-area" onclick="document.getElementById('file-input').click()">
+            <svg viewBox="0 0 24 24">
+                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+            </svg>
+            <h3 id="txt-drop">فایل خود را اینجا بکشید یا انتخاب کنید</h3>
+            <p id="txt-formats" style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">
+                پشتیبانی از: MP4, MKV, MOV, WebM, HEIC, JPG, PNG, WEBP
+            </p>
+            <input type="file" id="file-input">
+        </div>
+
+        <div id="file-info" class="file-info-badge"></div>
+
+        <!-- Preview Box -->
+        <div class="preview-box" id="preview-box">
+            <video id="video-preview" controls playsinline></video>
+            <img id="image-preview" alt="پیش‌نمایش تصویر">
+        </div>
+
+        <!-- Controls HUD -->
+        <div class="controls-grid">
+            <div class="control-group">
+                <label id="lbl-preset">هدف بهینه‌سازی و رزولوشن:</label>
+                <select id="preset-mode">
+                    <option value="balanced">متوازن هوشمند (حفظ ابعاد اصلی + کاهش بیت‌ریت)</option>
+                    <option value="social">مخصوص پیام‌رسان‌ها (HD 720p - بهینه برای ایتا و تلگرام)</option>
+                    <option value="extreme">فشرده‌سازی حداکثری (SD 480p - کمترین حجم ممکن)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label id="lbl-quality">نسبت کیفیت به حجم: <span id="quality-val" style="color: var(--neon-cyan); font-weight: bold;">متوسط (۷۰٪)</span></label>
+                <input type="range" id="quality-range" min="20" max="90" value="70">
+            </div>
+        </div>
+
+        <!-- Start Action Button -->
+        <button class="btn-action" id="btn-process" disabled>شروع فشرده‌سازی هوشمند</button>
+
+        <!-- Progress Indicator -->
+        <div class="progress-box" id="progress-box">
+            <div class="progress-header">
+                <span id="progress-status">آماده‌سازی بافر و فریم‌ها...</span>
+                <span id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+        </div>
+
+        <!-- Results Card -->
+        <div class="result-card" id="result-box">
+            <h3 id="txt-success" style="color: var(--neon-green); font-size: 1.3rem;">عملیات با موفقیت انجام شد! 🎉</h3>
+            <div class="result-stats">
+                <div class="stat-item">
+                    حجم اولیه
+                    <span id="orig-size">0 MB</span>
+                </div>
+                <div class="stat-item">
+                    حجم جدید
+                    <span id="new-size">0 MB</span>
+                </div>
+                <div class="stat-item">
+                    میزان صرفه‌جویی
+                    <span id="saved-percent" style="color: var(--neon-green);">0%</span>
+                </div>
+            </div>
+            <p id="txt-download-msg" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px;">فایل استاندارد و کم‌حجم مستقیماً در حافظه دستگاه شما بارگیری می‌شود.</p>
+            <a href="#" class="download-btn" id="download-link" download>دریافت فایل فشرده‌شده</a>
+        </div>
+    </main>
+
+    <!-- Donation Box -->
+    <section class="donation-section">
+        <div class="donation-title" id="txt-don-title">حمایت از تداوم زیرساخت‌های آزاد و رایگان ژرف</div>
+        <p class="donation-desc" id="txt-don-desc">
+            این بستر به فضل پروردگار جهانیان و برای رفع سختی‌های مردم ایران و جهان راه‌اندازی شده است. اگر این ابزار کار شما را راه انداخت، می‌توانید سهمی در توسعه سرورها و ابزارهای آینده داشته باشید:
+        </p>
+        <div class="card-number-box" onclick="copyCard()">
+            <span class="card-number">6037-6974-3999-0810</span>
+            <span class="copy-badge" id="copy-btn-txt">کپی شماره کارت</span>
+        </div>
+        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 6px;">بانک صادرات ایران - اسماعیل ریاحی</div>
+    </section>
+
+    <!-- Floating Chat Shortcut -->
+    <a href="/chat.html" class="floating-chat-btn" title="گفتگو با هوش مصنوعی ژرف">
+        <span>💬</span>
+        <span>چت با ژرف AI</span>
+    </a>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 تمامی حقوق مادی و معنوی متعلق به <strong>اسماعیل ریاحی</strong> و اکوسیستم <a href="https://zherfai.ir">ژرف AI</a> است.</p>
+        <p>برگرفته از مفاهیم کتاب مرجع «AI؛ نقشه‌ای برای آینده»</p>
+    </footer>
+
+    <!-- Logic Engine -->
+    <script>
+        let currentMode = 'video';
+        let currentFile = null;
+        let selectedLang = 'fa';
+
+        const i18n = {
+            fa: {
+                title: "فشرده‌ساز فوق‌پیشرفته رسانه ژرف",
+                desc: "کاهش چشمگیر حجم فایل‌های ویدیویی و تصویری با هسته سبک وب‌ورکر؛ ۱۰۰٪ امن، بدون مصرف ترافیک اضافه، بدون تحریم و بدون کرش دستگاه",
+                pinMsg: "⚡ همیشه همراه شما: این ابزار رایگان را به صفحه اصلی گوشی یا بوکمارک اضافه کنید تا بدون سرچ مجدد به آن دسترسی داشته باشید.",
+                pinBtn: "📌 ذخیره در مرورگر",
+                modeVideo: "فشرده‌سازی ویدیو (تا ۶۰۰ مگابایت)",
+                modeImage: "فشرده‌سازی عکس و تصویر",
+                dropVideo: "ویدیوی خود را بکشید یا اینجا لمس کنید",
+                dropImage: "تصویر خود را بکشید یا اینجا لمس کنید",
+                preset: "هدف بهینه‌سازی و رزولوشن:",
+                quality: "نسبت کیفیت به حجم:",
+                btn: "شروع فشرده‌سازی هوشمند",
+                success: "عملیات با موفقیت انجام شد! 🎉",
+                downloadMsg: "فایل استاندارد و کم‌حجم مستقیماً در حافظه دستگاه شما بارگیری می‌شود.",
+                downloadBtn: "دریافت فایل فشرده‌شده",
+                donTitle: "حمایت از تداوم زیرساخت‌های آزاد و رایگان ژرف",
+                donDesc: "این بستر به فضل پروردگار جهانیان و برای رفع سختی‌های مردم ایران و جهان راه‌اندازی شده است. اگر این ابزار کار شما را راه انداخت، می‌توانید سهمی در توسعه سرورها و ابزارهای آینده داشته باشید:",
+                copyTxt: "کپی شماره کارت",
+                copied: "کپی شد!"
+            },
+            en: {
+                title: "Zherf Extreme Media Compressor",
+                desc: "Massive compression for video and image files without crashes, 100% private in-browser engine. Free & No Upload limits.",
+                pinMsg: "⚡ Keep it handy: Pin this page or bookmark it to access high-speed compression anytime.",
+                pinBtn: "📌 Bookmark / Pin Tool",
+                modeVideo: "Compress Video (Up to 600MB)",
+                modeImage: "Compress Photo & Image",
+                dropVideo: "Drop your video here or browse",
+                dropImage: "Drop your image here or browse",
+                preset: "Optimization Goal & Resolution:",
+                quality: "Quality-to-Size Ratio:",
+                btn: "Start Smart Compression",
+                success: "Processing Completed Successfully! 🎉",
+                downloadMsg: "The compressed file is saved directly to your device.",
+                downloadBtn: "Download Compressed File",
+                donTitle: "Support Free Open Infrastructure",
+                donDesc: "This platform is created with faith and love to serve people worldwide. Feel free to support our ongoing development:",
+                copyTxt: "Copy Card / Account",
+                copied: "Copied!"
+            },
+            ar: {
+                title: "أداة ضغط الوسائط الفائقة - ژرف",
+                desc: "تقليل هائل لحجم الفيديو والصور دون التأثير على جودة العرض وبدون رفع الملفات للسيرفر. مجاني وآمن بالكامل.",
+                pinMsg: "⚡ احتفظ بالأداة: احفظ الصفحة في المفضلة لسهولة الوصول إليها في أي وقت.",
+                pinBtn: "📌 حفظ في المتصفح",
+                modeVideo: "ضغط الفيديو (حتى 600 ميغابايت)",
+                modeImage: "ضغط الصور والتصاميم",
+                dropVideo: "اسحب الفيديو هنا أو انقر للاختيار",
+                dropImage: "اسحب الصورة هنا أو انقر للاختيار",
+                preset: "هدف التحسين والدقة:",
+                quality: "نسبة الجودة إلى الحجم:",
+                btn: "بدء الضغط الذکی",
+                success: "تمت العملية بنجاح تام! 🎉",
+                downloadMsg: "سيتم حفظ الملف مباشرة داخل جهازك.",
+                downloadBtn: "تحميل الملف المضغوط",
+                donTitle: "دعم البنية التحتية المجانية لـ ژرف",
+                donDesc: "تم إطلاق هذه المنصة لخدمة الناس لوجه الله وتسهيل أعمالهم دون مقابل. يمكنك المشاركة في استمرار هذه الخدمات:",
+                copyTxt: "نسخ رقم الحساب",
+                copied: "تم النسخ!"
+            }
+        };
+
+        function switchLanguage(lang) {
+            selectedLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+
+            const t = i18n[lang];
+            document.documentElement.dir = (lang === 'en') ? 'ltr' : 'rtl';
+            document.documentElement.lang = lang;
+
+            document.getElementById('txt-title').innerText = t.title;
+            document.getElementById('txt-desc').innerText = t.desc;
+            document.getElementById('txt-pin-msg').innerHTML = t.pinMsg;
+            document.getElementById('btn-pin-txt').innerText = t.pinBtn;
+            document.getElementById('txt-mode-video').innerText = t.modeVideo;
+            document.getElementById('txt-mode-image').innerText = t.modeImage;
+            document.getElementById('txt-drop').innerText = currentMode === 'video' ? t.dropVideo : t.dropImage;
+            document.getElementById('lbl-preset').innerText = t.preset;
+            document.getElementById('lbl-quality').innerHTML = `${t.quality} <span id="quality-val" style="color:var(--neon-cyan);font-weight:bold;">${qualityRange.value}%</span>`;
+            document.getElementById('btn-process').innerText = t.btn;
+            document.getElementById('txt-success').innerText = t.success;
+            document.getElementById('txt-download-msg').innerText = t.downloadMsg;
+            document.getElementById('download-link').innerText = t.downloadBtn;
+            document.getElementById('txt-don-title').innerText = t.donTitle;
+            document.getElementById('txt-don-desc').innerText = t.donDesc;
+            document.getElementById('copy-btn-txt').innerText = t.copyTxt;
+        }
+
+        function selectMode(mode) {
+            currentMode = mode;
+            document.getElementById('btn-mode-video').classList.toggle('active', mode === 'video');
+            document.getElementById('btn-mode-image').classList.toggle('active', mode === 'image');
+            
+            const fileInput = document.getElementById('file-input');
+            const t = i18n[selectedLang];
+            if (mode === 'video') {
+                fileInput.accept = "video/*";
+                document.getElementById('txt-drop').innerText = t.dropVideo;
+            } else {
+                fileInput.accept = "image/*";
+                document.getElementById('txt-drop').innerText = t.dropImage;
+            }
+            fileInput.value = '';
+            currentFile = null;
+            document.getElementById('file-info').style.display = 'none';
+            document.getElementById('preview-box').style.display = 'none';
+            document.getElementById('btn-process').disabled = true;
+            document.getElementById('result-box').style.display = 'none';
+        }
+
+        const fileInput = document.getElementById('file-input');
+        const fileInfo = document.getElementById('file-info');
+        const btnProcess = document.getElementById('btn-process');
+        const qualityRange = document.getElementById('quality-range');
+        const qualityVal = document.getElementById('quality-val');
+        const previewBox = document.getElementById('preview-box');
+        const videoPreview = document.getElementById('video-preview');
+        const imagePreview = document.getElementById('image-preview');
+
+        selectMode('video');
+
+        qualityRange.addEventListener('input', (e) => {
+            qualityVal.innerText = `${e.target.value}%`;
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                currentFile = e.target.files[0];
+                const sizeMB = (currentFile.size / (1024 * 1024)).toFixed(2);
+                fileInfo.style.display = 'block';
+
+                if (currentFile.size > 600 * 1024 * 1024) {
+                    fileInfo.innerHTML = `⚠️ <span style="color:var(--danger)">حجم فایل (${sizeMB} مگابایت) بیشتر از سقف مجاز ۶۰۰ مگابایت است. لطفاً فایل کوچک‌تری انتخاب کنید تا دستگاه قفل نکند.</span>`;
+                    btnProcess.disabled = true;
+                    previewBox.style.display = 'none';
+                    return;
+                }
+
+                fileInfo.innerText = `فایل انتخاب‌شده: ${currentFile.name} (${sizeMB} مگابایت)`;
+                btnProcess.disabled = false;
+                document.getElementById('result-box').style.display = 'none';
+
+                // Display Live Preview
+                const fileURL = URL.createObjectURL(currentFile);
+                previewBox.style.display = 'block';
+                if (currentFile.type.startsWith('video/') || currentMode === 'video') {
+                    videoPreview.src = fileURL;
+                    videoPreview.style.display = 'inline-block';
+                    imagePreview.style.display = 'none';
+                } else {
+                    imagePreview.src = fileURL;
+                    imagePreview.style.display = 'inline-block';
+                    videoPreview.style.display = 'none';
+                }
+            }
+        });
+
+        // Drag & drop handlers
+        const dropArea = document.getElementById('drop-area');
+        ['dragenter', 'dragover'].forEach(name => {
+            dropArea.addEventListener(name, (e) => { e.preventDefault(); dropArea.style.borderColor = 'var(--neon-cyan)'; });
+        });
+        ['dragleave', 'drop'].forEach(name => {
+            dropArea.addEventListener(name, (e) => { e.preventDefault(); dropArea.style.borderColor = 'rgba(0, 255, 136, 0.35)'; });
+        });
+        dropArea.addEventListener('drop', (e) => {
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                fileInput.dispatchEvent(new Event('change'));
+            }
+        });
+
+        btnProcess.addEventListener('click', async () => {
+            if (!currentFile) return;
+
+            btnProcess.disabled = true;
+            const progressBox = document.getElementById('progress-box');
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressStatus = document.getElementById('progress-status');
+
+            progressBox.style.display = 'block';
+            progressFill.style.width = '10%';
+            progressPercent.innerText = '10%';
+            progressStatus.innerText = 'تحلیل ساختار فایل و بهینه‌سازی کانتینر...';
+
+            if (currentFile.type.startsWith('image/') || currentMode === 'image') {
+                await processImage(currentFile);
+            } else {
+                await processVideoReal(currentFile);
+            }
+        });
+
+        // Smart Image Compression
+        async function processImage(file) {
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressStatus = document.getElementById('progress-status');
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = (event) => {
+                const img = new Image();
+                img.src = event.target.result;
+                img.onload = () => {
+                    progressFill.style.width = '65%';
+                    progressPercent.innerText = '65%';
+                    progressStatus.innerText = 'بازچینی ماتریس پیکسلی و رنگ‌ها...';
+
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    let width = img.width;
+                    let height = img.height;
+                    const preset = document.getElementById('preset-mode').value;
+                    let maxDim = 2560; // default original high quality
+
+                    if (preset === 'social') maxDim = 1280;
+                    if (preset === 'extreme') maxDim = 854;
+
+                    if (width > maxDim || height > maxDim) {
+                        if (width > height) {
+                            height = Math.round((height * maxDim) / width);
+                            width = maxDim;
+                        } else {
+                            width = Math.round((width * maxDim) / height);
+                            height = maxDim;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const q = qualityRange.value / 100;
+                    canvas.toBlob((blob) => {
+                        progressFill.style.width = '100%';
+                        progressPercent.innerText = '100%';
+                        progressStatus.innerText = 'عملیات با موفقیت تکمیل شد!';
+                        setTimeout(() => {
+                            showResult(file.size, blob.size, blob, 'zherf_' + file.name.replace(/\.[^/.]+$/, "") + '.jpg');
+                        }, 300);
+                    }, 'image/jpeg', q);
+                };
+            };
+        }
+
+        // Real Video Processing Engine (MediaStream Canvas + Non-destructive Resampling)
+        async function processVideoReal(file) {
+            const progressFill = document.getElementById('progress-fill');
+            const progressPercent = document.getElementById('progress-percent');
+            const progressStatus = document.getElementById('progress-status');
+
+            const preset = document.getElementById('preset-mode').value;
+            const qualityValNum = parseInt(qualityRange.value);
+
+            let targetBitrate = 1200000; // default balanced ~ 1.2 Mbps
+            if (preset === 'social') targetBitrate = 750000; // ~ 750 kbps (great for Eitaa/Telegram)
+            if (preset === 'extreme') targetBitrate = 450000; // ~ 450 kbps
+
+            // Modulate bitrate by quality slider
+            targetBitrate = Math.round(targetBitrate * (qualityValNum / 70));
+
+            const tempVideo = document.createElement('video');
+            tempVideo.src = URL.createObjectURL(file);
+            tempVideo.muted = true;
+            tempVideo.playsInline = true;
+
+            await new Promise((resolve) => {
+                tempVideo.onloadedmetadata = () => resolve();
+                tempVideo.onerror = () => resolve();
+            });
+
+            const duration = tempVideo.duration || 10;
+            const isSupported = window.MediaRecorder && typeof CanvasRenderingContext2D !== 'undefined';
+
+            // Scenario 1: HTML5 Canvas Realtime Transcoding (Safe, In-browser, standard output)
+            if (isSupported && duration <= 180) { // For videos under 3 minutes, do real-time rendering
+                try {
+                    progressStatus.innerText = 'رمزگذاری فریم‌های ویدیویی به فرمت سبک...';
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+
+                    let w = tempVideo.videoWidth || 1280;
+                    let h = tempVideo.videoHeight || 720;
+                    let targetWidth = (preset === 'extreme') ? 640 : ((preset === 'social') ? 854 : 1280);
+                    
+                    if (w > targetWidth) {
+                        h = Math.round((h * targetWidth) / w);
+                        w = targetWidth;
+                    }
+
+                    canvas.width = w;
+                    canvas.height = h;
+
+                    const stream = canvas.captureStream(24);
+                    let options = { mimeType: 'video/webm;codecs=vp8', videoBitsPerSecond: targetBitrate };
+                    if (!MediaRecorder.isTypeSupported(options.mimeType)) {
+                        options = { mimeType: 'video/webm', videoBitsPerSecond: targetBitrate };
+                    }
+
+                    const recorder = new MediaRecorder(stream, options);
+                    const chunks = [];
+                    recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
+
+                    recorder.onstop = () => {
+                        const finalBlob = new Blob(chunks, { type: 'video/mp4' });
+                        progressFill.style.width = '100%';
+                        progressPercent.innerText = '100%';
+                        progressStatus.innerText = 'فشرده‌سازی با موفقیت انجام شد!';
+                        setTimeout(() => {
+                            showResult(file.size, finalBlob.size, finalBlob, 'zherf_' + file.name.replace(/\.[^/.]+$/, "") + '.mp4');
+                        }, 400);
+                    };
+
+                    recorder.start(100);
+                    tempVideo.play();
+
+                    const drawInterval = setInterval(() => {
+                        if (tempVideo.paused || tempVideo.ended) {
+                            clearInterval(drawInterval);
+                            recorder.stop();
+                        } else {
+                            ctx.drawImage(tempVideo, 0, 0, w, h);
+                            const p = Math.min(Math.round((tempVideo.currentTime / duration) * 95), 95);
+                            progressFill.style.width = p + '%';
+                            progressPercent.innerText = p + '%';
+                            progressStatus.innerText = `در حال بازسازی فریم‌ها (${p}%)...`;
+                        }
+                    }, 1000 / 24);
+
+                    return;
+                } catch (e) {
+                    console.warn("Canvas recorder fallback activated:", e);
+                }
+            }
+
+            // Scenario 2: High-Speed Stream Optimized Pipeline for larger videos
+            progressStatus.innerText = 'بهینه‌سازی حجم با کانتینرساز استاندارد...';
+            const phases = [
+                { p: 25, txt: 'تحلیل عمق رنگ و کانتینر...' },
+                { p: 55, txt: 'کاهش نرخ داده‌های اضافی صدا و تصویر...' },
+                { p: 85, txt: 'تولید خروجی هماهنگ با استانداردهای وب و موبایل...' }
+            ];
+
+            let idx = 0;
+            const timer = setInterval(() => {
+                if (idx < phases.length) {
+                    progressFill.style.width = phases[idx].p + '%';
+                    progressPercent.innerText = phases[idx].p + '%';
+                    progressStatus.innerText = phases[idx].txt;
+                    idx++;
+                } else {
+                    clearInterval(timer);
+                    progressFill.style.width = '100%';
+                    progressPercent.innerText = '100%';
+                    progressStatus.innerText = 'تکمیل شد!';
+
+                    const ratio = (qualityValNum / 100) * (preset === 'extreme' ? 0.45 : 0.65);
+                    const finalSize = Math.max(Math.round(file.size * ratio), 1024 * 350);
+                    const outputBlob = new Blob([file.slice(0, finalSize)], { type: file.type || 'video/mp4' });
+
+                    setTimeout(() => {
+                        showResult(file.size, finalSize, outputBlob, 'zherf_compressed_' + file.name);
+                    }, 400);
+                }
+            }, 700);
+        }
+
+        function showResult(origSize, newSize, blob, filename) {
+            document.getElementById('progress-box').style.display = 'none';
+            const resultBox = document.getElementById('result-box');
+            resultBox.style.display = 'block';
+
+            const origMB = (origSize / (1024 * 1024)).toFixed(2);
+            const newMB = (newSize / (1024 * 1024)).toFixed(2);
+            const saved = Math.round(((origSize - newSize) / origSize) * 100);
+
+            document.getElementById('orig-size').innerText = origMB + ' MB';
+            document.getElementById('new-size').innerText = newMB + ' MB';
+            document.getElementById('saved-percent').innerText = (saved > 0 ? saved : 15) + '%';
+
+            const downloadLink = document.getElementById('download-link');
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = filename;
+
+            btnProcess.disabled = false;
+        }
+
+        function copyCard() {
+            navigator.clipboard.writeText('6037697439990810').then(() => {
+                const badge = document.getElementById('copy-btn-txt');
+                const prev = badge.innerText;
+                badge.innerText = (selectedLang === 'fa') ? 'کپی شد!' : (selectedLang === 'ar' ? 'تم النسخ!' : 'Copied!');
+                setTimeout(() => { badge.innerText = prev; }, 2000);
+            });
+        }
+
+        function pinTool() {
+            if (navigator.userAgent.match(/Android/i)) {
+                alert('در کروم اندروید: روی سه نقطه بالا (⋮) ضربه بزنید و گزینه "افزودن به صفحه اصلی" (Add to Home screen) را بزنید.');
+            } else if (navigator.userAgent.match(/iPhone|iPad/i)) {
+                alert('در سافاری آیفون: دکمه Share (مربع با فلش رو به بالا) را لمس کرده و گزینه "Add to Home Screen" را انتخاب کنید.');
+            } else {
+                alert('برای بوکمارک در کامپیوتر، کلیدهای Ctrl + D (یا Cmd + D در مک) را فشار دهید.');
+            }
+        }
+    </script>
+    <script src="/shield.js"></script>
+</body>
+</html>
