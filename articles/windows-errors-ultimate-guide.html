@@ -683,8 +683,7 @@
                     </div>
                 </div>
             </article>
-
-            <!-- Error 10 -->
+                        <!-- Error 10 -->
             <article class="error-card" data-keywords="irql not less or equal bsod 0x0000000a درایور کارت گرافیک">
                 <div class="error-header">
                     <span class="error-num">ارور #۱۰</span>
@@ -1221,10 +1220,10 @@
               <div style="max-width: 80%;">
                 <span style="color: #ef4444; font-weight: bold;">🔴 ترون و تتر (TRON / USDT - TRC20):</span>
                 <div style="font-family: monospace; font-size: 0.92rem; color: #c9d1d9; word-break: break-all; direction: ltr; text-align: left; margin-top: 4px;">
-                  GAPGPTMASKTOKENk4hrprbut6X1X
+                  GAPGPTMASKTOKEN8m7oj6gy59qX1X
                 </div>
               </div>
-              <button onclick="copyToClipboard('GAPGPTMASKTOKENk4hrprbut6X2X', 'آدرس ترون و تتر (TRC20) کپی شد!')" style="background: #238636; color: #fff; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 0.85rem;">
+              <button onclick="copyToClipboard('GAPGPTMASKTOKEN8m7oj6gy59qX2X', 'آدرس ترون و تتر (TRC20) کپی شد!')" style="background: #238636; color: #fff; border: none; border-radius: 6px; padding: 8px 14px; cursor: pointer; font-size: 0.85rem;">
                 کپی آدرس
               </button>
             </div>
@@ -1333,52 +1332,6 @@
             prompt("لطفاً متن زیر را دستی کپی کنید:", text);
         }
         document.body.removeChild(textArea);
-    }
-
-    // 5-Language Instant Translation System
-    const translations = {
-        fa: {
-            title: "دائره‌المعارف جامع رفع ۴۰ ارور شایع ویندوز و کامپیوتر",
-            desc: "بدون استرس، بدون هزینه‌های سنگین و بدون نیاز به تعویض ویندوز، هر ارور یا صفحه آبی را مرحله‌به‌مرحله و با راه‌حل‌های قطعی و محبت‌آمیز حل کنید.",
-            placeholder: "🔍 جستجوی سریع کد ارور، نام فایل dll یا مشکل (مثال: 0xc000007b، صفحه آبی، dll)..."
-        },
-        en: {
-            title: "Ultimate Encyclopedia: Fix 40 Common Windows & PC Errors",
-            desc: "Solve BSOD blue screen errors, DLL missing issues, and system crashes step-by-step with verified solutions without reinstalling Windows.",
-            placeholder: "🔍 Fast search error code, dll name, or problem (e.g., 0xc000007b, BSOD)..."
-        },
-        ar: {
-            title: "الموسوعة الشاملة لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر",
-            desc: "حل جميع مشاكل الشاشة الزرقاء (BSOD) وأخطاء ملفات DLL بدون الحاجة لإعادة تثبيت ويندوز خطوة بخطوة وبكل سهولة.",
-            placeholder: "🔍 بحث سريع عن رمز الخطأ أو ملف dll (مثال: 0xc000007b)..."
-        },
-        zh: {
-            title: "Windows 与计算机 40 种常见错误修复终极指南",
-            desc: "无需重装系统，逐步解决蓝屏死机 (BSOD)、DLL 缺失及系统崩溃故障。",
-            placeholder: "🔍 快速搜索错误代码、DLL 名称或故障..."
-        },
-        hi: {
-            title: "विंडोज़ और कंप्यूटर की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण मार्गदर्शिका",
-            desc: "विंडोज़ को दोबारा इंस्टॉल किए बिना बीएसओडी (ब्लू स्क्रीन) और डीएलएल त्रुटियों को चरण-در-चरण आसानी से हल करें।",
-            placeholder: "🔍 त्रुटि कोड یا डीएलएल खोजें..."
-        }
-    };
-
-    function setLang(lang) {
-        document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-        if (event && event.target) event.target.classList.add('active');
-        
-        if (translations[lang]) {
-            document.getElementById('hero-title').innerText = translations[lang].title;
-            document.getElementById('hero-desc').innerText = translations[lang].desc;
-            document.getElementById('searchInput').placeholder = translations[lang].placeholder;
-            
-            if (lang === 'fa' || lang === 'ar') {
-                document.documentElement.setAttribute('dir', 'rtl');
-            } else {
-                document.documentElement.setAttribute('dir', 'ltr');
-            }
-        }
     }
     </script>
 
