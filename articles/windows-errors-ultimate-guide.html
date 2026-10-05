@@ -598,7 +598,426 @@
             .nav-links { justify-content: center; }
             .card-number-box { font-size: 1.05rem; padding: 10px 16px; width: 100%; justify-content: center; }
         }
-    </style>
+    
+        /* =========================================================
+           Smart Responsive Layout v2
+           Prevents long English error names from escaping cards
+           and improves mobile/tablet/desktop behavior.
+           ========================================================= */
+
+        html {
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        body {
+            overflow-x: hidden;
+            overscroll-behavior-x: none;
+        }
+
+        .container {
+            width: min(100% - 32px, 1100px);
+            padding: 20px 0;
+        }
+
+        .error-card,
+        .error-header,
+        .error-title,
+        .error-desc,
+        .solution-box,
+        .solution-step,
+        .section-sub,
+        .error-badge,
+        .error-num {
+            min-width: 0;
+        }
+
+        .error-header {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 10px 12px;
+        }
+
+        .error-num {
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+
+        .error-title {
+            min-width: 0;
+            width: 100%;
+            margin-right: 0;
+            font-size: clamp(1rem, 1.8vw, 1.25rem);
+            line-height: 1.45;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+            hyphens: auto;
+            text-wrap: balance;
+            unicode-bidi: plaintext;
+        }
+
+        .error-badge {
+            flex: 0 0 auto;
+            max-width: 100%;
+            white-space: normal;
+            overflow-wrap: anywhere;
+            text-align: center;
+        }
+
+        .error-desc,
+        .solution-step {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .solution-step code,
+        .error-desc code {
+            direction: ltr;
+            unicode-bidi: isolate;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .code-box {
+            min-width: 0;
+            max-width: 100%;
+            overflow-x: auto;
+            overflow-y: hidden;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+        }
+
+        .code-box > span {
+            min-width: 0;
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .code-box .copy-code-btn {
+            flex: 0 0 auto;
+            white-space: nowrap;
+        }
+
+        .book-banner,
+        .support-notice,
+        .donation-method {
+            min-width: 0;
+        }
+
+        .book-info,
+        .support-notice-copy,
+        .donation-method-info {
+            min-width: 0;
+        }
+
+        .book-info h3,
+        .book-info p,
+        .support-notice h2,
+        .support-notice p,
+        .donation-address {
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .search-input {
+            min-width: 0;
+        }
+
+        .floating-ai-btn {
+            max-width: min(420px, calc(100vw - 24px));
+            min-height: 48px;
+            padding-inline: 18px;
+            text-align: center;
+            white-space: normal;
+            overflow-wrap: anywhere;
+        }
+
+        /* Tablet */
+        @media (max-width: 900px) {
+            .container {
+                width: min(100% - 28px, 760px);
+            }
+
+            .error-card {
+                padding: 22px;
+            }
+
+            .error-title {
+                font-size: clamp(1rem, 2.6vw, 1.18rem);
+            }
+        }
+
+        /* Phones */
+        @media (max-width: 680px) {
+            body {
+                padding-bottom: 105px;
+            }
+
+            .container {
+                width: min(100% - 20px, 560px);
+                padding-top: 12px;
+            }
+
+            .top-nav {
+                padding: 12px;
+                border-radius: 16px;
+                margin-bottom: 18px;
+            }
+
+            .nav-links {
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 7px;
+            }
+
+            .nav-btn {
+                justify-content: center;
+                min-width: 0;
+                padding: 9px 8px;
+                font-size: .78rem;
+                text-align: center;
+                white-space: normal;
+            }
+
+            .lang-switch {
+                width: 100%;
+                justify-content: center;
+                overflow-x: auto;
+                scrollbar-width: none;
+            }
+
+            .lang-switch::-webkit-scrollbar {
+                display: none;
+            }
+
+            .lang-btn {
+                flex: 0 0 auto;
+                min-width: 42px;
+            }
+
+            .hero {
+                padding: 26px 14px;
+                border-radius: 18px;
+                margin-bottom: 20px;
+            }
+
+            .hero h1 {
+                font-size: clamp(1.35rem, 6vw, 1.7rem);
+                line-height: 1.45;
+                overflow-wrap: anywhere;
+            }
+
+            .hero p {
+                font-size: .92rem;
+                line-height: 1.9;
+            }
+
+            .search-input {
+                padding: 13px 14px;
+                font-size: .9rem;
+            }
+
+            .book-banner {
+                align-items: stretch;
+                padding: 16px;
+                border-radius: 16px;
+            }
+
+            .book-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .error-card {
+                padding: 17px;
+                border-radius: 17px;
+            }
+
+            .error-header {
+                grid-template-columns: minmax(0, 1fr) auto;
+                gap: 9px;
+            }
+
+            .error-num {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            .error-badge {
+                grid-column: 2;
+                grid-row: 1;
+                justify-self: end;
+                font-size: .68rem;
+                padding: 4px 8px;
+            }
+
+            .error-title {
+                grid-column: 1 / -1;
+                grid-row: 2;
+                font-size: clamp(.96rem, 4.6vw, 1.12rem);
+                line-height: 1.45;
+                text-align: start;
+            }
+
+            .section-sub {
+                font-size: .9rem;
+                line-height: 1.7;
+            }
+
+            .error-desc,
+            .solution-step {
+                font-size: .88rem;
+                line-height: 1.95;
+            }
+
+            .solution-box {
+                padding: 13px;
+                border-radius: 13px;
+            }
+
+            .code-box {
+                padding: 9px 10px;
+                font-size: .78rem;
+                gap: 8px;
+            }
+
+            .copy-code-btn {
+                padding: 6px 8px;
+            }
+
+            .support-notice {
+                align-items: stretch;
+                padding: 12px 14px;
+                border-radius: 14px;
+            }
+
+            .support-notice a {
+                width: 100%;
+            }
+
+            .donation-section {
+                padding: 20px 14px;
+                border-radius: 18px;
+            }
+
+            .donation-method {
+                align-items: stretch;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .donation-method-info {
+                width: 100%;
+            }
+
+            .donation-address {
+                text-align: center;
+            }
+
+            .donation-copy-btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .floating-ai-btn {
+                left: 12px;
+                right: auto;
+                bottom: calc(12px + env(safe-area-inset-bottom));
+                max-width: min(78vw, 320px);
+                padding: 10px 14px;
+                border-radius: 999px;
+                font-size: .78rem;
+                line-height: 1.45;
+                gap: 6px;
+            }
+        }
+
+        /* Very narrow phones: 320–380px */
+        @media (max-width: 380px) {
+            .container {
+                width: calc(100% - 14px);
+            }
+
+            .error-card {
+                padding: 14px;
+            }
+
+            .error-header {
+                grid-template-columns: 1fr;
+            }
+
+            .error-num,
+            .error-badge {
+                grid-column: 1;
+                grid-row: auto;
+                justify-self: start;
+            }
+
+            .error-badge {
+                justify-self: start;
+            }
+
+            .error-title {
+                grid-column: 1;
+                grid-row: auto;
+                font-size: .94rem;
+                line-height: 1.5;
+            }
+
+            .solution-step {
+                gap: 7px;
+                font-size: .84rem;
+            }
+
+            .floating-ai-btn {
+                max-width: calc(100vw - 24px);
+                left: 12px;
+                right: 12px;
+                width: auto;
+            }
+        }
+
+        /* Landscape phones */
+        @media (max-width: 900px) and (orientation: landscape) {
+            .top-nav {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .nav-links {
+                display: flex;
+                width: auto;
+            }
+
+            .lang-switch {
+                width: auto;
+            }
+
+            .error-title {
+                font-size: 1rem;
+            }
+        }
+
+        /* Users who prefer less motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+
+        /* Prevent accidental horizontal page scrolling from long technical strings */
+        :where(h1, h2, h3, p, span, a, code, button) {
+            max-width: 100%;
+        }
+
+</style>
 </head>
 <body>
 
@@ -843,7 +1262,7 @@
                 <div class="section-sub">💡 دلیل ارور چیه؟</div>
                 <p class="error-desc">عدم اتصال پایدار به سرورهای مایکروسافت جهت دریافت آپدیت امنیتی Defender.</p>
                 <div class="solution-box">
-                    <div class="solution-sub">🛠️ راه‌حل ساده:</div>
+                    <div class="section-sub">🛠️ راه‌حل ساده:</div>
                     <div class="solution-step"><span class="step-icon">✔</span> تنظیمات DNS اینترنت خود را به DNSهای پایدار (مثل 1.1.1.1 یا 8.8.8.8) تغییر دهید.</div>
                     <div class="solution-step"><span class="step-icon">✔</span> ابزار رفع خطای اتوماتیک را در ویندوز اجرا کنید: Settings -> Update & Security -> Troubleshoot.</div>
                 </div>
@@ -1379,90 +1798,36 @@
                     noticeLink: "مشاهده روش‌های حمایت ↓",
                     reason: "💡 دلیل ارور چیست؟",
                     solution: "🛠️ راه‌حل مرحله‌به‌مرحله:",
-                    copy: "کپی",
-                    copied: "کپی شد",
-                    support: "حمایت",
-                    dir: "rtl",
-                    locale: "fa_IR",
-                    keywords: "رفع ارور ویندوز, حل خطاهای ویندوز, BSOD, DLL, Windows Update, 0xc000007b, 0xc0000005, 0x80070002, تعمیر ویندوز, رفع خطای کامپیوتر"
+                    copy: "کپی", copied: "کپی شد", support: "حمایت", errorWord: "ارور",
+                    home:"🏠 اصلی", articles:"📚 مقالات", calculator:"🧮 ماشین‌حساب", compress:"🗜️ کاهش حجم", contact:"📞 تماس",
+                    bookTitle:"📖 کتاب مرجع «AI؛ نقشه‌ای برای آینده»", bookDesc:"اثر پژوهشگر اسماعیل ریاحی — راهنمای جامع هوش مصنوعی، آینده مشاغل، فناوری و انسان.", bookBtn:"مطالعه در طاقچه ➔",
+                    chat:"چت هوش مصنوعی رایگان ژرف", footer:"© 2026 ژرف AI — تمامی حقوق و آموزش‌ها با افتخار به مردم عزیز تقدیم می‌گردد. پژوهشگر و مولف: اسماعیل ریاحی",
+                    cardCopied:"کپی شد", cardCopy:"کپی", copyFailed:"کپی انجام نشد؛ لطفاً متن را دستی انتخاب و کپی کنید.", dir:"rtl", locale:"fa_IR",
+                    keywords:"رفع ارور ویندوز, حل خطاهای ویندوز, BSOD, DLL, Windows Update, 0xc000007b, 0xc0000005, 0x80070002, تعمیر ویندوز, رفع خطای کامپیوتر"
                 },
                 en: {
-                    title: "Ultimate Guide to Fix 40 Common Windows & PC Errors | Zherf AI",
-                    hero: "Ultimate Guide to Fix 40 Common Windows & PC Errors",
-                    desc: "A practical Windows troubleshooting reference for BSOD, DLL, Windows Update, driver, network, disk and software errors, with step-by-step fixes.",
-                    search: "🔍 Search an error code, DLL filename or problem; e.g. 0x0000007B, blue screen, DLL",
-                    donTitle: "🌱 Support the Free Development of Zherf AI",
-                    donDesc: "If this guide solved your problem, you can support the continued development of this free troubleshooting reference by bank card, FastPay or cryptocurrency.",
-                    noticeTitle: "💚 Support this free guide",
-                    noticeDesc: "If this content helped you, you can support this work by bank card (Iran), FastPay or cryptocurrency worldwide.",
-                    noticeLink: "View support methods ↓",
-                    reason: "💡 Why does this error happen?",
-                    solution: "🛠️ Step-by-step fix:",
-                    copy: "Copy",
-                    copied: "Copied",
-                    support: "Support",
-                    dir: "ltr",
-                    locale: "en_US",
-                    keywords: "fix Windows errors, Windows troubleshooting, BSOD, DLL errors, Windows Update error, 0xc000007b, 0xc0000005, 0x80070002, PC repair"
+                    title:"Ultimate Guide to Fix 40 Common Windows & PC Errors | Zherf AI", hero:"Ultimate Guide to Fix 40 Common Windows & PC Errors",
+                    desc:"A practical Windows troubleshooting reference for BSOD, DLL, Windows Update, driver, network, disk and software errors, with step-by-step fixes.", search:"🔍 Search an error code, DLL filename or problem; e.g. 0x0000007B, blue screen, DLL",
+                    donTitle:"🌱 Support the Free Development of Zherf AI", donDesc:"If this guide solved your problem, you can support the continued development of this free troubleshooting reference by bank card, FastPay or cryptocurrency.", noticeTitle:"💚 Support this free guide", noticeDesc:"If this content helped you, you can support this work by bank card (Iran), FastPay or cryptocurrency worldwide.", noticeLink:"View support methods ↓", reason:"💡 Why does this error happen?", solution:"🛠️ Step-by-step fix:", copy:"Copy", copied:"Copied", support:"Support", errorWord:"Error", home:"🏠 Home", articles:"📚 Articles", calculator:"🧮 Calculator", compress:"🗜️ Compress", contact:"📞 Contact", bookTitle:"📖 Book: “AI; A Map for the Future”", bookDesc:"By researcher Esmail Riahi — a guide to artificial intelligence, the future of work, technology and people.", bookBtn:"Read on Taaghche ➔", chat:"Free Zherf AI Chat", footer:"© 2026 Zherf AI — Knowledge and tutorials are proudly shared with everyone. Researcher & author: Esmail Riahi", cardCopied:"Copied", cardCopy:"Copy", copyFailed:"Copy failed. Please select and copy manually.", dir:"ltr", locale:"en_US", keywords:"fix Windows errors, Windows troubleshooting, BSOD, DLL errors, Windows Update error, 0xc000007b, 0xc0000005, 0x80070002, PC repair"
                 },
                 ar: {
-                    title: "الدليل الشامل لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر | ژرف AI",
-                    hero: "الدليل الشامل لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر",
-                    desc: "مرجع عملي لاستكشاف أخطاء ويندوز وإصلاح مشاكل الشاشة الزرقاء وDLL وتحديثات ويندوز والتعريفات والشبكة والقرص والبرامج خطوة بخطوة.",
-                    search: "🔍 ابحث عن رمز الخطأ أو اسم ملف DLL أو المشكلة؛ مثال: 0x0000007B أو الشاشة الزرقاء",
-                    donTitle: "🌱 ساهم في استمرار تطوير الخدمات المجانية",
-                    donDesc: "إذا ساعدك هذا الدليل، يمكنك دعم استمرار تطوير هذا المرجع المجاني عبر البطاقة أو FastPay أو العملات الرقمية.",
-                    noticeTitle: "💚 ادعم هذا الدليل المجاني",
-                    noticeDesc: "إذا كان المحتوى مفيداً، يمكنك دعم العمل عبر البطاقة المصرفية (إيران) أو FastPay أو العملات الرقمية.",
-                    noticeLink: "عرض طرق الدعم ↓",
-                    reason: "💡 لماذا يحدث هذا الخطأ؟",
-                    solution: "🛠️ الحل خطوة بخطوة:",
-                    copy: "نسخ",
-                    copied: "تم النسخ",
-                    support: "دعم",
-                    dir: "rtl",
-                    locale: "ar_AR",
-                    keywords: "إصلاح أخطاء ويندوز, الشاشة الزرقاء, أخطاء DLL, Windows Update, إصلاح الكمبيوتر, 0xc000007b, 0xc0000005"
+                    title:"الدليل الشامل لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر | ژرف AI", hero:"الدليل الشامل لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر",
+                    desc:"مرجع عملي لاستكشاف أخطاء ويندوز وإصلاح مشاكل الشاشة الزرقاء وDLL وتحديثات ويندوز والتعريفات والشبكة والقرص والبرامج خطوة بخطوة.", search:"🔍 ابحث عن رمز الخطأ أو اسم ملف DLL أو المشكلة؛ مثال: 0x0000007B أو الشاشة الزرقاء",
+                    donTitle:"🌱 ساهم في استمرار تطوير الخدمات المجانية", donDesc:"إذا ساعدك هذا الدليل، يمكنك دعم استمرار تطوير هذا المرجع المجاني عبر البطاقة أو FastPay أو العملات الرقمية.", noticeTitle:"💚 ادعم هذا الدليل المجاني", noticeDesc:"إذا كان المحتوى مفيداً، يمكنك دعم العمل عبر البطاقة المصرفية (إيران) أو FastPay أو العملات الرقمية.", noticeLink:"عرض طرق الدعم ↓", reason:"💡 لماذا يحدث هذا الخطأ؟", solution:"🛠️ الحل خطوة بخطوة:", copy:"نسخ", copied:"تم النسخ", support:"دعم", errorWord:"خطأ", home:"🏠 الرئيسية", articles:"📚 المقالات", calculator:"🧮 الآلة الحاسبة", compress:"🗜️ ضغط الملفات", contact:"📞 اتصل بنا", bookTitle:"📖 كتاب «AI؛ خريطة للمستقبل»", bookDesc:"تأليف الباحث إسماعيل رياحي — دليل شامل للذكاء الاصطناعي ومستقبل العمل والتقنية والإنسان.", bookBtn:"اقرأ في طاقچه ➔", chat:"دردشة ژرف AI المجانية", footer:"© 2026 ژرف AI — نقدم المعرفة والدروس بكل فخر للجميع. الباحث والمؤلف: إسماعيل رياحي", cardCopied:"تم النسخ", cardCopy:"نسخ", copyFailed:"تعذر النسخ. يرجى تحديد النص ونسخه يدويًا.", dir:"rtl", locale:"ar_AR", keywords:"إصلاح أخطاء ويندوز, الشاشة الزرقاء, أخطاء DLL, Windows Update, إصلاح الكمبيوتر, 0xc000007b, 0xc0000005"
                 },
                 zh: {
-                    title: "Windows 与电脑常见 40 个错误修复终极指南 | Zherf AI",
-                    hero: "Windows 与电脑常见 40 个错误修复终极指南",
-                    desc: "实用的 Windows 故障排查指南，涵盖蓝屏 BSOD、DLL、Windows 更新、驱动、网络、磁盘和软件错误，并提供分步解决方案。",
-                    search: "🔍 搜索错误代码、DLL 文件名或问题，例如：0x0000007B、蓝屏、DLL",
-                    donTitle: "🌱 支持免费技术服务的持续发展",
-                    donDesc: "如果本指南解决了您的问题，欢迎通过银行卡、FastPay 或加密货币支持这个免费项目。",
-                    noticeTitle: "💚 支持这份免费指南",
-                    noticeDesc: "如果内容对您有帮助，可以通过银行卡（伊朗）、FastPay 或加密货币支持本项目。",
-                    noticeLink: "查看支持方式 ↓",
-                    reason: "💡 为什么会出现这个错误？",
-                    solution: "🛠️ 分步解决方案：",
-                    copy: "复制",
-                    copied: "已复制",
-                    support: "支持",
-                    dir: "ltr",
-                    locale: "zh_CN",
-                    keywords: "Windows错误修复, 蓝屏BSOD, DLL错误, Windows更新错误, 电脑维修, 0xc000007b, 0xc0000005"
+                    title:"Windows 与电脑常见 40 个错误修复终极指南 | Zherf AI", hero:"Windows 与电脑常见 40 个错误修复终极指南",
+                    desc:"实用的 Windows 故障排查指南，涵盖蓝屏 BSOD、DLL、Windows 更新、驱动、网络、磁盘和软件错误，并提供分步解决方案。", search:"🔍 搜索错误代码、DLL 文件名或问题，例如：0x0000007B、蓝屏、DLL",
+                    donTitle:"🌱 支持免费技术服务的持续发展", donDesc:"如果本指南解决了您的问题，欢迎通过银行卡、FastPay 或加密货币支持这个免费项目。", noticeTitle:"💚 支持这份免费指南", noticeDesc:"如果内容对您有帮助，可以通过银行卡（伊朗）、FastPay 或加密货币支持本项目。", noticeLink:"查看支持方式 ↓", reason:"💡 为什么会出现这个错误？", solution:"🛠️ 分步解决方案：", copy:"复制", copied:"已复制", support:"支持", errorWord:"错误", home:"🏠 首页", articles:"📚 文章", calculator:"🧮 计算器", compress:"🗜️ 压缩工具", contact:"📞 联系我们", bookTitle:"📖 《AI：未来地图》参考书", bookDesc:"作者：研究者 Esmail Riahi — 关于人工智能、工作未来、技术与人的综合指南。", bookBtn:"在 Taaghche 阅读 ➔", chat:"免费 Zherf AI 对话", footer:"© 2026 Zherf AI — 知识与教程免费分享给所有人。研究者兼作者：Esmail Riahi", cardCopied:"已复制", cardCopy:"复制", copyFailed:"复制失败，请手动选择并复制。", dir:"ltr", locale:"zh_CN", keywords:"Windows错误修复, 蓝屏BSOD, DLL错误, Windows更新错误, 电脑维修, 0xc000007b, 0xc0000005"
                 },
                 hi: {
-                    title: "Windows और PC की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड | Zherf AI",
-                    hero: "Windows और PC की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड",
-                    desc: "BSOD, DLL, Windows Update, ड्राइवर, नेटवर्क, डिस्क और सॉफ्टवेयर समस्याओं के लिए व्यावहारिक चरण-दर-चरण Windows troubleshooting guide।",
-                    search: "🔍 एरर कोड, DLL फ़ाइल या समस्या खोजें; उदाहरण: 0x0000007B, ब्लू स्क्रीन, DLL",
-                    donTitle: "🌱 मुफ्त तकनीकी सेवाओं के विकास में सहयोग करें",
-                    donDesc: "यदि इस गाइड ने आपकी समस्या हल की है, तो बैंक कार्ड, FastPay या क्रिप्टोकरेंसी के माध्यम से इस मुफ्त परियोजना का समर्थन कर सकते हैं।",
-                    noticeTitle: "💚 इस मुफ्त गाइड का समर्थन करें",
-                    noticeDesc: "यदि यह सामग्री उपयोगी रही, तो बैंक कार्ड (ईरान), FastPay या क्रिप्टोकरेंसी के माध्यम से सहयोग कर सकते हैं।",
-                    noticeLink: "सहयोग के तरीके देखें ↓",
-                    reason: "💡 यह त्रुटि क्यों होती है?",
-                    solution: "🛠️ चरण-दर-चरण समाधान:",
-                    copy: "कॉपी",
-                    copied: "कॉपी हो गया",
-                    support: "सहयोग",
-                    dir: "ltr",
-                    locale: "hi_IN",
-                    keywords: "Windows error fix, BSOD, DLL error, Windows Update, computer repair, 0xc000007b, 0xc0000005"
+                    title:"Windows और PC की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड | Zherf AI", hero:"Windows और PC की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड",
+                    desc:"BSOD, DLL, Windows Update, ड्राइवर, नेटवर्क, डिस्क और सॉफ्टवेयर समस्याओं के लिए व्यावहारिक चरण-दर-चरण Windows troubleshooting guide।", search:"🔍 एरर कोड, DLL फ़ाइल या समस्या खोजें; उदाहरण: 0x0000007B, ब्लू स्क्रीन, DLL",
+                    donTitle:"🌱 मुफ्त तकनीकी सेवाओं के विकास में सहयोग करें", donDesc:"यदि इस गाइड ने आपकी समस्या हल की है, तो बैंक कार्ड, FastPay या क्रिप्टोकरेंसी के माध्यम से इस मुफ्त परियोजना का समर्थन कर सकते हैं।", noticeTitle:"💚 इस मुफ्त गाइड का समर्थन करें", noticeDesc:"यदि यह सामग्री उपयोगी रही, तो बैंक कार्ड (ईरान), FastPay या क्रिप्टोकरेंसी के माध्यम से सहयोग कर सकते हैं।", noticeLink:"सहयोग के तरीके देखें ↓", reason:"💡 यह त्रुटि क्यों होती है?", solution:"🛠️ चरण-दर-चरण समाधान:", copy:"कॉपी", copied:"कॉपी हो गया", support:"सहयोग", errorWord:"त्रुटि", home:"🏠 होम", articles:"📚 लेख", calculator:"🧮 कैलकुलेटर", compress:"🗜️ कंप्रेस", contact:"📞 संपर्क", bookTitle:"📖 पुस्तक: “AI; भविष्य का नक्शा”", bookDesc:"शोधकर्ता इस्माइल रियाही की पुस्तक — AI, काम के भविष्य, तकनीक और मानव पर व्यापक मार्गदर्शिका।", bookBtn:"Taaghche पर पढ़ें ➔", chat:"मुफ्त Zherf AI चैट", footer:"© 2026 Zherf AI — ज्ञान और ट्यूटोरियल सभी के साथ साझा किए जाते हैं। शोधकर्ता एवं लेखक: इस्माइल रियाही", cardCopied:"कॉपी हो गया", cardCopy:"कॉपी", copyFailed:"कॉपी नहीं हो सकी। कृपया टेक्स्ट चुनकर मैन्युअली कॉपी करें।", dir:"ltr", locale:"hi_IN", keywords:"Windows error fix, BSOD, DLL error, Windows Update, computer repair, 0xc000007b, 0xc0000005"
                 }
             };
+
+            const CARD_I18N = {"en":[["The application was unable to start correctly (0xc000007b)","System / Gaming","This error is usually caused by a mismatch between 32-bit and 64-bit components, often involving DirectX or Microsoft Visual C++ runtimes.",["Install the official Microsoft Visual C++ Redistributable packages required by the application; install both x86 and x64 when appropriate.","Install the official DirectX End-User Runtimes (June 2010 for older games) and restart Windows.","Right-click the application and choose <code>Run as administrator</code> to test whether permissions are involved."]],["Access Violation Error (0xc0000005)","RAM / Memory","A program tried to access a memory address that was invalid or not permitted by Windows.",["Press <code>Win + R</code>, run <code>mdsched.exe</code>, and test the RAM.","Temporarily test with security software disabled only if you trust the program and understand the risk.","Run the following command in an elevated Command Prompt: <code>sfc /scannow</code>."]],["Windows Update Error 0x80070002","Windows Update","Windows Update may have incomplete or corrupted download files in its temporary update cache.",["Temporarily stop the Windows Update service with <code>net stop wuauserv</code>.","Clear the contents of <code>C:\\Windows\\SoftwareDistribution\\Download</code>.","Start the service again with <code>net start wuauserv</code>, then retry Windows Update."]],["INACCESSIBLE_BOOT_DEVICE (0x0000007B)","Blue Screen / BSOD","Windows loses access to the system drive during startup, often after a storage-mode or boot-configuration change.",["Check BIOS/UEFI storage settings such as AHCI or RAID and restore the setting used before the problem appeared.","Disconnect unnecessary USB flash drives and external disks, then try booting again."]],["MSVCP140.dll / VCRUNTIME140.dll is Missing","DLL Library","The Microsoft Visual C++ runtime required by the application is missing, damaged, or was quarantined.",["Do not download individual DLL files from random websites.","Install the official Microsoft Visual C++ Redistributable 2015–2022 packages, using x86 and x64 as required by the application."]],["Error 0x80070422 (The service cannot be started)","Windows Services","A required Windows service, such as Windows Update or Windows Firewall, is disabled or cannot start.",["Press <code>Win + R</code>, type <code>services.msc</code>, and press Enter.","Find Windows Update and Windows Firewall, set Startup type to <code>Automatic</code> where appropriate, then click Start."]],["CRITICAL_PROCESS_DIED (0x000000EF)","Blue Screen / BSOD","A critical Windows process stopped unexpectedly. Common causes include faulty drivers or damaged system files.",["Run <code>DISM.exe /Online /Cleanup-image /Restorehealth</code> in an elevated Command Prompt.","Update the graphics and chipset drivers to stable versions from the hardware manufacturer."]],["Unspecified Error 0x80004005","Files / Network","This generic error can appear while extracting archives, accessing protected files, or using network resources.",["For archive extraction, try a current version of 7-Zip or WinRAR instead of the built-in extractor.","For legacy network compatibility, check whether SMB 1.0 is actually required before enabling it, because it is an old protocol with security risks."]],["The parameter is incorrect (0x80070057)","Disk / Backup","The operation received an invalid parameter or the target disk/file system may have errors.",["Run <code>chkdsk C: /f /r</code> from an elevated Command Prompt if C: is the affected drive.","If Windows asks to schedule the check for the next restart, confirm with <code>Y</code> and reboot."]],["DXGI_ERROR_DEVICE_REMOVED / HUNG","Graphics Card","The graphics driver or GPU stopped responding, often because of a driver crash, overheating, unstable overclocking, or power issues.",["Perform a clean graphics-driver installation; DDU can be used when a normal reinstall does not help.","If the GPU is overclocked, return it to factory/default clocks and test again."]],["Windows Defender Error 0x80240034","Windows Security / Defender","Microsoft Defender cannot reliably obtain its security update, often because of Windows Update or network connectivity problems.",["Check DNS and network connectivity; try a stable DNS resolver such as 1.1.1.1 or 8.8.8.8 if appropriate.","Run the Windows Update troubleshooter available in Windows Settings."]],["DRIVER_IRQL_NOT_LESS_OR_EQUAL (0x000000D1)","Blue Screen / BSOD","A driver accessed memory at an invalid time or address. Network, audio, Wi-Fi, and other hardware drivers are common suspects.",["Note any driver filename shown on the blue screen, such as <code>ndis.sys</code> or <code>netwtw08.sys</code>.","Open Device Manager, uninstall the affected device driver, restart if needed, and install a current stable driver."]],["api-ms-win-crt-runtime-l1-1-0.dll is Missing","System Runtime","The Universal C Runtime required by some applications is missing or not correctly installed, especially on older Windows versions.",["Install the appropriate official Microsoft update/package for the Universal C Runtime, such as KB2999226 where applicable.","For security and compatibility, consider upgrading unsupported Windows versions to a supported release."]],["Error 0x80070005 (Access is Denied)","User Permissions","The current account or process does not have enough permission, or security software is blocking the requested operation.",["Right-click the program or file and choose <code>Run as administrator</code> for a test.","Check the folder's Properties → Security permissions and grant only the required access rather than unrestricted permissions."]],["PAGE_FAULT_IN_NONPAGED_AREA (0x00000050)","Blue Screen / BSOD","Windows referenced memory that should have been available. Faulty RAM, drivers, storage problems, or security software can be involved.",["If you have multiple RAM modules, test them one at a time using a proper memory diagnostic.","Check RAM seating and slots carefully; clean dust safely and avoid damaging the contacts."]],["The specified module could not be found (0x8007007E)","Windows Startup","A startup entry may still point to a program or DLL that has been removed or moved.",["Use Microsoft's Autoruns to inspect startup entries and scheduled launch points.","Investigate entries marked as missing before deleting them; remove only entries you are sure are obsolete."]],["D3DX9_43.dll / XINPUT1_3.dll is Missing","Games / Graphics","Older games may require legacy DirectX components that are not included by default in a modern Windows installation.",["Install the official DirectX End-User Runtimes (June 2010) required by the older game."]],["Windows Installation Error 0x80300024","Windows Installation","Windows Setup may be confused by multiple storage devices, incorrect boot mode, or partition configuration.",["Disconnect unnecessary storage drives temporarily and leave only the target drive connected."]],["BAD_POOL_HEADER (0x00000019)","Blue Screen / BSOD","A driver or system component made an invalid memory-pool operation. Third-party drivers and security software can be involved.",["Remove or roll back the driver/software installed immediately before the crashes began.","Disable Fast Startup temporarily in Power Options and test whether the issue changes."]],["Element Not Found (0x80070490)","Microsoft Store / Windows Components","A Windows component, servicing package, or Store registration may be damaged or inconsistent.",["Run <code>wsreset.exe</code> to reset the Microsoft Store cache.","If the problem continues, repair Windows system components with DISM and SFC before changing registry entries."]],["Faulting module name: ntdll.dll Crash","System Files / Application Crash","ntdll.dll is a core Windows component. A crash naming it often points to a faulty application, driver, extension, or damaged system component rather than ntdll.dll itself.",["Remove recently installed shell customizers, overlays, plugins, or incompatible system-modification tools.","Run a reputable security scan and repair Windows system files if necessary."]],["DNS_PROBE_FINISHED_NO_INTERNET","Internet / Browser","The browser cannot resolve a domain name or the device has no usable internet connection.",["Run <code>ipconfig /flushdns</code> in Command Prompt.","Restart the router/modem and test another device or website to determine whether the issue is local or upstream."]],["KERNEL_SECURITY_CHECK_FAILURE (0x00000139)","Blue Screen / BSOD","Windows detected corruption or an invalid kernel data structure. Faulty drivers, memory problems, and malware are possible causes.",["Run a full scan in Windows Security.","Update chipset, storage, graphics, and BIOS/UEFI components from the device manufacturer's official support page."]],["Error 0x800F081F (.NET Framework 3.5)","Application Prerequisites","Windows cannot find the source files needed to enable .NET Framework 3.5.",["Mount a matching Windows ISO and note its drive letter.","Run <code>Dism /online /enable-feature /featurename:NetFx3 /All /Source:D:\\sources\\sxs /LimitAccess</code>, replacing D: with the correct drive."]],["USB Device Not Recognized (Code 43)","USB / Hardware","Windows could not correctly initialize the USB device. A bad cable, port, device, power condition, or driver can cause this.",["Shut down the computer, disconnect power where practical, wait briefly, then reconnect and test a different USB port.","In Device Manager, expand Universal Serial Bus controllers and reinstall the affected controller/device driver."]],["The system cannot find the path specified (0x80070003)","Folders / Paths","The requested path no longer exists, is incorrect, is inaccessible, or contains an application-specific path problem.",["Check that every folder in the path actually exists and that the spelling is correct.","For older applications, test a simple path using Latin characters and avoid unusual characters when the software has compatibility limitations."]],["SYSTEM_SERVICE_EXCEPTION (0x0000003B)","Blue Screen / BSOD","A Windows system-service operation crashed, often because of a faulty driver, graphics component, memory issue, or incompatible software.",["Temporarily close overlays, screen-recording tools, and GPU tuning utilities such as MSI Afterburner.","Install a stable WHQL graphics driver and test again."]],["OpenCL.dll / OpenGL Missing","Graphics / Creative Apps","The graphics driver or its OpenCL/OpenGL components are missing, damaged, or incompatible with the application.",["Download and install the current official graphics driver from NVIDIA, AMD, or Intel for your GPU."]],["Error 0x80072EE7 (Server Name Cannot Be Resolved)","Internet / Windows Update","Windows cannot resolve the server name. DNS, the Hosts file, proxy settings, or network filtering can be responsible.",["Check <code>C:\\Windows\\System32\\drivers\\etc\\hosts</code> and remove only entries you recognize as unwanted or incorrect.","Also verify DNS, proxy, and VPN settings before changing system files."]],["UNMOUNTABLE_BOOT_VOLUME (0x000000ED)","Blue Screen / Boot","Windows cannot mount the system volume. File-system corruption, storage failure, or an abrupt shutdown can be involved.",["Boot from Windows installation/recovery media, choose Repair your computer → Troubleshoot → Command Prompt.","Use the appropriate disk/file-system repair commands after identifying the correct Windows volume; do not run destructive commands blindly."]],["Fatal error during installation (0x80070643)","Installation / Packages","A software or Windows update installation failed, sometimes because of a damaged previous installation, insufficient space, or component-store problems.",["Restart Windows and retry the installation after closing other installers.","For .NET-related failures, use Microsoft's official .NET repair tool and ensure enough free space is available."]],["Wldcore.dll is Missing","Legacy Windows Software","Older Windows Live Essentials or Movie Maker installations may fail because a legacy DLL is missing from the application's expected folder.",["Repair or reinstall the original Windows Live component when possible instead of downloading an isolated DLL from an unknown site.","If you already have a legitimate copy of the DLL from the same installation, restore it to the application's expected location."]],["KMODE_EXCEPTION_NOT_HANDLED (0x0000001E)","Blue Screen / BSOD","A kernel-mode driver raised an exception that Windows could not handle. Drivers, memory, and incompatible security software are common causes.",["Remove or update recently installed third-party antivirus, drivers, and low-level utilities.","Use Windows Security and Windows Memory Diagnostic to check for malware and memory problems."]],["The file or directory is corrupted (0x80070570)","USB / External Storage","The file system or data on the storage device may be corrupted, often after unsafe removal, failing media, or connection problems.",["Right-click the drive → Properties → Tools → Error checking and run Check.","Back up important files first if the drive is still readable, because repair operations can expose failing storage."]],["D3DCompiler_47.dll was not found","Graphics Software","An application that needs Microsoft's Direct3D shader compiler cannot find a compatible copy of D3DCompiler_47.dll.",["Install pending Windows updates appropriate for your Windows version, or repair the application using its official installer.","Do not replace the DLL with a random download; use Microsoft or the software vendor's official package."]],["Windows Update Error 0x8024402F","Network / Windows Update","The connection to Windows Update timed out or was interrupted by DNS, proxy, firewall, or network problems.",["Check the system date and time, network connection, proxy/VPN settings, and firewall rules.","Retry Windows Update after the connection is stable; avoid changing security settings unnecessarily."]],["WerFault.exe Application Error","Windows Error Reporting","Windows Error Reporting is crashing while handling another application or system failure. The underlying crash is often the real problem.",["Use Event Viewer or Reliability Monitor to identify the application or driver that is actually crashing.","Do not permanently disable Windows Error Reporting as the first fix; repair the underlying application, driver, or system files instead."]],["Not enough storage is available (0x8007000E)","Virtual Memory / Resources","Windows or an application could not obtain enough virtual memory or other system resources.",["Open System Properties → Advanced → Performance → Settings → Advanced → Virtual Memory.","Enable automatic management of the paging-file size or choose a suitable system-managed setting, and keep sufficient free disk space."]],["MSVCR100.dll / MSVCP100.dll is Missing","Legacy C++ Runtime","The application requires the Microsoft Visual C++ 2010 runtime, which is missing or damaged.",["Install the official Microsoft Visual C++ 2010 SP1 Redistributable package required by the application, using the correct architecture."]],["Not Implemented Error 0x80004001","Legacy Software / Compatibility","An older application is requesting a Windows function that is unavailable or no longer implemented in the current environment.",["Right-click the application → Properties → Compatibility and test an appropriate compatibility mode such as Windows 7.","Prefer an updated version of the application when one is available."]]],"ar":[["تعذّر على التطبيق بدء التشغيل بشكل صحيح (0xc000007b)","النظام / الألعاب","يحدث هذا الخطأ غالبًا بسبب عدم توافق مكوّنات 32 بت و64 بت، خصوصًا في DirectX أو Microsoft Visual C++.",["ثبّت حزم Microsoft Visual C++ Redistributable الرسمية المناسبة، وقد تحتاج إلى x86 وx64 معًا.","ثبّت DirectX End-User Runtimes الرسمية (June 2010 للألعاب القديمة) ثم أعد تشغيل ويندوز.","انقر بزر الفأرة الأيمن على البرنامج واختر <code>Run as administrator</code> لاختبار مشكلة الصلاحيات."]],["خطأ انتهاك الوصول (0xc0000005)","ذاكرة RAM","حاول برنامج الوصول إلى عنوان في الذاكرة غير صالح أو غير مسموح له بالوصول إليه.",["اضغط <code>Win + R</code> وشغّل <code>mdsched.exe</code> لفحص ذاكرة RAM.","اختبر البرنامج مؤقتًا مع برنامج الحماية فقط إذا كان البرنامج موثوقًا وتعرف مخاطر ذلك.","شغّل <code>sfc /scannow</code> في موجه أوامر بصلاحيات المسؤول."]],["خطأ Windows Update 0x80070002","تحديث ويندوز","قد تكون ملفات تحديث ويندوز ناقصة أو تالفة داخل ذاكرة التخزين المؤقت المؤقتة للتحديث.",["أوقف خدمة Windows Update مؤقتًا باستخدام <code>net stop wuauserv</code>.","احذف محتويات <code>C:\\Windows\\SoftwareDistribution\\Download</code>.","شغّل الخدمة مجددًا باستخدام <code>net start wuauserv</code> ثم أعد محاولة التحديث."]],["تعذّر الوصول إلى جهاز الإقلاع (0x0000007B)","شاشة زرقاء / BSOD","يفقد ويندوز الوصول إلى قرص النظام أثناء الإقلاع، وغالبًا بعد تغيير إعدادات التخزين أو الإقلاع.",["تحقق من إعدادات AHCI أو RAID في BIOS/UEFI وأعد الإعداد الذي كان مستخدمًا قبل ظهور المشكلة.","افصل وحدات USB والأقراص الخارجية غير الضرورية ثم جرّب الإقلاع من جديد."]],["ملفا MSVCP140.dll وVCRUNTIME140.dll مفقودان","مكتبة DLL","مكوّنات Microsoft Visual C++ المطلوبة للبرنامج مفقودة أو تالفة أو وضعها برنامج الحماية في الحجر.",["لا تنزّل ملفات DLL منفردة من مواقع مجهولة.","ثبّت حزم Microsoft Visual C++ Redistributable الرسمية 2015–2022 المناسبة، مع x86 وx64 عند الحاجة."]],["خطأ 0x80070422: تعذّر بدء الخدمة","خدمات ويندوز","قد تكون خدمة مطلوبة مثل Windows Update أو Windows Firewall معطلة أو غير قادرة على البدء.",["اضغط <code>Win + R</code> واكتب <code>services.msc</code> ثم اضغط Enter.","ابحث عن Windows Update وWindows Firewall واضبط Startup type على <code>Automatic</code> عند الحاجة ثم اضغط Start."]],["توقّف عملية حرجة (0x000000EF)","شاشة زرقاء / BSOD","توقفت عملية أساسية في ويندوز بشكل مفاجئ، ومن الأسباب الشائعة تعريفات تالفة أو ملفات نظام متضررة.",["شغّل <code>DISM.exe /Online /Cleanup-image /Restorehealth</code> في موجه الأوامر كمسؤول.","حدّث تعريفات الرسوميات والشرائح إلى إصدارات مستقرة من الشركة المصنعة."]],["خطأ غير محدد 0x80004005","الملفات / الشبكة","قد يظهر هذا الخطأ عند فك الأرشيفات أو الوصول إلى ملفات محمية أو استخدام موارد الشبكة.",["لفك الأرشيفات جرّب أحدث إصدار من 7-Zip أو WinRAR بدل أداة فك الضغط المدمجة.","بالنسبة للشبكات القديمة، تحقّق أولًا من الحاجة الفعلية إلى SMB 1.0 لأنه بروتوكول قديم وله مخاطر أمنية."]],["المعامل غير صحيح (0x80070057)","القرص / النسخ الاحتياطي","قد تكون العملية استقبلت معاملًا غير صالح أو توجد مشكلة في القرص أو نظام الملفات.",["شغّل <code>chkdsk C: /f /r</code> من موجه أوامر بصلاحيات المسؤول إذا كان C: هو القرص المتأثر.","إذا طلب ويندوز جدولة الفحص عند إعادة التشغيل، وافق بالحرف <code>Y</code> ثم أعد التشغيل."]],["تمت إزالة جهاز DXGI أو أصبح غير مستجيب","بطاقة الرسوميات","توقف تعريف الرسوميات أو وحدة GPU عن الاستجابة، وقد يكون السبب تعطل التعريف أو الحرارة أو كسر السرعة أو الطاقة.",["أجرِ تثبيتًا نظيفًا لتعريف بطاقة الرسوميات؛ يمكن استخدام DDU إذا لم تنجح إعادة التثبيت العادية.","إذا كانت البطاقة مكسورة السرعة، أعدها إلى ترددات المصنع واختبر من جديد."]],["خطأ Windows Defender 0x80240034","أمان ويندوز / Defender","تعذر على Microsoft Defender الحصول على تحديث أمني بشكل موثوق، غالبًا بسبب Windows Update أو الشبكة.",["تحقق من DNS والاتصال؛ ويمكن تجربة DNS مثل 1.1.1.1 أو 8.8.8.8 عند الحاجة.","شغّل مستكشف أخطاء Windows Update الموجود في إعدادات ويندوز."]],["DRIVER_IRQL_NOT_LESS_OR_EQUAL (0x000000D1)","شاشة زرقاء / BSOD","حاول تعريف الوصول إلى الذاكرة في وقت أو عنوان غير صالح. وتعريفات الشبكة والصوت وWi-Fi من المشتبه بهم الشائعين.",["سجّل اسم ملف التعريف الظاهر على الشاشة الزرقاء مثل <code>ndis.sys</code> أو <code>netwtw08.sys</code>.","افتح Device Manager وأزل تعريف الجهاز المتأثر ثم ثبّت إصدارًا مستقرًا وحديثًا."]],["ملف api-ms-win-crt-runtime-l1-1-0.dll مفقود","مكوّنات النظام","مكوّن Universal C Runtime المطلوب لبعض البرامج مفقود أو غير مثبت بصورة صحيحة، خصوصًا في إصدارات ويندوز القديمة.",["ثبّت حزمة Microsoft الرسمية المناسبة لـ Universal C Runtime مثل KB2999226 عند انطباقها.","لتحسين الأمان والتوافق، حدّث إصدارات ويندوز غير المدعومة إلى إصدار مدعوم."]],["خطأ 0x80070005: تم رفض الوصول","صلاحيات المستخدم","الحساب الحالي أو البرنامج لا يملك الصلاحيات المطلوبة، أو يمنع برنامج الحماية العملية.",["انقر بزر الفأرة الأيمن على البرنامج أو الملف واختر <code>Run as administrator</code> للاختبار.","تحقق من خصائص المجلد → Security ومنح أقل صلاحية لازمة بدل إعطاء صلاحيات كاملة بلا حاجة."]],["PAGE_FAULT_IN_NONPAGED_AREA (0x00000050)","شاشة زرقاء / BSOD","حاول ويندوز الوصول إلى ذاكرة كان يجب أن تكون متاحة. قد تكون المشكلة في RAM أو التعريفات أو التخزين أو برنامج الحماية.",["إذا كان لديك أكثر من شريحة RAM، اختبر كل شريحة على حدة باستخدام أداة فحص ذاكرة مناسبة.","تحقق من تركيب الذاكرة والفتحات ونظف الغبار بحذر دون إتلاف نقاط التلامس."]],["تعذّر العثور على الوحدة المحددة (0x8007007E)","بدء تشغيل ويندوز","قد يبقى إدخال بدء تشغيل يشير إلى برنامج أو DLL تم حذفه أو نقله.",["استخدم Autoruns من Microsoft لفحص عناصر بدء التشغيل ونقاط التشغيل التلقائي.","افحص العناصر التي تظهر كمفقودة قبل حذفها، واحذف فقط ما تعرف أنه لم يعد مطلوبًا."]],["ملفا D3DX9_43.dll وXINPUT1_3.dll مفقودان","الألعاب / الرسوميات","تحتاج بعض الألعاب القديمة إلى مكوّنات DirectX القديمة التي لا تُثبت افتراضيًا في ويندوز الحديث.",["ثبّت DirectX End-User Runtimes الرسمية (June 2010) المطلوبة للعبة القديمة."]],["خطأ تثبيت ويندوز 0x80300024","تثبيت ويندوز","قد يتأثر برنامج إعداد ويندوز بوجود عدة أقراص أو وضع إقلاع غير صحيح أو إعدادات أقسام غير مناسبة.",["افصل مؤقتًا الأقراص غير الضرورية واترك قرص التثبيت الهدف متصلًا فقط."]],["BAD_POOL_HEADER (0x00000019)","شاشة زرقاء / BSOD","نفّذ تعريف أو مكوّن نظام عملية غير صحيحة على ذاكرة النظام. قد تكون تعريفات الطرف الثالث أو برامج الحماية السبب.",["أزل أو أعد تعريف البرنامج أو التعريف الذي ثبّتَه قبل بدء الأعطال مباشرة.","عطّل Fast Startup مؤقتًا من Power Options واختبر النتيجة."]],["العنصر غير موجود (0x80070490)","Microsoft Store / مكوّنات ويندوز","قد يكون أحد مكونات ويندوز أو حزم الصيانة أو تسجيل المتجر تالفًا أو غير متسق.",["شغّل <code>wsreset.exe</code> لإعادة ضبط ذاكرة Microsoft Store المؤقتة.","إذا استمرت المشكلة، أصلح مكونات النظام باستخدام DISM وSFC قبل تعديل السجل."]],["تعطل الوحدة ntdll.dll","ملفات النظام / تعطل البرامج","ntdll.dll مكوّن أساسي في ويندوز. وظهوره في سجل التعطل لا يعني عادة أن الملف نفسه هو سبب المشكلة؛ قد يكون السبب برنامجًا أو تعريفًا أو إضافة.",["أزل أدوات تخصيص النظام أو الإضافات أو برامج Overlay غير المتوافقة التي ثبّتّها مؤخرًا.","أجرِ فحصًا أمنيًا موثوقًا وأصلح ملفات النظام إذا لزم الأمر."]],["DNS_PROBE_FINISHED_NO_INTERNET","الإنترنت / المتصفح","لا يستطيع المتصفح تحويل اسم النطاق إلى عنوان IP أو لا يوجد اتصال إنترنت صالح.",["شغّل <code>ipconfig /flushdns</code> في موجه الأوامر.","أعد تشغيل الراوتر/المودم واختبر جهازًا أو موقعًا آخر لمعرفة إن كانت المشكلة محلية أم من مزود الخدمة."]],["KERNEL_SECURITY_CHECK_FAILURE (0x00000139)","شاشة زرقاء / BSOD","اكتشف ويندوز تلفًا أو بنية غير صحيحة في بيانات النواة. قد تكون التعريفات أو الذاكرة أو البرمجيات الخبيثة من الأسباب.",["شغّل فحصًا كاملًا في Windows Security.","حدّث تعريفات الشرائح والتخزين والرسوميات وBIOS/UEFI من صفحة الدعم الرسمية للشركة."]],["خطأ 0x800F081F (.NET Framework 3.5)","متطلبات تشغيل البرامج","لا يستطيع ويندوز العثور على ملفات المصدر اللازمة لتفعيل .NET Framework 3.5.",["حمّل أو ركّب ملف ISO مطابقًا لويندوز ولاحظ حرف محرك الأقراص.","شغّل <code>Dism /online /enable-feature /featurename:NetFx3 /All /Source:D:\\sources\\sxs /LimitAccess</code> مع استبدال D: بالحرف الصحيح."]],["لم يتم التعرف على جهاز USB (Code 43)","USB / العتاد","تعذر على ويندوز تهيئة جهاز USB بصورة صحيحة. قد يكون السبب الكابل أو المنفذ أو الطاقة أو الجهاز أو التعريف.",["أوقف تشغيل الكمبيوتر وافصل الطاقة عند الإمكان وانتظر قليلًا ثم جرّب منفذ USB آخر.","في Device Manager افتح Universal Serial Bus controllers وأعد تثبيت تعريف الجهاز أو المتحكم المتأثر."]],["تعذر العثور على المسار المحدد (0x80070003)","المجلدات / المسارات","المسار المطلوب غير موجود أو غير صحيح أو غير متاح أو توجد مشكلة توافق خاصة بالتطبيق.",["تحقق من وجود كل مجلد في المسار ومن صحة الاسم.","مع البرامج القديمة، جرّب مسارًا بسيطًا بأحرف لاتينية وتجنب الرموز غير المعتادة إذا كان البرنامج لا يتعامل معها جيدًا."]],["SYSTEM_SERVICE_EXCEPTION (0x0000003B)","شاشة زرقاء / BSOD","تعطلت خدمة من خدمات النظام، وغالبًا يكون السبب تعريفًا معيبًا أو مكوّن رسومات أو مشكلة ذاكرة أو برنامجًا غير متوافق.",["أغلق مؤقتًا برامج Overlay وتسجيل الشاشة وأدوات ضبط GPU مثل MSI Afterburner.","ثبّت تعريف رسوميات مستقرًا معتمدًا من WHQL ثم اختبر."]],["ملفا OpenCL.dll وOpenGL مفقودان","الرسوميات / البرامج الإبداعية","قد تكون مكونات OpenCL/OpenGL في تعريف الرسوميات مفقودة أو تالفة أو غير متوافقة مع البرنامج.",["نزّل وثبّت تعريف الرسوميات الرسمي الحالي من NVIDIA أو AMD أو Intel حسب البطاقة."]],["خطأ 0x80072EE7: تعذر حل اسم الخادم","الإنترنت / Windows Update","لا يستطيع ويندوز حل اسم الخادم. قد يكون السبب DNS أو ملف Hosts أو الوكيل أو إعدادات الشبكة.",["افحص <code>C:\\Windows\\System32\\drivers\\etc\\hosts</code> واحذف فقط الإدخالات غير الصحيحة التي تعرفها.","تحقق أيضًا من DNS والوكيل وVPN قبل تعديل ملفات النظام."]],["UNMOUNTABLE_BOOT_VOLUME (0x000000ED)","شاشة زرقاء / الإقلاع","لا يستطيع ويندوز تركيب وحدة النظام. قد يكون السبب تلف نظام الملفات أو فشل التخزين أو إيقاف التشغيل المفاجئ.",["أقلع من وسائط تثبيت/استرداد ويندوز واختر Repair your computer → Troubleshoot → Command Prompt.","بعد تحديد وحدة ويندوز الصحيحة، استخدم أوامر إصلاح القرص المناسبة ولا تشغّل أوامر مدمرة بشكل عشوائي."]],["خطأ فادح أثناء التثبيت (0x80070643)","التثبيت / الحزم","فشل تثبيت برنامج أو تحديث ويندوز، وقد يكون السبب تثبيتًا سابقًا تالفًا أو مساحة غير كافية أو مشكلة في مكونات النظام.",["أعد تشغيل ويندوز وأعد المحاولة بعد إغلاق أدوات التثبيت الأخرى.","عند ارتباط المشكلة بـ .NET استخدم أداة إصلاح .NET الرسمية وتأكد من وجود مساحة كافية."]],["ملف Wldcore.dll مفقود","برامج ويندوز القديمة","قد تفشل إصدارات قديمة من Windows Live Essentials أو Movie Maker لأن DLL قديمًا غير موجود في المجلد المتوقع.",["أصلح أو أعد تثبيت مكوّن Windows Live الأصلي إن أمكن بدل تنزيل DLL منفرد من موقع مجهول.","إذا كان لديك نسخة شرعية من الملف من نفس التثبيت، أعده إلى المكان الذي يتوقعه البرنامج."]],["KMODE_EXCEPTION_NOT_HANDLED (0x0000001E)","شاشة زرقاء / BSOD","أثار تعريف يعمل في وضع النواة استثناءً لم يتمكن ويندوز من معالجته. التعريفات والذاكرة وبرامج الحماية غير المتوافقة أسباب شائعة.",["أزل أو حدّث برامج الحماية الخارجية والتعريفات والأدوات منخفضة المستوى التي ثبّتّها مؤخرًا.","استخدم Windows Security وWindows Memory Diagnostic لفحص البرمجيات الخبيثة والذاكرة."]],["الملف أو المجلد تالف (0x80070570)","USB / التخزين الخارجي","قد يكون نظام الملفات أو البيانات على وحدة التخزين تالفًا، خصوصًا بعد الإزالة غير الآمنة أو تلف الوسيط أو مشاكل الاتصال.",["انقر بزر الفأرة الأيمن على القرص → Properties → Tools → Error checking ثم شغّل Check.","انسخ الملفات المهمة أولًا إذا كان القرص لا يزال قابلًا للقراءة، لأن الإصلاح قد يكشف عن وحدة تخزين متضررة."]],["تعذر العثور على D3DCompiler_47.dll","البرامج الرسومية","يحتاج البرنامج إلى Microsoft Direct3D Shader Compiler ولا يجد نسخة متوافقة من D3DCompiler_47.dll.",["ثبّت تحديثات ويندوز المناسبة لإصدارك أو أصلح البرنامج باستخدام مثبت البرنامج الرسمي.","لا تستبدل DLL بتنزيل عشوائي؛ استخدم حزمة Microsoft أو الشركة المطورة الرسمية."]],["خطأ Windows Update 0x8024402F","الشبكة / Windows Update","انتهت مهلة الاتصال بخوادم Windows Update أو انقطع الاتصال بسبب DNS أو الوكيل أو الجدار الناري أو الشبكة.",["تحقق من التاريخ والوقت واتصال الشبكة وإعدادات Proxy/VPN وقواعد الجدار الناري.","أعد محاولة Windows Update بعد استقرار الاتصال وتجنب تعطيل ميزات الحماية دون داعٍ."]],["خطأ تطبيق WerFault.exe","Windows Error Reporting","يتعطل Windows Error Reporting أثناء معالجة عطل آخر. وغالبًا يكون العطل الأصلي هو المشكلة الحقيقية.",["استخدم Event Viewer أو Reliability Monitor لمعرفة البرنامج أو التعريف الذي يتعطل فعليًا.","لا تعطل Windows Error Reporting بشكل دائم كحل أول؛ أصلح البرنامج أو التعريف أو ملفات النظام المسببة للعطل."]],["لا توجد مساحة تخزين كافية (0x8007000E)","الذاكرة الافتراضية / موارد النظام","لم يتمكن ويندوز أو البرنامج من الحصول على قدر كافٍ من الذاكرة الافتراضية أو موارد النظام.",["افتح System Properties → Advanced → Performance → Settings → Advanced → Virtual Memory.","فعّل الإدارة التلقائية لحجم ملف الترحيل أو استخدم إعدادًا مناسبًا، مع ترك مساحة كافية على القرص."]],["ملفا MSVCR100.dll وMSVCP100.dll مفقودان","بيئة تشغيل C++ القديمة","يحتاج البرنامج إلى Microsoft Visual C++ 2010، لكنها مفقودة أو تالفة.",["ثبّت حزمة Microsoft Visual C++ 2010 SP1 Redistributable الرسمية المناسبة لمعمارية البرنامج."]],["خطأ Not Implemented 0x80004001","برامج قديمة / التوافق","يحاول برنامج قديم استخدام وظيفة غير متاحة أو لم تعد مطبقة في بيئة ويندوز الحالية.",["انقر بزر الفأرة الأيمن على البرنامج → Properties → Compatibility واختبر وضع توافق مناسبًا مثل Windows 7.","فضّل إصدارًا أحدث من البرنامج إذا كان متوفرًا."]]],"zh":[["应用程序无法正确启动 (0xc000007b)","系统 / 游戏","通常是 32 位与 64 位组件不匹配造成的，常见于 DirectX 或 Microsoft Visual C++ 运行库。",["安装应用需要的官方 Microsoft Visual C++ Redistributable；必要时同时安装 x86 和 x64。","安装官方 DirectX End-User Runtimes（老游戏通常需要 June 2010），然后重启 Windows。","右键程序并选择 <code>Run as administrator</code>，检查是否与权限有关。"]],["访问冲突错误 (0xc0000005)","内存 / RAM","程序尝试访问无效或没有权限访问的内存地址。",["按 <code>Win + R</code>，运行 <code>mdsched.exe</code> 检查内存。","仅在程序可信且了解风险的情况下，临时测试关闭安全软件是否影响问题。","以管理员身份打开命令提示符并运行 <code>sfc /scannow</code>。"]],["Windows Update 错误 0x80070002","Windows 更新","Windows Update 的临时缓存中可能存在不完整或损坏的更新文件。",["使用 <code>net stop wuauserv</code> 暂停 Windows Update 服务。","清空 <code>C:\\Windows\\SoftwareDistribution\\Download</code> 中的内容。","使用 <code>net start wuauserv</code> 重新启动服务，然后再次检查更新。"]],["无法访问启动设备 (0x0000007B)","蓝屏 / BSOD","Windows 在启动过程中无法访问系统磁盘，常见原因是存储模式或启动配置发生变化。",["检查 BIOS/UEFI 中的 AHCI 或 RAID 设置，并恢复到出现问题前使用的模式。","拔掉不必要的 USB 闪存盘和外置硬盘后再次启动。"]],["缺少 MSVCP140.dll / VCRUNTIME140.dll","DLL 库","程序所需的 Microsoft Visual C++ 运行库缺失、损坏或被安全软件隔离。",["不要从随机网站下载单独的 DLL 文件。","安装官方 Microsoft Visual C++ Redistributable 2015–2022；根据程序需要安装 x86 和 x64。"]],["错误 0x80070422：无法启动服务","Windows 服务","Windows Update 或 Windows Firewall 等必要服务可能被禁用或无法启动。",["按 <code>Win + R</code>，输入 <code>services.msc</code> 并回车。","找到 Windows Update 和 Windows Firewall，在适用情况下将 Startup type 设为 <code>Automatic</code>，然后点击 Start。"]],["关键进程终止 (0x000000EF)","蓝屏 / BSOD","Windows 的关键进程意外停止，常见原因包括驱动程序故障或系统文件损坏。",["以管理员身份运行 <code>DISM.exe /Online /Cleanup-image /Restorehealth</code>。","从硬件制造商官网更新显卡和芯片组驱动到稳定版本。"]],["未指定错误 0x80004005","文件 / 网络","解压压缩包、访问受保护文件或使用网络资源时可能出现此通用错误。",["解压文件时可尝试最新版 7-Zip 或 WinRAR。","如果是旧网络环境，先确认是否真的需要 SMB 1.0，因为它属于旧协议并存在安全风险。"]],["参数不正确 (0x80070057)","磁盘 / 备份","操作可能收到了无效参数，或者目标磁盘/文件系统存在问题。",["如果受影响的是 C: 盘，以管理员身份运行 <code>chkdsk C: /f /r</code>。","如果 Windows 要求下次重启时检查磁盘，输入 <code>Y</code> 并重启。"]],["DXGI_ERROR_DEVICE_REMOVED / HUNG","显卡","显卡驱动或 GPU 停止响应，可能与驱动崩溃、过热、超频或供电有关。",["执行显卡驱动的干净安装；普通重装无效时可考虑使用 DDU。","如果显卡超频，请恢复到出厂/默认频率后再测试。"]],["Windows Defender 错误 0x80240034","Windows 安全 / Defender","Microsoft Defender 无法稳定获取安全更新，通常与 Windows Update 或网络连接有关。",["检查 DNS 和网络连接；必要时可尝试 1.1.1.1 或 8.8.8.8 等稳定 DNS。","运行 Windows 设置中的 Windows Update 疑难解答。"]],["DRIVER_IRQL_NOT_LESS_OR_EQUAL (0x000000D1)","蓝屏 / BSOD","某个驱动在错误的时间或地址访问了内存。网络、音频和 Wi-Fi 驱动较常见。",["记录蓝屏上显示的驱动文件名，例如 <code>ndis.sys</code> 或 <code>netwtw08.sys</code>。","打开 Device Manager，卸载受影响设备的驱动，然后安装稳定的新版本。"]],["缺少 api-ms-win-crt-runtime-l1-1-0.dll","系统运行库","某些程序需要的 Universal C Runtime 缺失或安装不完整，旧版 Windows 尤其常见。",["安装适用于系统版本的官方 Microsoft Universal C Runtime 更新，例如在适用情况下安装 KB2999226。","为了安全和兼容性，建议将不再受支持的 Windows 升级到受支持版本。"]],["错误 0x80070005：拒绝访问","用户权限","当前账户或程序没有所需权限，也可能被安全软件阻止。",["右键程序或文件，选择 <code>Run as administrator</code> 进行测试。","检查 文件夹 → Properties → Security 权限，只授予完成任务所需的权限。"]],["PAGE_FAULT_IN_NONPAGED_AREA (0x00000050)","蓝屏 / BSOD","Windows 访问了本应可用的内存。故障 RAM、驱动、存储或安全软件都可能造成此问题。",["如果有多个内存条，使用内存诊断工具逐条测试。","检查内存条和插槽是否安装牢固，并安全清理灰尘，避免损伤触点。"]],["找不到指定模块 (0x8007007E)","Windows 启动","启动项可能仍指向已经删除或移动的程序或 DLL。",["使用 Microsoft Autoruns 检查启动项和自动运行位置。","删除前先确认缺失项确实已经无用，只处理你确定可以移除的项目。"]],["缺少 D3DX9_43.dll / XINPUT1_3.dll","游戏 / 图形","一些老游戏需要现代 Windows 默认未安装的旧版 DirectX 组件。",["安装老游戏所需的官方 DirectX End-User Runtimes（June 2010）。"]],["Windows 安装错误 0x80300024","Windows 安装","多个存储设备、启动模式或分区配置可能让 Windows 安装程序无法正确选择目标。",["临时断开不需要的硬盘，只保留准备安装 Windows 的目标磁盘。"]],["BAD_POOL_HEADER (0x00000019)","蓝屏 / BSOD","驱动或系统组件对内存池进行了错误操作，第三方驱动和安全软件可能是原因。",["卸载或回滚在问题出现前刚安装的驱动或软件。","在 Power Options 中临时关闭 Fast Startup，然后测试。"]],["找不到元素 (0x80070490)","Microsoft Store / Windows 组件","Windows 组件、服务包或 Microsoft Store 注册可能损坏或不一致。",["运行 <code>wsreset.exe</code> 重置 Microsoft Store 缓存。","如果仍有问题，先用 DISM 和 SFC 修复系统组件，再考虑修改注册表。"]],["ntdll.dll 故障模块崩溃","系统文件 / 程序崩溃","ntdll.dll 是 Windows 核心组件。日志中出现它并不代表它本身就是根因，问题也可能来自程序、驱动或插件。",["删除最近安装的不兼容系统美化工具、插件、Overlay 或系统修改工具。","运行可信的安全扫描，并在需要时修复 Windows 系统文件。"]],["DNS_PROBE_FINISHED_NO_INTERNET","网络 / 浏览器","浏览器无法把域名解析为 IP，或者设备没有可用的互联网连接。",["在命令提示符中运行 <code>ipconfig /flushdns</code>。","重启路由器/调制解调器，并测试其他设备或网站，以判断问题来自本地还是网络服务商。"]],["KERNEL_SECURITY_CHECK_FAILURE (0x00000139)","蓝屏 / BSOD","Windows 检测到内核数据损坏或结构异常。驱动、内存和恶意软件都可能是原因。",["在 Windows Security 中执行完整扫描。","从设备制造商官方支持页面更新芯片组、存储、显卡和 BIOS/UEFI。"]],["错误 0x800F081F (.NET Framework 3.5)","程序运行环境","Windows 找不到启用 .NET Framework 3.5 所需的源文件。",["挂载匹配的 Windows ISO，并确认它的盘符。","运行 <code>Dism /online /enable-feature /featurename:NetFx3 /All /Source:D:\\sources\\sxs /LimitAccess</code>，把 D: 换成正确盘符。"]],["无法识别 USB 设备 (Code 43)","USB / 硬件","Windows 无法正确初始化 USB 设备，可能与线缆、接口、供电、设备本身或驱动有关。",["关机并在条件允许时断开电源，等待片刻后重新连接，并尝试另一个 USB 接口。","在 Device Manager 中打开 Universal Serial Bus controllers，重新安装受影响的设备/控制器驱动。"]],["系统找不到指定路径 (0x80070003)","文件夹 / 路径","目标路径不存在、错误、无权访问，或软件本身存在路径兼容性问题。",["确认路径中的每一级文件夹都存在且名称正确。","对于旧软件，可测试使用简单的拉丁字符路径，并避免软件不支持的特殊字符。"]],["SYSTEM_SERVICE_EXCEPTION (0x0000003B)","蓝屏 / BSOD","Windows 系统服务发生崩溃，常见原因包括驱动、显卡组件、内存或不兼容软件。",["暂时关闭 Overlay、录屏工具以及 MSI Afterburner 等 GPU 调校工具。","安装稳定的 WHQL 显卡驱动后重新测试。"]],["缺少 OpenCL.dll / OpenGL","图形 / 创意软件","显卡驱动中的 OpenCL/OpenGL 组件可能缺失、损坏或与软件不兼容。",["根据显卡型号，从 NVIDIA、AMD 或 Intel 官网安装当前官方显卡驱动。"]],["错误 0x80072EE7：无法解析服务器名称","网络 / Windows Update","Windows 无法解析服务器名称，原因可能是 DNS、Hosts、代理或网络设置。",["检查 <code>C:\\Windows\\System32\\drivers\\etc\\hosts</code>，只删除你确定错误的条目。","在修改系统文件前，也检查 DNS、代理和 VPN 设置。"]],["UNMOUNTABLE_BOOT_VOLUME (0x000000ED)","蓝屏 / 启动","Windows 无法挂载系统卷，可能与文件系统损坏、存储故障或突然关机有关。",["从 Windows 安装/恢复介质启动，选择 Repair your computer → Troubleshoot → Command Prompt。","先确认正确的 Windows 分区，再使用合适的磁盘修复命令，不要盲目执行破坏性命令。"]],["安装期间发生严重错误 (0x80070643)","安装 / 软件包","软件或 Windows 更新安装失败，可能与旧安装损坏、磁盘空间不足或系统组件问题有关。",["重启 Windows，关闭其他安装程序后再次尝试。","如果与 .NET 有关，使用 Microsoft 官方 .NET 修复工具，并确保有足够磁盘空间。"]],["缺少 Wldcore.dll","旧版 Windows 软件","旧版 Windows Live Essentials 或 Movie Maker 可能因为找不到预期位置的旧 DLL 而无法运行。",["优先修复或重新安装原始 Windows Live 组件，不要从未知网站下载单独 DLL。","如果你拥有来自同一合法安装的 DLL 副本，可恢复到程序预期的文件夹。"]],["KMODE_EXCEPTION_NOT_HANDLED (0x0000001E)","蓝屏 / BSOD","内核模式驱动产生了 Windows 无法处理的异常。驱动、内存和不兼容的安全软件是常见原因。",["卸载或更新最近安装的第三方安全软件、驱动和底层工具。","使用 Windows Security 和 Windows Memory Diagnostic 检查恶意软件及内存。"]],["文件或目录损坏 (0x80070570)","USB / 外部存储","存储设备的文件系统或数据可能损坏，常见于未安全弹出、介质故障或连接问题。",["右键磁盘 → Properties → Tools → Error checking，然后运行 Check。","如果还能读取，请先备份重要文件，因为修复过程可能暴露正在损坏的存储设备。"]],["找不到 D3DCompiler_47.dll","图形软件","需要 Microsoft Direct3D Shader Compiler 的程序找不到兼容的 D3DCompiler_47.dll。",["安装适用于当前 Windows 版本的更新，或使用软件官方安装程序修复应用。","不要用随机网站下载的 DLL 替换文件，应使用 Microsoft 或软件厂商官方包。"]],["Windows Update 错误 0x8024402F","网络 / Windows Update","与 Windows Update 服务器的连接超时或中断，可能与 DNS、代理、防火墙或网络有关。",["检查系统日期和时间、网络连接、Proxy/VPN 设置以及防火墙规则。","连接稳定后再次运行 Windows Update，不要随意关闭安全功能。"]],["WerFault.exe 应用程序错误","Windows 错误报告","Windows Error Reporting 在处理另一个程序或系统故障时自身崩溃；真正的问题通常是原始故障。",["使用 Event Viewer 或 Reliability Monitor 找出真正崩溃的程序或驱动。","不要把永久禁用 Windows Error Reporting 当作首选方案，应修复真正的程序、驱动或系统文件问题。"]],["没有足够的存储空间 (0x8007000E)","虚拟内存 / 系统资源","Windows 或应用程序无法获得足够的虚拟内存或其他系统资源。",["打开 System Properties → Advanced → Performance → Settings → Advanced → Virtual Memory。","启用分页文件自动管理或使用合适的系统管理设置，并保持足够的磁盘剩余空间。"]],["缺少 MSVCR100.dll / MSVCP100.dll","旧版 C++ 运行库","程序需要 Microsoft Visual C++ 2010，但该运行库缺失或损坏。",["安装程序所需架构对应的官方 Microsoft Visual C++ 2010 SP1 Redistributable。"]],["未实现错误 0x80004001","旧版软件 / 兼容性","旧程序尝试调用当前 Windows 环境中不可用或已不再实现的功能。",["右键程序 → Properties → Compatibility，测试 Windows 7 等合适的兼容模式。","如果有新版程序，优先升级到新版。"]]],"hi":[["एप्लिकेशन सही तरीके से शुरू नहीं हो सका (0xc000007b)","सिस्टम / गेमिंग","यह त्रुटि अक्सर 32-बिट और 64-बिट घटकों के मेल न खाने से होती है, खासकर DirectX या Microsoft Visual C++ में।",["आवश्यक आधिकारिक Microsoft Visual C++ Redistributable इंस्टॉल करें; जरूरत के अनुसार x86 और x64 दोनों लगाएँ।","आधिकारिक DirectX End-User Runtimes इंस्टॉल करें (पुराने गेम के लिए June 2010) और Windows रीस्टार्ट करें।","प्रोग्राम पर राइट-क्लिक करके <code>Run as administrator</code> चुनकर अनुमति की समस्या जाँचें।"]],["Access Violation Error (0xc0000005)","RAM / मेमोरी","प्रोग्राम ने ऐसी मेमोरी लोकेशन को एक्सेस करने की कोशिश की जो अमान्य थी या जिसकी अनुमति नहीं थी।",["<code>Win + R</code> दबाएँ, <code>mdsched.exe</code> चलाएँ और RAM टेस्ट करें।","केवल भरोसेमंद प्रोग्राम के लिए और जोखिम समझते हुए सुरक्षा सॉफ्टवेयर को अस्थायी रूप से बंद करके परीक्षण करें।","Administrator Command Prompt में <code>sfc /scannow</code> चलाएँ।"]],["Windows Update त्रुटि 0x80070002","Windows Update","Windows Update के अस्थायी कैश में डाउनलोड अधूरी या खराब हो सकती हैं।",["<code>net stop wuauserv</code> से Windows Update सेवा अस्थायी रूप से रोकें।","<code>C:\\Windows\\SoftwareDistribution\\Download</code> की सामग्री साफ करें।","<code>net start wuauserv</code> से सेवा दोबारा शुरू करें और अपडेट फिर चलाएँ।"]],["बूट डिवाइस उपलब्ध नहीं है (0x0000007B)","ब्लू स्क्रीन / BSOD","स्टार्टअप के दौरान Windows सिस्टम ड्राइव तक पहुँच खो देता है; स्टोरेज मोड या बूट कॉन्फ़िगरेशन बदलना सामान्य कारण है।",["BIOS/UEFI में AHCI या RAID सेटिंग जाँचें और समस्या से पहले वाली सेटिंग बहाल करें।","अनावश्यक USB फ्लैश ड्राइव और बाहरी डिस्क हटाकर फिर बूट करें।"]],["MSVCP140.dll / VCRUNTIME140.dll नहीं मिला","DLL लाइब्रेरी","प्रोग्राम के लिए आवश्यक Microsoft Visual C++ रनटाइम गायब, खराब या सुरक्षा सॉफ्टवेयर द्वारा क्वारंटीन हो सकता है।",["अनजान वेबसाइटों से अलग-अलग DLL डाउनलोड न करें।","आधिकारिक Microsoft Visual C++ Redistributable 2015–2022 इंस्टॉल करें; जरूरत के अनुसार x86 और x64 दोनों लगाएँ।"]],["त्रुटि 0x80070422: सेवा शुरू नहीं हो सकती","Windows सेवाएँ","Windows Update या Windows Firewall जैसी आवश्यक सेवा बंद हो सकती है या शुरू नहीं हो पा रही है।",["<code>Win + R</code> दबाकर <code>services.msc</code> चलाएँ।","Windows Update और Windows Firewall खोजें; जहाँ उचित हो Startup type को <code>Automatic</code> करें और Start दबाएँ।"]],["महत्वपूर्ण प्रक्रिया बंद हो गई (0x000000EF)","ब्लू स्क्रीन / BSOD","Windows की एक महत्वपूर्ण प्रक्रिया अचानक बंद हो गई। खराब ड्राइवर या सिस्टम फाइलें सामान्य कारण हैं।",["Administrator Command Prompt में <code>DISM.exe /Online /Cleanup-image /Restorehealth</code> चलाएँ।","ग्राफिक्स और चिपसेट ड्राइवर को निर्माता की आधिकारिक साइट से स्थिर संस्करण में अपडेट करें।"]],["अनिर्दिष्ट त्रुटि 0x80004005","फाइल / नेटवर्क","यह सामान्य त्रुटि आर्काइव निकालते समय, सुरक्षित फाइलों तक पहुँचते समय या नेटवर्क संसाधन उपयोग करते समय आ सकती है।",["आर्काइव के लिए 7-Zip या WinRAR का नया संस्करण आज़माएँ।","पुराने नेटवर्क वातावरण में SMB 1.0 की जरूरत पहले जाँचें, क्योंकि यह पुराना और सुरक्षा की दृष्टि से कमजोर प्रोटोकॉल है।"]],["पैरामीटर गलत है (0x80070057)","डिस्क / बैकअप","ऑपरेशन को गलत पैरामीटर मिला हो सकता है या लक्ष्य डिस्क/फाइल सिस्टम में समस्या हो सकती है।",["यदि प्रभावित ड्राइव C: है तो Administrator Command Prompt में <code>chkdsk C: /f /r</code> चलाएँ।","यदि अगली रीस्टार्ट पर जाँच का संदेश आए तो <code>Y</code> दबाकर रीस्टार्ट करें।"]],["DXGI_ERROR_DEVICE_REMOVED / HUNG","ग्राफिक्स कार्ड","ग्राफिक्स ड्राइवर या GPU ने प्रतिक्रिया देना बंद कर दिया। ड्राइवर क्रैश, अधिक गर्मी, ओवरक्लॉकिंग या पावर समस्या कारण हो सकती है।",["ग्राफिक्स ड्राइवर की clean installation करें; सामान्य reinstall से समस्या न जाए तो DDU उपयोग किया जा सकता है।","यदि GPU overclock किया गया है तो factory/default clock पर लौटाएँ।"]],["Windows Defender त्रुटि 0x80240034","Windows Security / Defender","Microsoft Defender सुरक्षा अपडेट प्राप्त नहीं कर पा रहा है; Windows Update या नेटवर्क समस्या कारण हो सकती है।",["DNS और इंटरनेट कनेक्शन जाँचें; जरूरत हो तो 1.1.1.1 या 8.8.8.8 जैसे DNS आज़माएँ।","Windows Settings में Windows Update troubleshooter चलाएँ।"]],["DRIVER_IRQL_NOT_LESS_OR_EQUAL (0x000000D1)","ब्लू स्क्रीन / BSOD","किसी ड्राइवर ने गलत समय या गलत मेमोरी एड्रेस को एक्सेस किया। नेटवर्क, ऑडियो और Wi‑Fi ड्राइवर आम संदिग्ध हैं।",["ब्लू स्क्रीन पर दिखने वाली ड्राइवर फाइल का नाम नोट करें, जैसे <code>ndis.sys</code> या <code>netwtw08.sys</code>।","Device Manager खोलें, प्रभावित ड्राइवर को uninstall करें और स्थिर नया संस्करण इंस्टॉल करें।"]],["api-ms-win-crt-runtime-l1-1-0.dll नहीं मिला","सिस्टम रनटाइम","कुछ प्रोग्रामों के लिए जरूरी Universal C Runtime गायब या सही तरीके से इंस्टॉल नहीं है, खासकर पुराने Windows में।",["अपने Windows संस्करण के लिए आधिकारिक Microsoft Universal C Runtime पैकेज/अपडेट इंस्टॉल करें, जैसे लागू होने पर KB2999226।","सुरक्षा और compatibility के लिए unsupported Windows संस्करण को supported संस्करण में अपग्रेड करने पर विचार करें।"]],["त्रुटि 0x80070005: Access Denied","यूज़र परमिशन","वर्तमान खाते या प्रोग्राम के पास जरूरी अनुमति नहीं है, या सुरक्षा सॉफ्टवेयर ऑपरेशन को रोक रहा है।",["प्रोग्राम/फाइल पर राइट-क्लिक करके <code>Run as administrator</code> चुनकर परीक्षण करें।","Folder → Properties → Security में केवल आवश्यक अनुमति दें; बिना जरूरत Full Control न दें।"]],["PAGE_FAULT_IN_NONPAGED_AREA (0x00000050)","ब्लू स्क्रीन / BSOD","Windows ने ऐसी मेमोरी को एक्सेस किया जो उपलब्ध होनी चाहिए थी। खराब RAM, ड्राइवर, स्टोरेज या सुरक्षा सॉफ्टवेयर कारण हो सकते हैं।",["यदि कई RAM मॉड्यूल हैं तो memory diagnostic से एक-एक करके जाँचें।","RAM और स्लॉट की seating जाँचें, धूल सावधानी से साफ करें और contacts को नुकसान न पहुँचाएँ।"]],["निर्दिष्ट मॉड्यूल नहीं मिला (0x8007007E)","Windows Startup","Startup entry किसी ऐसे प्रोग्राम या DLL की ओर इशारा कर सकती है जिसे हटा या स्थानांतरित किया जा चुका है।",["Microsoft Autoruns से startup entries और automatic launch points जाँचें।","हटाने से पहले पुष्टि करें कि entry वास्तव में बेकार है; केवल निश्चित entries हटाएँ।"]],["D3DX9_43.dll / XINPUT1_3.dll नहीं मिला","गेम / ग्राफिक्स","कुछ पुराने गेम ऐसे legacy DirectX घटकों पर निर्भर हैं जो आधुनिक Windows में डिफ़ॉल्ट रूप से इंस्टॉल नहीं होते।",["पुराने गेम के लिए आधिकारिक DirectX End-User Runtimes (June 2010) इंस्टॉल करें।"]],["Windows Installation Error 0x80300024","Windows इंस्टॉलेशन","कई डिस्क, गलत boot mode या partition configuration के कारण Windows Setup सही लक्ष्य नहीं चुन पाता।",["अनावश्यक डिस्क अस्थायी रूप से हटाएँ और केवल लक्ष्य डिस्क कनेक्ट रखें।"]],["BAD_POOL_HEADER (0x00000019)","ब्लू स्क्रीन / BSOD","किसी ड्राइवर या सिस्टम घटक ने memory pool पर गलत ऑपरेशन किया। Third-party drivers और security software कारण हो सकते हैं।",["समस्या शुरू होने से ठीक पहले इंस्टॉल किए गए ड्राइवर/सॉफ्टवेयर को हटाएँ या rollback करें।","Power Options में Fast Startup अस्थायी रूप से बंद करके परीक्षण करें।"]],["Element Not Found (0x80070490)","Microsoft Store / Windows Components","Windows component, servicing package या Microsoft Store registration खराब या असंगत हो सकता है।",["Microsoft Store cache reset करने के लिए <code>wsreset.exe</code> चलाएँ।","समस्या जारी रहे तो registry बदलने से पहले DISM और SFC से system components repair करें।"]],["ntdll.dll Crash","सिस्टम फाइल / ऐप क्रैश","ntdll.dll Windows का core component है। Crash log में इसका नाम आने का अर्थ यह नहीं कि वही मूल कारण है; ऐप, ड्राइवर या plugin कारण हो सकते हैं।",["हाल में इंस्टॉल किए गए incompatible shell customizer, overlay, plugin या system-modification tools हटाएँ।","विश्वसनीय security scan चलाएँ और जरूरत होने पर Windows system files repair करें।"]],["DNS_PROBE_FINISHED_NO_INTERNET","इंटरनेट / ब्राउज़र","ब्राउज़र domain name को IP में resolve नहीं कर पा रहा है या डिवाइस के पास usable internet connection नहीं है।",["Command Prompt में <code>ipconfig /flushdns</code> चलाएँ।","राउटर/मॉडेम रीस्टार्ट करें और दूसरे डिवाइस या वेबसाइट से जाँचें कि समस्या स्थानीय है या नेटवर्क की।"]],["KERNEL_SECURITY_CHECK_FAILURE (0x00000139)","ब्लू स्क्रीन / BSOD","Windows ने kernel data में corruption या invalid structure पाया। ड्राइवर, memory और malware संभावित कारण हैं।",["Windows Security में Full Scan चलाएँ।","निर्माता की आधिकारिक support site से chipset, storage, graphics और BIOS/UEFI अपडेट करें।"]],["Error 0x800F081F (.NET Framework 3.5)","ऐप की आवश्यकताएँ","Windows को .NET Framework 3.5 सक्षम करने के लिए जरूरी source files नहीं मिल रही हैं।",["सही Windows ISO mount करें और उसका drive letter देखें।","<code>Dism /online /enable-feature /featurename:NetFx3 /All /Source:D:\\sources\\sxs /LimitAccess</code> चलाएँ और D: को सही drive letter से बदलें।"]],["USB Device Not Recognized (Code 43)","USB / हार्डवेयर","Windows USB डिवाइस को सही तरीके से initialize नहीं कर सका। cable, port, power, device या driver समस्या हो सकती है।",["कंप्यूटर बंद करें, संभव हो तो power disconnect करें, थोड़ी देर बाद जोड़ें और दूसरा USB port आज़माएँ।","Device Manager में Universal Serial Bus controllers खोलें और प्रभावित device/controller driver reinstall करें।"]],["सिस्टम निर्दिष्ट पथ नहीं ढूँढ सकता (0x80070003)","फोल्डर / पाथ","माँगा गया path मौजूद नहीं है, गलत है, उपलब्ध नहीं है या पुराने software में path compatibility समस्या है।",["Path के हर folder के मौजूद होने और नाम सही होने की जाँच करें।","पुराने software के लिए सरल Latin-character path आज़माएँ और unsupported special characters से बचें।"]],["SYSTEM_SERVICE_EXCEPTION (0x0000003B)","ब्लू स्क्रीन / BSOD","Windows system service crash हुआ। खराब driver, graphics component, memory या incompatible software कारण हो सकते हैं।",["Overlay, screen-recording tools और MSI Afterburner जैसे GPU tuning tools अस्थायी रूप से बंद करें।","स्थिर WHQL graphics driver इंस्टॉल करके फिर परीक्षण करें।"]],["OpenCL.dll / OpenGL Missing","ग्राफिक्स / क्रिएटिव ऐप्स","Graphics driver के OpenCL/OpenGL components गायब, खराब या application के साथ incompatible हो सकते हैं।",["अपने GPU के अनुसार NVIDIA, AMD या Intel की आधिकारिक साइट से वर्तमान graphics driver इंस्टॉल करें।"]],["Error 0x80072EE7: Server Name Cannot Be Resolved","इंटरनेट / Windows Update","Windows server name resolve नहीं कर पा रहा है। DNS, Hosts file, proxy या network settings कारण हो सकती हैं।",["<code>C:\\Windows\\System32\\drivers\\etc\\hosts</code> जाँचें और केवल स्पष्ट रूप से गलत entries हटाएँ।","System file बदलने से पहले DNS, proxy और VPN settings भी जाँचें।"]],["UNMOUNTABLE_BOOT_VOLUME (0x000000ED)","ब्लू स्क्रीन / बूट","Windows system volume को mount नहीं कर पा रहा है। File-system corruption, storage failure या अचानक shutdown कारण हो सकते हैं।",["Windows installation/recovery media से boot करें और Repair your computer → Troubleshoot → Command Prompt चुनें।","सही Windows volume पहचानने के बाद उपयुक्त disk repair commands चलाएँ; destructive commands बिना जाँच न चलाएँ।"]],["Fatal error during installation (0x80070643)","इंस्टॉलेशन / पैकेज","Software या Windows update installation विफल हुआ। पुराना damaged install, कम disk space या component समस्या कारण हो सकती है।",["Windows restart करें और दूसरे installers बंद करके फिर प्रयास करें।","यदि समस्या .NET से जुड़ी है तो Microsoft का official .NET repair tool चलाएँ और पर्याप्त free space रखें।"]],["Wldcore.dll is Missing","पुराना Windows Software","पुराने Windows Live Essentials या Movie Maker में अपेक्षित folder से legacy DLL गायब होने पर यह समस्या आ सकती है।",["संभव हो तो original Windows Live component को repair/reinstall करें; unknown site से DLL डाउनलोड न करें।","यदि उसी legitimate installation से DLL उपलब्ध है तो उसे application के अपेक्षित folder में restore करें।"]],["KMODE_EXCEPTION_NOT_HANDLED (0x0000001E)","ब्लू स्क्रीन / BSOD","Kernel-mode driver ने ऐसा exception दिया जिसे Windows handle नहीं कर सका। Drivers, memory और incompatible security software सामान्य कारण हैं।",["हाल में इंस्टॉल किए गए third-party antivirus, drivers और low-level tools को हटाएँ या अपडेट करें।","Windows Security और Windows Memory Diagnostic से malware और memory की जाँच करें।"]],["File या directory corrupted है (0x80070570)","USB / बाहरी स्टोरेज","Storage device का file system या data corrupt हो सकता है, खासकर unsafe removal या failing media के बाद।",["Drive पर राइट-क्लिक → Properties → Tools → Error checking में Check चलाएँ।","यदि drive पढ़ी जा रही है तो पहले जरूरी files का backup लें, क्योंकि repair failing storage को और स्पष्ट कर सकता है।"]],["D3DCompiler_47.dll नहीं मिला","ग्राफिक्स सॉफ्टवेयर","जिस application को Microsoft Direct3D Shader Compiler चाहिए उसे compatible D3DCompiler_47.dll नहीं मिल रही।",["अपने Windows संस्करण के लिए उपयुक्त updates इंस्टॉल करें या application के official installer से repair करें।","Random DLL download से file replace न करें; Microsoft या vendor की official package इस्तेमाल करें।"]],["Windows Update त्रुटि 0x8024402F","नेटवर्क / Windows Update","Windows Update server का connection timeout या interrupt हुआ, जिसका कारण DNS, proxy, firewall या network हो सकता है।",["System date/time, network connection, Proxy/VPN settings और firewall rules जाँचें।","Connection stable होने पर Windows Update फिर चलाएँ और security features बिना जरूरत बंद न करें।"]],["WerFault.exe Application Error","Windows Error Reporting","Windows Error Reporting किसी अन्य application/system failure को handle करते समय crash हो रहा है; असली समस्या अक्सर मूल crash होता है।",["Event Viewer या Reliability Monitor से असल में crash हो रहे program या driver की पहचान करें।","Windows Error Reporting को स्थायी रूप से बंद करना पहला समाधान न बनाएं; मूल app, driver या system files ठीक करें।"]],["पर्याप्त storage उपलब्ध नहीं है (0x8007000E)","Virtual Memory / System Resources","Windows या application को पर्याप्त virtual memory या अन्य system resources नहीं मिल पाए।",["System Properties → Advanced → Performance → Settings → Advanced → Virtual Memory खोलें।","Paging-file size का automatic management सक्षम करें और disk में पर्याप्त खाली जगह रखें।"]],["MSVCR100.dll / MSVCP100.dll नहीं मिला","पुराना C++ Runtime","Application को Microsoft Visual C++ 2010 runtime चाहिए, जो गायब या खराब है।",["Application की architecture के अनुसार official Microsoft Visual C++ 2010 SP1 Redistributable इंस्टॉल करें।"]],["Not Implemented Error 0x80004001","पुराना Software / Compatibility","पुराना application ऐसी Windows function बुला रहा है जो वर्तमान environment में उपलब्ध या implemented नहीं है।",["Program → Properties → Compatibility में जाकर Windows 7 जैसी उपयुक्त compatibility mode आज़माएँ।","यदि नया संस्करण उपलब्ध है तो application को अपडेट करना बेहतर है।"]]]};
 
             function getLang() {
                 const q = new URLSearchParams(location.search).get("lang");
@@ -1567,20 +1932,60 @@
             }
 
             function translateUI(lang) {
-                const t=translations[lang];
-                document.getElementById("hero-title").textContent=t.hero;
-                document.getElementById("hero-desc").textContent=t.desc;
-                document.getElementById("searchInput").placeholder=t.search;
-                document.getElementById("don-title").textContent=t.donTitle;
-                document.getElementById("don-desc").textContent=t.donDesc;
-                document.getElementById("support-notice-title").textContent=t.noticeTitle;
-                document.getElementById("support-notice-desc").textContent=t.noticeDesc;
-                document.getElementById("support-notice-link").textContent=t.noticeLink;
+                const t = translations[lang];
+                document.getElementById("hero-title").textContent = t.hero;
+                document.getElementById("hero-desc").textContent = t.desc;
+                document.getElementById("searchInput").placeholder = t.search;
+                document.getElementById("don-title").textContent = t.donTitle;
+                document.getElementById("don-desc").textContent = t.donDesc;
+                document.getElementById("support-notice-title").textContent = t.noticeTitle;
+                document.getElementById("support-notice-desc").textContent = t.noticeDesc;
+                document.getElementById("support-notice-link").textContent = t.noticeLink;
 
-                document.querySelectorAll(".section-sub").forEach(el=>{
-                    const txt=el.textContent.trim();
-                    if (/دلیل ارور/.test(txt)) el.textContent=t.reason;
-                    else if (/راه‌حل/.test(txt)) el.textContent=t.solution;
+                const nav = document.querySelectorAll(".nav-btn");
+                if (nav[0]) nav[0].textContent = t.home;
+                if (nav[1]) nav[1].textContent = t.articles;
+                if (nav[2]) nav[2].textContent = t.calculator;
+                if (nav[3]) nav[3].textContent = t.compress;
+                if (nav[4]) nav[4].textContent = t.contact;
+
+                const bookTitle = document.querySelector(".book-info h3");
+                const bookDesc = document.querySelector(".book-info p");
+                const bookBtn = document.querySelector(".book-btn");
+                if (bookTitle) bookTitle.textContent = t.bookTitle;
+                if (bookDesc) bookDesc.textContent = t.bookDesc;
+                if (bookBtn) bookBtn.textContent = t.bookBtn;
+
+                const chat = document.querySelector(".floating-ai-btn span:last-child");
+                if (chat) chat.textContent = t.chat;
+                const footer = document.querySelector("footer p");
+                if (footer) footer.textContent = t.footer;
+
+                document.querySelectorAll(".error-card").forEach((card, i) => {
+                    const tr = CARD_I18N[lang]?.[i];
+                    const title = card.querySelector(".error-title");
+                    const badge = card.querySelector(".error-badge");
+                    const desc = card.querySelector(".error-desc");
+                    const num = card.querySelector(".error-num");
+                    const subs = card.querySelectorAll(".section-sub");
+                    const steps = card.querySelectorAll(".solution-step");
+                    if (lang === "fa" || !tr) {
+                        const original = window.__FA_CARDS?.[i];
+                        if (original) {
+                            title.textContent = original.title;
+                            badge.textContent = original.badge;
+                            desc.textContent = original.desc;
+                            steps.forEach((el,j)=>{ if(original.steps[j] !== undefined) el.innerHTML = original.steps[j]; });
+                        }
+                    } else {
+                        title.textContent = tr[0];
+                        badge.textContent = tr[1];
+                        desc.textContent = tr[2];
+                        steps.forEach((el,j)=>{ if(tr[3][j] !== undefined) el.innerHTML = "<span class=\"step-icon\">✔</span> " + tr[3][j]; });
+                    }
+                    num.textContent = (t.errorWord || "Error") + " #" + (i+1);
+                    if (subs[0]) subs[0].textContent = t.reason;
+                    if (subs[1]) subs[1].textContent = t.solution;
                 });
 
                 document.querySelectorAll(".copy-code-btn").forEach(b=>b.textContent=t.copy);
@@ -1588,6 +1993,16 @@
                     const span=b.querySelector("span"); if(span) span.textContent=t.copy;
                 });
                 document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+                document.querySelectorAll(".donation-method-label").forEach((el,i)=>{
+                    const labels = {
+                        fa:["BNB Smart Chain (BEP20 / BSC)","Bitcoin (BTC)","Tron (TRX / TRC20)","FastPay"],
+                        en:["BNB Smart Chain (BEP20 / BSC)","Bitcoin (BTC)","Tron (TRX / TRC20)","FastPay"],
+                        ar:["BNB Smart Chain (BEP20 / BSC)","Bitcoin (BTC)","Tron (TRX / TRC20)","FastPay"],
+                        zh:["BNB Smart Chain（BEP20 / BSC）","Bitcoin（BTC）","Tron（TRX / TRC20）","FastPay"],
+                        hi:["BNB Smart Chain (BEP20 / BSC)","Bitcoin (BTC)","Tron (TRX / TRC20)","FastPay"]
+                    };
+                    el.textContent=labels[lang][i];
+                });
             }
 
             function filterErrors() {
@@ -1602,7 +2017,7 @@
             async function copyText(text) {
                 try {
                     await navigator.clipboard.writeText(text);
-                    alert("Copied: "+text);
+                    alert((translations[getLang()]?.copied || "Copied") + ": " + text);
                 } catch(e) {
                     const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
                     ta.select(); document.execCommand("copy"); ta.remove();
@@ -1627,7 +2042,7 @@
                     feedback.textContent="✔ "+t.copied;
                     clearTimeout(button.copyFeedbackTimer);
                     button.copyFeedbackTimer=setTimeout(()=>{button.classList.remove("copied");button.innerHTML=original;feedback.textContent="";},2600);
-                } catch(e) { feedback.textContent="Copy failed. Please select and copy manually."; }
+                } catch(e) { feedback.textContent=(translations[getLang()]?.copyFailed || "Copy failed. Please select and copy manually."); }
             }
             window.copyDonation=copyDonation;
 
@@ -1649,6 +2064,12 @@
                     b.removeAttribute("onclick");
                     b.addEventListener("click",()=>setLang(b.dataset.lang,b));
                 });
+                window.__FA_CARDS = [...document.querySelectorAll(".error-card")].map(card => ({
+                    title: card.querySelector(".error-title")?.textContent.trim() || "",
+                    badge: card.querySelector(".error-badge")?.textContent.trim() || "",
+                    desc: card.querySelector(".error-desc")?.textContent.trim() || "",
+                    steps: [...card.querySelectorAll(".solution-step")].map(el => el.innerHTML)
+                }));
                 const lang=getLang();
                 translateUI(lang);
                 updateSEO(lang);
