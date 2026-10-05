@@ -3,6 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#06080f">
+    <meta name="color-scheme" content="dark">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="alternate" hreflang="fa" href="https://zherfai.ir/articles/windows-errors-ultimate-guide.html?lang=fa">
+    <link rel="alternate" hreflang="en" href="https://zherfai.ir/articles/windows-errors-ultimate-guide.html?lang=en">
+    <link rel="alternate" hreflang="ar" href="https://zherfai.ir/articles/windows-errors-ultimate-guide.html?lang=ar">
+    <link rel="alternate" hreflang="zh" href="https://zherfai.ir/articles/windows-errors-ultimate-guide.html?lang=zh">
+    <link rel="alternate" hreflang="hi" href="https://zherfai.ir/articles/windows-errors-ultimate-guide.html?lang=hi">
+    <link rel="alternate" hreflang="x-default" href="https://zherfai.ir/articles/windows-errors-ultimate-guide.html?lang=fa">
+    <meta property="article:published_time" content="2026-10-04T00:00:00+03:30">
+    <meta property="article:modified_time" content="2026-10-05T00:00:00+03:30">
+    <meta property="article:author" content="https://zherfai.ir">
+    <meta property="article:section" content="Windows Troubleshooting">
+    <meta property="og:locale" content="fa_IR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:locale:alternate" content="ar_AR">
+    <meta property="og:locale:alternate" content="zh_CN">
+    <meta property="og:locale:alternate" content="hi_IN">
     <title>دائره‌المعارف جامع رفع ۴۰ ارور ویندوز و کامپیوتر | راهنمای کامل گام‌به‌گام ژرف AI</title>
     <meta name="description" content="مرجع تخصصی و ساده برای رفع بیش از ۴۰ ارور رایج ویندوز ۱۱، ۱۰، ۸، ۷، خطاهای صفحه آبی (BSOD)، خطاهای DLL، مشکلات نرم‌افزاری و سخت‌افزاری به زبان ساده و مرحله‌به‌مرحله.">
     <meta name="keywords" content="رفع ارور ویندوز, حل مشکل صفحه آبی, ارور 0xc0000005, رفع ارور dll, ارور 0x80070002, ارور کارت گرافیک, خطای هارد دیسک, تعمیر ویندوز, ارور انتی ویروس, ژرف AI, اسماعیل ریاحی">
@@ -1318,6 +1338,10 @@
                     <div class="donation-method-info"><div class="donation-method-label">Tron (TRX / TRC20)</div><div class="donation-address">TNF667moybawQp7ZBFEYsXuZYtRp426a8a</div></div>
                     <button class="donation-copy-btn" type="button" onclick="copyDonation('TNF667moybawQp7ZBFEYsXuZYtRp426a8a', this)" aria-label="Copy Tron address">📋 <span>کپی</span></button>
                 </div>
+                <div class="donation-method">
+                    <div class="donation-method-info"><div class="donation-method-label">FastPay</div><div class="donation-address">esmailriahi110@gmail.com</div></div>
+                    <button class="donation-copy-btn" type="button" onclick="copyDonation('esmailriahi110@gmail.com', this)" aria-label="Copy FastPay address">📋 <span>کپی</span></button>
+                </div>
             </div>
         </section>
 
@@ -1333,132 +1357,313 @@
         <span>چت هوش مصنوعی رایگان ژرف</span>
     </a>
 
-    <!-- Live Search & Multi-language Script -->
+    <!-- Live Search, multilingual runtime, SEO metadata and accessibility -->
     <script>
-        // Live Filter Function
-        function filterErrors() {
-            const input = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.getElementsByClassName('error-card');
+        (() => {
+            "use strict";
 
-            for (let i = 0; i < cards.length; i++) {
-                const keywords = cards[i].getAttribute('data-keywords') ? cards[i].getAttribute('data-keywords').toLowerCase() : '';
-                const cardText = cards[i].innerText.toLowerCase();
+            const SITE = "https://zherfai.ir";
+            const PAGE = SITE + "/articles/windows-errors-ultimate-guide.html";
+            const SUPPORTED = ["fa", "en", "ar", "zh", "hi"];
 
-                if (keywords.includes(input) || cardText.includes(input)) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
+            const translations = {
+                fa: {
+                    title: "دائره‌المعارف جامع رفع ۴۰ ارور شایع ویندوز و نرم‌افزارها | ژرف AI",
+                    hero: "دائره‌المعارف جامع رفع ۴۰ ارور شایع ویندوز و نرم‌افزارها",
+                    desc: "مرجع تخصصی عیب‌یابی ویندوز برای خطاهای BSOD، DLL، Windows Update، درایورها، شبکه، دیسک و اجرای نرم‌افزار؛ با راه‌حل‌های مرحله‌به‌مرحله و قابل اجرا.",
+                    search: "🔍 جستجوی سریع کد ارور، نام فایل DLL یا مشکل؛ مثال: 0x0000007B، صفحه آبی، DLL",
+                    donTitle: "🌱 سهم شما در تداوم و توسعه رایگان خدمات",
+                    donDesc: "اگر این راهنما مشکل شما را حل کرد، می‌توانید با روش‌های بانکی یا ارز دیجیتال از ادامه توسعه رایگان این مرجع حمایت کنید.",
+                    noticeTitle: "💚 حمایت از این راهنمای رایگان",
+                    noticeDesc: "اگر این محتوا برایتان مفید بود، می‌توانید از طریق کارت بانکی (ویژه ایران)، FastPay یا ارز دیجیتال از ادامه این کار حمایت کنید.",
+                    noticeLink: "مشاهده روش‌های حمایت ↓",
+                    reason: "💡 دلیل ارور چیست؟",
+                    solution: "🛠️ راه‌حل مرحله‌به‌مرحله:",
+                    copy: "کپی",
+                    copied: "کپی شد",
+                    support: "حمایت",
+                    dir: "rtl",
+                    locale: "fa_IR",
+                    keywords: "رفع ارور ویندوز, حل خطاهای ویندوز, BSOD, DLL, Windows Update, 0xc000007b, 0xc0000005, 0x80070002, تعمیر ویندوز, رفع خطای کامپیوتر"
+                },
+                en: {
+                    title: "Ultimate Guide to Fix 40 Common Windows & PC Errors | Zherf AI",
+                    hero: "Ultimate Guide to Fix 40 Common Windows & PC Errors",
+                    desc: "A practical Windows troubleshooting reference for BSOD, DLL, Windows Update, driver, network, disk and software errors, with step-by-step fixes.",
+                    search: "🔍 Search an error code, DLL filename or problem; e.g. 0x0000007B, blue screen, DLL",
+                    donTitle: "🌱 Support the Free Development of Zherf AI",
+                    donDesc: "If this guide solved your problem, you can support the continued development of this free troubleshooting reference by bank card, FastPay or cryptocurrency.",
+                    noticeTitle: "💚 Support this free guide",
+                    noticeDesc: "If this content helped you, you can support this work by bank card (Iran), FastPay or cryptocurrency worldwide.",
+                    noticeLink: "View support methods ↓",
+                    reason: "💡 Why does this error happen?",
+                    solution: "🛠️ Step-by-step fix:",
+                    copy: "Copy",
+                    copied: "Copied",
+                    support: "Support",
+                    dir: "ltr",
+                    locale: "en_US",
+                    keywords: "fix Windows errors, Windows troubleshooting, BSOD, DLL errors, Windows Update error, 0xc000007b, 0xc0000005, 0x80070002, PC repair"
+                },
+                ar: {
+                    title: "الدليل الشامل لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر | ژرف AI",
+                    hero: "الدليل الشامل لإصلاح 40 خطأ شائع في ويندوز والكمبيوتر",
+                    desc: "مرجع عملي لاستكشاف أخطاء ويندوز وإصلاح مشاكل الشاشة الزرقاء وDLL وتحديثات ويندوز والتعريفات والشبكة والقرص والبرامج خطوة بخطوة.",
+                    search: "🔍 ابحث عن رمز الخطأ أو اسم ملف DLL أو المشكلة؛ مثال: 0x0000007B أو الشاشة الزرقاء",
+                    donTitle: "🌱 ساهم في استمرار تطوير الخدمات المجانية",
+                    donDesc: "إذا ساعدك هذا الدليل، يمكنك دعم استمرار تطوير هذا المرجع المجاني عبر البطاقة أو FastPay أو العملات الرقمية.",
+                    noticeTitle: "💚 ادعم هذا الدليل المجاني",
+                    noticeDesc: "إذا كان المحتوى مفيداً، يمكنك دعم العمل عبر البطاقة المصرفية (إيران) أو FastPay أو العملات الرقمية.",
+                    noticeLink: "عرض طرق الدعم ↓",
+                    reason: "💡 لماذا يحدث هذا الخطأ؟",
+                    solution: "🛠️ الحل خطوة بخطوة:",
+                    copy: "نسخ",
+                    copied: "تم النسخ",
+                    support: "دعم",
+                    dir: "rtl",
+                    locale: "ar_AR",
+                    keywords: "إصلاح أخطاء ويندوز, الشاشة الزرقاء, أخطاء DLL, Windows Update, إصلاح الكمبيوتر, 0xc000007b, 0xc0000005"
+                },
+                zh: {
+                    title: "Windows 与电脑常见 40 个错误修复终极指南 | Zherf AI",
+                    hero: "Windows 与电脑常见 40 个错误修复终极指南",
+                    desc: "实用的 Windows 故障排查指南，涵盖蓝屏 BSOD、DLL、Windows 更新、驱动、网络、磁盘和软件错误，并提供分步解决方案。",
+                    search: "🔍 搜索错误代码、DLL 文件名或问题，例如：0x0000007B、蓝屏、DLL",
+                    donTitle: "🌱 支持免费技术服务的持续发展",
+                    donDesc: "如果本指南解决了您的问题，欢迎通过银行卡、FastPay 或加密货币支持这个免费项目。",
+                    noticeTitle: "💚 支持这份免费指南",
+                    noticeDesc: "如果内容对您有帮助，可以通过银行卡（伊朗）、FastPay 或加密货币支持本项目。",
+                    noticeLink: "查看支持方式 ↓",
+                    reason: "💡 为什么会出现这个错误？",
+                    solution: "🛠️ 分步解决方案：",
+                    copy: "复制",
+                    copied: "已复制",
+                    support: "支持",
+                    dir: "ltr",
+                    locale: "zh_CN",
+                    keywords: "Windows错误修复, 蓝屏BSOD, DLL错误, Windows更新错误, 电脑维修, 0xc000007b, 0xc0000005"
+                },
+                hi: {
+                    title: "Windows और PC की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड | Zherf AI",
+                    hero: "Windows और PC की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड",
+                    desc: "BSOD, DLL, Windows Update, ड्राइवर, नेटवर्क, डिस्क और सॉफ्टवेयर समस्याओं के लिए व्यावहारिक चरण-दर-चरण Windows troubleshooting guide।",
+                    search: "🔍 एरर कोड, DLL फ़ाइल या समस्या खोजें; उदाहरण: 0x0000007B, ब्लू स्क्रीन, DLL",
+                    donTitle: "🌱 मुफ्त तकनीकी सेवाओं के विकास में सहयोग करें",
+                    donDesc: "यदि इस गाइड ने आपकी समस्या हल की है, तो बैंक कार्ड, FastPay या क्रिप्टोकरेंसी के माध्यम से इस मुफ्त परियोजना का समर्थन कर सकते हैं।",
+                    noticeTitle: "💚 इस मुफ्त गाइड का समर्थन करें",
+                    noticeDesc: "यदि यह सामग्री उपयोगी रही, तो बैंक कार्ड (ईरान), FastPay या क्रिप्टोकरेंसी के माध्यम से सहयोग कर सकते हैं।",
+                    noticeLink: "सहयोग के तरीके देखें ↓",
+                    reason: "💡 यह त्रुटि क्यों होती है?",
+                    solution: "🛠️ चरण-दर-चरण समाधान:",
+                    copy: "कॉपी",
+                    copied: "कॉपी हो गया",
+                    support: "सहयोग",
+                    dir: "ltr",
+                    locale: "hi_IN",
+                    keywords: "Windows error fix, BSOD, DLL error, Windows Update, computer repair, 0xc000007b, 0xc0000005"
                 }
+            };
+
+            function getLang() {
+                const q = new URLSearchParams(location.search).get("lang");
+                if (SUPPORTED.includes(q)) return q;
+                const stored = localStorage.getItem("zherfai-lang");
+                if (SUPPORTED.includes(stored)) return stored;
+                const nav = (navigator.language || "fa").slice(0,2).toLowerCase();
+                return SUPPORTED.includes(nav) ? nav : "fa";
             }
-        }
 
-        // Copy Text Function
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                alert('کد دستور کپی شد: ' + text);
-            });
-        }
+            function absoluteLangUrl(lang) {
+                return PAGE + "?lang=" + encodeURIComponent(lang);
+            }
 
-        // Copy bank-card and crypto values with per-button visual feedback.
-        async function copyDonation(text, button) {
-            const feedback = button.closest('.donation-section').querySelector('.copy-feedback');
-            const original = button.innerHTML;
-            try {
-                if (navigator.clipboard && window.isSecureContext) {
+            function setMeta(name, content, attr="name") {
+                let el = document.querySelector('meta[' + attr + '="' + name + '"]');
+                if (!el) {
+                    el = document.createElement("meta");
+                    el.setAttribute(attr, name);
+                    document.head.appendChild(el);
+                }
+                el.setAttribute("content", content);
+            }
+
+            function setLink(rel, href, extra={}) {
+                let el = document.querySelector('link[rel="' + rel + '"][data-dynamic="true"]');
+                if (!el) {
+                    el = document.createElement("link");
+                    el.rel = rel;
+                    el.dataset.dynamic = "true";
+                    document.head.appendChild(el);
+                }
+                el.href = href;
+                Object.entries(extra).forEach(([k,v]) => el.setAttribute(k,v));
+            }
+
+            function updateSchema(lang, t) {
+                const schema = {
+                    "@context":"https://schema.org",
+                    "@graph":[
+                        {
+                            "@type":"TechArticle",
+                            "@id":PAGE+"?lang="+lang+"#article",
+                            "mainEntityOfPage":{"@type":"WebPage","@id":absoluteLangUrl(lang)},
+                            "headline":t.title,
+                            "description":t.desc,
+                            "url":absoluteLangUrl(lang),
+                            "image":SITE+"/assets/windows-errors-guide.jpg",
+                            "datePublished":"2026-10-04",
+                            "dateModified":"2026-10-05",
+                            "inLanguage":lang,
+                            "author":{"@type":"Person","name":"اسماعیل ریاحی","url":SITE},
+                            "publisher":{"@type":"Organization","name":"ژرف AI","url":SITE}
+                        },
+                        {
+                            "@type":"BreadcrumbList",
+                            "itemListElement":[
+                                {"@type":"ListItem","position":1,"name":lang==="fa"?"صفحه اصلی":lang==="ar"?"الرئيسية":lang==="zh"?"首页":lang==="hi"?"मुख्य पृष्ठ":"Home","item":SITE+"/"},
+                                {"@type":"ListItem","position":2,"name":lang==="fa"?"بانک مقالات":lang==="ar"?"المقالات":lang==="zh"?"文章":"Articles","item":SITE+"/articles/articles-index.html"},
+                                {"@type":"ListItem","position":3,"name":t.hero,"item":absoluteLangUrl(lang)}
+                            ]
+                        },
+                        {
+                            "@type":"ItemList",
+                            "name":t.hero,
+                            "numberOfItems":40,
+                            "itemListElement":[...document.querySelectorAll(".error-card")].map((c,i)=>({
+                                "@type":"ListItem","position":i+1,
+                                "name":c.querySelector(".error-title")?.textContent.trim() || ("Windows error "+(i+1))
+                            }))
+                        },
+                        {
+                            "@type":"FAQPage",
+                            "mainEntity":[...document.querySelectorAll(".error-card")].slice(0,10).map(c=>({
+                                "@type":"Question",
+                                "name":c.querySelector(".error-title")?.textContent.trim()+" — "+t.reason.replace(/^💡\s*/,""),
+                                "acceptedAnswer":{"@type":"Answer","text":c.querySelector(".error-desc")?.textContent.trim() || ""}
+                            }))
+                        }
+                    ]
+                };
+                let el=document.getElementById("dynamic-schema");
+                if(!el){el=document.createElement("script");el.type="application/ld+json";el.id="dynamic-schema";document.head.appendChild(el);}
+                el.textContent=JSON.stringify(schema);
+            }
+
+            function updateSEO(lang) {
+                const t=translations[lang];
+                document.title=t.title;
+                document.documentElement.lang=lang;
+                document.documentElement.dir=t.dir;
+                setMeta("description",t.desc);
+                setMeta("keywords",t.keywords);
+                setMeta("og:title",t.title,"property");
+                setMeta("og:description",t.desc,"property");
+                setMeta("og:url",absoluteLangUrl(lang),"property");
+                setMeta("og:locale",t.locale,"property");
+                setMeta("twitter:title",t.title);
+                setMeta("twitter:description",t.desc);
+                setLink("canonical",absoluteLangUrl(lang));
+                updateSchema(lang,t);
+            }
+
+            function translateUI(lang) {
+                const t=translations[lang];
+                document.getElementById("hero-title").textContent=t.hero;
+                document.getElementById("hero-desc").textContent=t.desc;
+                document.getElementById("searchInput").placeholder=t.search;
+                document.getElementById("don-title").textContent=t.donTitle;
+                document.getElementById("don-desc").textContent=t.donDesc;
+                document.getElementById("support-notice-title").textContent=t.noticeTitle;
+                document.getElementById("support-notice-desc").textContent=t.noticeDesc;
+                document.getElementById("support-notice-link").textContent=t.noticeLink;
+
+                document.querySelectorAll(".section-sub").forEach(el=>{
+                    const txt=el.textContent.trim();
+                    if (/دلیل ارور/.test(txt)) el.textContent=t.reason;
+                    else if (/راه‌حل/.test(txt)) el.textContent=t.solution;
+                });
+
+                document.querySelectorAll(".copy-code-btn").forEach(b=>b.textContent=t.copy);
+                document.querySelectorAll(".donation-copy-btn").forEach(b=>{
+                    const span=b.querySelector("span"); if(span) span.textContent=t.copy;
+                });
+                document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b.dataset.lang===lang));
+            }
+
+            function filterErrors() {
+                const input=(document.getElementById("searchInput").value||"").trim().toLowerCase();
+                document.querySelectorAll(".error-card").forEach(card=>{
+                    const hay=(card.getAttribute("data-keywords")||"")+" "+(card.innerText||"");
+                    card.style.display=(!input || hay.toLowerCase().includes(input)) ? "" : "none";
+                });
+            }
+            window.filterErrors=filterErrors;
+
+            async function copyText(text) {
+                try {
                     await navigator.clipboard.writeText(text);
-                } else {
-                    const field = document.createElement('textarea');
-                    field.value = text;
-                    field.style.position = 'fixed';
-                    field.style.opacity = '0';
-                    document.body.appendChild(field);
-                    field.select();
-                    const copied = document.execCommand('copy');
-                    field.remove();
-                    if (!copied) throw new Error('Copy failed');
+                    alert("Copied: "+text);
+                } catch(e) {
+                    const ta=document.createElement("textarea"); ta.value=text; document.body.appendChild(ta);
+                    ta.select(); document.execCommand("copy"); ta.remove();
                 }
-                button.classList.add('copied');
-                button.innerHTML = '✔ <span>کپی شد</span>';
-                feedback.textContent = '✔ با موفقیت کپی شد — سپاس از مهر شما!';
-                clearTimeout(button.copyFeedbackTimer);
-                button.copyFeedbackTimer = setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.innerHTML = original;
-                    feedback.textContent = '';
-                }, 2600);
-            } catch (error) {
-                feedback.textContent = 'کپی خودکار انجام نشد؛ لطفاً مقدار را انتخاب و کپی کنید.';
             }
-        }
+            window.copyText=copyText;
 
-        // Multi-Language Dictionary
-        const translations = {
-            fa: {
-                title: "دائره‌المعارف جامع رفع ۴۰ ارور شایع ویندوز و نرم‌افزارها",
-                desc: "بدون استرس و با گام‌های ساده، هر مشکلی در کامپیوتر یا لپ‌تاپ را مثل آب خوردن حل کنید. هر ارور دارای دلیل شفاف و راه‌حل تضمینی است.",
-                donTitle: "🌱 سهم شما در تداوم و توسعه رایگان خدمات",
-                donDesc: "این محتواها و خدمات رایگان هوش مصنوعی با عشق به مردم و به لطف پروردگار تهیه شده‌اند. اگر این راهنما مشکل شما را حل کرد، با کمال افتخار از حمایت‌های شما استقبال می‌کنیم.",
-                noticeTitle: "💚 حمایت از این راهنمای رایگان",
-                noticeDesc: "اگر این محتوا برایتان مفید بود، می‌توانید از طریق کارت بانکی (ویژه ایران) یا ارز دیجیتال (برای سراسر جهان) از ادامه این کار حمایت کنید.",
-                noticeLink: "مشاهده روش‌های حمایت ↓"
-            },
-            en: {
-                title: "Ultimate Encyclopedia: Fixing 40 Common Windows & PC Errors",
-                desc: "Fix any computer or Windows issue easily with step-by-step verified solutions. Clear reasons and guaranteed fixes for all BSOD, DLL, and system errors.",
-                donTitle: "🌱 Support the Free Development of Zherf AI",
-                donDesc: "These free AI tools and guides are developed with passion. If this guide helped you, we warmly welcome your support.",
-                noticeTitle: "💚 Support this free guide",
-                noticeDesc: "If you found this content helpful, you can support this work by bank card (for Iran) or cryptocurrency (worldwide).",
-                noticeLink: "See ways to support ↓"
-            },
-            ar: {
-                title: "الموسوعة الشاملة لإصلاح ٤٠ خطأ شائع في ويندوز والكمبيوتر",
-                desc: "حل جميع مشاكل الشاشة الزرقاء، ملفات DLL وتحديثات النظام بخطوات بسيطة وواضحة ومضمونة بدون تعقيد.",
-                donTitle: "🌱 مساهمتكم في استمرار وتطوير الخدمات المجانية",
-                donDesc: "تم إعداد هذه الخدمات والمقالات مجاناً لخدمة الجميع. نرحب بدعمكم الكريم لمواصلة التطوير.",
-                noticeTitle: "💚 ادعم هذا الدليل المجاني",
-                noticeDesc: "إذا وجدت هذا المحتوى مفيداً، يمكنك دعم استمرار هذا العمل عبر البطاقة المصرفية (لإيران) أو العملات الرقمية (حول العالم).",
-                noticeLink: "اطّلع على طرق الدعم ↓"
-            },
-            zh: {
-                title: "终极百科：修复40个常见Windows与电脑错误全指南",
-                desc: "轻松解决所有蓝屏（BSOD）、缺少DLL文件及系统更新错误。清晰的原因分析与一步一步的保证解决方案。",
-                donTitle: "🌱 支持免费AI与技术知识的持续发展",
-                donDesc: "所有工具和文章均为免费提供。如果本指南帮助解决了您的问题，非常欢迎您的爱心支持。",
-                noticeTitle: "💚 支持这份免费指南",
-                noticeDesc: "如果本内容对您有帮助，欢迎通过银行卡（适用于伊朗）或加密货币（面向全球）支持这项工作。",
-                noticeLink: "查看支持方式 ↓"
-            },
-            hi: {
-                title: "विंडोज और कंप्यूटर की 40 सामान्य त्रुटियों को ठीक करने की संपूर्ण गाइड",
-                desc: "ब्लू स्क्रीन, डीएलएल एरर और सिस्टम समस्याओं को बिना किसी तनाव के आसान चरणों में ठीक करें।",
-                donTitle: "🌱 मुफ्त सेवाओं के विकास में आपका सहयोग",
-                donDesc: "यह मार्गदर्शिका और एआई सेवाएं सभी के लिए मुफ्त हैं। यदि इससे आपकी मदद हुई है, तो आपके समर्थन का स्वागत है।",
-                noticeTitle: "💚 इस मुफ्त गाइड का समर्थन करें",
-                noticeDesc: "यदि यह सामग्री आपके काम आई, तो आप बैंक कार्ड (ईरान के लिए) या क्रिप्टोकरेंसी (दुनिया भर में) के माध्यम से सहयोग कर सकते हैं।",
-                noticeLink: "सहयोग के तरीके देखें ↓"
+            async function copyDonation(text, button) {
+                const feedback=button.closest(".donation-section").querySelector(".copy-feedback");
+                const original=button.innerHTML;
+                try {
+                    if(navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(text);
+                    else {
+                        const field=document.createElement("textarea"); field.value=text; field.style.position="fixed"; field.style.opacity="0";
+                        document.body.appendChild(field); field.select();
+                        if(!document.execCommand("copy")) throw new Error("Copy failed");
+                        field.remove();
+                    }
+                    const lang=getLang(), t=translations[lang];
+                    button.classList.add("copied");
+                    button.innerHTML="✔ <span>"+t.copied+"</span>";
+                    feedback.textContent="✔ "+t.copied;
+                    clearTimeout(button.copyFeedbackTimer);
+                    button.copyFeedbackTimer=setTimeout(()=>{button.classList.remove("copied");button.innerHTML=original;feedback.textContent="";},2600);
+                } catch(e) { feedback.textContent="Copy failed. Please select and copy manually."; }
             }
-        };
+            window.copyDonation=copyDonation;
 
-        function setLang(lang, button) {
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-            if (button) button.classList.add('active');
-
-            if (translations[lang]) {
-                document.getElementById('hero-title').innerText = translations[lang].title;
-                document.getElementById('hero-desc').innerText = translations[lang].desc;
-                document.getElementById('don-title').innerText = translations[lang].donTitle;
-                document.getElementById('don-desc').innerText = translations[lang].donDesc;
-                document.getElementById('support-notice-title').innerText = translations[lang].noticeTitle;
-                document.getElementById('support-notice-desc').innerText = translations[lang].noticeDesc;
-                document.getElementById('support-notice-link').innerText = translations[lang].noticeLink;
-                document.documentElement.lang = lang;
-                document.documentElement.dir = (lang === 'fa' || lang === 'ar') ? 'rtl' : 'ltr';
+            function setLang(lang, button) {
+                if(!translations[lang]) return;
+                localStorage.setItem("zherfai-lang",lang);
+                if(button) document.querySelectorAll(".lang-btn").forEach(b=>b.classList.toggle("active",b===button));
+                translateUI(lang);
+                updateSEO(lang);
+                const u=new URL(location.href);
+                u.searchParams.set("lang",lang);
+                history.replaceState({lang}, "", u.href);
             }
-        }
+            window.setLang=setLang;
+
+            document.addEventListener("DOMContentLoaded",()=>{
+                document.querySelectorAll(".lang-btn").forEach(b=>{
+                    b.dataset.lang=(b.getAttribute("onclick")||"").match(/setLang\('([^']+)/)?.[1]||"";
+                    b.removeAttribute("onclick");
+                    b.addEventListener("click",()=>setLang(b.dataset.lang,b));
+                });
+                const lang=getLang();
+                translateUI(lang);
+                updateSEO(lang);
+                document.getElementById("searchInput").addEventListener("input",filterErrors);
+            });
+        })();
     </script>
 
     <!-- Security Shield Script -->
     <script src="../shield.js"></script>
+
+    <noscript>
+        <div style="max-width:1100px;margin:20px auto;padding:20px;color:#fff;background:#111827;border:1px solid #374151;border-radius:14px">
+            این مقاله شامل راهنمای رفع ۴۰ خطای رایج ویندوز و کامپیوتر است. برای تغییر زبان و جستجوی تعاملی، JavaScript را فعال کنید.
+        </div>
+    </noscript>
 </body>
 </html>
