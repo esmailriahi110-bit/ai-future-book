@@ -1017,7 +1017,26 @@
             max-width: 100%;
         }
 
-</style>
+
+        /* Final multilingual card rendering + responsive language safety */
+        .error-card, .error-header, .error-title, .error-desc, .solution-box, .solution-step, .code-box { min-width: 0; max-width: 100%; }
+        .error-title { overflow-wrap: anywhere; word-break: break-word; unicode-bidi: plaintext; }
+        .error-desc, .solution-step { overflow-wrap: anywhere; word-break: break-word; }
+        .code-box { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .code-box > span { min-width: 0; overflow-wrap: anywhere; word-break: break-word; }
+        .solution-step code { direction: ltr; unicode-bidi: isolate; overflow-wrap: anywhere; }
+        @media (max-width:680px){
+            .error-card { padding: 18px; }
+            .error-header { display:grid; grid-template-columns:auto minmax(0,1fr); align-items:start; }
+            .error-title { grid-column:1 / -1; grid-row:2; margin:0; font-size:clamp(.96rem,4.4vw,1.12rem); line-height:1.5; }
+            .error-badge { justify-self:end; max-width:100%; white-space:normal; }
+            .error-num { justify-self:start; }
+            .solution-step { align-items:flex-start; }
+            .code-box { width:100%; }
+        }
+        @media (max-width:380px){ .error-header{grid-template-columns:1fr;} .error-num,.error-badge{justify-self:start;} .error-title{font-size:.94rem;} }
+
+    </style>
 </head>
 <body>
 
@@ -1967,25 +1986,47 @@
                     const badge = card.querySelector(".error-badge");
                     const desc = card.querySelector(".error-desc");
                     const num = card.querySelector(".error-num");
-                    const subs = card.querySelectorAll(".section-sub");
-                    const steps = card.querySelectorAll(".solution-step");
+                    const original = window.__FA_CARDS?.[i];
+                    const originalCodes = window.__FA_CODES?.[i] || [];
+                    const solutionBox = card.querySelector(".solution-box");
+
                     if (lang === "fa" || !tr) {
-                        const original = window.__FA_CARDS?.[i];
                         if (original) {
                             title.textContent = original.title;
                             badge.textContent = original.badge;
                             desc.textContent = original.desc;
-                            steps.forEach((el,j)=>{ if(original.steps[j] !== undefined) el.innerHTML = original.steps[j]; });
+                            if (solutionBox) solutionBox.innerHTML = original.solutionHTML;
                         }
                     } else {
                         title.textContent = tr[0];
                         badge.textContent = tr[1];
                         desc.textContent = tr[2];
-                        steps.forEach((el,j)=>{ if(tr[3][j] !== undefined) el.innerHTML = "<span class=\"step-icon\">✔</span> " + tr[3][j]; });
+
+                        if (solutionBox) {
+                            let html = '<div class="section-sub">' + t.solution + '</div>';
+                            const usedCodes = new Set();
+                            (tr[3] || []).forEach(step => {
+                                let stepHtml = step;
+                                let codeToShow = null;
+                                originalCodes.forEach(code => {
+                                    if (!usedCodes.has(code) && stepHtml.includes('<code>' + code + '</code>')) {
+                                        stepHtml = stepHtml.replace('<code>' + code + '</code>', '');
+                                        codeToShow = code;
+                                        usedCodes.add(code);
+                                    }
+                                });
+                                html += '<div class="solution-step"><span class="step-icon">✔</span> ' + stepHtml.trim() + '</div>';
+                                if (codeToShow) {
+                                    const safe = codeToShow.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+                                    const copyArg = JSON.stringify(codeToShow).replace(/&/g,'&amp;').replace(/"/g,'&quot;');
+                                    html += '<div class="code-box"><span>' + safe + '</span><button class="copy-code-btn" type="button" onclick="copyText(' + copyArg + ')">' + t.copy + '</button></div>';
+                                }
+                            });
+                            solutionBox.innerHTML = html;
+                        }
                     }
                     num.textContent = (t.errorWord || "Error") + " #" + (i+1);
-                    if (subs[0]) subs[0].textContent = t.reason;
-                    if (subs[1]) subs[1].textContent = t.solution;
+                    card.setAttribute("data-language", lang);
                 });
 
                 document.querySelectorAll(".copy-code-btn").forEach(b=>b.textContent=t.copy);
@@ -2068,8 +2109,12 @@
                     title: card.querySelector(".error-title")?.textContent.trim() || "",
                     badge: card.querySelector(".error-badge")?.textContent.trim() || "",
                     desc: card.querySelector(".error-desc")?.textContent.trim() || "",
-                    steps: [...card.querySelectorAll(".solution-step")].map(el => el.innerHTML)
+                    steps: [...card.querySelectorAll(".solution-step")].map(el => el.innerHTML),
+                    solutionHTML: card.querySelector(".solution-box")?.innerHTML || ""
                 }));
+                window.__FA_CODES = [...document.querySelectorAll(".error-card")].map(card =>
+                    [...card.querySelectorAll(".code-box > span")].map(el => el.textContent.trim())
+                );
                 const lang=getLang();
                 translateUI(lang);
                 updateSEO(lang);
