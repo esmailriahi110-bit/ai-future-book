@@ -4,7 +4,7 @@
     "url": "https://zherfai.ir/articles/ai-hosting-server-guide.html",
     "title": "راهنمای جامع انتخاب هاست و سرور برای هوش مصنوعی و ربات‌ها | ژرف AI",
     "desc": "راهنمای تخصصی انتخاب هاست NVMe، سرور مجازی VPS و اختصاصی برای اجرای مدل‌های هوش مصنوعی، ربات پایتون، تلگرام و ایتا همراه با کد تخفیف ویژه.",
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "priority": "0.85",
     "changefreq": "weekly"
   },
@@ -13,7 +13,7 @@
     "url": "https://zherfai.ir/articles/ai-jobs.html",
     "title": "هوش مصنوعی و آینده بازار کار؛ تهدید یا آغاز تحول؟ | ژرف AI",
     "desc": "بررسی تحول مشاغل با ظهور هوش مصنوعی؛ کدام تخصص‌ها در امان هستند و چه مهارت‌هایی برای آینده ضروری است؟ گزیده‌ای از کتاب اسماعیل ریاحی.",
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "priority": "0.85",
     "changefreq": "weekly"
   },
@@ -22,16 +22,16 @@
     "url": "https://zherfai.ir/articles/ai-wildlife-nature.html",
     "title": "هوش مصنوعی و نجات طبیعت؛ زبان حیوانات و حفظ تنوع زیستی | ژرف AI",
     "desc": "نقش شگفت‌انگیز هوش مصنوعی در درک ارتباطات گونه‌های جانوری و حفظ اکوسیستم. گزیده‌ای از کتاب AI؛ نقشه‌ای برای آینده اثر اسماعیل ریاحی.",
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "priority": "0.85",
     "changefreq": "weekly"
   },
   {
     "file": "articles/ultimate-keyboard-shortcuts-guide.html",
     "url": "https://zherfai.ir/articles/ultimate-keyboard-shortcuts-guide.html",
-    "title": "دانشنامه مرجع ۱۰۰ میانبر طلایی کیبورد ویندوز، مرورگر و آفیس | ژرف AI",
-    "desc": "راهنمای جامع ۱۰۰ میانبر کاربردی و ترفندهای افزایش سرعت کار با کامپیوتر، ویندوز و مرورگرها به قلم پژوهشگر اسماعیل ریاحی.",
-    "date": "2026-10-05",
+    "title": "ultimate-keyboard-shortcuts-guide.html",
+    "desc": "",
+    "date": "2026-10-06",
     "priority": "0.85",
     "changefreq": "weekly"
   },
@@ -40,7 +40,7 @@
     "url": "https://zherfai.ir/articles/windows-errors-ultimate-guide.html",
     "title": "دائره‌المعارف جامع رفع ۴۰ ارور ویندوز و کامپیوتر | راهنمای کامل گام‌به‌گام ژرف AI",
     "desc": "مرجع تخصصی و ساده برای رفع بیش از ۴۰ ارور رایج ویندوز ۱۱، ۱۰، ۸، ۷، خطاهای صفحه آبی (BSOD)، خطاهای DLL، مشکلات نرم‌افزاری و سخت‌افزاری به زبان ساده و مرحله‌به‌مرحله.",
-    "date": "2026-10-05",
+    "date": "2026-10-06",
     "priority": "0.85",
     "changefreq": "weekly"
   }
