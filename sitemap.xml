@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- صفحه اصلی -->
   <url>
     <loc>https://zherfai.ir/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="fa" href="https://zherfai.ir/" />
@@ -11,9 +13,11 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://zherfai.ir/?lang=ar" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://zherfai.ir/" />
   </url>
+
+  <!-- لیست مقالات -->
   <url>
     <loc>https://zherfai.ir/articles.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="fa" href="https://zherfai.ir/articles.html" />
@@ -21,46 +25,77 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://zherfai.ir/articles.html?lang=ar" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://zherfai.ir/articles.html" />
   </url>
+
+  <!-- رابط هوش مصنوعی و چت ژرف -->
   <url>
     <loc>https://zherfai.ir/chat.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
+
+  <!-- ابزار ماشین حساب -->
   <url>
-    <loc>https://zherfai.ir/contact.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <loc>https://zherfai.ir/calculator.html</loc>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+
+  <!-- ابزار فشرده‌ساز تصاویر -->
+  <url>
+    <loc>https://zherfai.ir/compressor.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- صفحه تماس با ما -->
+  <url>
+    <loc>https://zherfai.ir/contact.html</loc>
+    <lastmod>2026-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- مقاله راهنمای هاست و سرور -->
   <url>
     <loc>https://zherfai.ir/articles/ai-hosting-server-guide.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- مقاله آینده مشاغل و هوش مصنوعی -->
   <url>
     <loc>https://zherfai.ir/articles/ai-jobs.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- مقاله هوش مصنوعی و حیات وحش -->
   <url>
     <loc>https://zherfai.ir/articles/ai-wildlife-nature.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- مقاله کلیدهای میانبر کیبورد -->
   <url>
     <loc>https://zherfai.ir/articles/ultimate-keyboard-shortcuts-guide.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
+
+  <!-- دائره‌المعارف جامع رفع ۴۰ ارور ویندوز -->
   <url>
     <loc>https://zherfai.ir/articles/windows-errors-ultimate-guide.html</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-06</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
+    <priority>0.9</priority>
   </url>
+
 </urlset>
